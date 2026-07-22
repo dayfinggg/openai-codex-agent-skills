@@ -1,74 +1,37 @@
 ---
 name: systematic-debugging
-description: Reproduce, isolate, explain, fix, or verify observed failures, regressions, flakiness, crashes, hangs, performance anomalies, races, integration defects, or incidents. Do not use for feature design without a failure.
+description: Reproduce, isolate, explain, fix, and verify observed failures. Use when a supplied symptom or failing command requires diagnosis, or reproduction and root cause are requested; not for an already diagnosed fix, and do not trigger merely from the words bug, fix, or regression.
 ---
 
 # Systematic Debugging
 
-Find the causal defect before optimizing the patch. A symptom disappearing is not proof of a root-cause fix.
+Find the violated invariant before optimizing the patch. A disappearing symptom is not proof of causality.
 
-Read [experiments-and-observability.md](references/experiments-and-observability.md) when the failure is intermittent, distributed, timing-sensitive, performance-related, or visible only in telemetry. Read [sources.md](references/sources.md) before relying on a debugger, trace, telemetry specification, or named experimental technique; match the exact runtime and tool version.
+Read [experiments-and-observability.md](references/experiments-and-observability.md) for intermittent, distributed, timing-sensitive, performance, or telemetry-only failures. Read [sources.md](references/sources.md) before depending on a named debugger, tracing system, telemetry specification, or experimental method; match its runtime and version.
 
-## Debugging Loop
+## Build the reproduction first
 
-1. Define the failure precisely.
-   - Record expected behavior, actual behavior, first known bad state, frequency, impact, environment, version, inputs, and acceptance criteria.
-   - Preserve exact errors, timestamps, request or trace IDs, and reproduction inputs without exposing secrets.
+1. Record expected and actual behavior, impact, frequency, environment, version, inputs, first known bad state, and exact errors. Preserve useful timestamps and correlation identifiers while redacting secrets and private data.
+2. Before proposing hypotheses, create a short deterministic reproduction at the narrowest layer that still exhibits the symptom. State its setup, action, and failing observation so another engineer can repeat it.
+3. Control time, randomness, network, concurrency, caches, locale, timezone, configuration, and fixtures where relevant. Confirm the reproduction fails before editing.
+4. If deterministic reproduction is impossible, document attempts, the evidence that establishes the failure, and the uncontrolled variable. Do not turn uncertainty into a confident diagnosis.
 
-2. Reproduce at the narrowest reliable layer.
-   - Use the smallest deterministic reproduction available.
-   - Confirm the failure before editing when practical. If it cannot be reproduced, identify what evidence still establishes it and what remains uncertain.
-   - Control time, randomness, network, concurrency, caches, environment variables, locale, timezone, and data fixtures when relevant.
+## Isolate the cause
 
-3. Map the execution path.
-   - Trace from the observable symptom through callers, state transitions, boundaries, data transformations, side effects, and error handling.
-   - Compare working and failing paths, versions, inputs, environments, or commits. Use binary search or `git bisect` when a reliable predicate and known good state exist.
+Trace the failing path through callers, boundaries, state transitions, transformations, side effects, cleanup, and error handling. Compare a working and failing input, environment, version, or path. Use binary search or `git bisect` only when a reliable predicate and known-good state exist.
 
-4. Build ranked hypotheses.
-   - For each hypothesis, state the evidence it explains, evidence against it, and the cheapest discriminating experiment.
-   - Prefer hypotheses that explain all material symptoms with the fewest unsupported assumptions.
-   - Do not patch several hypotheses at once.
+Create a ranked list of falsifiable hypotheses. For each, state the causal claim, evidence for and against it, the predicted observation, and the cheapest experiment that would distinguish it. Rank by explanatory power and probability, not convenience. Change one causal variable at a time and do not patch several hypotheses together.
 
-5. Run controlled experiments.
-   - Change one causal variable at a time or add focused instrumentation.
-   - Observe the result and update confidence. Treat surprising results as new evidence rather than forcing the original theory.
-   - Keep diagnostic changes local and remove temporary instrumentation unless it is valuable production observability.
-   - Define the predicted result before running the experiment so hindsight cannot turn every outcome into confirmation.
+Add focused instrumentation only when existing evidence cannot discriminate among hypotheses. Keep it local, redact sensitive values, and record the predicted signal before running. Treat surprising results as evidence. Remove all temporary logging, probes, flags, fixtures, and diagnostic branches before finishing unless each is deliberately accepted as durable production observability.
 
-6. Prove the root cause.
-   - Identify the violated invariant, boundary contract, ordering assumption, ownership rule, resource limit, or version behavior.
-   - Explain why the defect produces the symptom and why nearby alternatives do not.
+## Fix and prove
 
-7. Implement the smallest defensible fix when authorized.
-   - Repair the violated invariant at the layer that owns it.
-   - Avoid symptom suppression, blanket exception handling, arbitrary delays, unbounded retries, weakened assertions, broad cache clears, or unrelated refactors.
-   - Preserve compatibility and add migration or rollback handling when the fix changes stored data or public contracts.
+Identify the violated invariant, contract, ordering rule, ownership boundary, resource limit, or version behavior. Explain why it produces every material symptom and why nearby alternatives do not.
 
-8. Add a regression oracle.
-   - Add or update the narrowest deterministic test that fails for the defect and passes for the fix when practical.
-   - Test the failure boundary, not only the happy path.
+When a fix is authorized, repair the invariant at the layer that owns it. Avoid blanket catches, arbitrary delays, unbounded retries, global cache clears, weakened validation, broader timeouts, and unrelated refactors. Preserve public and stored-data compatibility unless a change is explicitly required.
 
-9. Verify outward.
-   - Re-run the reproduction, focused tests, adjacent integration checks, and broader validation according to blast radius.
-   - Inspect the final diff for accidental changes and state residual uncertainty.
+Add a symptom-specific regression test: the narrowest deterministic test that expresses the original setup and failing observation, fails for the causal defect, and passes for the fix. Test the real failure boundary rather than mocking it away or asserting only a happy path. If automation is impractical, preserve an executable repro and explain the remaining gap.
 
-## Failure-Class Checks
+Re-run the original reproduction, the regression test, and adjacent checks selected from the actual blast radius. For races or async defects, check ordering, cancellation, idempotency, cleanup, and partial failure. For data defects, check schema, nulls, encoding, transaction boundaries, locks, and environment parity. For performance defects, compare the same metric and environment before and after.
 
-- Async and concurrency: ordering, cancellation, lost wakeups, shared mutation, races, deadlocks, backpressure, timeouts, idempotency, and cleanup.
-- Distributed systems: retries, duplicate delivery, partial success, stale reads, clock skew, consistency, rate limits, and correlation across services.
-- Data and databases: schema drift, nulls, encoding, transaction boundaries, isolation, locks, cardinality, migrations, and environment parity.
-- Frontend: browser state, hydration, event order, focus, caching, network evidence, layout, accessibility, and device or viewport differences.
-- Performance: measure before and after; separate CPU, memory, I/O, query, network, allocation, contention, startup, and algorithmic causes.
-- Environment-specific failures: exact runtime, architecture, dependency version, feature flag, permissions, filesystem, locale, timezone, proxy, and configuration.
-
-## Anti-Patterns
-
-- Do not infer causality from temporal correlation alone.
-- Do not accept a restart, retry, cache clear, or longer timeout as a root-cause fix without explaining the underlying state.
-- Do not mock away the failing boundary so thoroughly that the regression test becomes tautological.
-- Do not weaken types, validation, security controls, or tests merely to make the symptom disappear.
-- Do not claim reproduction, root cause, or resolution without observed evidence.
-
-## Result
-
-Report the failure definition, reproduction status, root cause and evidence, changed paths when any, regression coverage, validation results, and remaining risk. If unresolved, return the ranked hypotheses and the single highest-value next experiment.
+Report the reproduction, ranked hypothesis outcome, proven root cause, changed paths, regression coverage, removed instrumentation, observed checks, and residual uncertainty. If unresolved, return the current ranking and the single highest-value next experiment.
