@@ -1,47 +1,69 @@
 # OpenAI Codex Agent Skills
 
-Готовый набор инструкций, агентов и навыков для OpenAI Codex.
+English · [Українська](README.uk.md) · [Русский](README.ru.md)
 
-## Установка
+Instructions, agents, and skills for OpenAI Codex.
 
-### Добавить в существующую конфигурацию
+## Add to an existing configuration
 
-Сохраняет текущие настройки. Добавляет навыки и агентов, подключает `model-instructions.md`.
+Back up `~/.codex`, clone the repository, and copy the managed files.
 
-**macOS / Linux**
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/dayfinggg/openai-codex-agent-skills/main/scripts/install.sh | sh -s -- --merge
-```
-
-**Windows PowerShell**
-
-```powershell
-& ([scriptblock]::Create((Invoke-RestMethod https://raw.githubusercontent.com/dayfinggg/openai-codex-agent-skills/main/scripts/install.ps1))) -Mode Merge
-```
-
-### Полностью заменить конфигурацию
-
-Заменяет `config.toml`, `model-instructions.md`, `agents` и `skills`. Старые файлы сохраняются в `~/.codex-backups/`.
-
-**macOS / Linux**
+### macOS and Linux
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/dayfinggg/openai-codex-agent-skills/main/scripts/install.sh | sh -s -- --replace
+cp -R "$HOME/.codex" "$HOME/.codex.backup-$(date +%Y%m%d-%H%M%S)" 2>/dev/null || true
+git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
+mkdir -p "$HOME/.codex/agents" "$HOME/.codex/skills"
+cp -R openai-codex-agent-skills/codex/agents/. "$HOME/.codex/agents/"
+cp -R openai-codex-agent-skills/codex/skills/. "$HOME/.codex/skills/"
+cp openai-codex-agent-skills/codex/model-instructions.md "$HOME/.codex/"
 ```
 
-**Windows PowerShell**
+### Windows PowerShell
 
 ```powershell
-& ([scriptblock]::Create((Invoke-RestMethod https://raw.githubusercontent.com/dayfinggg/openai-codex-agent-skills/main/scripts/install.ps1))) -Mode Replace
+if (Test-Path "$HOME\.codex") { Copy-Item -Recurse "$HOME\.codex" "$HOME\.codex.backup-$(Get-Date -Format yyyyMMdd-HHmmss)" }
+git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
+New-Item -ItemType Directory -Force "$HOME\.codex\agents", "$HOME\.codex\skills" | Out-Null
+Copy-Item -Recurse -Force .\openai-codex-agent-skills\codex\agents\* "$HOME\.codex\agents\"
+Copy-Item -Recurse -Force .\openai-codex-agent-skills\codex\skills\* "$HOME\.codex\skills\"
+Copy-Item -Force .\openai-codex-agent-skills\codex\model-instructions.md "$HOME\.codex\"
 ```
 
-Перезапустите Codex после установки.
+Add this top-level line to `~/.codex/config.toml`:
 
-## Состав
+```toml
+model_instructions_file = "model-instructions.md"
+```
 
-`codex/skills` содержит 13 инженерных навыков. `codex/agents` содержит 5 специализированных агентов. `codex/model-instructions.md` задаёт общие правила работы. `codex/config.toml` содержит готовую полную конфигурацию.
+## Replace the complete configuration
 
-## Лицензия
+This replaces `config.toml`, `model-instructions.md`, `agents`, and `skills`.
 
-MIT
+### macOS and Linux
+
+```bash
+cp -R "$HOME/.codex" "$HOME/.codex.backup-$(date +%Y%m%d-%H%M%S)" 2>/dev/null || true
+git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
+rm -rf "$HOME/.codex/agents" "$HOME/.codex/skills"
+mkdir -p "$HOME/.codex"
+cp -R openai-codex-agent-skills/codex/agents openai-codex-agent-skills/codex/skills "$HOME/.codex/"
+cp openai-codex-agent-skills/codex/model-instructions.md openai-codex-agent-skills/codex/config.toml "$HOME/.codex/"
+```
+
+### Windows PowerShell
+
+```powershell
+if (Test-Path "$HOME\.codex") { Copy-Item -Recurse "$HOME\.codex" "$HOME\.codex.backup-$(Get-Date -Format yyyyMMdd-HHmmss)" }
+git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
+Remove-Item -Recurse -Force "$HOME\.codex\agents", "$HOME\.codex\skills" -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Force "$HOME\.codex" | Out-Null
+Copy-Item -Recurse -Force .\openai-codex-agent-skills\codex\agents, .\openai-codex-agent-skills\codex\skills "$HOME\.codex\"
+Copy-Item -Force .\openai-codex-agent-skills\codex\model-instructions.md, .\openai-codex-agent-skills\codex\config.toml "$HOME\.codex\"
+```
+
+Restart Codex after installation.
+
+## Contents
+
+13 engineering skills, 5 specialist agents, shared instructions, and a complete Codex configuration. MIT License.
