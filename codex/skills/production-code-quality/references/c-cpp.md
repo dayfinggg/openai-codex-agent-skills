@@ -6,6 +6,10 @@ Make ownership, lifetime, bounds, and error contracts explicit. In C++, use RAII
 
 Avoid undefined behavior, unchecked arithmetic and narrowing, raw owning pointers, unsafe string operations, data races, and manual resource management when a safer facility exists. Keep concurrency synchronization and memory ordering justified and reviewable.
 
+Avoid a Singleton when it obscures ownership or distributes access to mutable global state. Treat mutable namespace or program-wide state as a deliberate exception with explicit ownership and access rationale. Do not rely on cross-translation-unit static initialization order for dependent C++ objects. Do not treat immutable program-wide constants as equivalent to mutable globals.
+
+Limit conditional compilation in retained production code when it obscures behavior or creates unmanaged source-level program variants. Reserve a preprocessing seam for a pervasive dependency only when a clearer interface, wrapper, link, or runtime seam is unavailable. Keep the rationale for a version-sensitive C++ guideline available when repository policy requires it, and recheck the current guideline and target standard before enforcing it.
+
 Use warnings, sanitizers, static analysis, fuzzing, and platform builds according to risk. Evaluate ABI and binary compatibility before changing exported layouts, symbols, calling conventions, or templates.
 
 Primary references: [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) and [SEI CERT C](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard).

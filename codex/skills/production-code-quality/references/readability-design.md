@@ -1,0 +1,12 @@
+# Readability and design
+
+Use this reference when the changed code requires a material naming, control-flow, decomposition, abstraction, contract, or dependency-boundary decision. Do not turn a mechanical edit into a redesign.
+
+1. Optimize retained code for the time a future reader needs to understand, verify, and safely modify it, not for minimum line count or cleverness. Use precise, unambiguous, domain-relevant names and refine them when understanding changes.
+2. Keep control flow and data flow direct. Reduce avoidable nesting, oversized expressions, unnecessary mutation, hidden coupling, and special-case branching when a clearer form preserves behavior. Extract a helper or responsibility only when its behavior can be named and the extraction improves comprehension, verification, or change safety.
+3. Make material preconditions, postconditions, invariants, ownership, mutability, side effects, units, ranges, and error behavior explicit at the boundary that owns them. Use established language and repository idioms only while they remain safe, current, compatible, and tool-supported.
+4. Choose function and module boundaries by cohesion, information hiding, dependency direction, reasons to change, testability, and total complexity. Treat size as a signal, not a universal limit. Separate policy from mechanism, calculation from presentation, or high-level decisions from low-level details only when the separation reduces concrete change, test, reuse, deployment, or compatibility coupling.
+5. Prefer the simplest design and smallest interface that fully support the current requirement and credible operating range. Add generality only when it preserves a simple interface and serves a foreseeable use. Introduce a pattern, abstraction, adapter, indirection, or seam only for a concrete change, test, compatibility, migration, failure-isolation, or reuse need.
+6. Localize an external dependency behind a deliberate boundary only when testing, failure isolation, migration, or compatibility requires replacement or observation. When comments or retained documentation are explicitly authorized or required, use them for non-obvious intent, constraints, dependencies, rationale, or contracts rather than restating the implementation, and keep them accurate.
+
+Primary basis: the reviewed author and publisher material listed in [sources](sources.md), especially Boswell and Foucher, Martin, Ousterhout, McConnell, Thomas and Hunt, Fowler, and Feathers.

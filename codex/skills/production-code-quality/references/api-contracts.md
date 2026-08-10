@@ -6,7 +6,7 @@ Use this reference when adding or upgrading a dependency, calling a version-sens
 2. Inspect local definitions, types, schemas, tests, and existing call sites before searching externally. Prefer the contract actually installed or generated for the project.
 3. When local evidence is incomplete or the contract may have changed, consult current primary documentation, specifications, release notes, deprecation notices, or the authoritative source repository for the established version.
 4. Confirm exact package and symbol names, imports, parameters and defaults, types, return shape, error behavior, async and cancellation semantics, pagination, rate limits, timeouts, and supported versions only where relevant. Do not substitute a nearby API without proving compatibility.
-5. Keep untrusted data validation and error translation at the boundary. Add an adapter only when it isolates a credible compatibility, testing, or migration concern.
+5. At the boundary you own, make material preconditions, postconditions, invariants, ownership, mutability, side effects, units, ranges, and error behavior explicit. Keep untrusted data validation and error translation there. Add an adapter only when it isolates a credible compatibility, testing, failure-isolation, or migration concern.
 6. Verify the integration through the strongest project-native check available: definition navigation, schema validation, compilation, type checking, focused tests, build, or a narrow runtime call against a safe local, fake, or staging target. Exercise a material error path as well as success.
 7. If authoritative evidence or an executable check is unavailable, state the unverified contract and its consequence instead of filling the gap with a plausible implementation.
 
