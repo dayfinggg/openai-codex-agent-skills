@@ -8,4 +8,8 @@ Find the smallest useful seam: an interface, dependency injection point, adapter
 
 Keep the diff bounded to the behavior under investigation and the minimum supporting test or seam. Separate behavior-preserving refactoring from behavior change into distinct steps, diffs, or reviews when that makes the intent, rollback, or evidence clearer. Verify the characterization baseline after refactoring and verify the desired contract after the behavior change.
 
+Refactor in small behavior-preserving steps and run the relevant check after each step when an intermediate regression would otherwise be hard to localize. Preserve an easy rollback point and do not combine multiple structural mechanics merely because they are nearby.
+
+When the current structure makes an authorized feature materially harder to implement or verify safely, make only the smallest enabling structural change. Extract a coherent responsibility and give it a behavior-revealing name only when that improves comprehension, test control, or change safety.
+
 Sources: [Michael Feathers, *Working Effectively with Legacy Code*](https://www.oreilly.com/library/view/working-effectively-with/0131177052/) and [Martin Fowler, *Refactoring*](https://martinfowler.com/books/refactoring.html).
