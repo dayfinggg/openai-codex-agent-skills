@@ -5,7 +5,7 @@ model_verbosity = "low"
 model_instructions_file = "model-instructions.md"
 
 approval_policy = "never"
-sandbox_mode = "danger-full-access"
+default_permissions = ":danger-full-access"
 allow_login_shell = true
 project_doc_max_bytes = 32768
 service_tier = "default"
