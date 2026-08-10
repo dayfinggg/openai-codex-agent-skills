@@ -2,7 +2,7 @@
 
 Use this reference when changing shared mutable state, asynchronous or background work, queues, networking, distributed coordination, retries, or resource lifecycle. Do not add locks, retries, workers, queues, service meshes, or distributed transactions to sequential local code without an evidenced need.
 
-1. Define ownership of each task, resource, and mutable state transition. State who starts, joins, cancels, closes, releases, and observes failure; make every acquired permit, lock, handle, subscription, and task reach a terminal path.
+1. Treat shared mutable state as a deliberate exception with bounded scope and one explicit owner. Define ownership of each task, resource, and mutable state transition. State who starts, joins, cancels, closes, releases, and observes failure. Make every acquired permit, lock, handle, subscription, and task reach a terminal path, and expose a multi-step state change atomically when the contract requires it.
 2. Define atomicity, ordering, consistency, capacity, and progress requirements. Bound in-flight work and queues; choose an explicit block, reject, drop, coalesce, or spill policy from product requirements rather than allowing unbounded growth.
 3. Propagate deadlines and cancellation across waits and calls. Specify behavior for timeout, caller cancellation, shutdown, worker failure, and a participant that never arrives. Avoid blocking I/O inside a critical section unless the invariant requires it.
 4. Use retries only for identified transient failures. Bound attempts and total elapsed time, apply backoff and jitter when contention is possible, respect server guidance, and require idempotency or a deduplication key before retrying a side effect.
