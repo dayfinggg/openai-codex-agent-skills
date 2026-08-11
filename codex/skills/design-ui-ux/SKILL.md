@@ -1,6 +1,6 @@
 ---
 name: design-ui-ux
-description: Design, implement, or review UI/UX when a user-facing surface needs product, interaction, visual, accessibility, design-system, responsive, or public-web presentation judgment. Skip backend, mechanical frontend work with a settled design, and generic code review.
+description: Design or review user-facing experiences, and implement them only when product, interaction, visual, accessibility, design-system, responsive, or public-web presentation judgment is material. Skip backend, settled mechanical frontend work, project-tree organization, and generic code review.
 ---
 
 # Design UI/UX
@@ -15,6 +15,10 @@ Choose one mode before acting.
 - **Review and fix**: select implement mode, complete a read-only review phase first, then make the requested changes in the same task. Preserve the standalone review mode's read-only boundary.
 
 Ask one focused question only when the mode would materially change whether files or external state may be edited. Otherwise choose the least invasive mode that still completes the request and state any consequential assumption in the result.
+
+## Coordinate adjacent responsibilities
+
+Treat business language and invariants from `domain-modeling` and system responsibility contracts from `design-project-architecture` as constraints. Use `clarify-and-specify` only when evidence and design analysis leave a material product or acceptance decision unresolved. Use `organize-project-structure` when the remaining primary question is where settled UI responsibilities belong in the repository or how their files should be named. UI/UX owns the user-facing journey and presentation, not backend, data, deployment, team, or filesystem boundaries.
 
 ## Establish the decision context
 
@@ -37,7 +41,9 @@ Ask one focused question only when the mode would materially change whether file
 3. Treat gradients, glass, cards, large type, rounded geometry, grids, and motion as tools rather than bans. Use each only when it has a clear product, hierarchy, content, or platform role. Reject generic AI slop and unverified visual decisions: repetitive bento stacks, floating-card mosaics, decorative dashboards, fake data, generic hero copy, random iconography, and style copied from a prompt without evidence are warning signs, not a replacement for product judgment.
 4. Build hierarchy with semantic structure, typography roles, proximity, alignment, and meaningful containers. Use headings for document structure, not decoration or spacing. Use cards for self-contained comparable objects or clear interaction boundaries; choose lists, tables, timelines, canvases, plain sections, or full-bleed composition when they fit the task better.
 5. Treat copy and states as interface material. Use stable domain language, labels that predict outcomes, and errors that explain recovery. Cover default, selected, hover, focus, disabled, loading, empty, success, validation, error, offline, permission, and destructive states when applicable.
-6. In implementation mode, use the established stack, semantic controls, real components, code-native text, representative data, and existing tokens and components first. Do not ship screenshots as interfaces or use a generated visual as proof of behavior. Follow the repository's engineering and architectural conventions when retained source code or frontend boundaries are in scope.
+6. In implementation mode, use the established stack, semantic controls, real components, code-native text, representative data, and existing tokens and components first. Preserve framework-defined filenames and the owning package's component, route, style, story, test, and asset naming precedent. Colocate feature-only UI artifacts when the repository supports it. Promote an artifact to shared UI or a design system only when real consumers and a stable interface justify the public surface. Do not ship screenshots as interfaces, use a generated visual as proof of behavior, or create generic shared buckets for hypothetical reuse.
+
+Name any requested retained design artifact by its scope and purpose, such as a checkout screen flow, authentication state model, button component proposal, or accessibility review. Use the repository's existing design location and format. Do not create parallel sources of truth, generic `final-design` files, or apply production-code line, class, and file-count limits to design specifications, diagrams, or review notes.
 
 ## Evolve design systems deliberately
 

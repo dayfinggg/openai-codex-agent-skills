@@ -1,0 +1,4 @@
+interface:
+  display_name: "CLI Tool Engineering"
+  short_description: "Build reliable scripts and command-line interfaces"
+  default_prompt: "Use $build-cli-tools to implement and verify this command-line tool."

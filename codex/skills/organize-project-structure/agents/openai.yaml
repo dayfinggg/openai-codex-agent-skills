@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Structure"
+  short_description: "Organize files by stack and repository precedent"
+  default_prompt: "Use $organize-project-structure to choose a repository-first file layout and naming scheme without changing established architecture boundaries."

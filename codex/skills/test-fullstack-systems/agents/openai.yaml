@@ -1,0 +1,4 @@
+interface:
+  display_name: "Full-Stack Test Engineering"
+  short_description: "Build risk-based tests across application boundaries"
+  default_prompt: "Use $test-fullstack-systems to design and verify this full-stack test suite."

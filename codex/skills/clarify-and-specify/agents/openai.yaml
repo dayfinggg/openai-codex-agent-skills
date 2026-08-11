@@ -1,4 +1,4 @@
 interface:
   display_name: "Clarify and Specify"
-  short_description: "Resolve material ambiguity into a clear spec"
-  default_prompt: "Use $clarify-and-specify to define the material decisions and observable acceptance criteria for this request."
+  short_description: "Resolve material decisions into a clear spec"
+  default_prompt: "Use $clarify-and-specify to resolve only the material decisions evidence cannot settle and produce observable acceptance criteria."

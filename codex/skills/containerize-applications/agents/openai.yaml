@@ -1,0 +1,4 @@
+interface:
+  display_name: "Containerize Applications"
+  short_description: "Build secure, reproducible Docker and OCI workloads"
+  default_prompt: "Use $containerize-applications to build and verify this container workload."
