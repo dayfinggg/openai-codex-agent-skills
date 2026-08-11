@@ -1,0 +1,4 @@
+interface:
+  display_name: "Release Production Services"
+  short_description: "Execute safe, observable production service releases"
+  default_prompt: "Use $release-production-services to prepare and execute this authorized release."

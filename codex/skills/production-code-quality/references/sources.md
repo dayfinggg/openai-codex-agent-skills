@@ -1,6 +1,6 @@
 # Sources
 
-Reviewed 2026-08-10. Prefer current project, platform, and language documentation when it governs the changed behavior. These sources support engineering judgment; they do not replace repository policy or evidence from the system under change. Book entries record partial public author or publisher material unless the linked work is openly complete, and they do not claim full access to paid texts.
+Reviewed 2026-08-11. Prefer current project, platform, and language documentation when it governs the changed behavior. These sources support engineering judgment. They do not replace repository policy or evidence from the system under change. Book entries record partial public author or publisher material unless the linked work is openly complete, and they do not claim full access to paid texts. Tool defaults are recorded as provenance for fallback review policy, not as universal language limits.
 
 ## Engineering and operations
 
@@ -23,6 +23,37 @@ Reviewed 2026-08-10. Prefer current project, platform, and language documentatio
 - [David Thomas and Andrew Hunt, *The Pragmatic Programmer, 20th Anniversary Edition*](https://imagery.pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/) — authoritative knowledge, shared state, and bounded feedback steps.
 - [Mark Seemann, *Code That Fits in Your Head*](https://www.informit.com/store/code-that-fits-in-your-head-heuristics-for-software-9780137464319) — cognitive load, troubleshooting, and change safety.
 - [Brian W. Kernighan and Rob Pike, *The Practice of Programming*](https://www.cs.princeton.edu/~bwk/tpop.webpage/) — simplicity, interfaces, testing, debugging, and performance measurement.
+
+## Code shape, naming, and file roles
+
+- [ESLint size and complexity rules](https://eslint.org/docs/latest/rules/) and [Checkstyle size checks](https://checkstyle.org/checks/sizes/) — tool-specific defaults and counting semantics for functions, files, depth, complexity, parameters, and line width.
+- [PEP 8](https://peps.python.org/pep-0008/), [Black code style](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html), [Prettier options](https://prettier.io/docs/options.html#print-width), and [Google Java Style](https://google.github.io/styleguide/javaguide.html) — incompatible but authoritative ecosystem conventions showing why repository configuration has priority.
+- [Go Code Review Comments](https://go.dev/wiki/CodeReviewComments#line-length) and [Effective Go](https://go.dev/doc/effective_go) — semantic readability and formatting without a universal Go source-line maximum.
+- [PMD 7.0.0 release notes](https://pmd.github.io/2024/03/22/PMD-7.0.0/) — removal of raw excessive class and method length rules in favor of structural measures.
+- [Sonar metric definitions](https://docs.sonarsource.com/sonarqube-cloud/digging-deeper/metric-definitions) and Sonar's [default-threshold rationale](https://community.sonarsource.com/t/s3776-reason-for-the-current-default-value-of-15/127103) — distinction between cyclomatic and cognitive complexity and the empirical, configurable nature of thresholds.
+- [Nest CLI](https://docs.nestjs.com/cli/usages), [Nest modules](https://docs.nestjs.com/modules), and [Nest database integration](https://docs.nestjs.com/techniques/database) — TypeScript role suffixes, feature modules, and the non-mandatory nature of repository wrappers.
+- [Next.js project structure](https://nextjs.org/docs/app/getting-started/project-structure), [FastAPI larger applications](https://fastapi.tiangolo.com/tutorial/bigger-applications/), [Python packaging layouts](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/), [Node package entry points](https://nodejs.org/api/packages.html#package-entry-points), and [Go code organization](https://go.dev/doc/code) — framework and ecosystem-specific file contracts.
+- [Prisma migration histories](https://www.prisma.io/docs/orm/prisma-migrate/understanding-prisma-migrate/migration-histories), [pytest good practices](https://docs.pytest.org/en/stable/explanation/goodpractices.html), and [Nest testing](https://docs.nestjs.com/fundamentals/testing) — migration immutability and runner-specific test discovery and placement.
+
+## Formatter and DSL mechanics
+
+- [Ruff formatter](https://docs.astral.sh/ruff/formatter/), [Black style](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html), [Prettier options](https://prettier.io/docs/options.html), and [Prettier CLI](https://prettier.io/docs/cli.html) — configured resolution, non-mutating checks, indentation defaults, and the distinction between a wrapping target and a hard maximum.
+- [Effective Go](https://go.dev/doc/effective_go), [Rust Style Guide](https://doc.rust-lang.org/style-guide/), [Google Java Style](https://google.github.io/styleguide/javaguide.html), and [Kotlin conventions](https://kotlinlang.org/docs/coding-conventions.html) — mechanically or explicitly defined indentation, width, naming, and file conventions where those ecosystems actually provide them.
+- [`dotnet format`](https://learn.microsoft.com/dotnet/core/tools/dotnet-format), [C# identifier naming](https://learn.microsoft.com/dotnet/csharp/fundamentals/coding-style/identifier-names), [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html), [Swift API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/), and [`swift-format`](https://github.com/swiftlang/swift-format) — formatter checks, naming morphology, configuration discovery, and explicit evidence that Swift formatter output is not a universal language style.
+- [SQLFluff configuration](https://docs.sqlfluff.com/en/stable/configuration/setting_configuration.html), [`shfmt`](https://github.com/mvdan/sh), [PSScriptAnalyzer](https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyzer), and [YAML 1.2.2](https://yaml.org/spec/1.2.2/) — dialect-sensitive SQL, shell formatting and analysis, PowerShell rules, and YAML's spaces-only indentation requirement.
+- [Dockerfile reference](https://docs.docker.com/reference/dockerfile), [Docker build checks](https://docs.docker.com/reference/build-checks/), [NGINX command-line parameters](https://nginx.org/en/docs/switches.html), and [NGINX configuration syntax](https://nginx.org/en/docs/beginners_guide.html) — canonical syntax, case conventions, and parser checks without inventing a formatter standard.
+
+## Simplicity and agent-generated change
+
+- [OpenAI model guidance](https://developers.openai.com/api/docs/guides/latest-model) — compact non-duplicative instructions, representative evaluation, and evidence-led agent behavior.
+- [Google review guidance on over-engineering](https://google.github.io/eng-practices/review/reviewer/looking-for.html), [small changes](https://google.github.io/eng-practices/review/developer/small-cls.html), [Go least mechanism](https://google.github.io/styleguide/go/guide.html), and [Google SRE simplicity](https://sre.google/sre-book/simplicity/) — current requirements before generality, bounded diffs, and the least sufficient mechanism.
+- [SlopCodeBench v2](https://arxiv.org/abs/2603.24755), [SpecBench](https://arxiv.org/abs/2605.21384), [SWE-Refactor](https://arxiv.org/abs/2602.03712), and [CodeTaste v2](https://arxiv.org/abs/2603.04177) — 2026 preprints on accumulated structural erosion, visible-test overfitting, compound-refactor risk, and proposal selection.
+- [De-Hallucinator](https://arxiv.org/abs/2401.01701) and [We Have a Package for You!](https://arxiv.org/abs/2406.10279) — empirical evidence for grounding project APIs and verifying package identity before adding dependencies.
+
+## Performance evidence
+
+- [Google Benchmark user guide](https://google.github.io/benchmark/user_guide.html), [Brendan Gregg's performance methodology](https://www.brendangregg.com/methodology.html), and [Google SRE monitoring](https://sre.google/sre-book/monitoring-distributed-systems/) — benchmark setup, bottleneck localization, resource signals, and result interpretation.
+- [PERFOPT-Bench](https://arxiv.org/abs/2607.07744) and [Are Performance-Optimization Benchmarks Reliably Measuring Coding Agents?](https://arxiv.org/abs/2607.01211) — 2026 preprints supporting repeated controlled measurement, independent correctness, and caution about unstable benchmark rankings.
 
 ## Language practice
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "NoSQL Data Modeling"
+  short_description: "Model NoSQL access patterns, partitions, and consistency"
+  default_prompt: "Use $model-nosql-data to design and verify this NoSQL model."

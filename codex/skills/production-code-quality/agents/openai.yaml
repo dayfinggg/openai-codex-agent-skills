@@ -1,4 +1,4 @@
 interface:
   display_name: "Production Code Quality"
-  short_description: "Apply risk-based production code quality"
-  default_prompt: "Use $production-code-quality to implement this retained-code change with current language guidance and risk-based evidence."
+  short_description: "Implement retained code with repository-first gates"
+  default_prompt: "Use $production-code-quality to implement the smallest complete retained-code change with repository-first rules, exact toolchain guidance, fallback code-shape gates, and risk-matched evidence."
