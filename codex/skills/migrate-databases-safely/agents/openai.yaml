@@ -1,0 +1,4 @@
+interface:
+  display_name: "Safe Database Migrations"
+  short_description: "Deliver compatible database migrations and backfills"
+  default_prompt: "Use $migrate-databases-safely to plan and verify this database transition."

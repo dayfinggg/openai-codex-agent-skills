@@ -1,0 +1,4 @@
+interface:
+  display_name: "Simplify Code"
+  short_description: "Remove unnecessary code complexity"
+  default_prompt: "Use $simplify-code to simplify this existing code with a bounded, behavior-preserving refactor."

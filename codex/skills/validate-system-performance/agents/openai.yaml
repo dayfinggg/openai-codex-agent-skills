@@ -1,0 +1,4 @@
+interface:
+  display_name: "System Performance Validation"
+  short_description: "Measure load, latency, capacity, and web performance"
+  default_prompt: "Use $validate-system-performance to design and run this performance validation."

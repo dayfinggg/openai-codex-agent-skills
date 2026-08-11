@@ -1,0 +1,4 @@
+interface:
+  display_name: "NGINX Edge Configuration"
+  short_description: "Configure and verify secure NGINX edge behavior"
+  default_prompt: "Use $configure-nginx-edge to change and verify this NGINX configuration."

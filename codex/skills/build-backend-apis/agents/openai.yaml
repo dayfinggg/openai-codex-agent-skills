@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backend API Engineering"
+  short_description: "Build and verify backend API contracts and handlers"
+  default_prompt: "Use $build-backend-apis to implement and verify this backend API change."

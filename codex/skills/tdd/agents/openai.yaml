@@ -1,4 +1,4 @@
 interface:
   display_name: "Test-Driven Development"
-  short_description: "Develop behavior through red-green-refactor"
-  default_prompt: "Use $tdd to implement this behavior through a verified red-green-refactor cycle."
+  short_description: "Prove behavior with red-green-refactor cycles"
+  default_prompt: "Use $tdd to implement this behavior through a proven red-green-refactor cycle without test-specific production logic."

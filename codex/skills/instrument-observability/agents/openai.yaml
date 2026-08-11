@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instrument Observability"
+  short_description: "Add actionable logs, metrics, traces, and alerts"
+  default_prompt: "Use $instrument-observability to add and verify telemetry for this service."

@@ -1,27 +1,44 @@
 # Planning principles
 
-## Evidence before decomposition
+Use this reference when a plan has multiple dependencies, ownership boundaries, migration or release states, or enough criteria that traceability would otherwise be lost.
 
-Inspect the real system before naming tasks. A useful plan explains where change belongs, what behavior and contracts must remain, and how completion will be observed. If repository evidence is unavailable, state that limitation and plan discovery first rather than fabricating precision.
+## Match plan depth to the work
 
-## Outcomes, dependencies, and feedback
+- For one bounded outcome with no material dependency, use a short ordered plan without milestones.
+- Add a milestone only when it groups a meaningful intermediate outcome, coordination boundary, compatibility window, or release state.
+- Add a discovery task only when a named unknown blocks a later decision. State its question, evidence to collect, decision owner, output, and stop condition.
+- Split a task when its parts can complete independently, have different owners, or require different evidence. Do not split merely to create uniform task sizes.
 
-Plan from the desired result backward. Use milestones for meaningful intermediate outcomes and tasks for independently verifiable slices. Show blocking relationships explicitly, place uncertainty-reducing work early, and preserve parallelism where ownership does not overlap.
+## Define vertical tasks
 
-Keep the plan live during execution. Status changes only when evidence changes. New findings may split, replace, reorder, or remove work. Completion percentage or checked boxes do not substitute for acceptance evidence.
+A vertical task produces an integrated outcome that can be built, tested, demonstrated, migrated, or safely isolated. Keep the behavior with the minimum tests and contract work needed to prove it. A database, backend, frontend, or testing layer is not a useful task by itself unless it is a verified prerequisite with a named consumer.
 
-## Scope and task quality
+Prefer intermediate states that preserve existing consumers, compile or render, and permit safe continuation or rollback. If no buildable intermediate state is possible, state the isolation mechanism and the gate that prevents premature use.
 
-Prefer the simplest approach that fully satisfies the stated requirements. Each task must describe one outcome, boundaries, prerequisites, intended change, acceptance criteria, and proof. Avoid layer-only tasks that leave the product unusable, vague phases such as “finish backend,” speculative extension points, and unrelated cleanup.
+## Record each task
 
-Keep changes conceptually small and reversible. Include related tests with behavior, separate large refactors from features, and ensure useful intermediate states. Escalate unresolved product or architectural choices instead of converting assumptions into implementation work.
+| Field | Required content |
+|---|---|
+| Outcome | Observable state created by the task |
+| Requirement and risk | Approved criterion or necessary failure mode covered |
+| Scope and owner | Confirmed capability, contract, package, or files, plus one owner for any overlap |
+| Prerequisites | Only blockers that must complete first |
+| Change | Minimal implementation intent without speculative design |
+| Evidence | Exact category of test, build, contract check, render, rehearsal, measurement, or review that proves completion |
+| Completion | Postcondition that distinguishes done from activity |
 
-## Source basis
+Use exact file and symbol names only when repository evidence confirms them. When placement is unresolved, name the owning capability and add a bounded discovery action rather than inventing a path.
 
-- [OpenAI Codex best practices](https://learn.chatgpt.com/guides/best-practices) recommends explicit goals, context, constraints, completion criteria, planning for complex work, and practical concise durable guidance.
-- [Cursor planning](https://docs.cursor.com/en/agent/planning) uses structured tasks with dependencies and requires task state to update as work progresses.
-- [Claude Code best practices](https://code.claude.com/docs/en/best-practices) recommends exploring before planning, planning before coding, giving the agent verification paths, and correcting direction early.
-- [Claude Code plan mode](https://code.claude.com/docs/en/permission-modes#analyze-before-you-edit-with-plan-mode) separates read-only analysis and plan review from authorized execution.
-- [OpenCode agents](https://opencode.ai/docs/agents) separates planning from building through narrow agent roles and permissions.
-- [Linear project planning](https://linear.app/learn/project-planning), [milestones](https://linear.app/docs/project-milestones), and [dependencies](https://linear.app/docs/project-dependencies) connect objectives, milestones, executable work, blocking relationships, and ongoing status updates.
-- [Google small changes](https://google.github.io/eng-practices/review/developer/small-cls.html) favors self-contained changes with related tests, safe intermediate states, easier review, and simpler rollback.
+## Preserve ownership and parallelism
+
+- Put overlapping files, schemas, public contracts, or migration history under one task owner.
+- Parallelize only surfaces that can change independently or have an explicit integration contract.
+- Express the actual dependency direction. Do not serialize work because tasks appear in a document.
+- Place uncertainty-reducing work before the task whose design it can change.
+- Keep one integration owner for a cross-package or cross-language contract.
+
+## Reject ceremony and speculative work
+
+Remove a task if it exists only to create a document, abstraction, flag, generic framework, future extension point, status meeting, or cleanup that no current criterion consumes. Replace generic tasks such as “add tests,” “improve security,” or “finish backend” with the behavior, failure mode, and evidence they must establish.
+
+Do not add estimates, dates, staffing, approval checkpoints, tracker writes, branches, commits, releases, or deployments unless the request or established workflow requires them. A plan is complete because its outcomes and evidence cover the approved scope, not because it contains a conventional number of phases.

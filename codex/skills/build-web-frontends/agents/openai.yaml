@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Frontend Engineering"
+  short_description: "Build accessible, reliable browser application code"
+  default_prompt: "Use $build-web-frontends to implement and verify this frontend change."
