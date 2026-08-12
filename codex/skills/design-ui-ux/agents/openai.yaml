@@ -1,4 +1,0 @@
-interface:
-  display_name: "UI/UX Design"
-  short_description: "Resolve material user-experience decisions"
-  default_prompt: "Use $design-ui-ux to design or review this user-facing experience where product, interaction, visual, accessibility, or responsive judgment is material."

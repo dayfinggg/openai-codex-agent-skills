@@ -35,11 +35,13 @@ if [ "$mode" = "--replace" ]; then
   for path in config.toml model-instructions.md agents skills; do
     backup_path "$path"
     rm -rf "$dest/$path"
+  done
+  for path in config.toml model-instructions.md skills; do
     cp -Rp "$src/$path" "$dest/"
   done
   install_mode=replace
 else
-  for path in model-instructions.md agents skills; do
+  for path in model-instructions.md skills; do
     backup_path "$path"
     if [ -d "$src/$path" ]; then
       mkdir -p "$dest/$path"
@@ -65,4 +67,4 @@ fi
 printf '%s\n' "$install_mode" >"$dest/.openai-codex-agent-skills.install-mode"
 printf 'Codex setup installed in %s mode.\n' "$install_mode"
 [ ! -d "$backup" ] || printf 'Previous files were backed up to %s\n' "$backup"
-printf 'Restart Codex to load the new agents and skills.\n'
+printf 'Restart Codex to load the new instructions and skills.\n'

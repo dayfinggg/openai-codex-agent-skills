@@ -1,4 +1,0 @@
-interface:
-  display_name: "Clarify and Specify"
-  short_description: "Resolve material decisions into a clear spec"
-  default_prompt: "Use $clarify-and-specify to resolve only the material decisions evidence cannot settle and produce observable acceptance criteria."

@@ -1,4 +1,4 @@
 interface:
-  display_name: "Web Frontend Engineering"
-  short_description: "Build accessible, reliable browser application code"
-  default_prompt: "Use $build-web-frontends to implement and verify this frontend change."
+  display_name: "Build Web Frontends"
+  short_description: "Build accessible frontends in existing stacks"
+  default_prompt: "Use $build-web-frontends to implement this browser UI in the existing stack while preserving the supplied design and design system."

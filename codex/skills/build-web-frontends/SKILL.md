@@ -1,20 +1,51 @@
 ---
 name: build-web-frontends
-description: Implement and verify maintained web frontend code after product and visual direction are settled, including component state, routing, forms, server and client rendering, data fetching and caching, error and loading states, browser APIs, accessibility semantics, and bundle or runtime behavior. Use for React, Next.js, Vue, Svelte, or comparable browser application engineering. Do not use when the primary task is UX or visual design, a backend endpoint, or a static image. Use `design-ui-ux` for material product or presentation decisions.
+description: "Implement browser UI in its existing stack: components, state, forms, accessibility, and tests. Preserve fixed designs; pair with $engineer-production-code and use $design-product-interfaces for open design."
 ---
 
 # Build Web Frontends
 
-1. Establish the settled user-visible behavior, supported browsers and devices, edit authority, accessibility and performance requirements, data and authentication boundaries, routing and rendering mode, compatibility constraints, and acceptance evidence. Inspect the closest repository instructions, manifests, lockfiles, framework and browser targets, design system, route tree, neighboring components, state and data libraries, tests, and build configuration. Do not invent brand, UX, interaction, analytics, or backend behavior.
-2. Follow project fit and file naming. Preserve framework-special filenames, route discovery, component and feature colocation, import and public-export boundaries, CSS strategy, generated assets, and configured test discovery. Read only the matching ecosystem reference: [React and Next.js](references/react-next.md) or [Vue and Svelte](references/vue-svelte.md). Do not transfer suffixes or layouts between ecosystems, add a barrel to every folder, or hand-edit derived output.
-3. Model the complete observable state set before coding: initial, loading, success, empty, invalid, unavailable, unauthorized, retrying, submitted, cancelled, stale, and offline states that are material. Keep one owner for authoritative state and derive rather than duplicate state. Preserve navigation, focus, scroll, and form data intentionally across transitions.
-4. Implement the smallest complete component and route change using the existing design system and framework mechanisms. Preserve public component props, route URLs, serialized data, server and client boundaries, and hydration behavior unless the requirement changes them. Do not add a state manager, abstraction layer, dependency, generalized component, or configuration for a hypothetical consumer.
-5. Use platform semantics first. Read [browser core](references/browser-core.md) only when forms, accessibility, browser security, fetch, storage, lifecycle, or web performance is involved. Prefer semantic HTML, native controls, labels, keyboard behavior, visible focus, meaningful headings, and appropriate live feedback before custom ARIA behavior.
-6. Design data flow as an asynchronous contract. Validate external data at runtime, scope cache keys to every material input and identity, prevent stale responses from overwriting current state, cancel obsolete work where supported, bound retries and parallel requests, and make mutations idempotent or duplicate-safe where required. Do not put secrets in browser code, URLs, storage, source maps, or logs.
-7. Preserve rendering correctness. Separate server-only and client-only capabilities, avoid nondeterministic initial markup, clean up subscriptions and timers, handle navigation and unmount cancellation, and verify hydration and streaming states. Treat browser storage, postMessage, URL values, HTML, Markdown, and third-party scripts as untrusted data.
-8. Apply relevant security and performance rules. Encode or sanitize for the actual DOM context, validate message origins, prevent unsafe URL schemes, use cookie and CSRF contracts correctly, and preserve CSP-compatible patterns. Measure bundle, network waterfall, rendering, and Core Web Vitals on representative routes before claiming improvement. Load less client JavaScript and bound list and media work when evidence identifies those costs.
-9. Treat analytics, uploads, notifications, purchases, account changes, and production API calls as external writes. Use local or explicitly authorized test targets. Do not send real data or trigger consequential effects merely to verify the UI.
-10. Verify source and rendered behavior. Run configured formatting, linting, type or compile, unit and component tests, production build, and focused browser tests. Inspect keyboard and focus order, accessible names, form errors, narrow and wide viewports, supported browsers, loading and failure states, hydration diagnostics, network requests, and material performance budgets.
-11. Inspect the complete owned diff and rendered surface. Remove unrelated redesign, broad refactors, new dependencies, and speculative shared components. Report observed gates and any untested browser, assistive-technology, or performance claim precisely.
+Implement complete browser behavior within the existing product and repository contracts. Own implementation and verification in the repository's browser stack. Combine this workflow with `$engineer-production-code` and an applicable language or framework skill when available.
 
-Finish when the settled flow works in the real rendered application across required states and inputs, preserves framework and public contracts, meets applicable accessibility and performance gates, and causes no unauthorized external effect.
+## Establish the Frontend Contract
+
+- Inspect applicable instructions, package manifests, framework and runtime versions, nearby features, routes, API clients, styling primitives, tests, and configured quality tools.
+- Determine the design authority before coding. Treat a complete supplied design or design-system specification as the implementation contract without reinterpreting its visual direction. Load `$design-product-interfaces` when product UX, information architecture, art direction, visual direction, or design specifications remain unresolved, then implement its decisions here.
+- Reuse the closest established component, state, data-access, and testing patterns unless they are the source of the defect.
+- Identify the affected user journey, supported rendering mode, browser targets, responsive states, design-system constraints, and observable acceptance conditions.
+- Verify backend and data contracts from repository evidence. Do not invent endpoints, fields, permissions, or server behavior.
+- Read [framework-and-browser-checks.md](references/framework-and-browser-checks.md) when framework semantics, accessibility, browser security, or interaction details are material.
+
+## Define Boundaries
+
+- Give each component one cohesive UI responsibility. Prefer composition and existing primitives over broad configurable components or new abstraction layers.
+- Keep state at the narrowest owner that needs it. Derive values instead of synchronizing copies, and place server, URL, form, and persistent state in their established project layers.
+- Add shared context, stores, hooks, composables, actions, or utilities only for proven cross-component behavior.
+- Keep side effects at explicit integration boundaries. Clean up subscriptions and listeners, and prevent obsolete asynchronous work from overwriting newer state.
+- Preserve the current framework, styling approach, design tokens, component library, routing, and data client unless the request explicitly changes them.
+
+## Implement Complete Interaction
+
+- Implement normal, loading, empty, error, success, disabled, and submitting states that the flow can reach. Keep transitions deterministic and preserve useful user input after recoverable failures.
+- Use semantic elements and native browser behavior first. Provide accessible names, keyboard operation, visible focus, programmatic error associations, and deliberate focus movement where context changes.
+- Build forms around the repository's validation and submission contracts. Prevent unintended duplicate submissions, distinguish field errors from request failures, and never rely on client validation for server trust.
+- Use the established API layer. Handle cancellation or stale responses, authentication and permission failures, malformed data, and retry behavior according to request safety.
+- Keep secrets and privileged decisions out of browser code. Treat URLs, storage, messages, uploaded content, and rendered markup as trust boundaries.
+- Preserve the visual language. Extend existing components and tokens rather than introducing a new UI library or making unsolicited visual-design decisions.
+- Support existing breakpoints, input methods, text expansion, reduced-motion preferences, and narrow viewports without hiding required actions or information.
+
+## Protect Rendering Quality
+
+- Keep render output deterministic across server rendering, hydration, and client updates when the project uses them.
+- Optimize measured or evident bottlenecks. Fix excessive work, unstable identity, oversized payloads, layout shifts, or unnecessary network requests before adding memoization, virtualization, or caching.
+- Keep list identity stable and preserve user state through updates. Avoid index keys when ordering or membership can change.
+- Follow the project's code-splitting, asset, image, font, and cache conventions. Do not add performance machinery without a demonstrated benefit.
+
+## Verify User Behavior
+
+- Add focused component or browser tests using the repository's existing tools. Assert behavior through roles, labels, visible state, navigation, and network outcomes rather than private implementation details.
+- Cover the changed happy path and material empty, error, permission, validation, cancellation, or race cases.
+- Exercise the affected flow in a browser when available. Check keyboard-only operation, focus order, responsive layouts, console errors, failed requests, and loading and failure states.
+- Run the narrow formatter, linter, type checker, tests, and build relevant to the change. Broaden checks only when the affected surface justifies it.
+- Inspect the final diff for framework drift, duplicated state, inaccessible interaction, unhandled UI states, embedded secrets, speculative abstractions, and unrelated visual changes.
+- Report backend limitations as boundaries. Do not simulate missing server behavior in production frontend code.

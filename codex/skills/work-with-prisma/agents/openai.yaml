@@ -1,4 +1,0 @@
-interface:
-  display_name: "Work with Prisma"
-  short_description: "Engineer Prisma schema, client, queries, and transactions"
-  default_prompt: "Use $work-with-prisma to implement and verify this Prisma change."

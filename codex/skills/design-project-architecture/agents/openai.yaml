@@ -1,4 +1,0 @@
-interface:
-  display_name: "Project Architecture"
-  short_description: "Design responsibility and system boundaries"
-  default_prompt: "Use $design-project-architecture to assess or design the smallest sufficient system boundaries and responsibility contracts for this decision."

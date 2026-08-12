@@ -1,0 +1,4 @@
+interface:
+  display_name: "Migrate Codebases"
+  short_description: "Plan reversible, validated codebase migrations"
+  default_prompt: "Use $migrate-codebases to execute this migration in reversible, validated stages."

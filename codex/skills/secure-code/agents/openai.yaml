@@ -1,0 +1,4 @@
+interface:
+  display_name: "Secure Code"
+  short_description: "Design and review evidence-based security"
+  default_prompt: "Use $secure-code to design or review this change against its reachable threats and security controls."

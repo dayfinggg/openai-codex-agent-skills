@@ -1,4 +1,0 @@
-interface:
-  display_name: "Production Code Quality"
-  short_description: "Implement retained code with repository-first gates"
-  default_prompt: "Use $production-code-quality to implement the smallest complete retained-code change with repository-first rules, exact toolchain guidance, fallback code-shape gates, and risk-matched evidence."

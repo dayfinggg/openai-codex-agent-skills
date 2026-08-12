@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Product Interfaces"
+  short_description: "Craft distinctive, accessible product interfaces"
+  default_prompt: "Use $design-product-interfaces to turn this product brief into a coherent, implementation-ready interface design."
