@@ -1,4 +1,0 @@
-interface:
-  display_name: "Diagnose Root Cause"
-  short_description: "Isolate unknown failures with causal evidence"
-  default_prompt: "Use $diagnose-root-cause to distinguish the plausible causes of this failure and establish the supported causal chain."

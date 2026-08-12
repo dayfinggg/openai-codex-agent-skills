@@ -1,4 +1,0 @@
-interface:
-  display_name: "Web Application Security"
-  short_description: "Verify security controls at web and API boundaries"
-  default_prompt: "Use $secure-web-application-boundaries to assess and verify this application boundary."

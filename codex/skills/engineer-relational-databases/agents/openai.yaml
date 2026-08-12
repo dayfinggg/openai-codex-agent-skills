@@ -1,4 +1,0 @@
-interface:
-  display_name: "Relational Database Engineering"
-  short_description: "Design SQL schemas, indexes, queries, and transactions"
-  default_prompt: "Use $engineer-relational-databases to design and verify this SQL change."

@@ -2,7 +2,7 @@
 
 [English](README.md) · [Українська](README.uk.md) · Русский
 
-Инструкции, агенты и навыки для OpenAI Codex.
+Инструкции и навыки для OpenAI Codex.
 
 ## Добавить в существующую конфигурацию
 
@@ -13,8 +13,7 @@
 ```bash
 cp -R "$HOME/.codex" "$HOME/.codex.backup-$(date +%Y%m%d-%H%M%S)" 2>/dev/null || true
 git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
-mkdir -p "$HOME/.codex/agents" "$HOME/.codex/skills"
-cp -R openai-codex-agent-skills/codex/agents/. "$HOME/.codex/agents/"
+mkdir -p "$HOME/.codex/skills"
 cp -R openai-codex-agent-skills/codex/skills/. "$HOME/.codex/skills/"
 cp openai-codex-agent-skills/codex/model-instructions.md "$HOME/.codex/"
 ```
@@ -24,8 +23,7 @@ cp openai-codex-agent-skills/codex/model-instructions.md "$HOME/.codex/"
 ```powershell
 if (Test-Path "$HOME\.codex") { Copy-Item -Recurse "$HOME\.codex" "$HOME\.codex.backup-$(Get-Date -Format yyyyMMdd-HHmmss)" }
 git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
-New-Item -ItemType Directory -Force "$HOME\.codex\agents", "$HOME\.codex\skills" | Out-Null
-Copy-Item -Recurse -Force .\openai-codex-agent-skills\codex\agents\* "$HOME\.codex\agents\"
+New-Item -ItemType Directory -Force "$HOME\.codex\skills" | Out-Null
 Copy-Item -Recurse -Force .\openai-codex-agent-skills\codex\skills\* "$HOME\.codex\skills\"
 Copy-Item -Force .\openai-codex-agent-skills\codex\model-instructions.md "$HOME\.codex\"
 ```
@@ -36,9 +34,9 @@ Copy-Item -Force .\openai-codex-agent-skills\codex\model-instructions.md "$HOME\
 model_instructions_file = "model-instructions.md"
 ```
 
-## Полностью заменить конфигурацию
+## Заменить управляемые файлы
 
-Команды заменяют `config.toml`, `model-instructions.md`, `agents` и `skills`.
+Команды заменяют `config.toml`, `model-instructions.md` и `skills`, а также удаляют устаревших агентов репозитория.
 
 ### macOS и Linux
 
@@ -47,7 +45,7 @@ cp -R "$HOME/.codex" "$HOME/.codex.backup-$(date +%Y%m%d-%H%M%S)" 2>/dev/null ||
 git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
 rm -rf "$HOME/.codex/agents" "$HOME/.codex/skills"
 mkdir -p "$HOME/.codex"
-cp -R openai-codex-agent-skills/codex/agents openai-codex-agent-skills/codex/skills "$HOME/.codex/"
+cp -R openai-codex-agent-skills/codex/skills "$HOME/.codex/"
 cp openai-codex-agent-skills/codex/model-instructions.md openai-codex-agent-skills/codex/config.toml "$HOME/.codex/"
 ```
 
@@ -58,7 +56,7 @@ if (Test-Path "$HOME\.codex") { Copy-Item -Recurse "$HOME\.codex" "$HOME\.codex.
 git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
 Remove-Item -Recurse -Force "$HOME\.codex\agents", "$HOME\.codex\skills" -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force "$HOME\.codex" | Out-Null
-Copy-Item -Recurse -Force .\openai-codex-agent-skills\codex\agents, .\openai-codex-agent-skills\codex\skills "$HOME\.codex\"
+Copy-Item -Recurse -Force .\openai-codex-agent-skills\codex\skills "$HOME\.codex\"
 Copy-Item -Force .\openai-codex-agent-skills\codex\model-instructions.md, .\openai-codex-agent-skills\codex\config.toml "$HOME\.codex\"
 ```
 
@@ -66,4 +64,4 @@ Copy-Item -Force .\openai-codex-agent-skills\codex\model-instructions.md, .\open
 
 ## Состав
 
-15 инженерных навыков, 5 специализированных агентов, общие инструкции и полная конфигурация Codex. Лицензия MIT.
+23 инженерных и продуктовых навыка, общие инструкции и переносимая конфигурация Codex. Лицензия MIT.

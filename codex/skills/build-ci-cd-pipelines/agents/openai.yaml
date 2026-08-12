@@ -1,4 +1,0 @@
-interface:
-  display_name: "CI/CD Pipeline Engineering"
-  short_description: "Build secure artifact delivery and deployment pipelines"
-  default_prompt: "Use $build-ci-cd-pipelines to implement and verify this delivery pipeline."

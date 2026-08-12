@@ -1,0 +1,4 @@
+interface:
+  display_name: "Run Agent Evals"
+  short_description: "Evaluate agent instructions and skills"
+  default_prompt: "Use $run-agent-evals to design and run a leakage-resistant behavioral evaluation for these agent instructions or skills."

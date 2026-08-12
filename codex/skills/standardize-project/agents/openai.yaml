@@ -1,0 +1,4 @@
+interface:
+  display_name: "Standardize Project"
+  short_description: "Normalize an existing repository safely"
+  default_prompt: "Use $standardize-project to align this existing repository with its dominant ecosystem conventions while preserving behavior and current user changes."

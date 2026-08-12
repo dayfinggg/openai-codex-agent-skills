@@ -1,4 +1,0 @@
-interface:
-  display_name: "Implementation Planning"
-  short_description: "Plan vertical work with evidence and ownership"
-  default_prompt: "Use $spec-to-tasks to turn this approved scope into a minimal vertical implementation plan with ownership and completion evidence."

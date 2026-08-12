@@ -1,4 +1,0 @@
-interface:
-  display_name: "Implement and Verify"
-  short_description: "Implement bounded changes with traceable evidence"
-  default_prompt: "Use $implement-and-verify to deliver this bounded change and prove each acceptance criterion with observed evidence."

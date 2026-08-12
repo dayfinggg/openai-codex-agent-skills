@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>OpenAI Codex Agent Skills — production-ready workflows</title>
-  <meta name="description" content="OpenAI Codex agent skills, specialist roles, and configuration for bounded engineering work, current guidance, accessible UI/UX, and observed verification.">
+  <meta name="description" content="OpenAI Codex instructions, focused skills, and portable configuration for bounded engineering work, accessible UI/UX, and observed verification.">
   <link rel="canonical" href="https://dayfinggg.github.io/openai-codex-agent-skills/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="OpenAI Codex Agent Skills">
-  <meta property="og:description" content="Production-oriented Codex instructions, focused engineering and design skills, specialist agents, and verification tied to observed evidence.">
+  <meta property="og:description" content="Production-oriented Codex instructions, focused engineering and design skills, and verification tied to observed evidence.">
   <meta property="og:url" content="https://dayfinggg.github.io/openai-codex-agent-skills/">
   <meta name="theme-color" content="#f4f1e8">
   <style>
@@ -569,7 +569,7 @@
       <div>
         <p class="eyebrow">OpenAI Codex Agent Skills</p>
         <h1 id="hero-title">Codex workflows that know what done means.</h1>
-        <p class="hero-copy">Production-oriented instructions, focused skills, and specialist agents for OpenAI Codex. They keep work bounded, ground decisions in the real project, and tie completion to checks that actually ran.</p>
+        <p class="hero-copy">Production-oriented instructions and focused skills for OpenAI Codex. They keep work bounded, ground decisions in the real project, and tie completion to checks that actually ran.</p>
         <div class="actions">
           <a class="button button-primary" href="#install">Install the catalog <span aria-hidden="true">↓</span></a>
           <a class="button" href="https://github.com/dayfinggg/openai-codex-agent-skills">Browse the repository <span aria-hidden="true">↗</span></a>
@@ -632,31 +632,31 @@
 
       <div class="catalog">
         <article class="catalog-group">
-          <h3>Specify and plan</h3>
-          <p>Clarify only decisions that evidence cannot resolve. Build a task plan when planning is requested, without diverting an already authorized implementation.</p>
+          <h3>Plan and coordinate</h3>
+          <p>Plan multi-step changes, delegate bounded work, evaluate agent behavior, and research current technical decisions with traceable evidence.</p>
           <ul class="skill-list">
-            <li>clarify-and-specify</li><li>spec-to-tasks</li>
+            <li>plan-engineering-work</li><li>delegate-agent-work</li><li>run-agent-evals</li><li>research-technical-decisions</li>
           </ul>
         </article>
         <article class="catalog-group">
-          <h3>Model and structure</h3>
-          <p>Clarify business meaning and design module, data, runtime, deployment, and team boundaries from measurable quality and change drivers.</p>
+          <h3>Design systems and interfaces</h3>
+          <p>Design architecture, contracts, data, observability, testing, and product interfaces from verified constraints and complete user flows.</p>
           <ul class="skill-list">
-            <li>design-project-architecture</li><li>domain-modeling</li>
+            <li>design-software-architecture</li><li>design-api-contracts</li><li>design-databases</li><li>design-observability</li><li>design-testing-strategy</li><li>design-product-interfaces</li>
           </ul>
         </article>
         <article class="catalog-group">
-          <h3>Build and verify</h3>
-          <p>Separate causes from symptoms, implement approved behavior, use test-first work only when required, and review concrete changes against relevant production risks.</p>
+          <h3>Build and deliver</h3>
+          <p>Implement production code, backend services, web frontends, project foundations, dependency changes, migrations, and CI/CD workflows.</p>
           <ul class="skill-list">
-            <li>diagnose-root-cause</li><li>production-code-quality</li><li>tdd</li><li>implement-and-verify</li><li>review-changes</li>
+            <li>engineer-production-code</li><li>build-backend-services</li><li>build-web-frontends</li><li>initialize-project</li><li>manage-dependencies</li><li>migrate-codebases</li><li>operate-ci-cd</li>
           </ul>
         </article>
         <article class="catalog-group">
-          <h3>Research and evaluate</h3>
-          <p>Verify current claims, evaluate agent instructions and LLM applications, and design interfaces around user tasks rather than generated decoration.</p>
+          <h3>Improve and assure</h3>
+          <p>Debug failures, review evidence, refactor safely, secure concrete trust boundaries, measure performance, and normalize project conventions.</p>
           <ul class="skill-list">
-            <li>research-current-sources</li><li>evaluate-agent-instructions</li><li>llm-application-quality</li><li>design-ui-ux</li>
+            <li>debug-systematically</li><li>review-code-quality</li><li>refactor-safely</li><li>secure-code</li><li>optimize-performance</li><li>standardize-project</li>
           </ul>
         </article>
       </div>
@@ -665,7 +665,7 @@
     <div class="design-band" id="design">
       <section class="section shell" aria-labelledby="design-title">
         <div class="section-heading">
-          <p class="kicker">Codex design-ui-ux</p>
+          <p class="kicker">Codex design-product-interfaces</p>
           <div>
             <h2 id="design-title">Designed for a task, not generated for a screenshot.</h2>
             <p class="section-intro">The UI/UX skill scales from a single setting to a governed design system. It starts with user evidence and platform behavior, preserves accessibility and search visibility where they apply, and rejects decoration without a product reason.</p>
@@ -701,30 +701,28 @@
         <p class="kicker">Installation</p>
         <div>
           <h2 id="install-title">Keep your setup or replace it.</h2>
-          <p class="section-intro">Choose merge to preserve your current configuration. Choose replace to install the complete opinionated setup. Both modes back up every file they change.</p>
+          <p class="section-intro">Choose merge to preserve your current configuration. Choose replace to install the portable managed setup. Both modes back up every file they change.</p>
         </div>
       </div>
 
       <div class="install-grid">
         <article class="install-option">
           <h3>Merge with your setup</h3>
-          <p>Keep existing Codex settings, add the agents and skills, and connect the shared operating instructions.</p>
+          <p>Keep existing Codex settings, add the skills, and connect the shared operating instructions.</p>
           <pre><code>cp -R "$HOME/.codex" "$HOME/.codex.backup-$(date +%Y%m%d-%H%M%S)" 2>/dev/null || true
 git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
-mkdir -p "$HOME/.codex/agents" "$HOME/.codex/skills"
-cp -R openai-codex-agent-skills/codex/agents/. "$HOME/.codex/agents/"
+mkdir -p "$HOME/.codex/skills"
 cp -R openai-codex-agent-skills/codex/skills/. "$HOME/.codex/skills/"
 cp openai-codex-agent-skills/codex/model-instructions.md "$HOME/.codex/"</code></pre>
         </article>
         <article class="install-option">
-          <h3>Replace everything</h3>
-          <p>Back up your current directory, then replace the managed Codex configuration with the complete setup.</p>
+          <h3>Replace managed files</h3>
+          <p>Back up your current directory, then replace the managed Codex instructions, skills, and portable configuration.</p>
           <pre><code>cp -R "$HOME/.codex" "$HOME/.codex.backup-$(date +%Y%m%d-%H%M%S)" 2>/dev/null || true
 git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
 rm -rf "$HOME/.codex/agents" "$HOME/.codex/skills"
 mkdir -p "$HOME/.codex"
-cp -R openai-codex-agent-skills/codex/agents \
-  openai-codex-agent-skills/codex/skills "$HOME/.codex/"
+cp -R openai-codex-agent-skills/codex/skills "$HOME/.codex/"
 cp openai-codex-agent-skills/codex/model-instructions.md \
   openai-codex-agent-skills/codex/config.toml "$HOME/.codex/"</code></pre>
         </article>
