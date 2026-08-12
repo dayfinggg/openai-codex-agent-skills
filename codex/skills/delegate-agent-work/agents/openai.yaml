@@ -1,0 +1,4 @@
+interface:
+  display_name: "Delegate Agent Work"
+  short_description: "Coordinate bounded parallel agent work"
+  default_prompt: "Use $delegate-agent-work to divide this task into independent agent assignments, coordinate them safely, and verify the integrated result."

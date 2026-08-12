@@ -1,0 +1,4 @@
+interface:
+  display_name: "Optimize Performance"
+  short_description: "Measure bottlenecks and verify faster systems"
+  default_prompt: "Use $optimize-performance to measure this workload, identify its bottleneck, and verify a safe performance improvement."

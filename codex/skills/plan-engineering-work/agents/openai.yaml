@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan Engineering Work"
+  short_description: "Plan executable engineering work safely"
+  default_prompt: "Use $plan-engineering-work to produce and maintain an evidence-based implementation plan for this engineering task."

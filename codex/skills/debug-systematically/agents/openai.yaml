@@ -1,0 +1,4 @@
+interface:
+  display_name: "Debug Systematically"
+  short_description: "Reproduce, isolate, and fix root causes"
+  default_prompt: "Use $debug-systematically to reproduce this failure, isolate its root cause, apply the smallest authorized fix, and verify it with regression coverage."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Software Architecture"
+  short_description: "Design clear, evidence-based system architecture"
+  default_prompt: "Use $design-software-architecture to recommend the simplest architecture that meets the verified requirements."

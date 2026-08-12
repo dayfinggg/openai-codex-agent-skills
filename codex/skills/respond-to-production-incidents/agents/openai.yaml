@@ -1,4 +1,0 @@
-interface:
-  display_name: "Production Incident Response"
-  short_description: "Mitigate incidents and verify service recovery safely"
-  default_prompt: "Use $respond-to-production-incidents to coordinate this production incident."

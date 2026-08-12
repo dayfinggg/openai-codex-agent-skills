@@ -1,4 +1,0 @@
-interface:
-  display_name: "Research Current Sources"
-  short_description: "Verify current claims with traceable evidence"
-  default_prompt: "Use $research-current-sources to verify this claim with dated primary evidence and source-to-rule traceability."

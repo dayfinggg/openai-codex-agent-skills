@@ -72,12 +72,12 @@ try {
                 Remove-Item -LiteralPath $Path -Recurse -Force
             }
         }
-        foreach ($Name in @("config.toml", "model-instructions.md", "agents", "skills")) {
+        foreach ($Name in @("config.toml", "model-instructions.md", "skills")) {
             Copy-Item -LiteralPath (Join-Path $Source $Name) -Destination $Destination -Recurse -Force
         }
     }
     else {
-        foreach ($Name in @("model-instructions.md", "agents", "skills")) { Copy-ManagedPath -Name $Name }
+        foreach ($Name in @("model-instructions.md", "skills")) { Copy-ManagedPath -Name $Name }
         $ConfigPath = Join-Path $Destination "config.toml"
         if (Test-Path -LiteralPath $ConfigPath) {
             New-Item -ItemType Directory -Force -Path $Backup | Out-Null
@@ -89,7 +89,7 @@ try {
     Set-Content -LiteralPath (Join-Path $Destination ".openai-codex-agent-skills.install-mode") -Value $Mode.ToLowerInvariant()
     Write-Host "Codex setup installed in $Mode mode."
     if (Test-Path -LiteralPath $Backup) { Write-Host "Previous files were backed up to $Backup" }
-    Write-Host "Restart Codex to load the new agents and skills."
+    Write-Host "Restart Codex to load the new instructions and skills."
 }
 finally {
     if (Test-Path -LiteralPath $TemporaryDirectory) { Remove-Item -LiteralPath $TemporaryDirectory -Recurse -Force }

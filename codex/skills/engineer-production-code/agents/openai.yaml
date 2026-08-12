@@ -1,0 +1,4 @@
+interface:
+  display_name: "Engineer Production Code"
+  short_description: "Build complete, maintainable production code"
+  default_prompt: "Use $engineer-production-code to implement this change as complete, maintainable, production-ready code."

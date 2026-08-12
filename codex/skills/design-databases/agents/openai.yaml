@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Databases"
+  short_description: "Design safe schemas and database changes"
+  default_prompt: "Use $design-databases to design a safe database schema or production change from the workload and invariants."

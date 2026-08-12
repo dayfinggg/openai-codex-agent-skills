@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Technical Decisions"
+  short_description: "Research technical choices with current evidence"
+  default_prompt: "Use $research-technical-decisions to compare technical options using current, authoritative evidence."
