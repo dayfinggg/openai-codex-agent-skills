@@ -22,6 +22,10 @@ Evaluate the behavior produced by agent instructions or skills. Treat static val
 4. Keep executor prompts natural and user-styled. Store them verbatim with their inputs, separately from evaluator rubrics, expected findings, and annotations.
 5. Map every planned case to the criteria it exercises and record criterion applicability before execution. A case without this mapping cannot support a scored verdict.
 6. Read [evaluation-design.md](references/evaluation-design.md) when defining a reusable suite, rubric, artifact record, or baseline comparison.
+7. Translate important output requirements into atomic observable conditions such as required fields, counts, schema, language, ordering, and forbidden extras.
+8. For material changes to prompts, model behavior, context handling, memory, or orchestration, select fresh, held-out, paraphrased, adversarial, long-context, and multilingual cases according to risk and availability. Do not require every family when it is irrelevant, but record omitted material risks.
+9. Do not treat a declared context window as proof that all included material will be used reliably. For long-context or memory cases, preserve available provenance, time, scope, and confirmation metadata, and mark unavailable metadata unknown.
+10. Apply instruction priority, safety checks, and output validation consistently across Russian, English, mixed-language input, transliteration, and relevant low-resource languages.
 
 ## Run without leakage
 
@@ -38,6 +42,7 @@ Evaluate the behavior produced by agent instructions or skills. Treat static val
 2. Apply the frozen manifest and rubric consistently. Tie every rating to an observable artifact and justify exclusions or unavailable evidence. Do not issue a scored verdict if the pre-run manifest was not saved before execution.
 3. Separate activation failures, instruction-following failures, task-quality failures, environment failures, and evaluator ambiguity. A manifest-declared capability removal, denied permission, command fault, or other controlled failure-path condition is valid and scorable when the observed environment matches the case. Mark a case invalid only for unexpected drift, harness failure, corruption, or unavailable evidence that prevents applying the frozen rubric. Do not average away a critical regression.
 4. Compare results criterion by criterion before calculating aggregate measures. Report the tested scope, run count, pass rule, failures, and uncertainty.
+5. Report correctness, groundedness, completeness, instruction following, safety, latency, and cost as separate dimensions when they materially affect the decision. Preserve the model, version, date, test scope, and unresolved limitations.
 
 ## Diagnose and rerun
 

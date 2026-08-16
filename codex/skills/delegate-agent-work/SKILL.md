@@ -28,6 +28,22 @@ Give each agent one concrete outcome and an explicit return contract. Include on
 
 Do not delegate ambiguous responsibility. Retain cross-cutting decisions, integration, conflict resolution, and final verification at the coordinator.
 
+## Runtime Capability Discovery
+
+Delegation is runtime-dependent. Before assigning work, inspect the current callable capabilities, their schemas, supported models and reasoning settings, lifecycle operations, concurrency limits, and permission or sandbox metadata. Some Codex versions expose versioned multi-agent modes, while others expose a general subagent operation. Do not infer the active mode, field names, or permissions from memory, a different installation, or public API documentation.
+
+Use only the live schema exposed in the current turn. Provide a self-contained launch packet with the task, context, constraints, return contract, and allowed side effects. Pass only fields that the schema accepts. Store the stable identifier returned by the runtime, not a display name. If the user requests a particular model or reasoning level, request it only when the live schema supports it and treat it as unverified until the runtime reports the effective setting. Treat missing metadata as unknown rather than filling it by inference.
+
+Treat a textual instruction such as “read-only” as an assignment constraint, not as technical permission enforcement. Use a runtime-provided read-only profile or observable sandbox and approval metadata when available. If effective permissions are unknown, do not claim read-only execution and keep the assignment free of side effects. Do not broaden a child agent's permissions without a new authorization. Retain the coordinator's responsibility for external writes, secrets, irreversible changes, and final high-risk decisions.
+
+Keep subagent delegation distinct from creating a user-facing Codex task or thread. Do not replace a subagent with a user-facing task merely because the local delegation capability is unavailable. If no callable delegation capability is exposed, do not invent a call or claim that delegation occurred. Continue the bounded work locally when safe, or report that explicit delegation is unavailable.
+
+Launch independent assignments in one concurrent batch when the runtime permits it. Retain every returned identifier and map it to ownership, dependencies, expected evidence, and state. Use the exposed wait or status operation with a bounded timeout. Verify every requested identifier because a multi-target status update may include only agents that changed state. Do not treat one completed result as completion of the whole batch.
+
+Reuse an existing agent through the exposed follow-up operation when a clarification, missing evidence, or bounded continuation is needed. Queue a message by default and interrupt only for a material scope correction, safety issue, or discovered dependency. After integration, release completed agents through the exposed lifecycle operation so they do not consume concurrency. Do not busy-poll. Use the result interval for non-overlapping coordinator work.
+
+Public API documentation and local Codex wrappers may use different names, schemas, and versioning. Treat public descriptions as conceptual background only. Never claim that a particular version, tool, model, permission, or lifecycle action was used unless the current runtime exposed and confirmed it.
+
 ## Coordinate Execution
 
 Launch independent assignments concurrently. Continue useful coordinator work while agents run. Record agent identity, ownership, dependencies, and current state.
@@ -53,5 +69,7 @@ Evaluate each result against its assignment before using it. Inspect primary art
 Combine compatible results into one coherent outcome. Do not concatenate agent reports or expose internal coordination as the user-facing answer unless requested.
 
 Run independent, proportionate verification after integration. Use an author/reviewer split for high-risk or material changes: the author produces the artifact, the reviewer receives the raw artifact and acceptance criteria without the author's intended answer, and the coordinator adjudicates findings. Treat an agent's own tests as supporting evidence, not sufficient proof of integrated correctness.
+
+Do not treat a delegated review, same-model second pass, or interface test as sufficient evidence for authentication, authorization, secrets, payments, migrations, deletion, privacy, concurrency, external side effects, security-sensitive logic, or regulatory behavior. A bounded read-only review may gather evidence, but the coordinator must inspect primary artifacts and retain final verification against an appropriate source of truth.
 
 Report work as complete only when all required outcomes are integrated, material conflicts are resolved, and final evidence supports the claim.
