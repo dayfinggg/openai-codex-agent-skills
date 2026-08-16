@@ -37,6 +37,7 @@ Use this for every executable code or test deliverable. Apply it as a companion 
 
 - Do not add comments, doc comments, docstrings, or documentation that merely narrate code. Add concise documentation when required by repository conventions, public API contracts, licensing, generated-file markers, tool directives, or to explain material rationale, invariants, security, concurrency, algorithms, or correctness conditions that code cannot make clear.
 - Do not use TODO-style notes, commented-out code, dead code, placeholders, fake implementations, dummy returns, accidental no-ops, unfinished branches, or production stubs as substitutes for complete requested behavior. Add a tracked TODO only when project convention and the requested scope require deferred work; make its owner or removal condition discoverable.
+- Do not create a new README, changelog, migration note, implementation report, audit report, plan, summary, or other standalone Markdown or documentation file unless the user explicitly requests that artifact. Report completed work in the final response. Update existing documentation only when requested or when the code change would otherwise leave it materially incorrect.
 - Preserve valid existing comments. Update or remove them only when the change makes them obsolete or incorrect.
 - Add source metadata only when syntax, licensing, generated-code conventions, tool directives, public contracts, or correctness strictly require it.
 - Do not hand-edit generated output. Change its source or generator and regenerate it.
