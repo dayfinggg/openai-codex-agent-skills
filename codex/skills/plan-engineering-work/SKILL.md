@@ -5,6 +5,8 @@ description: Create and maintain evidence-based delivery plans for multi-step re
 
 # Plan Engineering Work
 
+Deliver plans through the available task-tracking interface or the final response. Do not create a plan, report, summary, notes, or other Markdown file unless the user explicitly requests that file.
+
 ## Establish the basis
 
 1. Inspect applicable instructions, repository state, relevant code, contracts, configuration, tests, tooling, and available execution evidence before choosing a path.
