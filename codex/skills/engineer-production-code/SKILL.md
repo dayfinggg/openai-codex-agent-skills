@@ -7,6 +7,14 @@ description: Use for every request to write, generate, modify, implement, or pro
 
 Use this for every executable code or test deliverable. Apply it as a companion baseline with narrower implementation skills and as the primary workflow for standalone code generation. Let language, framework, and domain skills supply ecosystem details. Resolve conflicts in favor of higher-priority instructions and verified repository requirements.
 
+## Control Model-Assisted Work
+
+- Treat model-generated code, plans, tests, and proposed fixes as untrusted until their behavior, design fit, and material risks are verified.
+- Keep ownership of goals, constraints, architecture, tradeoffs, and risk acceptance with the user or project. Implement in-scope tactical changes without silently inventing requirements or irreversible design decisions.
+- Inspect relevant modules, interfaces, tests, local guidance, recent changes, glossaries, context files, architecture notes, and ADRs before broad implementation. Use canonical project terms and surface conflicting definitions.
+- Prove the requested contract with the smallest independently verifiable vertical slice. Do not generate a broad speculative implementation when a narrower slice can establish the behavior first.
+- Treat deep modules, information hiding, domain-driven design, test-driven development, browser automation, language choice, module size, and model workflow as context-dependent techniques rather than universal requirements.
+
 ## Establish the Contract
 
 - Inspect applicable instructions, nearby code, public contracts, dependencies, configured tooling, and supported runtime versions before editing.
@@ -45,11 +53,13 @@ Use this for every executable code or test deliverable. Apply it as a companion 
 
 ## Verify the Result
 
-- Define the observable behavior and material risks before choosing tests. Use the lowest layer that reproduces each behavior faithfully: unit tests for local logic, integration or contract tests for real boundaries and serialization, and a small end-to-end set for critical user journeys or production-like wiring. Add another layer only when it detects a distinct failure class.
+- Define the observable behavior, material risks, and an acceptance oracle or source of truth before choosing tests. Use the lowest layer that reproduces each behavior faithfully: unit tests for local logic, integration or contract tests for real boundaries and serialization, and a small end-to-end set for critical user journeys or production-like wiring. Add another layer only when it detects a distinct failure class. Treat each signal according to what it covers rather than assuming that a compiler, linter, test, benchmark, or model completion is inherently independent evidence.
 - Assert stable public behavior, side effects, and invariants rather than private methods, incidental calls, internal ordering, or broad snapshots unless those details are contractual. Give each test one coherent reason to fail and a name that identifies the behavior and condition.
 - Cover relevant normal, boundary, negative, recovery, and regression cases in proportion to risk. Keep fixtures minimal and explicit. Use faithful doubles to isolate the tested unit or inject failures at narrow boundaries; prefer real local collaborators when their semantics are what the test must verify.
 - Keep ordinary automated tests isolated, repeatable, and deterministic. Control clocks, randomness, locale, environment, retries, and external I/O; avoid arbitrary sleeps, execution-order dependencies, and shared residue. For concurrency, stress, and fuzz tests, bound and record seeds or schedules where supported, and assert invariants rather than incidental ordering.
 - When safe and inexpensive, confirm a regression test fails with the targeted defect and passes with the correction. Use coverage to find untested behavior, not as a percentage target, and do not add redundant or trivial tests to raise it.
+- Never weaken or replace a test, validator, monitor, input, fixture, or environment merely to make an output pass. If the criterion is wrong, change it deliberately, preserve the intended contract, and report the reason.
+- Treat a passing check as evidence only for the behavior it covers. Do not present green tests, type checking, a successful build, a reward, or a benchmark score as proof of complete requirements, security, or absence of operational risk.
 - Run the narrow configured formatter, linter, type checker, tests, and build relevant to the change. Broaden to integration, contract, end-to-end, security, performance, migration, or accessibility checks when the affected contract or risk justifies it.
 - Inspect the final diff for scope creep, incomplete behavior, obsolete artifacts, accidental public-contract changes, and source-file policy violations.
 - Report validation limits and unresolved risks accurately. Never claim an unrun check or unobserved outcome.
