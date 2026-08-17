@@ -1,0 +1,4 @@
+interface:
+  display_name: "Orchestrate Agent Work"
+  short_description: "Design and coordinate reliable agent workflows"
+  default_prompt: "Use $orchestrate-agent-work to design or coordinate this agent workflow."
