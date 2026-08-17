@@ -1,0 +1,4 @@
+interface:
+  display_name: "Model Business Domain"
+  short_description: "Model complex business rules and domain boundaries"
+  default_prompt: "Use $model-business-domain to handle this engineering task."

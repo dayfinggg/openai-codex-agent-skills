@@ -1,4 +1,0 @@
-interface:
-  display_name: "Manage Dependencies"
-  short_description: "Safely evaluate and update dependencies"
-  default_prompt: "Use $manage-dependencies to evaluate or perform this dependency work within the smallest verified scope."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design NoSQL Database"
+  short_description: "Design reliable production NoSQL data models"
+  default_prompt: "Use $design-nosql-database to handle this engineering task."

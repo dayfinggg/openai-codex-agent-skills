@@ -1,4 +1,0 @@
-interface:
-  display_name: "Build Backend Services"
-  short_description: "Implement reliable services in existing frameworks"
-  default_prompt: "Use $build-backend-services to implement this backend change in the project's existing service architecture."

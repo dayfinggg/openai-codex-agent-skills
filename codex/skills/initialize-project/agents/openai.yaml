@@ -1,4 +1,0 @@
-interface:
-  display_name: "Initialize Project"
-  short_description: "Bootstrap a minimal working software project"
-  default_prompt: "Use $initialize-project to bootstrap a minimal, verified project for the specified stack."

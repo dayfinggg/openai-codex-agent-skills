@@ -1,4 +1,0 @@
-interface:
-  display_name: "Design API Contracts"
-  short_description: "Design compatible API and event contracts"
-  default_prompt: "Use $design-api-contracts to design a compatible contract for this API change."
