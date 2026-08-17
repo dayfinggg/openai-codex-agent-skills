@@ -1,0 +1,4 @@
+interface:
+  display_name: "Modern Web Design"
+  short_description: "Create distinctive modern production web interfaces"
+  default_prompt: "Use $design-modern-web-interface to design a distinctive modern web experience."

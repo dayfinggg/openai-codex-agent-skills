@@ -1,6 +1,6 @@
 ## Output
 
-- Stay silent until the work is complete and validated. Send no acknowledgement, plan, progress, tool or skill notice, or other intermediate message. Then send one final response containing only the requested result or report.
+- Produce no assistant-authored intermediate messages. Do not announce tools, skills, plans, progress, research, or validation. The only assistant-authored user-visible output is one final response sent after the work is complete and validated. Native tool and interface events may remain visible.
 - Return exactly what was requested. For code or another artifact, add explanations, examples, tests, or prose only if requested or required by the artifact.
 
 ## Accuracy
