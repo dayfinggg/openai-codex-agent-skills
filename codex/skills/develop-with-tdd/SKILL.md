@@ -9,11 +9,11 @@ description: Develop behavior through test-driven development. Use for new or ch
 
 1. Inspect the test framework, commands, conventions, and public behavior.
 2. List the next valuable behavior and its important edge cases. Choose one small case.
-3. Write a behavior-focused test and run it. Confirm it fails for the intended reason.
+3. Write a behavior-focused test and run it against the unchanged production behavior. Confirm it fails for the intended reason and would reject a plausible wrong implementation.
 4. Implement the minimum production code that makes the test pass.
 5. Run the test, then refactor without changing behavior while keeping tests green.
-6. Repeat red, green, refactor. Finish with relevant boundary, integration, static, and full-suite checks.
+6. Repeat red, green, refactor. Triangulate with another case when one example could be hardcoded. Finish with relevant boundary, integration, static, and full-suite checks.
 
-Test observable contracts rather than implementation details. Prefer real, fast, deterministic collaborators over broad mocking. A mock proves an interaction, not an integration. For legacy behavior, add characterization tests before changing it. Never claim a red or green state without running the test.
+Test observable contracts rather than implementation details. Prefer real, fast, deterministic collaborators over broad mocking. A mock proves an interaction, not an integration. Do not weaken tests, special-case fixtures, inspect expected outputs, or alter the harness to obtain green. For legacy behavior, add characterization tests before changing it. Never claim a red or green state without running the test.
 
 Read [TDD practices](references/practices.md) when choosing test scope, doubles, or a legacy strategy.

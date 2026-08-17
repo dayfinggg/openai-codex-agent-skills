@@ -2,7 +2,7 @@
 
 English · [Українська](README.uk.md) · [Русский](README.ru.md)
 
-Fifteen production engineering skills, concise global instructions, and a minimal Codex configuration.
+Sixteen production engineering and design skills, concise global instructions, and a minimal Codex configuration.
 
 ## Install
 
