@@ -64,9 +64,9 @@ preserved=0
 
 install_mode="$(cat "$dest/.openai-codex-agent-skills.install-mode" 2>/dev/null || printf replace)"
 if [ "$install_mode" = merge ]; then
-  managed_paths="model-instructions.md skills"
+  managed_paths="AGENTS.override.md skills"
 else
-  managed_paths="config.toml model-instructions.md skills"
+  managed_paths="config.toml AGENTS.override.md skills"
 fi
 
 for managed in $managed_paths; do

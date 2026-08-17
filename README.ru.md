@@ -2,66 +2,44 @@
 
 [English](README.md) · [Українська](README.uk.md) · Русский
 
-Инструкции и навыки для OpenAI Codex.
+Пятнадцать навыков для промышленной разработки, краткие общие инструкции и минимальная конфигурация Codex.
 
-## Добавить в существующую конфигурацию
+## Установка
 
-Создайте резервную копию `~/.codex`, клонируйте репозиторий и скопируйте управляемые файлы.
+Режим замены создает резервную копию и заменяет управляемые файлы Codex.
 
 ### macOS и Linux
 
-```bash
-cp -R "$HOME/.codex" "$HOME/.codex.backup-$(date +%Y%m%d-%H%M%S)" 2>/dev/null || true
+```sh
 git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
-mkdir -p "$HOME/.codex/skills"
-cp -R openai-codex-agent-skills/codex/skills/. "$HOME/.codex/skills/"
-cp openai-codex-agent-skills/codex/model-instructions.md "$HOME/.codex/"
+cd openai-codex-agent-skills
+sh scripts/install.sh --replace
 ```
 
 ### Windows PowerShell
 
 ```powershell
-if (Test-Path "$HOME\.codex") { Copy-Item -Recurse "$HOME\.codex" "$HOME\.codex.backup-$(Get-Date -Format yyyyMMdd-HHmmss)" }
 git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
-New-Item -ItemType Directory -Force "$HOME\.codex\skills" | Out-Null
-Copy-Item -Recurse -Force .\openai-codex-agent-skills\codex\skills\* "$HOME\.codex\skills\"
-Copy-Item -Force .\openai-codex-agent-skills\codex\model-instructions.md "$HOME\.codex\"
+Set-Location openai-codex-agent-skills
+powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1 -Mode Replace
 ```
 
-Добавьте эту строку верхнего уровня в `~/.codex/config.toml`:
+Используйте `--merge` или `-Mode Merge`, чтобы сохранить существующий `config.toml` и добавить только `AGENTS.override.md` и навыки.
 
-```toml
-model_instructions_file = "model-instructions.md"
-```
-
-## Заменить управляемые файлы
-
-Команды заменяют `config.toml`, `model-instructions.md` и `skills`, а также удаляют устаревших агентов репозитория.
+## Обновление
 
 ### macOS и Linux
 
-```bash
-cp -R "$HOME/.codex" "$HOME/.codex.backup-$(date +%Y%m%d-%H%M%S)" 2>/dev/null || true
-git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
-rm -rf "$HOME/.codex/agents" "$HOME/.codex/skills"
-mkdir -p "$HOME/.codex"
-cp -R openai-codex-agent-skills/codex/skills "$HOME/.codex/"
-cp openai-codex-agent-skills/codex/model-instructions.md openai-codex-agent-skills/codex/config.toml "$HOME/.codex/"
+```sh
+cd openai-codex-agent-skills
+sh scripts/update.sh
 ```
 
 ### Windows PowerShell
 
 ```powershell
-if (Test-Path "$HOME\.codex") { Copy-Item -Recurse "$HOME\.codex" "$HOME\.codex.backup-$(Get-Date -Format yyyyMMdd-HHmmss)" }
-git clone https://github.com/dayfinggg/openai-codex-agent-skills.git
-Remove-Item -Recurse -Force "$HOME\.codex\agents", "$HOME\.codex\skills" -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Force "$HOME\.codex" | Out-Null
-Copy-Item -Recurse -Force .\openai-codex-agent-skills\codex\skills "$HOME\.codex\"
-Copy-Item -Force .\openai-codex-agent-skills\codex\model-instructions.md, .\openai-codex-agent-skills\codex\config.toml "$HOME\.codex\"
+Set-Location openai-codex-agent-skills
+powershell -ExecutionPolicy Bypass -File .\scripts\update.ps1
 ```
 
-После установки перезапустите Codex.
-
-## Состав
-
-23 инженерных и продуктовых навыка, общие инструкции и переносимая конфигурация Codex. Лицензия MIT.
+После установки или обновления перезапустите Codex. Лицензия MIT.

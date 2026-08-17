@@ -23,36 +23,6 @@ function Copy-ManagedPath {
     Copy-Item -LiteralPath $SourcePath -Destination $Destination -Recurse -Force
 }
 
-function Set-ModelInstructionsFile {
-    $ConfigPath = Join-Path $Destination "config.toml"
-    $Lines = if (Test-Path -LiteralPath $ConfigPath) { [string[]](Get-Content -LiteralPath $ConfigPath) } else { @() }
-    $Result = [System.Collections.Generic.List[string]]::new()
-    $Found = $false
-    $InTopLevel = $true
-    foreach ($Line in $Lines) {
-        if ($Line -match '^\s*\[') {
-            if ($InTopLevel -and -not $Found) {
-                $Result.Add('model_instructions_file = "model-instructions.md"')
-                $Result.Add('')
-                $Found = $true
-            }
-            $InTopLevel = $false
-        }
-        if ($InTopLevel -and $Line -match '^\s*model_instructions_file\s*=') {
-            $Result.Add('model_instructions_file = "model-instructions.md"')
-            $Found = $true
-        }
-        else {
-            $Result.Add($Line)
-        }
-    }
-    if (-not $Found) {
-        $Result.Add('model_instructions_file = "model-instructions.md"')
-    }
-    $Utf8WithoutBom = New-Object System.Text.UTF8Encoding($false)
-    [System.IO.File]::WriteAllLines($ConfigPath, $Result, $Utf8WithoutBom)
-}
-
 try {
     New-Item -ItemType Directory -Force -Path $TemporaryDirectory | Out-Null
     $Archive = Join-Path $TemporaryDirectory "source.zip"
@@ -64,7 +34,7 @@ try {
     New-Item -ItemType Directory -Force -Path $Destination | Out-Null
 
     if ($Mode -eq "Replace") {
-        foreach ($Name in @("config.toml", "model-instructions.md", "agents", "skills")) {
+        foreach ($Name in @("config.toml", "AGENTS.md", "AGENTS.override.md", "model-instructions.md", "agents", "skills")) {
             $Path = Join-Path $Destination $Name
             if (Test-Path -LiteralPath $Path) {
                 New-Item -ItemType Directory -Force -Path $Backup | Out-Null
@@ -72,18 +42,12 @@ try {
                 Remove-Item -LiteralPath $Path -Recurse -Force
             }
         }
-        foreach ($Name in @("config.toml", "model-instructions.md", "skills")) {
+        foreach ($Name in @("config.toml", "AGENTS.override.md", "skills")) {
             Copy-Item -LiteralPath (Join-Path $Source $Name) -Destination $Destination -Recurse -Force
         }
     }
     else {
-        foreach ($Name in @("model-instructions.md", "skills")) { Copy-ManagedPath -Name $Name }
-        $ConfigPath = Join-Path $Destination "config.toml"
-        if (Test-Path -LiteralPath $ConfigPath) {
-            New-Item -ItemType Directory -Force -Path $Backup | Out-Null
-            Copy-Item -LiteralPath $ConfigPath -Destination $Backup -Force
-        }
-        Set-ModelInstructionsFile
+        foreach ($Name in @("AGENTS.override.md", "skills")) { Copy-ManagedPath -Name $Name }
     }
 
     Set-Content -LiteralPath (Join-Path $Destination ".openai-codex-agent-skills.install-mode") -Value $Mode.ToLowerInvariant()

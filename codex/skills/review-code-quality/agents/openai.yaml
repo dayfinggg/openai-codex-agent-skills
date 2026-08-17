@@ -1,4 +1,0 @@
-interface:
-  display_name: "Review Code Quality"
-  short_description: "Find actionable risks in code changes"
-  default_prompt: "Use $review-code-quality to audit this code or change set and report actionable findings with evidence."

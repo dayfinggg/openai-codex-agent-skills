@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prepare Release"
+  short_description: "Assess and stage a safe production software release"
+  default_prompt: "Use $prepare-release to handle this engineering task."

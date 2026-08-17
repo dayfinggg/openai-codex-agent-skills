@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify Software Change"
+  short_description: "Verify software changes with fresh risk-based evidence"
+  default_prompt: "Use $verify-software-change to handle this engineering task."

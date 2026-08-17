@@ -1,4 +1,0 @@
-interface:
-  display_name: "Design Testing Strategy"
-  short_description: "Plan focused tests around real software risks"
-  default_prompt: "Use $design-testing-strategy to create a focused, risk-based test plan for this change."

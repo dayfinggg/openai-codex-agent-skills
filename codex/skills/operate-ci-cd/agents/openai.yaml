@@ -1,4 +1,0 @@
-interface:
-  display_name: "Operate CI/CD"
-  short_description: "Build and harden safe CI/CD pipelines"
-  default_prompt: "Use $operate-ci-cd to create or repair this pipeline with reproducible builds, least privilege, and safe deployment controls."
