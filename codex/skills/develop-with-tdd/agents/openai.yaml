@@ -1,0 +1,4 @@
+interface:
+  display_name: "Develop with TDD"
+  short_description: "Build behavior through a verified TDD cycle"
+  default_prompt: "Use $develop-with-tdd to handle this engineering task."

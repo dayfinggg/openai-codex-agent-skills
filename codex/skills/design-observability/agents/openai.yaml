@@ -1,4 +1,4 @@
 interface:
   display_name: "Design Observability"
-  short_description: "Design reliable, actionable telemetry"
-  default_prompt: "Use $design-observability to design actionable telemetry and validate coverage of failure paths."
+  short_description: "Design useful production signals, SLOs, and alerts"
+  default_prompt: "Use $design-observability to handle this engineering task."

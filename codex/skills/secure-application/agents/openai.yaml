@@ -1,0 +1,4 @@
+interface:
+  display_name: "Secure Application"
+  short_description: "Design and review practical application security"
+  default_prompt: "Use $secure-application to handle this engineering task."

@@ -33,10 +33,10 @@ try {
         "replace"
     }
     $ManagedPaths = if ($InstallMode -eq "merge") {
-        @("model-instructions.md", "skills")
+        @("AGENTS.override.md", "skills")
     }
     else {
-        @("config.toml", "model-instructions.md", "skills")
+        @("config.toml", "AGENTS.override.md", "skills")
     }
     New-Item -ItemType Directory -Force -Path $Destination | Out-Null
     $ManifestPath = Join-Path $Destination ".openai-codex-agent-skills.manifest"

@@ -32,16 +32,16 @@ backup_path() {
 }
 
 if [ "$mode" = "--replace" ]; then
-  for path in config.toml model-instructions.md agents skills; do
+  for path in config.toml AGENTS.md AGENTS.override.md model-instructions.md agents skills; do
     backup_path "$path"
     rm -rf "$dest/$path"
   done
-  for path in config.toml model-instructions.md skills; do
+  for path in config.toml AGENTS.override.md skills; do
     cp -Rp "$src/$path" "$dest/"
   done
   install_mode=replace
 else
-  for path in model-instructions.md skills; do
+  for path in AGENTS.override.md skills; do
     backup_path "$path"
     if [ -d "$src/$path" ]; then
       mkdir -p "$dest/$path"
@@ -50,17 +50,6 @@ else
       cp -p "$src/$path" "$dest/$path"
     fi
   done
-  backup_path config.toml
-  config="$dest/config.toml"
-  [ -f "$config" ] || : >"$config"
-  awk '
-    BEGIN { found=0; top=1 }
-    /^[[:space:]]*\[/ && top { if (!found) print "model_instructions_file = \"model-instructions.md\"\n"; top=0; found=1 }
-    top && /^[[:space:]]*model_instructions_file[[:space:]]*=/ { print "model_instructions_file = \"model-instructions.md\""; found=1; next }
-    { print }
-    END { if (!found) print "model_instructions_file = \"model-instructions.md\"" }
-  ' "$config" >"$tmp/config.toml"
-  cp "$tmp/config.toml" "$config"
   install_mode=merge
 fi
 
