@@ -2,7 +2,7 @@
 
 English · [Українська](README.uk.md) · [Русский](README.ru.md)
 
-Sixteen production engineering and design skills, concise global instructions, and a minimal Codex configuration.
+Eighteen skills for production engineering, design, agent workflows, and clear writing, with concise global instructions and a minimal Codex configuration.
 
 ## Install
 
