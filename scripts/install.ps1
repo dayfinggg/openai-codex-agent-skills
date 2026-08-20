@@ -42,12 +42,12 @@ try {
                 Remove-Item -LiteralPath $Path -Recurse -Force
             }
         }
-        foreach ($Name in @("config.toml", "AGENTS.override.md", "skills")) {
+        foreach ($Name in @("config.toml", "model-instructions.md", "skills")) {
             Copy-Item -LiteralPath (Join-Path $Source $Name) -Destination $Destination -Recurse -Force
         }
     }
     else {
-        foreach ($Name in @("AGENTS.override.md", "skills")) { Copy-ManagedPath -Name $Name }
+        foreach ($Name in @("model-instructions.md", "skills")) { Copy-ManagedPath -Name $Name }
     }
 
     Set-Content -LiteralPath (Join-Path $Destination ".openai-codex-agent-skills.install-mode") -Value $Mode.ToLowerInvariant()

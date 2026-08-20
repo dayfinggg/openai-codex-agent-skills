@@ -2,7 +2,7 @@
 
 [English](README.md) · [Українська](README.uk.md) · Русский
 
-Восемнадцать навыков для промышленной разработки, дизайна, агентных процессов и ясного письма, краткие общие инструкции и минимальная конфигурация Codex.
+Тринадцать навыков для промышленной разработки, архитектуры проектов, агентных процессов и ясного кода, краткие общие инструкции и переносимая конфигурация Codex.
 
 ## Установка
 
@@ -24,7 +24,9 @@ Set-Location openai-codex-agent-skills
 powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1 -Mode Replace
 ```
 
-Используйте `--merge` или `-Mode Merge`, чтобы сохранить существующий `config.toml` и добавить только `AGENTS.override.md` и навыки.
+Используйте `--merge` или `-Mode Merge`, чтобы сохранить существующий `config.toml` и обновить только `model-instructions.md` и навыки.
+
+Управляемая конфигурация подключает инструкцию через `model_instructions_file = '~/.codex/model-instructions.md'`.
 
 ## Обновление
 

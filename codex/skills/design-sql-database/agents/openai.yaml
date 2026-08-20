@@ -1,4 +1,0 @@
-interface:
-  display_name: "Design SQL Database"
-  short_description: "Design reliable relational schemas and queries"
-  default_prompt: "Use $design-sql-database to handle this engineering task."

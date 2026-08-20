@@ -1,4 +1,0 @@
-interface:
-  display_name: "Design Observability"
-  short_description: "Design useful production signals, SLOs, and alerts"
-  default_prompt: "Use $design-observability to handle this engineering task."

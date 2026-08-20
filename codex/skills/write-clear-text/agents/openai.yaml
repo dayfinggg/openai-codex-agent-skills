@@ -1,4 +1,0 @@
-interface:
-  display_name: "Write Clear Text"
-  short_description: "Write and edit clear, natural, useful prose"
-  default_prompt: "Use $write-clear-text to write or revise this text for its intended reader."

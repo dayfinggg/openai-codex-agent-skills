@@ -1,0 +1,5 @@
+interface:
+  display_name: "Test-Driven Development"
+  short_description: "Drive changes with focused behavior tests"
+policy:
+  allow_implicit_invocation: true

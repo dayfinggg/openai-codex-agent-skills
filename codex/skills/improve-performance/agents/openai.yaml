@@ -1,4 +1,0 @@
-interface:
-  display_name: "Improve Performance"
-  short_description: "Measure and improve real software performance"
-  default_prompt: "Use $improve-performance to handle this engineering task."
