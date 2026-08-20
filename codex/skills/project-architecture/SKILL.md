@@ -1,6 +1,6 @@
 ---
 name: project-architecture
-description: Organize project structure, modules, tests, and artifacts before substantial changes.
+description: Organize project structure, modules, tests, and artifacts for new or substantially restructured work.
 ---
 
 Use this skill when starting a project, restructuring a repository, adding a subsystem, crossing module boundaries, or fixing misplaced files. Skip it for an isolated edit that fits the existing structure.

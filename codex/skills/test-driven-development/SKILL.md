@@ -1,6 +1,6 @@
 ---
 name: test-driven-development
-description: Implement behavior changes with focused red-green-refactor tests.
+description: Implement new behavior or regressions with focused red-green-refactor tests.
 ---
 
 Use this skill when adding behavior, fixing a regression, or when the user requests test-first development.

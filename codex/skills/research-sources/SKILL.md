@@ -1,6 +1,6 @@
 ---
 name: research-sources
-description: Research changing or unfamiliar systems, APIs, libraries, standards, and policies.
+description: Research changing or unfamiliar systems, APIs, libraries, standards, policies, or named sources.
 ---
 
 Use this skill when correctness depends on external behavior, changing facts, or a source named by the user.

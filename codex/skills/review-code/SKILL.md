@@ -1,6 +1,6 @@
 ---
 name: review-code
-description: Review code changes for actionable correctness and maintainability defects.
+description: Review code changes for introduced correctness and maintainability defects.
 ---
 
 Use this skill when the user asks for a review, audit, diff check, or merge-readiness assessment.

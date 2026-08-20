@@ -1,6 +1,6 @@
 ---
 name: align-requirements
-description: Turn ordinary ambiguity into constraints and testable acceptance criteria.
+description: Turn unclear scope, competing constraints, or ordinary ambiguity into observable acceptance criteria.
 ---
 
 Use this skill when a request has ordinary ambiguity, unclear scope, competing constraints, several deliverables, or a high cost of rework. Route to `grill-me` when an unresolved decision could change public behavior, data, security, compatibility, resources, or architecture.

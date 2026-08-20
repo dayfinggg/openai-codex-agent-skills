@@ -1,6 +1,6 @@
 ---
 name: deslop-code
-description: Simplify generated-looking code without changing behavior.
+description: Simplify generated-looking or unnecessarily complex code without changing behavior.
 ---
 
 Use this skill when the user asks to clean up, simplify, deslop, or reduce generated-looking code.
