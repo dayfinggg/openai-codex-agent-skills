@@ -1,4 +1,0 @@
-interface:
-  display_name: "Migrate Software"
-  short_description: "Migrate software and data through safe compatible stages"
-  default_prompt: "Use $migrate-software to handle this engineering task."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Design Web API"
-  short_description: "Design secure compatible production web APIs"
-  default_prompt: "Use $design-web-api to handle this engineering task."

@@ -2,7 +2,7 @@
 
 English · [Українська](README.uk.md) · [Русский](README.ru.md)
 
-Eighteen skills for production engineering, design, agent workflows, and clear writing, with concise global instructions and a minimal Codex configuration.
+Thirteen skills for production engineering, project architecture, agent workflows, and clear coding, with concise global instructions and a portable Codex configuration.
 
 ## Install
 
@@ -24,7 +24,9 @@ Set-Location openai-codex-agent-skills
 powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1 -Mode Replace
 ```
 
-Use `--merge` or `-Mode Merge` to keep the existing `config.toml` and add only `AGENTS.override.md` and the skills.
+Use `--merge` or `-Mode Merge` to keep the existing `config.toml` and update only `model-instructions.md` and the skills.
+
+The managed configuration points to `~/.codex/model-instructions.md` through `model_instructions_file`.
 
 ## Update
 

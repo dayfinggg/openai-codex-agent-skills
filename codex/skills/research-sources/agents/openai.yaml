@@ -1,0 +1,5 @@
+interface:
+  display_name: "Research Sources"
+  short_description: "Find authoritative sources for a task"
+policy:
+  allow_implicit_invocation: true
