@@ -1,6 +1,6 @@
 ---
 name: diagnose-bugs
-description: Reproduce and isolate bugs with falsifiable hypotheses.
+description: Reproduce and isolate bugs, regressions, failures, and unexplained behavior.
 ---
 
 Use this skill for bug reports, regressions, failures, incidents, or unexplained behavior.

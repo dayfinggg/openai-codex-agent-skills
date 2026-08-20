@@ -1,6 +1,6 @@
 ---
 name: model-domain
-description: Map an unfamiliar codebase and data flow before substantial changes.
+description: Map an unfamiliar codebase, architecture, domain, or data flow before substantial changes.
 ---
 
 Use this skill when the relevant architecture, domain terminology, ownership, or data flow is not already clear.
