@@ -1,0 +1,5 @@
+interface:
+  display_name: "Deslop Code"
+  short_description: "Simplify code without changing behavior"
+policy:
+  allow_implicit_invocation: true

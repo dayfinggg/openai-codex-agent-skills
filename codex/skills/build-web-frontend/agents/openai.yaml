@@ -1,4 +1,0 @@
-interface:
-  display_name: "Build Web Frontend"
-  short_description: "Build accessible responsive production web interfaces"
-  default_prompt: "Use $build-web-frontend to handle this engineering task."

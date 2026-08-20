@@ -36,12 +36,12 @@ if [ "$mode" = "--replace" ]; then
     backup_path "$path"
     rm -rf "$dest/$path"
   done
-  for path in config.toml AGENTS.override.md skills; do
+  for path in config.toml model-instructions.md skills; do
     cp -Rp "$src/$path" "$dest/"
   done
   install_mode=replace
 else
-  for path in AGENTS.override.md skills; do
+  for path in model-instructions.md skills; do
     backup_path "$path"
     if [ -d "$src/$path" ]; then
       mkdir -p "$dest/$path"

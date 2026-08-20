@@ -1,4 +1,0 @@
-interface:
-  display_name: "Diagnose Software"
-  short_description: "Find software root causes through controlled evidence"
-  default_prompt: "Use $diagnose-software to handle this engineering task."

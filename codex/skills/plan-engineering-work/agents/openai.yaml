@@ -1,4 +1,0 @@
-interface:
-  display_name: "Plan Engineering Work"
-  short_description: "Plan complex engineering work before implementation"
-  default_prompt: "Use $plan-engineering-work to handle this engineering task."

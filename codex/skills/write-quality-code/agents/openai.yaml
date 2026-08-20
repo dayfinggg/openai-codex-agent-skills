@@ -1,0 +1,5 @@
+interface:
+  display_name: "Write Quality Code"
+  short_description: "Create clear, robust code without unnecessary complexity"
+policy:
+  allow_implicit_invocation: true

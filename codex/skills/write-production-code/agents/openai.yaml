@@ -1,4 +1,0 @@
-interface:
-  display_name: "Write Production Code"
-  short_description: "Write simple, secure, maintainable production code"
-  default_prompt: "Use $write-production-code to handle this engineering task."

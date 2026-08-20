@@ -1,0 +1,5 @@
+interface:
+  display_name: "Verify Claims"
+  short_description: "Test claims with controlled evidence"
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Project Architecture"
+  short_description: "Organize modules, tests, and project artifacts"
+policy:
+  allow_implicit_invocation: true

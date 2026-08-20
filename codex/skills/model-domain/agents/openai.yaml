@@ -1,0 +1,5 @@
+interface:
+  display_name: "Model the Domain"
+  short_description: "Map an unfamiliar codebase before changes"
+policy:
+  allow_implicit_invocation: true
