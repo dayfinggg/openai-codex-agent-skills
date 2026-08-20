@@ -1,6 +1,6 @@
 ---
 name: plan-slices
-description: Break multi-layer work into small, independently verifiable vertical slices.
+description: Plan changes spanning files, layers, services, or user-visible behavior as independently verifiable slices.
 ---
 
 Use this skill when a change spans several files, layers, services, or user-visible behaviors.

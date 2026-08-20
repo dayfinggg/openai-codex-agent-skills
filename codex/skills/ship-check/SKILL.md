@@ -1,6 +1,6 @@
 ---
 name: ship-check
-description: Run focused final checks before handing off code changes.
+description: Run focused final checks before handing off an implementation, fix, or refactor.
 ---
 
 Use this skill before completing an implementation, bug fix, or refactor when validation is possible or the user asks whether the work is ready.

@@ -1,6 +1,6 @@
 ---
 name: grill-me
-description: Confirm high-impact ambiguous requests before implementation when hidden decisions matter.
+description: Resolve high-impact ambiguity before implementation when repository evidence cannot settle the decision.
 ---
 
 Use this skill only when a request is materially underspecified and proceeding would commit to a product behavior, public contract, data model, security or privacy rule, compatibility promise, resource limit, or architectural choice that repository evidence cannot settle. It may start by turning a vague request into a small decision tree; it does not require the user to provide a finished plan first.

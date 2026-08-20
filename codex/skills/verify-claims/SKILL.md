@@ -1,6 +1,6 @@
 ---
 name: verify-claims
-description: Verify claims with controlled evidence and one verdict.
+description: Verify whether behavior works, is fixed, stable, compliant, faster, or reproducible.
 ---
 
 Use this skill when the user asks whether something works, is fixed, stable, compliant, faster, or reproducible.

@@ -1,9 +1,9 @@
 ---
 name: write-quality-code
-description: Create clear, robust, maintainable code without unnecessary complexity.
+description: Create, change, or update code of any size with clear, robust, maintainable results.
 ---
 
-Use this skill when implementing or substantially changing code. Treat the description as a routing trigger, not as a complete specification.
+Use this skill for every code creation, change, or update, regardless of size. Treat the description as a routing trigger, not as a complete specification.
 
 Read the applicable repository guidance and nearby source of truth before editing. Follow the local language, framework, formatter, linter, type-checker, architecture, and naming conventions. Prefer the existing project style over a generic style guide when they differ.
 
