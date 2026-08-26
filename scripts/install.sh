@@ -32,13 +32,17 @@ backup_path() {
 }
 
 if [ "$mode" = "--replace" ]; then
-  for path in config.toml AGENTS.md AGENTS.override.md model-instructions.md agents skills; do
+  for path in config.toml AGENTS.md AGENTS.override.md model-instructions.md agents; do
     backup_path "$path"
     rm -rf "$dest/$path"
   done
-  for path in config.toml model-instructions.md skills; do
+  backup_path skills
+  mkdir -p "$dest/skills"
+  find "$dest/skills" -mindepth 1 -maxdepth 1 ! -name .system -exec rm -rf -- {} +
+  for path in config.toml model-instructions.md; do
     cp -Rp "$src/$path" "$dest/"
   done
+  cp -Rp "$src/skills/." "$dest/skills/"
   install_mode=replace
 else
   for path in model-instructions.md skills; do

@@ -1,8 +1,10 @@
 ---
 name: diagnose-bugs
-description: Reproduce and isolate bugs, regressions, failures, and unexplained behavior.
+description: Reproduce and isolate a bug, regression, failure, or unexplained behavior before fixing it.
 ---
 
-Use this skill for bug reports, regressions, failures, incidents, or unexplained behavior.
+Use this skill for bug reports, regressions, failures, incidents, or unexplained behavior where the cause is not already established by direct evidence.
 
-Capture the symptom, environment, expected behavior, and observed evidence. Build the smallest deterministic reproduction available. Rank hypotheses by evidence and test one variable at a time. Prefer a failing regression test or an instrumented trace before changing the implementation. Keep the original symptom as the acceptance check, remove temporary instrumentation, and distinguish verified cause from remaining uncertainty.
+Capture the expected behavior, observed symptom, relevant environment, and current evidence. Build the smallest deterministic reproduction available. Rank a small set of falsifiable hypotheses and test one distinguishing fact at a time. Prefer a failing regression test or focused trace before changing the implementation when a suitable seam exists.
+
+Fix the verified cause with the smallest complete change. Keep the original symptom as a regression check, remove temporary instrumentation, and distinguish the verified cause from plausible but unproven contributing factors.

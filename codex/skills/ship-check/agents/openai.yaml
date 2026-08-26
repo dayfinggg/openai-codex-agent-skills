@@ -1,5 +1,0 @@
-interface:
-  display_name: "Ship Check"
-  short_description: "Run focused checks before handoff"
-policy:
-  allow_implicit_invocation: true

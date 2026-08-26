@@ -1,14 +1,12 @@
 ---
 name: research-sources
-description: Research changing or unfamiliar systems, APIs, libraries, standards, policies, or named sources.
+description: Investigate and synthesize external, changing, unfamiliar, or user-named sources with explicit evidence and coverage.
 ---
 
-Use this skill when correctness depends on external behavior, changing facts, or a source named by the user.
+Use this skill for research or source synthesis, not for a routine single documentation lookup already covered by the base grounding rules.
 
-1. Define the narrow question and the facts that must be verified.
-2. Prefer primary sources such as official documentation, specifications, source code, standards, and original research.
-3. Read the relevant source sections and check their date, version, scope, and agreement with other sources.
-4. Separate source-backed facts from inferences and unknowns.
-5. Cite the sources used when they materially support the result.
+Define the question, claims that require verification, coverage dimensions, and inclusion or exclusion criteria before expanding the search. Prefer primary sources such as official documentation, specifications, source code, standards, first-party data, and original research. Open the underlying material; do not count search snippets, link collections, mirrors, or duplicate presentations of one work as separate evidence.
 
-Search only the public context needed for the task. Never send secrets, credentials, private files, or personal data to a search service. Do not turn an unverified result into a fact. Stop when the question is resolved; do not collect sources for their own sake.
+Check dates, versions, scope, methodology, and disagreement. Separate source-backed facts from author opinion, inference, and unknowns. Stop ordinary research when the evidence is sufficient for the requested decision. For a requested deep review or minimum source count, track unique underlying works and report honestly when the requested coverage was not achieved.
+
+Cite the sources that materially support the result and never send private data to search.

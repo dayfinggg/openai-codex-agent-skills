@@ -1,5 +1,5 @@
 interface:
   display_name: "Write Quality Code"
-  short_description: "Create and update clear, robust code of any size"
+  short_description: "Create repository-consistent, validated code"
 policy:
   allow_implicit_invocation: true
