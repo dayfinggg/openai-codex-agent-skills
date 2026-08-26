@@ -1,5 +1,0 @@
-interface:
-  display_name: "Align Requirements"
-  short_description: "Turn requests into testable acceptance criteria"
-policy:
-  allow_implicit_invocation: true

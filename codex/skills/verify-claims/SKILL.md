@@ -1,10 +1,12 @@
 ---
 name: verify-claims
-description: Verify whether behavior works, is fixed, stable, compliant, faster, or reproducible.
+description: Verify a claim that behavior works, is fixed, stable, compliant, faster, safer, or reproducible using controlled evidence.
 ---
 
-Use this skill when the user asks whether something works, is fixed, stable, compliant, faster, or reproducible.
+Use this skill when the user explicitly asks to verify a behavioral, performance, security, compliance, stability, or reproducibility claim.
 
-State one falsifiable claim. For comparative claims, capture a baseline and a treatment under the same conditions. For non-comparative claims, define controlled observations and negative controls. Preserve raw logs, outputs, or measurements needed to audit the result. Use an independent expected result or a separate checker when the implementation and its tests were produced by the same agent. Compare the evidence against a predeclared success threshold or coverage matrix and return exactly one verdict. Use `VERIFIED`, `NOT VERIFIED`, or `INCONCLUSIVE`. Do not infer certainty from one passing run, a plausible explanation, model-authored tests, or missing evidence.
+State the falsifiable claim and success criterion before interpreting results. For a comparison, capture baseline and treatment under the same relevant conditions. For a non-comparative claim, choose observations and negative or boundary controls that could falsify it. Preserve the raw evidence needed to audit the verdict.
 
-Read [references/examples.md](references/examples.md) when selecting an independent check for a performance, security, or completeness claim.
+Use an independent expected result or checker when the implementation and its tests were produced by the same agent. Match the strength of the verdict to the coverage: a narrow passing check does not prove a broader property. Return exactly one verdict, `VERIFIED`, `NOT VERIFIED`, or `INCONCLUSIVE`, and state the evidence boundary that determines it.
+
+Read [references/examples.md](references/examples.md) when selecting an independent check or a controlled baseline.

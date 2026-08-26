@@ -1,8 +1,10 @@
 ---
 name: review-code
-description: Review code changes for introduced correctness and maintainability defects.
+description: Review a code change or audit a requested code scope for concrete defects, regressions, and unmet requirements.
 ---
 
-Use this skill when the user asks for a review, audit, diff check, or merge-readiness assessment.
+Use this skill when the user asks for a code review, change review, merge-readiness review, or code audit. For a change review, pin the comparison point and confirm the intended diff. For an audit, define the requested scope even when no diff exists.
 
-Resolve the actual comparison point and inspect the complete diff, including untracked and generated files, with enough surrounding code to establish each finding. For changes to public, shared, security-sensitive, or stateful code, trace the likely blast radius beyond the diff and prove the key safety fact with a focused run when practical. Review repository standards and fulfillment of the originating request as separate questions. Report only concrete, introduced, actionable issues supported by a reachable scenario. Order findings by severity, keep cited ranges minimal, and mention material test gaps or residual risks only when relevant. Do not invent findings or turn style preferences into defects.
+Inspect every relevant changed line plus enough surrounding code, tests, configuration, generated artifacts, and call paths to judge behavior. Evaluate repository conformance and fulfillment of the originating request as separate questions. Trace security-sensitive, concurrent, stateful, compatibility-sensitive, or resource-sensitive behavior far enough to establish the relevant invariant.
+
+Report only concrete, actionable findings supported by evidence. For a change review, distinguish defects introduced or exposed by the change from unrelated pre-existing issues; for an audit, include pre-existing issues inside the requested scope. Order findings by severity, cite the smallest useful location, and identify a material test or evidence gap only when it changes confidence. Do not turn personal style preferences into defects.

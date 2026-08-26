@@ -1,5 +1,0 @@
-interface:
-  display_name: "Plan Vertical Slices"
-  short_description: "Break complex work into verifiable slices"
-policy:
-  allow_implicit_invocation: true

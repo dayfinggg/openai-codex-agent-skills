@@ -1,5 +1,5 @@
 interface:
-  display_name: "Review Code Changes"
-  short_description: "Find actionable defects in a code change"
+  display_name: "Review or Audit Code"
+  short_description: "Find actionable defects in a change or code scope"
 policy:
   allow_implicit_invocation: true

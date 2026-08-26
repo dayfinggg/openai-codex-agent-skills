@@ -34,7 +34,7 @@ try {
     New-Item -ItemType Directory -Force -Path $Destination | Out-Null
 
     if ($Mode -eq "Replace") {
-        foreach ($Name in @("config.toml", "AGENTS.md", "AGENTS.override.md", "model-instructions.md", "agents", "skills")) {
+        foreach ($Name in @("config.toml", "AGENTS.md", "AGENTS.override.md", "model-instructions.md", "agents")) {
             $Path = Join-Path $Destination $Name
             if (Test-Path -LiteralPath $Path) {
                 New-Item -ItemType Directory -Force -Path $Backup | Out-Null
@@ -42,9 +42,20 @@ try {
                 Remove-Item -LiteralPath $Path -Recurse -Force
             }
         }
-        foreach ($Name in @("config.toml", "model-instructions.md", "skills")) {
+        $DestinationSkills = Join-Path $Destination "skills"
+        if (Test-Path -LiteralPath $DestinationSkills) {
+            New-Item -ItemType Directory -Force -Path $Backup | Out-Null
+            Copy-Item -LiteralPath $DestinationSkills -Destination $Backup -Recurse -Force
+        }
+        New-Item -ItemType Directory -Force -Path $DestinationSkills | Out-Null
+        Get-ChildItem -LiteralPath $DestinationSkills -Force |
+            Where-Object { $_.Name -ne ".system" } |
+            Remove-Item -Recurse -Force
+        foreach ($Name in @("config.toml", "model-instructions.md")) {
             Copy-Item -LiteralPath (Join-Path $Source $Name) -Destination $Destination -Recurse -Force
         }
+        Get-ChildItem -LiteralPath (Join-Path $Source "skills") -Force |
+            Copy-Item -Destination $DestinationSkills -Recurse -Force
     }
     else {
         foreach ($Name in @("model-instructions.md", "skills")) { Copy-ManagedPath -Name $Name }

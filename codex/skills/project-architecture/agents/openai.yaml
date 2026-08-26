@@ -1,5 +1,5 @@
 interface:
   display_name: "Project Architecture"
-  short_description: "Organize modules, tests, and project artifacts"
+  short_description: "Choose project, module, test, and artifact boundaries"
 policy:
   allow_implicit_invocation: true

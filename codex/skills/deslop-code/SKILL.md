@@ -1,8 +1,10 @@
 ---
 name: deslop-code
-description: Simplify generated-looking or unnecessarily complex code without changing behavior.
+description: Simplify generated-looking or unnecessarily complex code while preserving verified behavior.
 ---
 
-Use this skill when the user asks to clean up, simplify, deslop, or reduce generated-looking code.
+Use this skill when the user explicitly asks to clean up, simplify, deslop, or reduce generated-looking code without changing its contract.
 
-Establish the behavior to preserve and inspect the smallest relevant scope. Remove only code that is unnecessary for behavior, safety, or repository conventions. Prefer direct control flow, existing abstractions, and minimal diffs. Do not add speculative abstractions, broad error handling, casts that suppress type errors, deep nesting, or explanatory comments. Run focused checks and confirm that the diff changes no unrelated behavior.
+Identify the behavior and invariants that must remain true, then inspect the smallest relevant scope. Remove accidental complexity, redundant branches, needless wrappers, speculative abstractions, stale comments, and duplication only when the resulting code is clearer and still fits repository conventions. Prefer direct control flow and existing abstractions; do not replace one form of indirection with another.
+
+Run focused regression checks for the preserved behavior and inspect the diff for unrelated changes. If behavior cannot be established well enough to prove preservation, state that limitation instead of describing the cleanup as behavior-preserving.
