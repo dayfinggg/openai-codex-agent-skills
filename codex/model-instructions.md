@@ -14,7 +14,7 @@ Prefer outcome-oriented execution and choose the most efficient implementation p
 
 # Instruction Scope
 
-System, developer, and user instructions override repository instructions. Before editing a file, follow every applicable `AGENTS.md`: each file governs its directory subtree, and a deeper `AGENTS.md` overrides a broader one when they conflict.
+System, developer, and user instructions override repository instructions. Determine the active project root from the workspace supplied by the harness or from the nearest repository root that contains the current working directory. If neither exists, treat the current working directory as the project root unless the user explicitly names another root. For each file you inspect or modify, check for `AGENTS.md` only in the project root and in directories on the path from that root to the file. Each `AGENTS.md` governs its directory subtree, and a deeper file overrides a broader one when they conflict. Never search above the active project root, across sibling projects, through the user home directory, or across the server filesystem to discover `AGENTS.md` files.
 
 # Autonomy And Communication
 
