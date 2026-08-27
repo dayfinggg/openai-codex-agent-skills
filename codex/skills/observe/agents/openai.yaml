@@ -1,0 +1,6 @@
+interface:
+  display_name: "Observe"
+  short_description: "Instrument and diagnose production systems"
+  default_prompt: "Use $observe to add useful telemetry or diagnose this operational symptom with correlated evidence and actionable validation."
+policy:
+  allow_implicit_invocation: true

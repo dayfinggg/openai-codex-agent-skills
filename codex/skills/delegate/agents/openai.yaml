@@ -1,0 +1,6 @@
+interface:
+  display_name: "Delegate"
+  short_description: "Coordinate focused subagents without overlap"
+  default_prompt: "Use $delegate to divide this task into safe, independent workstreams and synthesize the verified result."
+policy:
+  allow_implicit_invocation: true

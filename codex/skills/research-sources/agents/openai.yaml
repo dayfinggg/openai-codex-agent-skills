@@ -1,5 +1,0 @@
-interface:
-  display_name: "Research Sources"
-  short_description: "Investigate and synthesize authoritative sources"
-policy:
-  allow_implicit_invocation: true

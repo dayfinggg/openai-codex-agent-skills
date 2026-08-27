@@ -1,0 +1,6 @@
+interface:
+  display_name: "Frontend"
+  short_description: "Build robust production web interfaces"
+  default_prompt: "Use $frontend to implement this interface in the existing stack with semantic, responsive, accessible, and production-ready behavior."
+policy:
+  allow_implicit_invocation: true

@@ -1,5 +1,0 @@
-interface:
-  display_name: "Diagnose Bugs"
-  short_description: "Reproduce and isolate bugs systematically"
-policy:
-  allow_implicit_invocation: true

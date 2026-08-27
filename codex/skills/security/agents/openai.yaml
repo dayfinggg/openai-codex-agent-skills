@@ -1,0 +1,4 @@
+interface:
+  display_name: "Security"
+  short_description: "Apply proportional secure-by-design defaults"
+  default_prompt: "Use $security to secure this change proportionally to its actual attack surface and risk."

@@ -1,5 +1,0 @@
-interface:
-  display_name: "Grill Me"
-  short_description: "Resolve high-impact decisions before implementation"
-policy:
-  allow_implicit_invocation: true
