@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan"
+  short_description: "Build evidence-based implementation plans"
+  default_prompt: "Use $plan to create a verified implementation plan for this task."

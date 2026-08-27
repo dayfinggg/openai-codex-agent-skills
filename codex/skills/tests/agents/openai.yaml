@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tests"
+  short_description: "Design focused, resilient software tests"
+  default_prompt: "Use $tests to design and implement the smallest sufficient test suite for this change."

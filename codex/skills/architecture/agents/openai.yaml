@@ -1,0 +1,6 @@
+interface:
+  display_name: "Architecture"
+  short_description: "Design the smallest sufficient system architecture"
+  default_prompt: "Use $architecture to design the smallest architecture that meets this system's verified constraints and explain its concrete trade-offs."
+policy:
+  allow_implicit_invocation: true

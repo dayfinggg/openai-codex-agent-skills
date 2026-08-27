@@ -1,5 +1,0 @@
-interface:
-  display_name: "Project Architecture"
-  short_description: "Choose project, module, test, and artifact boundaries"
-policy:
-  allow_implicit_invocation: true
