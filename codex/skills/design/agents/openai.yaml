@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design"
+  short_description: "Direct contextual product and visual design"
+  default_prompt: "Use $design to create and visually verify a context-specific product interface."

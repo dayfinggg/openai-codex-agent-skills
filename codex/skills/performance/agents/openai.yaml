@@ -1,0 +1,6 @@
+interface:
+  display_name: "Performance"
+  short_description: "Measure bottlenecks and prove real improvements"
+  default_prompt: "Use $performance to find the measured bottleneck, optimize it safely, and prove the result with representative metrics."
+policy:
+  allow_implicit_invocation: true
