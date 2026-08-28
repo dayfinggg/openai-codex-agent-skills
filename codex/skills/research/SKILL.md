@@ -1,6 +1,6 @@
 ---
 name: research
-description: Research current or uncertain factual questions with web retrieval, source evaluation, contradiction resolution, freshness checks, and precise citations. Use when an answer depends on external evidence, may have changed, is niche or consequential, or the user asks to search or verify.
+description: Research external evidence when the user asks to search, verify, compare sources, resolve contradictions, or produce cited factual analysis. Use when current, disputed, niche, or consequential facts are central to the deliverable; do not use for routine version-matched documentation lookup incidental to coding.
 ---
 
 # Research

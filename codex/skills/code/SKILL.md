@@ -1,41 +1,36 @@
 ---
 name: code
-description: Write, modify, refactor, and review production code using the project's actual versions, conventions, contracts, and validation. Use for implementation, bug fixes, performance or security work, API changes, and code quality improvements in any language or stack.
+description: Implement or refactor production code in an existing repository. Use when executable code changes are the primary work, including diagnosed bug fixes. Pair with affected domain skills; do not use for read-only review, diagnosis-only, architecture-only, or plan-only requests.
 ---
 
 # Code
 
-Produce the smallest complete change that solves the stated problem and improves or preserves the surrounding code's health. Treat principles as decision tools, not goals to maximize.
+Implement the smallest complete change that satisfies the repository's current contracts. Use this skill for code design and implementation quality. Follow the base model instruction for repository discovery, authorization, tool use, general validation order, and final reporting; load specialist skills only for domains the change materially affects.
 
-## Start from the project
+## Fit the codebase
 
-1. Define the requested behavior, acceptance evidence, scope boundary, and public behavior that must remain unchanged.
-2. Inspect applicable instructions, nearby code, tests, manifests, lockfiles, formatter and linter settings, compiler options, generated-code boundaries, and relevant history before choosing a design.
-3. Determine the exact language, runtime, framework, library, SDK, database, protocol, and tool versions in use. Consult official documentation and release notes for those versions. Do not silently upgrade or use a newer API because it is preferable in isolation.
-4. Reuse the project's established architecture and idioms unless they cause the defect or prevent the requested outcome. Local consistency outranks a generic style preference.
-5. Choose the least complex design that satisfies current confirmed requirements, failure modes, security needs, and performance constraints. Avoid speculative layers and premature generalization.
+1. Define the requested observable behavior, scope boundary, and public behavior that must remain unchanged.
+2. Use the exact installed language, runtime, framework, library, SDK, protocol, database, and tool versions. Follow established repository and language idioms rather than importing a generic style.
+3. Reuse the current architecture unless it causes the defect or prevents the requested outcome. Choose the design with the fewest concepts, states, branches, dependencies, and layers that still satisfies confirmed correctness, failure, security, and performance requirements.
+4. Treat KISS, YAGNI, DRY, SOLID, functional design, and object design as decision aids, not targets. Do not reshape code merely to demonstrate a principle.
 
-## Implement completely
+## Implement the behavior
 
-1. Write real, runnable logic. Do not add comments, explanatory prose, placeholders, stubs, pseudocode, TODO or FIXME markers, dummy values, ignored branches, or unfinished fallbacks. Preserve required license headers and generated markers without adding new commentary.
-2. Keep the diff focused. Do not rename, move, reformat, upgrade, or redesign unrelated code.
-3. Make contracts explicit through types, signatures, schemas, validation, and tests. Validate untrusted input at the boundary and keep valid internal states easy to represent.
-4. Keep state changes and external effects visible. Separate pure decisions from I/O when that makes behavior easier to test or reason about, without forcing every function into a functional style.
-5. Prefer cohesive modules with narrow interfaces. Hide change-prone implementation details and avoid global state, hidden dependencies, cross-layer shortcuts, and bidirectional coupling.
-6. Add a dependency only when existing project facilities or the standard library cannot solve the requirement cleanly. Verify its supported versions, maintenance, security record, license, transitive cost, and lockfile impact.
-7. Preserve public APIs, persisted data, configuration, commands, protocols, error contracts, and supported environments unless the task requires a break. Provide a deliberate migration or compatibility path when callers cannot change atomically.
+1. Make contracts explicit at the boundary through appropriate types, signatures, schemas, validation, and error behavior. Keep valid internal states easy to represent.
+2. Keep state changes, resource ownership, and external effects visible. Separate decisions from I/O when that materially improves reasoning, testing, or failure handling without forcing an unnatural paradigm.
+3. Prefer cohesive modules with narrow interfaces. Hide change-prone details and avoid global state, ambient dependencies, cross-layer shortcuts, bidirectional coupling, and abstractions that need flags or type checks to serve unrelated callers.
+4. Add a dependency only when the standard library and installed project facilities cannot solve the requirement cleanly. Account for compatibility, maintenance, license, transitive and runtime cost, resolved versions, and removal cost.
+5. Preserve public APIs, persisted data, configuration, commands, protocols, errors, ordering, timing, and supported environments unless the task requires a break. Provide a deliberate compatibility or migration path when consumers cannot change atomically.
 
 ## Load conditional guidance
 
-1. Read [references/design.md](references/design.md) before introducing or changing abstractions, functions, modules, classes, interfaces, public APIs, or architecture.
-2. Read [references/runtime.md](references/runtime.md) when the change touches error handling, resources, concurrency, asynchronous work, performance, caching, security, dependencies, releases, or compatibility.
-3. Do not load either reference for a trivial local edit whose design and runtime behavior are already fixed by adjacent code.
+1. Read [design decisions](references/design.md) before introducing or materially changing abstractions, modules, classes, interfaces, public APIs, or architectural boundaries. Skip it for a local edit whose structure is already fixed by adjacent code.
+2. Read [runtime and delivery decisions](references/runtime.md) when the change affects errors, resources, concurrency, asynchronous work, caching, dependencies, compatibility, or release behavior.
+3. Use `debug` to establish a reproducible cause before implementation when the failure mechanism is unknown. Use `tests` for substantial test selection, fixtures, assertions, flakiness, or test repair.
+4. Apply `api`, `database`, `frontend`, `accessibility`, `security`, `performance`, `devops`, `observe`, or `docs` only when the changed boundary belongs to that domain. Do not restate their rules here.
 
-## Validate behavior
+## Prove the change
 
-1. Map each requested behavior and material failure mode to observable evidence. Add or update tests when the repository has an established test location and the changed behavior is not already covered.
-2. Test the narrowest changed unit first, then the affected integration path, and only then broader suites that add confidence. Use the project's existing commands and infrastructure.
-3. Cover the regression, boundary values, invalid input, relevant failures, and compatibility behavior. Prefer deterministic tests of public behavior over implementation-shaped assertions or excessive mocks.
-4. Run applicable formatting, static analysis, type checking, compilation, tests, and packaging. Run race, sanitizer, security, migration, or benchmark checks when the changed risk requires them and the project supports them.
-5. Review the final diff for accidental scope growth, dead code, duplicated knowledge, leaked secrets, swallowed errors, unbounded work, stale documentation, and unsupported API use.
-6. Report only results actually observed. Separate unrelated pre-existing failures from failures caused by the change.
+1. Map each requested behavior and material failure mode to observable evidence. Add or update tests only where existing evidence does not already cover the changed risk.
+2. Use the repository's established compiler, formatter, static analysis, type checker, test, build, and packaging gates. Add race, sanitizer, security, migration, browser, or benchmark checks only when the changed risk and existing project tooling justify them.
+3. Review the final code for accidental surface expansion, impossible or hidden state, duplicated knowledge, leaked resources or secrets, swallowed errors, unbounded work, stale cache behavior, unsupported APIs, and compatibility regressions.
