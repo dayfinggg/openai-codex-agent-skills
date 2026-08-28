@@ -16,6 +16,10 @@ Inspect the change, its callers, existing tests, build configuration, and CI bef
 3. Find the repository's test framework, conventions, fixtures, helpers, commands, environment assumptions, and current flaky or quarantined tests. Reuse them unless they cannot express a required check.
 4. Identify what existing checks already prove. Add only evidence that closes a real gap.
 
+If the repository declares or configures no test framework, do not turn a globally installed third-party runner into an undeclared project dependency. Prefer the language's standard test facilities when they can express the required evidence; otherwise ask before adding or configuring a dependency.
+
+Map every explicit documented invariant and material failure mode in scope to existing or new evidence. Treat documented input domains and preconditions as contracts when they specify failure behavior, not as untested caller assumptions. When the user requests tests without implementation changes, do not weaken a stated contract to make the suite pass; keep a precise failing test when it exposes a real contract gap and report that result accurately.
+
 Do not turn a preference or guess into a failing test. Ground expected behavior in requirements, public contracts, documented invariants, established project behavior, or a user-confirmed decision; ask when a material ambiguity cannot be resolved from those sources.
 
 For a bug fix, reproduce the defect with the narrowest meaningful failing test before changing production behavior when feasible. Preserve the reproducer as a regression test after the fix.
