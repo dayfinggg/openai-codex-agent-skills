@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Create evidence-based implementation plans for complex software and engineering work. Use when the user asks for a plan, design approach, migration sequence, or when substantial multi-phase work needs deliberate decomposition before execution; skip simple one-step changes.
+description: Create evidence-based implementation plans when the user asks for a plan, approach, migration sequence, or decomposition deliverable. Use for plan-only and plan-then-implement requests; do not invoke solely because an implementation task is complex, since internal planning belongs to the base agent workflow.
 ---
 
 # Plan
