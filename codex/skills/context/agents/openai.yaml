@@ -1,0 +1,7 @@
+interface:
+  display_name: "Context"
+  short_description: "Assemble focused context for the active task"
+  default_prompt: "Use $context to assemble the smallest useful context for this task."
+
+policy:
+  allow_implicit_invocation: true
