@@ -25,7 +25,7 @@ Check caller coverage, transformed data, mixed-version behavior, rollback, and a
 
 ## Boundaries
 
-Require confirmation before destructive data operations or external production writes. Report unknown external consumers rather than assuming none exist.
+Require confirmation only for destructive production-data operations that could cause material, difficult-to-recover harm and are not already explicitly authorized. Treat an explicit migration or deployment request as authorization for its ordinary in-scope production writes. Report unknown external consumers rather than assuming none exist.
 
 ## Output
 
