@@ -1,0 +1,7 @@
+interface:
+  display_name: "Handoff"
+  short_description: "Transfer active work without losing decisions"
+  default_prompt: "Use $handoff to transfer this work with its decisions and next step intact."
+
+policy:
+  allow_implicit_invocation: true

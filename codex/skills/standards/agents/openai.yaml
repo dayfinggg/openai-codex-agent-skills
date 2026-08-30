@@ -1,0 +1,7 @@
+interface:
+  display_name: "Standards"
+  short_description: "Apply code, web, and database standards"
+  default_prompt: "Use $standards to apply the relevant code quality standards to this change."
+
+policy:
+  allow_implicit_invocation: true

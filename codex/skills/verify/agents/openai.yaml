@@ -1,0 +1,7 @@
+interface:
+  display_name: "Verify"
+  short_description: "Prove completed work against real behavior"
+  default_prompt: "Use $verify to prove this work is complete against the real artifact."
+
+policy:
+  allow_implicit_invocation: true

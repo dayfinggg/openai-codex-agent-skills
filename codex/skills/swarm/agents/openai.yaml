@@ -1,0 +1,7 @@
+interface:
+  display_name: "Swarm"
+  short_description: "Parallelize independent work and synthesize it"
+  default_prompt: "Use $swarm to parallelize these independent investigations and synthesize them."
+
+policy:
+  allow_implicit_invocation: true

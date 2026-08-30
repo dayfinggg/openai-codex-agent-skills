@@ -1,0 +1,7 @@
+interface:
+  display_name: "Implement"
+  short_description: "Implement approved work within scope"
+  default_prompt: "Use $implement to implement this approved work and verify it."
+
+policy:
+  allow_implicit_invocation: true

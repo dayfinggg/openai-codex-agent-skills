@@ -1,0 +1,7 @@
+interface:
+  display_name: "Migrate"
+  short_description: "Move callers safely to a new design"
+  default_prompt: "Use $migrate to move these callers safely to the new design."
+
+policy:
+  allow_implicit_invocation: true

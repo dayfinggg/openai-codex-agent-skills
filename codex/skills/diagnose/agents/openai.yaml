@@ -1,0 +1,7 @@
+interface:
+  display_name: "Diagnose"
+  short_description: "Reproduce failures and identify root causes"
+  default_prompt: "Use $diagnose to reproduce this failure and identify its root cause."
+
+policy:
+  allow_implicit_invocation: true

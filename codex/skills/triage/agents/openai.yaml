@@ -1,0 +1,7 @@
+interface:
+  display_name: "Triage"
+  short_description: "Turn incoming issues into actionable briefs"
+  default_prompt: "Use $triage to classify this issue and produce an actionable engineering brief."
+
+policy:
+  allow_implicit_invocation: true
