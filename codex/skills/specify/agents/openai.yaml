@@ -1,0 +1,7 @@
+interface:
+  display_name: "Specify"
+  short_description: "Turn settled requirements into a testable spec"
+  default_prompt: "Use $specify to turn our settled requirements into a testable specification."
+
+policy:
+  allow_implicit_invocation: true

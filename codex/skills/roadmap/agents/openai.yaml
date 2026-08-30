@@ -1,0 +1,7 @@
+interface:
+  display_name: "Roadmap"
+  short_description: "Break large work into verifiable stages"
+  default_prompt: "Use $roadmap to break this large change into verifiable stages."
+
+policy:
+  allow_implicit_invocation: true

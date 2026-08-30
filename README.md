@@ -2,7 +2,7 @@
 
 English · [Українська](README.uk.md) · [Русский](README.ru.md)
 
-Ten skills for production engineering, project architecture, agent workflows, and clear coding, with concise global instructions and a portable Codex configuration.
+Twenty skills for production engineering, project architecture, agent workflows, and clear coding, with concise global instructions and a portable Codex configuration.
 
 ## Install
 

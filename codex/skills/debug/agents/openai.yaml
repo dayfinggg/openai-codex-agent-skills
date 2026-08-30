@@ -1,3 +1,0 @@
-interface:
-  display_name: "Debug"
-  short_description: "Find causes from evidence and prove each repair"

@@ -1,0 +1,28 @@
+---
+name: tdd
+description: Develop a feature or bug fix through a focused failing-test, minimal-implementation, and refactor loop. Use when the user requests TDD, asks for a regression test, or the bug has an obvious cheap local test target. Do not force TDD when the useful test path is unclear, expensive, or integration-heavy.
+---
+
+# TDD
+
+Use a test to define behavior before implementation when that test provides a fast and trustworthy feedback loop.
+
+## Red
+
+Choose the narrowest test seam that observes public behavior rather than internal steps. Write one test for the missing or broken behavior. Run it and confirm that it fails for the expected reason. A syntax error, unrelated failure, or test that already passes does not establish red.
+
+## Green
+
+Make the smallest production change that satisfies the test without weakening assertions or bypassing the real path. Run the focused test until it passes, then run nearby tests that protect the same contract.
+
+## Refactor
+
+Improve names and structure only while tests remain green. Avoid speculative generalization. Add another test only for a distinct behavior or failure mode.
+
+## When red is impractical
+
+Explain why the test cannot be made cheap or reliable. Use a reproduction script, integration check, or manual observable check instead. Do not create a brittle test merely to satisfy the workflow.
+
+## Output
+
+Report the failing observation, implementation change, passing evidence, and any broader checks.

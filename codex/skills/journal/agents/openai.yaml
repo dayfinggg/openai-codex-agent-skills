@@ -1,0 +1,7 @@
+interface:
+  display_name: "Journal"
+  short_description: "Record evidence backed decisions during long work"
+  default_prompt: "Use $journal to keep an evidence backed decision record for this long task."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Impact"
+  short_description: "Find what a proposed change could break"
+  default_prompt: "Use $impact to determine what this proposed change could break."
+
+policy:
+  allow_implicit_invocation: true

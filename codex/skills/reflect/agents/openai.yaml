@@ -1,0 +1,7 @@
+interface:
+  display_name: "Reflect"
+  short_description: "Extract proven improvements after completed work"
+  default_prompt: "Use $reflect to extract proven improvements from the completed work."
+
+policy:
+  allow_implicit_invocation: true

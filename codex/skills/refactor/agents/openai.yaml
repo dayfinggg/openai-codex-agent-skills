@@ -1,0 +1,7 @@
+interface:
+  display_name: "Refactor"
+  short_description: "Simplify code without changing behavior"
+  default_prompt: "Use $refactor to simplify this code while preserving behavior."
+
+policy:
+  allow_implicit_invocation: true
