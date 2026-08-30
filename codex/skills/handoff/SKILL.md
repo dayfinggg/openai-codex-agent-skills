@@ -21,7 +21,7 @@ Name the next concrete action, its inputs, expected result, and completion check
 
 ## Boundaries
 
-Do not claim a handoff was delivered to another agent unless the corresponding message or transfer actually succeeded. Creating a handoff document does not authorize external writes.
+Do not claim a handoff was delivered to another agent unless the corresponding message or transfer actually succeeded. A request only to create a handoff document does not authorize sending it, while an explicit request to send or transfer it does.
 
 ## Output
 

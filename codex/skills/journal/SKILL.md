@@ -21,7 +21,7 @@ Use one row or compact block per decision. Keep facts separate from inference. D
 
 ## Boundaries
 
-Keep the journal local unless the user or repository requires committing or publishing it. Obtain authorization immediately before an external write. A journal supports verification but does not replace it.
+Keep the journal local unless the user or repository requires committing or publishing it. Treat that request or trusted project rule as authorization for the ordinary external write and do not ask again. A journal supports verification but does not replace it.
 
 ## Output
 

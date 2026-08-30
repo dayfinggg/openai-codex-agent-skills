@@ -15,7 +15,7 @@ Read the governing instructions, target files, relevant tests, and one local pre
 
 Preserve user work and repository conventions. Prefer existing abstractions and dependencies. Keep the patch focused, update all affected callers, and avoid compatibility layers that the request does not require. Do not refactor adjacent code unless it is necessary for correctness.
 
-Run safe independent reads and checks efficiently. Stop before an external write, destructive action, purchase, or material scope expansion unless separately authorized.
+Run safe independent reads and checks efficiently. Continue through ordinary in-scope external writes, commits, pushes, and deployments when the user or trusted project rules authorize the workflow. Stop only before a genuinely dangerous action that lacks exact authorization, a purchase, or a material scope expansion.
 
 ## Verify
 
