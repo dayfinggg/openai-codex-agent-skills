@@ -1,4 +1,6 @@
 $ErrorActionPreference = "Stop"
+. (Join-Path $PSScriptRoot "lib.ps1")
+
 $Repository = if ($env:CODEX_SKILLS_REPO) { $env:CODEX_SKILLS_REPO } else { "dayfinggg/openai-codex-agent-skills" }
 $Branch = if ($env:CODEX_SKILLS_BRANCH) { $env:CODEX_SKILLS_BRANCH } else { "main" }
 $TemporaryDirectory = Join-Path ([System.IO.Path]::GetTempPath()) ("openai-codex-agent-skills-" + [guid]::NewGuid())
@@ -24,121 +26,34 @@ try {
     }
 
     $Source = Join-Path $SourceRoot.FullName "codex"
-    $Destination = Join-Path $HOME ".codex"
+    $UserProfile = [Environment]::GetFolderPath("UserProfile")
+    $Destination = Join-Path $UserProfile ".codex"
     $InstallModePath = Join-Path $Destination ".openai-codex-agent-skills.install-mode"
     $InstallMode = if (Test-Path -LiteralPath $InstallModePath) {
-        (Get-Content -LiteralPath $InstallModePath -Raw).Trim()
+        (Get-Content -LiteralPath $InstallModePath -Raw).Trim().ToLowerInvariant()
     }
     else {
         "replace"
     }
-    $ManagedPaths = if ($InstallMode -eq "merge") {
-        @("model-instructions.md", "skills")
-    }
-    else {
-        @("config.toml", "model-instructions.md", "skills")
-    }
-    New-Item -ItemType Directory -Force -Path $Destination | Out-Null
-    $ManifestPath = Join-Path $Destination ".openai-codex-agent-skills.manifest"
-    $VersionPath = Join-Path $Destination ".openai-codex-agent-skills.version"
     $Stamp = [DateTime]::UtcNow.ToString("yyyyMMddTHHmmssZ")
-    $BackupRoot = Join-Path $Destination ".openai-codex-agent-skills-backups\$Stamp"
-    $Previous = @{}
+    $Backup = Join-Path $Destination ".openai-codex-agent-skills-backups\$Stamp"
+    $Result = Sync-CodexPayload `
+        -Source $Source `
+        -Destination $Destination `
+        -BackupDirectory $Backup `
+        -RemoveLegacyPaths:($InstallMode -ne "merge")
 
-    if (Test-Path -LiteralPath $ManifestPath) {
-        foreach ($Line in Get-Content -LiteralPath $ManifestPath) {
-            $Parts = $Line -split "`t", 2
-            if ($Parts.Count -eq 2) {
-                $Previous[$Parts[1]] = $Parts[0]
-            }
-        }
-    }
-
-    $SourceFiles = foreach ($ManagedPath in $ManagedPaths) {
-        $Candidate = Join-Path $Source $ManagedPath
-        if (Test-Path -LiteralPath $Candidate -PathType Container) {
-            Get-ChildItem -LiteralPath $Candidate -File -Recurse
-        }
-        elseif (Test-Path -LiteralPath $Candidate -PathType Leaf) {
-            Get-Item -LiteralPath $Candidate
-        }
-    }
-    $SourceFiles = $SourceFiles | Sort-Object FullName
-    $Current = @{}
-    $Updated = 0
-    $Unchanged = 0
-    $Removed = 0
-    $Preserved = 0
-
-    foreach ($SourceFile in $SourceFiles) {
-        $SourcePrefix = $Source.TrimEnd("\", "/") + [System.IO.Path]::DirectorySeparatorChar
-        $Relative = $SourceFile.FullName.Substring($SourcePrefix.Length).Replace("\", "/")
-        $TargetFile = Join-Path $Destination $Relative
-        $Hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $SourceFile.FullName).Hash.ToLowerInvariant()
-        $Current[$Relative] = $Hash
-
-        if ($Previous.ContainsKey($Relative) -and $Previous[$Relative] -eq $Hash) {
-            if ((Test-Path -LiteralPath $TargetFile -PathType Leaf) -and
-                ((Get-FileHash -Algorithm SHA256 -LiteralPath $TargetFile).Hash.ToLowerInvariant() -eq $Hash)) {
-                $Unchanged++
-            }
-            else {
-                Write-Host "Preserved local change to upstream-unchanged file: $TargetFile"
-                $Preserved++
-            }
-            continue
-        }
-        if ((Test-Path -LiteralPath $TargetFile -PathType Leaf) -and
-            ((Get-FileHash -Algorithm SHA256 -LiteralPath $TargetFile).Hash.ToLowerInvariant() -eq $Hash)) {
-            $Unchanged++
-            continue
-        }
-
-        if (Test-Path -LiteralPath $TargetFile) {
-            $BackupFile = Join-Path $BackupRoot $Relative
-            New-Item -ItemType Directory -Force -Path (Split-Path -Parent $BackupFile) | Out-Null
-            Copy-Item -LiteralPath $TargetFile -Destination $BackupFile -Force
-        }
-        New-Item -ItemType Directory -Force -Path (Split-Path -Parent $TargetFile) | Out-Null
-        Copy-Item -LiteralPath $SourceFile.FullName -Destination $TargetFile -Force
-        $Updated++
-    }
-
-    foreach ($Entry in $Previous.GetEnumerator()) {
-        if ($Current.ContainsKey($Entry.Key)) {
-            continue
-        }
-        $TargetFile = Join-Path $Destination $Entry.Key
-        if (-not (Test-Path -LiteralPath $TargetFile -PathType Leaf)) {
-            continue
-        }
-        $CurrentHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $TargetFile).Hash.ToLowerInvariant()
-        if ($CurrentHash -eq $Entry.Value) {
-            $BackupFile = Join-Path $BackupRoot $Entry.Key
-            New-Item -ItemType Directory -Force -Path (Split-Path -Parent $BackupFile) | Out-Null
-            Copy-Item -LiteralPath $TargetFile -Destination $BackupFile -Force
-            Remove-Item -LiteralPath $TargetFile
-            $Removed++
-        }
-        else {
-            Write-Host "Preserved locally modified retired file: $TargetFile"
-            $Preserved++
-        }
-    }
-
-    $Manifest = $Current.GetEnumerator() |
-        Sort-Object Key |
-        ForEach-Object { "$($_.Value)`t$($_.Key)" }
     $Utf8WithoutBom = New-Object System.Text.UTF8Encoding($false)
-    [System.IO.File]::WriteAllLines($ManifestPath, [string[]]$Manifest, $Utf8WithoutBom)
-    [System.IO.File]::WriteAllText($VersionPath, "$Commit`n", $Utf8WithoutBom)
-    Write-Host "Codex: updated=$Updated unchanged=$Unchanged removed=$Removed preserved=$Preserved commit=$Commit"
-    if ($InstallMode -eq "merge") {
-        Write-Host "Existing config.toml was preserved. Restart Codex to load the update."
+    [System.IO.File]::WriteAllText(
+        (Join-Path $Destination ".openai-codex-agent-skills.version"),
+        "$Commit`n",
+        $Utf8WithoutBom
+    )
+    Write-Host "Codex: updated=$($Result.Updated) removed=$($Result.Removed) config_added=$($Result.ConfigAdded) commit=$Commit"
+    if (Test-Path -LiteralPath $Backup) {
+        Write-Host "Previous files were backed up to $Backup"
     }
-    else {
-        Write-Host "Managed config.toml is backed up before replacement. Restart Codex to load the update."
-    }
+    Write-Host "Restart Codex to load the new instructions, skills, and configuration."
 }
 finally {
     if (Test-Path -LiteralPath $TemporaryDirectory) {
