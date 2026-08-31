@@ -11,9 +11,13 @@ Converge on the target state without leaving an accidental permanent compatibili
 
 Define the old and target contracts. Find all callers, persisted forms, generated artifacts, deployment dependencies, and external consumers. Classify each as migrated, compatible, blocked, or unknown.
 
+When domain meaning changes, inventory the bounded contexts and owners that use each term. Preserve or deliberately migrate aggregate and transaction boundaries, translation layers, and published event semantics. Use an anticorruption layer when a legacy or external model must coexist without becoming the target domain model.
+
 ## Choose the transition
 
 Decide whether the change can be atomic or requires staged coexistence. State the compatibility window, rollback point, data transformation, observability, and deletion condition. Do not preserve the old path when no real compatibility requirement exists.
+
+For a security-sensitive version, credential, or signing-key migration, define the minimum safe version, revoke the retired authority, prove that old access no longer works, and prevent rollback or recovery from reviving a vulnerable artifact or credential. Give every temporary compatibility bypass an owner and deletion deadline or condition.
 
 ## Sequence
 

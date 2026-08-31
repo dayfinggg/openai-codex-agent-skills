@@ -4,6 +4,8 @@ English · [Українська](README.uk.md) · [Русский](README.ru.md
 
 Twenty skills for production engineering, project architecture, agent workflows, and clear coding, with concise global instructions and a portable Codex configuration.
 
+The `standards` skill routes to small responsibility-focused files under `codex/skills/standards/references/<domain>/`. Research coverage, the analytical video transcript, and before-and-after code examples are under `docs/`.
+
 ## Install
 
 Every mode backs up and strictly replaces `model-instructions.md` and all non-system skills. Existing `config.toml` values are preserved, and repository parameters are added only when their keys are missing.

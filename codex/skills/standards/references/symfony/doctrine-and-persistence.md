@@ -1,0 +1,14 @@
+# Doctrine and persistence
+- Map entities with PHP attributes unless a project has a stronger, consistent metadata convention.
+- Keep complex query construction in a repository and use Doctrine's query builder for dynamic conditions.
+- Return a focused projection or DTO when the use case does not need a full entity graph.
+- Treat `persist()` as registering work and `flush()` as synchronizing the unit of work with the database.
+- Flush once at the application transaction boundary unless an intermediate flush is required and documented.
+- Let implicit `flush()` transaction handling cover an ORM-only unit when it is sufficient.
+- Use `Connection::transactional()` or `EntityManager::wrapInTransaction()` when DBAL operations share the unit.
+- Roll back and discard a failed entity manager before starting another unit of work.
+- Keep uniqueness, foreign keys, and other concurrency-sensitive invariants enforced by the database.
+- Do not use entity lazy loading as an accidental list-query strategy. Load the relationships the response needs deliberately.
+- Pass stable identifiers to Messenger and reload current entities in handlers instead of serializing a live graph.
+- Dispatch messages that depend on committed rows only after the transaction commits, using an explicit project mechanism.
+- Never span a database transaction across requests or user think time.

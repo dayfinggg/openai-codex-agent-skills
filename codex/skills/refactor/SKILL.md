@@ -19,6 +19,8 @@ Locate duplicated decisions, scattered state, shallow wrappers, hidden mutation,
 
 Make one structural move at a time and rerun the focused checks. Preserve callers unless the request includes an interface migration. Do not mix unrelated formatting or feature changes into the refactor.
 
+Within code already touched by the authorized refactor, make a small verified clarity improvement or remove local dead code when doing so reduces reader load. Do not use this as permission for adjacent cleanup or a repository-wide "boy scout" pass.
+
 ## Verify
 
 Compare behavior and public surfaces before and after. Inspect the diff for accidental semantic changes and run broader checks based on the affected dependency graph.

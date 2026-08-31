@@ -15,7 +15,13 @@ State the final observable outcome, current state, constraints, non-goals, and d
 
 Split work into vertical units that leave the system in a valid, testable state. Make dependencies explicit. Put risk-reducing discovery and irreversible decisions early. Avoid tasks titled with multiple independent outcomes.
 
+Before a stage creates shared infrastructure, a generic framework, or a cross-cutting abstraction, require evidence from one working vertical scenario and multiple real consumers. Make generalization a checkpoint decision rather than an assumption in the first stage.
+
 Each unit must state its result, likely scope, prerequisites, acceptance criteria, and concrete verification. Identify safe parallel work only after contracts and shared ownership are settled.
+
+Limit simultaneous in-progress stages to the work the available owners can finish and integrate. Starting more lanes is not progress when reviews, dependencies, or verification are already the bottleneck.
+
+For date-sensitive work, record an optimistic, nominal, and pessimistic range with its assumptions, dependency owners, next checkpoint, and fallback trigger. Do not present a nominal estimate as a promise. Update the forecast when evidence changes instead of preserving a stale date.
 
 ## Check the route
 

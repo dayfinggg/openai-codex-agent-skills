@@ -1,0 +1,23 @@
+# Type design
+
+- Let the compiler infer trivially initialized locals and add annotations where they clarify intent or protect a boundary. [S8]
+- Give exported functions, classes, and public methods explicit input and output types when inference would hide the contract. [S18]
+- Keep internal annotations selective; redundant types create noise and can become stale.
+- Prefer domain types that describe valid states instead of bags of optional fields.
+- Use discriminated unions for finite alternatives and make impossible branches fail loudly.
+- Narrow unions with ordinary runtime checks, type predicates, and exhaustive handling. [S9][S22]
+- Use `unknown` for data whose shape is not established and narrow it before reading or calling it. [S12][S17]
+- Reserve `any` for a bounded, documented interoperability or migration escape hatch.
+- Do not replace `any` with a chain of unchecked assertions; fix the boundary or model the data. [S17]
+- Remember that assertions are erased and perform no runtime validation. [S8]
+- Treat non-null assertions and double assertions as proof obligations that need a local invariant.
+- Prefer `satisfies` when a value must meet a contract while retaining its precise inferred shape. [S31]
+- Use `readonly` for values and parameters that the function does not mutate.
+- Prefer primitive types such as `string`, `number`, and `boolean` over boxed `String`, `Number`, and `Boolean`. [S12]
+- Do not introduce a generic parameter that does not affect a member or result.
+- Constrain generics to the operations the implementation actually requires.
+- Use `interface` for extensible object contracts when the repository has no stronger convention.
+- Use `type` for unions, tuples, mapped types, conditional types, and aliases that need those operators.
+- Choose the simplest type expression that communicates the rule; repetition is cheaper than opaque type machinery. [S23]
+- Avoid deeply nested conditional or mapped types unless they provide a tested, reusable contract.
+- Keep serialization types distinct from domain types when parsing or normalization changes meaning.

@@ -1,0 +1,12 @@
+# Messenger and background work
+- Model a message as data and a handler as the application operation that consumes it.
+- Inject `MessageBusInterface` and route only messages that truly need asynchronous transport.
+- Queue slow I/O, imports, notifications, indexing, and work that does not belong on the request path.
+- Keep messages serializable and independent of `Request`, session state, and open connections.
+- Make handlers idempotent because transports may redeliver a message after a worker or acknowledgement failure.
+- Give each transport an intentional retry strategy, backoff, timeout, and failure transport.
+- Use a stable business idempotency key for non-repeatable effects such as payments.
+- Inspect, retry, skip, or remove failed messages deliberately rather than silently discarding them.
+- Give rate-limited or slow transports dedicated workers so they do not block unrelated messages.
+- Run workers under Supervisor, systemd, or an equivalent process manager.
+- Bound worker memory or time and restart workers after deploying new code.

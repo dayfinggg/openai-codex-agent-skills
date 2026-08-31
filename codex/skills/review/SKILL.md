@@ -15,6 +15,12 @@ Identify the exact base and changed state. Read the originating requirement or s
 
 Check requirement compliance, behavioral correctness, state and error handling, compatibility, security boundaries, concurrency, tests, and maintainability. Trace beyond the diff only where a changed contract or shared state creates risk.
 
+At code level, inspect input validation, side-effect-free assertions, initialization before use, variable scope and lifetime, numeric conversion and overflow, loop bounds and termination, resource ownership, hidden side effects, and whether tests can fail for the intended defect. Apply only the checks relevant to the language and changed path.
+
+When delivery or security changes, include lockfiles, build scripts, generated artifacts, provenance and signing fields, deployment policies, bypass paths, break-glass controls, authorization matrices, fail semantics, rollback floors, and shared causes of failure among supposed backups.
+
+For structural changes, check dependency cycles, framework or persistence types leaking across intended boundaries, hidden composition or service lookup, and accidental changes to build or deployment units. Report them only when they create a concrete correctness, compatibility, ownership, testing, or future-change cost, not merely because they differ from a preferred architecture.
+
 Validate suspected defects against code, tests, or documentation. Do not report style preferences as defects. Consolidate findings that share one cause.
 
 ## Findings contract

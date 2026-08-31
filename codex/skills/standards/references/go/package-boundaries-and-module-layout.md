@@ -1,0 +1,23 @@
+# Package boundaries and module layout
+
+A package is the set of Go files in one directory; files in that directory compile together and share unexported identifiers.[7][8]
+Start a small package at the module root with `go.mod`, implementation files, and `_test.go` files beside them.[7]
+A module is a versioned collection of packages, and its `go.mod` module path prefixes the import paths of those packages.[8]
+Use the repository path as the module path when the module will be published, and keep `go.mod` and `go.sum` under version control.[30][31]
+Run `go mod tidy` through the Go tool so the dependency declarations and checksums stay consistent.[30][31]
+Keep one module in a repository by default; split modules only when packages need independent release or dependency boundaries.[7][8]
+Put commands in `cmd/<name>` when a repository contains both binaries and importable packages.[7]
+Put implementation packages that are not public API under `internal`; the Go tool prevents outside modules from importing them.[7][22]
+Do not add a `pkg` directory merely as taxonomy; choose directories whose package names and purposes are already clear.[22]
+Keep the import graph acyclic; an import cycle is illegal and usually signals entangled ownership or a boundary in the wrong place.[8][32]
+Dependency hygiene can be better than reusing a large dependency for one small helper.[32]
+
+Name packages with short, lower-case, meaningful nouns that describe what they provide.[1][6]
+Avoid catch-all names such as `util`, `common`, `helper`, `api`, `types`, or `interfaces`.[2][5][6][21]
+If a package name cannot form a clear prefix at its call sites, reconsider the package abstraction boundary.[6]
+Do not repeat the package name in exported identifiers: prefer `http.Server` to `http.HTTPServer`.[1][6]
+Keep tightly coupled types and their unexported helpers together when clients need them together.[5]
+If a hypothetical client must import two closely related packages to use either meaningfully, consider combining them.[5]
+Split a package when a concept is genuinely distinct and a smaller package gives clients a clearer import and identifier.[5]
+Do not split files by a one-type-per-file rule; group related code and keep each file focused and findable.[5]
+Avoid both a single file with thousands of lines and a forest of tiny files; file size is a navigation heuristic, not an API boundary.[5]

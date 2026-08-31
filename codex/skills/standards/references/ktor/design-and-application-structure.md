@@ -1,0 +1,11 @@
+# Design and application structure
+- Organize code around a domain or feature rather than a mandatory technical-layer tree.
+- Define `Application` extension functions as modules that install plugins, register routes, and connect services.
+- Pass a service or port into a route module when explicit wiring is clearer than a container.
+- Use feature packages when one change crosses routes, application logic, persistence, and tests.
+- Keep route handlers as HTTP adapters that parse input, invoke a use case, and map the result to HTTP.
+- Keep business invariants and authorization policy in application or domain code, not in duplicated route conditionals.
+- Let repositories own queries and persistence mapping when they represent a meaningful storage port.
+- Do not create an interface, service, and repository for every noun when each type only forwards one call.
+- Use Ktor's domain-driven or modular structures for larger systems, but keep small services small.
+- Ktor's route extension functions and maintained samples show several valid ways to group endpoints.

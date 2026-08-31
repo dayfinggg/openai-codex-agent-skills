@@ -19,6 +19,10 @@ List unresolved questions, failed attempts that should not be repeated, assumpti
 
 Name the next concrete action, its inputs, expected result, and completion check. Include repository or environment state that the receiver must inspect before editing. Keep secrets and unnecessary raw logs out of the handoff.
 
+For time-sensitive work, include the latest forecast or range, the owner of each blocking dependency, the next checkpoint, and the condition that triggers escalation or a fallback. Mark whether the forecast is evidence-based or still an assumption.
+
+For an active incident, include evidence ownership, secure communication channel, current containment and recovery state, the next shift's objective, and explicit acknowledgement from the receiver. Do not place secrets or attacker-controlled content in the handoff.
+
 ## Boundaries
 
 Do not claim a handoff was delivered to another agent unless the corresponding message or transfer actually succeeded. A request only to create a handoff document does not authorize sending it, while an explicit request to send or transfer it does.

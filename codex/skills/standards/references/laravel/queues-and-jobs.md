@@ -1,0 +1,12 @@
+# Queues and jobs
+- Queue slow I/O, imports, notifications, indexing, and work that does not belong on the request critical path.
+- Make a job's public payload small, serializable, and independent of `Request`, session state, or open connections.
+- Implement `ShouldQueue` for asynchronous jobs and use `handle()` dependency injection for collaborators.
+- Put reusable rate limiting, overlap prevention, throttling, and skip behavior in job middleware.
+- Choose queue, connection, delay, timeout, retry count, and backoff as part of the job's operational contract.
+- Use `tries` or `retryUntil` deliberately, and ensure the timeout is compatible with the queue retry delay.
+- Design jobs to be idempotent or protect non-repeatable effects with a stable business key.
+- Use unique jobs only when duplicate dispatches are semantically equivalent and the lock scope is understood.
+- Dispatch after commit when the job reads rows changed by the current transaction.
+- Record and inspect failed jobs, and distinguish transient dependency failures from permanent input failures.
+- Test dispatch intent with `Queue::fake()` and test `handle()` behavior separately.
