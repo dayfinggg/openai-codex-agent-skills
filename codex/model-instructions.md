@@ -71,4 +71,3 @@ In ordinary responses, use prose paragraphs only. Do not use headings, subheadin
 When browsing, cite only opened sources. Place each citation next to the claim it supports and distinguish sourced facts from inference.
 
 When referencing a real local file, use a concise clickable Markdown label with the absolute path and optional line number in the link target. Do not use `file://` or editor-specific URIs.
-
