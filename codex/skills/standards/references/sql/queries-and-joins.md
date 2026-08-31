@@ -1,0 +1,21 @@
+# Queries and joins
+
+- Write the expected result grain before reviewing a query that joins multiple relations.
+- Use explicit `JOIN ... ON` syntax; an unqualified comma in `FROM` creates a Cartesian product.
+- Use `CROSS JOIN` only when every pair is intentional and the row multiplication is bounded.
+- Qualify every join column and verify the data types and collations on both sides.
+- Choose `INNER JOIN` when an unmatched row should disappear and `LEFT JOIN` when the left row must remain.
+- A `LEFT JOIN` produces nulls for missing right rows, so a right-table filter in `WHERE` can turn it into an inner join.
+- Put predicates in `ON` when they define which right rows match, and put result filters in `WHERE` when unmatched rows should be removed.
+- Avoid `NATURAL JOIN`; a future same-named column can silently change its join condition.
+- Use `USING` only when same-named columns are intentionally the complete join key.
+- Check one-to-one, one-to-many, and many-to-many cardinality assumptions with fixtures before adding `DISTINCT`.
+- Do not use `DISTINCT` as a bandage for an unintended join; fix the key or relationship that multiplied rows.
+- Aggregate the many side before joining when the result needs one row per parent.
+- Prefer set-based operations and batch predicates over a loop that submits one statement per row.
+- Select only the columns needed by the caller, especially across a network boundary.
+- Make precedence visible with parentheses around mixed `AND` and `OR` conditions.
+- Make ordering explicit whenever callers depend on row order.
+- Keep predicates indexable where practical; use an expression or generated-column index only after measuring the workload.
+- Inspect the target plan with `EXPLAIN` and, where safe, actual execution metrics on representative data.
+- Compare estimated and actual rows, join order, scans, sort or spill work, and memory before changing SQL.

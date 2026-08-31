@@ -11,9 +11,13 @@ Record decisions that affect trust in the result, not a transcript of activity.
 
 Log a choice when alternatives existed, a hypothesis changed the investigation, a risk was accepted, a user constraint redirected work, or evidence changed the plan. Skip routine reads, commands, and obvious mechanical edits.
 
+Also log a material change to an estimate, commitment, scope, dependency owner, escalation threshold, or fallback when later reviewers would otherwise misread what was promised and why it changed.
+
 ## Record the decision
 
 Each entry must include time or sequence, decision, reason, evidence, affected scope, result, and status. Link stable artifacts or commands instead of pasting large outputs. Mark superseded entries without deleting their history.
+
+When the entry changes a commitment, identify the stakeholder decision, the previous and revised forecast or scope, and the evidence that triggered the change.
 
 ## Keep it reviewable
 

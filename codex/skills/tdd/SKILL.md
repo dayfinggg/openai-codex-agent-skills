@@ -23,6 +23,8 @@ Improve names and structure only while tests remain green. Avoid speculative gen
 
 Explain why the test cannot be made cheap or reliable. Use a reproduction script, integration check, or manual observable check instead. Do not create a brittle test merely to satisfy the workflow.
 
+Time pressure alone is not a reason to skip the red, green, and refactor evidence or the relevant regression checks. When an alternate check is necessary, record the behavior it does not prove and the resulting residual risk.
+
 ## Output
 
 Report the failing observation, implementation change, passing evidence, and any broader checks.

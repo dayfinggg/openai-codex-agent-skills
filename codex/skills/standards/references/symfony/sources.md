@@ -1,0 +1,20 @@
+# Sources
+### Official/maintainer
+- [Symfony Framework Best Practices](https://symfony.com/doc/current/best_practices.html)
+- [Controllers](https://symfony.com/doc/current/controller.html) and [controller services](https://symfony.com/doc/current/controller/service.html)
+- [Service Container](https://symfony.com/doc/current/service_container.html)
+- [Validation](https://symfony.com/doc/current/validation.html) and [Forms](https://symfony.com/doc/current/forms.html)
+- [Doctrine ORM](https://symfony.com/doc/current/doctrine.html)
+- [Doctrine Transactions and Concurrency](https://www.doctrine-project.org/projects/doctrine-orm/en/current/reference/transactions-and-concurrency.html)
+- [Messenger](https://symfony.com/doc/current/messenger.html)
+- [Events and Event Listeners](https://symfony.com/doc/current/event_dispatcher.html)
+- [HttpKernel request and exception flow](https://symfony.com/doc/current/components/http_kernel.html)
+- [Security](https://symfony.com/doc/current/security.html), [Security Voters](https://symfony.com/doc/current/security/voters.html), and [CSRF](https://symfony.com/doc/current/security/csrf.html)
+- [Configuration](https://symfony.com/doc/current/configuration.html) and [Secrets](https://symfony.com/doc/current/configuration/secrets.html)
+- [Testing](https://symfony.com/doc/current/testing.html) and [repository testing](https://symfony.com/doc/current/testing/database.html)
+- [Symfony framework source](https://github.com/symfony/symfony)
+- [Symfony Demo application](https://github.com/symfony/demo) and [admin controller example](https://github.com/symfony/demo/blob/main/src/Controller/Admin/BlogController.php)
+- [Symfony Messenger source example](https://github.com/symfony/symfony/blob/8.1/src/Symfony/Component/Messenger/MessageBus.php)
+### Practitioner/community
+- [SymfonyCasts: Controllers, Boring, Beautiful Services](https://symfonycasts.com/screencast/symfony5-fundamentals/controllers-services)
+- [SymfonyCon: 42 best practices for Symfony, a decade later](https://symfony.com/blog/symfonycon-vienna-2024-42-best-practices-for-symfony-a-decade-later)

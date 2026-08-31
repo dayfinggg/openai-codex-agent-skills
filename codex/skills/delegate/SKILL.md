@@ -15,6 +15,8 @@ Use delegation only when the environment and user authorization permit it. The s
 
 State the objective, why it matters, exact scope, inputs, relevant paths or sources, constraints, allowed side effects, expected artifact or answer, required evidence, and stopping condition. Include exclusions that prevent overlap with the parent or another agent.
 
+When uncertainty or external dependencies can delay the lane, name their owner, an early-warning threshold, and the parent integration checkpoint. Do not let a delegated estimate silently become a parent-level commitment.
+
 Provide raw evidence rather than the intended conclusion when the subagent is evaluating or reviewing. Do not preload a suspected answer that would bias an independent result.
 
 ## Integrate
