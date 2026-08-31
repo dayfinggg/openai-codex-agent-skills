@@ -1,0 +1,15 @@
+# Tests and examples
+
+Put tests in `_test.go` files, name unit tests `TestXxx`, accept `*testing.T`, and run them with `go test`.[16][17]
+Use the package's own name for white-box tests, and a `<package>_test` package for black-box tests of exported behavior.[17]
+Use table-driven tests when cases share setup and assertions; use separate test functions when cases require different logic.[18][24]
+Name subtests for humans and include inputs or descriptions in failures; never make reviewers count table rows.[18]
+Report failures as `Function(input) = got, want want`, with the actual value before the expected value.[18]
+Compare stable semantics, full structures, and documented error behavior instead of incidental serialized output or error text.[18]
+Prefer `t.Error` when independent checks can continue; reserve `t.Fatal` for setup that makes the current test impossible.[18]
+Use `t.Helper` for setup and cleanup helpers, not for assertion helpers that hide where a test failed.[5][18]
+Add runnable `Example` functions when a package needs to show a complete call sequence; examples also exercise the documented usage.[2][3]
+Use fuzz tests for parsers, decoders, and security-sensitive input boundaries; make fuzz targets fast, deterministic, and free of persistent global state.[20]
+Run fuzz tests with `go test -fuzz=...`, preserve minimized failures in the seed corpus, and treat them as regression tests.[20]
+Use coverage to find untested branches and cases, not as a target that proves correctness.[29]
+The official `golang/example/hello` repository and standard-library tests are useful executable examples of module and test layout.[25][28]

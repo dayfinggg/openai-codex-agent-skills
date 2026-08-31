@@ -19,6 +19,8 @@ Attempt the smallest safe reproduction or corroborating check. Distinguish confi
 
 Assess severity from impact and urgency rather than tone. Identify likely owning component, scope, dependencies, security or data risk, and whether immediate containment is needed. Do not invent priority labels that the project has not defined.
 
+For a suspected security event, distinguish an unsupported or false signal, opportunistic compromise, targeted compromise, and an extreme vulnerability requiring incident response. Route evidence through the approved security owner and preserve it instead of treating the item as an ordinary defect.
+
 ## Prepare the brief
 
 State the problem, evidence, reproduction, expected behavior, acceptance criteria, constraints, likely touch points, and recommended next state. Write labels, comments, or tracker updates only with authorization.

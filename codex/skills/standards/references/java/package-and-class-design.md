@@ -1,0 +1,23 @@
+# Package and class design
+
+- A package should group a coherent domain or feature, not act as a general-purpose dumping ground.
+- Package boundaries should express dependency direction and hide implementation details.
+- Use lowercase package names without underscores.
+- Use globally unique package names for distributed libraries.
+- Keep classes package-private or private unless another package needs the type.
+- Treat every public type and member as a compatibility commitment.
+- In a modular project, export only packages that form the supported module API.
+- Use package-info.java for package documentation and package-level annotations.
+- Avoid the unnamed package outside small, temporary programs.
+- Prefer classes with one clear responsibility and one coherent invariant.
+- Keep data, the operations that preserve its invariant, and their validation together.
+- Prefer composition and delegation over inheritance used only for code reuse.
+- Expose an interface when callers need a capability or substitution boundary.
+- Inherit only when the subtype relationship, behavioral contract, and extension points are stable.
+- Make a class final by default unless an explicit extension contract requires otherwise.
+- Use protected members sparingly because they enlarge the extension surface.
+- Keep constructors small, validate inputs, and do not publish this before construction finishes.
+- Use private final fields for dependencies and state unless controlled mutation is required.
+- Keep member order logical, and keep overloads and constructors contiguous.
+- Use names that state domain meaning, units, and side effects rather than implementation details.
+- Add Javadoc for visible API types, members, record components, nullability, side effects, and thread-safety guarantees.

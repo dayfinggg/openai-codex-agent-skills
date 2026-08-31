@@ -1,0 +1,14 @@
+# Eloquent and persistence
+- Keep Eloquent models focused on persistence mapping, relationships, casts, and invariants they own.
+- Put complex or reusable query composition in a model scope, query object, or repository with a meaningful name.
+- Define relationships as methods and eager-load the relationships a list or serializer will read.
+- Enable `Model::preventLazyLoading()` outside production to expose accidental N+1 queries during development and tests.
+- Select only the columns and relationships needed by the use case, then inspect SQL for high-volume paths.
+- Protect mass assignment with `Fillable` or `Guarded` and build the allowed attribute array explicitly.
+- Never pass an entire request payload to `create()`, `fill()`, or `update()` without an allowlist.
+- Use query-builder parameter binding for values and never put user input into an unprepared SQL statement.
+- Keep transaction ownership in the action that coordinates multiple writes.
+- Use `DB::transaction()` for atomic work and configure deadlock attempts when the workload warrants retries.
+- Keep database uniqueness, foreign keys, and check constraints aligned with application invariants.
+- Pass stable identifiers to asynchronous work and reload current records instead of serializing a live model graph.
+- Use `afterCommit()` or the queue connection's `after_commit` setting when work depends on committed rows.

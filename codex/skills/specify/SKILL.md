@@ -15,6 +15,8 @@ Use the current conversation, linked issue, accepted decisions, and relevant pro
 
 State the problem, users or callers, desired behavior, inputs, outputs, state transitions, error behavior, compatibility constraints, and non-functional requirements that affect implementation. Express acceptance criteria as observable outcomes.
 
+Cover successful, boundary, and failure cases. Resolve ambiguous business terms and keep stable business behavior separate from volatile UI or implementation detail. When several roles own the contract, require review by the relevant stakeholder, analyst, tester, developer, or operator rather than assuming one perspective is complete.
+
 Keep implementation choices only when they are already decided or required by the repository. Separate product requirements from implementation notes. Name what is out of scope so downstream work does not expand silently.
 
 ## Quality check

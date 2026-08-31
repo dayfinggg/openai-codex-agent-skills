@@ -1,0 +1,22 @@
+# Concurrency
+
+- Document whether each public type is immutable, thread-safe, confined, or externally synchronized.
+- Prefer immutable data, thread confinement, and message passing over shared mutable state.
+- Use java.util.concurrent executors, synchronizers, atomics, and concurrent collections instead of ad hoc protocols.
+- Own every ExecutorService and close or shut it down on the lifecycle that created it.
+- Bound queues, permits, connection pools, and retries according to the capacity of downstream systems.
+- Use an atomic variable for one independent state transition and a lock or actor for a multi-field invariant.
+- Expose a compound check-and-update as one atomic operation. Do not ask callers to compose individually synchronized reads and writes when another thread can invalidate the gap between them.
+- Treat volatile as a visibility and ordering tool, not as atomicity for compound operations.
+- Synchronize on a private, stable lock rather than this or an object owned by another component.
+- When an operation acquires multiple locks or bounded resources, define one global acquisition order or an equivalent bounded try, timeout, and recovery strategy. Test completion and deadlock-sensitive paths with coordination primitives and bounded waits.
+- Wait for a condition by checking its predicate in a loop while holding the same lock. A notification only says that state may have changed and does not guarantee the predicate is now true.
+- Do not hold locks while doing I/O, waiting indefinitely, or invoking unknown callbacks.
+- Define cancellation, timeout, interruption, and failure propagation for every asynchronous operation.
+- Make publication safe before another thread can observe an object.
+- Test race-sensitive behavior with coordination primitives and bounded timeouts, not arbitrary sleeps.
+- Use virtual threads for high-throughput tasks that spend most of their time waiting on I/O.
+- Virtual threads provide scale, not faster CPU execution, and are not a replacement for CPU scheduling.
+- Create a new virtual thread per task rather than pooling virtual threads.
+- Bound scarce external resources even when the number of virtual threads is large.
+- Use thread-local state sparingly because one JVM can host millions of virtual threads.

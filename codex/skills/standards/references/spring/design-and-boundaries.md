@@ -1,0 +1,11 @@
+# Design and boundaries
+- Organize code around a domain or feature, not around a mandatory number of technical layers.
+- Put `@SpringBootApplication` in a root package so component and entity scanning stays local.
+- Let a controller adapt HTTP input and output, an application service coordinate a use case, and a repository own persistence.
+- Keep DTOs and validation annotations at the transport boundary when their shape differs from domain values.
+- Keep domain invariants in domain types or application services so non-HTTP callers receive the same guarantees.
+- Define a repository interface when persistence is a replaceable port, a consistency boundary, or a useful test seam.
+- Do not create an interface, service, and repository for every noun when each type only forwards one call.
+- Prefer feature-first packages when a change crosses controller, service, repository, and tests for one capability.
+- Use Spring Modulith when package boundaries need architectural verification or module-scoped integration tests.
+- The official Spring Petclinic demonstrates a small application entry point and domain-oriented owner code.

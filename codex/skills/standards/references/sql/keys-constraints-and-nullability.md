@@ -1,0 +1,25 @@
+# Keys, constraints, and nullability
+
+- Give each durable table a primary key that uniquely identifies a row.
+- Prefer a stable, immutable identifier; a mutable business attribute makes every reference and cache harder to maintain.
+- A surrogate key does not replace a business invariant; keep alternate natural identifiers as named unique constraints.
+- Use a composite key when the combination expresses the table’s true grain, especially for junction tables.
+- A foreign key must reference a primary key or other unique key with compatible types and semantics.
+- Name primary, foreign-key, unique, and check constraints deterministically, such as `pk_orders`, `fk_order_items_order`, and `uq_users_email`.
+- Use `NOT NULL` for values required by the domain, rather than relying on application validation.
+- Make a column nullable only when “unknown,” “not applicable,” or “not yet known” has a distinct business meaning.
+- `NULL` is not an empty string, zero, or a default sentinel.
+- SQL uses three-valued logic; an ordinary comparison involving `NULL` can evaluate to unknown.
+- Test for absence with `IS NULL` or `IS NOT NULL`, never with `= NULL` or `<> NULL`.
+- Review `NOT IN` predicates when the subquery can return null; use an explicit null policy or `NOT EXISTS`.
+- A `CHECK` should express a row-level invariant, such as `amount >= 0`.
+- Do not rely on a `CHECK` alone to reject `NULL`; pair it with `NOT NULL` when absence is invalid.
+- Do not use a row `CHECK` to enforce a cross-table invariant; use a foreign key, unique or exclusion constraint, or a deliberate trigger.
+- Declare the intended `ON DELETE` and `ON UPDATE` behavior instead of allowing accidental cascades.
+- Use `CASCADE` only when the child has no independent lifecycle; prefer explicit deletion for independent business objects.
+- Add an index to foreign-key columns when joins, parent deletes, or parent-key updates need fast child lookup.
+- Do not assume every engine creates that child-side index automatically.
+- Unique constraints enforce business identity, but null treatment differs between engines; test the intended behavior explicitly.
+- Choose numeric precision, temporal precision, collation, and character semantics for the domain rather than using a convenient default.
+- Treat defaults as database policy and test inserts that omit the column.
+- Test every constraint with valid data, boundary data, null data, duplicate data, and invalid data.
