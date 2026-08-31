@@ -7,6 +7,9 @@ case "$mode" in
   *) printf 'Usage: %s [--merge|--replace]\n' "$0" >&2; exit 2 ;;
 esac
 
+script_dir="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+. "$script_dir/lib.sh"
+
 repo="${CODEX_SKILLS_REPO:-dayfinggg/openai-codex-agent-skills}"
 branch="${CODEX_SKILLS_BRANCH:-main}"
 dest="$HOME/.codex"
@@ -22,42 +25,17 @@ curl -fsSL "https://codeload.github.com/$repo/tar.gz/$branch" | tar -xz -C "$tmp
 source_root="$(find "$tmp" -mindepth 1 -maxdepth 1 -type d | head -n 1)"
 [ -n "$source_root" ] || { printf 'Downloaded archive is empty.\n' >&2; exit 1; }
 src="$source_root/codex"
-mkdir -p "$dest"
 
-backup_path() {
-  path="$1"
-  [ -e "$dest/$path" ] || return 0
-  mkdir -p "$backup"
-  cp -Rp "$dest/$path" "$backup/"
-}
-
-if [ "$mode" = "--replace" ]; then
-  for path in config.toml AGENTS.md AGENTS.override.md model-instructions.md agents; do
-    backup_path "$path"
-    rm -rf "$dest/$path"
-  done
-  backup_path skills
-  mkdir -p "$dest/skills"
-  find "$dest/skills" -mindepth 1 -maxdepth 1 ! -name .system -exec rm -rf -- {} +
-  for path in config.toml model-instructions.md; do
-    cp -Rp "$src/$path" "$dest/"
-  done
-  cp -Rp "$src/skills/." "$dest/skills/"
+remove_legacy=0
+install_mode=merge
+if [ "$mode" = --replace ]; then
+  remove_legacy=1
   install_mode=replace
-else
-  for path in model-instructions.md skills; do
-    backup_path "$path"
-    if [ -d "$src/$path" ]; then
-      mkdir -p "$dest/$path"
-      cp -Rp "$src/$path/." "$dest/$path/"
-    else
-      cp -p "$src/$path" "$dest/$path"
-    fi
-  done
-  install_mode=merge
 fi
 
+codex_sync_payload "$src" "$dest" "$backup" "$remove_legacy" "$tmp"
 printf '%s\n' "$install_mode" >"$dest/.openai-codex-agent-skills.install-mode"
-printf 'Codex setup installed in %s mode.\n' "$install_mode"
+printf 'Codex setup installed in %s mode: updated=%s removed=%s config_added=%s.\n' \
+  "$install_mode" "$CODEX_SYNC_UPDATED" "$CODEX_SYNC_REMOVED" "$CODEX_CONFIG_ADDED"
 [ ! -d "$backup" ] || printf 'Previous files were backed up to %s\n' "$backup"
-printf 'Restart Codex to load the new instructions and skills.\n'
+printf 'Restart Codex to load the new instructions, skills, and configuration.\n'

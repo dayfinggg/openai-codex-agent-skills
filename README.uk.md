@@ -6,7 +6,7 @@
 
 ## Встановлення
 
-Режим заміни створює резервну копію та замінює керовані файли Codex.
+Кожен режим створює резервну копію та повністю замінює `model-instructions.md` і всі несистемні навички. Наявні значення `config.toml` зберігаються, а параметри з репозиторію додаються лише за відсутності відповідних ключів.
 
 ### macOS і Linux
 
@@ -24,7 +24,7 @@ Set-Location openai-codex-agent-skills
 powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1 -Mode Replace
 ```
 
-Використовуйте `--merge` або `-Mode Merge`, щоб зберегти наявний `config.toml` і оновити лише `model-instructions.md` та навички.
+Режим заміни також видаляє застарілі шляхи `AGENTS.md`, `AGENTS.override.md` і `agents`. Режим злиття залишає ці сторонні шляхи без змін.
 
 Керована конфігурація підключає інструкцію через `model_instructions_file = '~/.codex/model-instructions.md'`.
 
