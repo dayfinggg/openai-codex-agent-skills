@@ -15,6 +15,8 @@ Identify the exact base and changed state. Read the originating requirement or s
 
 Check requirement compliance, behavioral correctness, state and error handling, compatibility, security boundaries, concurrency, tests, and maintainability. Trace beyond the diff only where a changed contract or shared state creates risk.
 
+Check for avoidable complexity introduced by the change, including a new dependency for a small operation, an interface with one implementation, a factory with one product, a pass-through wrapper, unused flexibility or configuration, and a hand-written substitute for the standard library or a native platform capability. Report it only when removing it preserves the required behavior and materially reduces ownership or change cost. Do not prefer fewer characters or files over correctness, readability, or a coherent boundary.
+
 At code level, inspect input validation, side-effect-free assertions, initialization before use, variable scope and lifetime, numeric conversion and overflow, loop bounds and termination, resource ownership, hidden side effects, and whether tests can fail for the intended defect. Apply only the checks relevant to the language and changed path.
 
 When delivery or security changes, include lockfiles, build scripts, generated artifacts, provenance and signing fields, deployment policies, bypass paths, break-glass controls, authorization matrices, fail semantics, rollback floors, and shared causes of failure among supposed backups.
