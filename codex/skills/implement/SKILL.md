@@ -17,7 +17,7 @@ Distinguish an estimate from a commitment. Before committing to a date or irreve
 
 ## Change
 
-Preserve user work and repository conventions. Prefer existing abstractions and dependencies. Keep the patch focused, update all affected callers, and avoid compatibility layers that the request does not require. Do not refactor adjacent code unless it is necessary for correctness.
+Preserve user work and repository conventions. Before writing custom code, check whether no change is needed, the behavior already exists in the codebase, the standard library or native platform covers it, or an already-installed dependency solves it. Use the first option that completely satisfies the current requirements. Add a new dependency only when its current benefit outweighs its ownership, update, compatibility, and security costs. Keep the patch focused, update all affected callers, and avoid compatibility layers that the request does not require. Do not refactor adjacent code unless it is necessary for correctness.
 
 Raise an early warning as soon as evidence invalidates the forecast or required scope. Negotiate scope, priority, sequencing, or a safe fallback instead of promising to "try" without a credible path. Schedule pressure does not justify silently dropping required tests, review, migration safety, or structural safeguards.
 
