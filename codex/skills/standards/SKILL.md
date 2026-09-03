@@ -99,4 +99,4 @@ When a standard suggests a larger change than the task permits, keep the local c
 
 ## Verify
 
-Run the repository's formatter, linter, compiler or type checker, focused tests, and relevant broader checks. Use the configured tools rather than manually approximating their output. Inspect the final diff for unnecessary abstraction, duplicated knowledge, hidden behavior, unrelated churn, and violations of the loaded references.
+Run the configured checks that directly cover the changed code and behavior. Start with the applicable formatter, linter, compiler or type checker, and focused tests. Broaden or repeat checks only when the blast radius, a failure, a new edit, or a repository requirement justifies it. Inspect the final diff for unnecessary abstraction, duplicated knowledge, hidden behavior, unrelated churn, and violations of the loaded references.
