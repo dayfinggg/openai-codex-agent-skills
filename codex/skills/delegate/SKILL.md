@@ -1,6 +1,6 @@
 ---
 name: delegate
-description: Prepare and assign one bounded, independently verifiable subtask to a subagent. Use when delegation is available and authorized, one work unit can proceed without shared mutable state, and parallel or specialized work will materially help. Do not use merely to avoid doing a small task locally.
+description: Prepare and assign one bounded, independently verifiable subtask to a subagent. Use when collaboration tools are available, one work unit can proceed without shared mutable state, and parallel or specialized work will materially help. Do not use merely to avoid doing a small task locally.
 ---
 
 # Delegate
@@ -9,7 +9,7 @@ Delegate an outcome, not a vague topic or a copy of the whole parent task.
 
 ## Confirm fit
 
-Use delegation only when the environment and user authorization permit it. The subtask must have a clear boundary, enough context to start, an observable completion condition, and no need for ongoing parent judgment. Keep work that owns shared state or final integration with the primary agent.
+Use delegation when collaboration tools are available and no higher-priority instruction prohibits multi-agent work. Do not ask for permission merely to delegate work already within the task's scope. The subtask must have a clear boundary, enough context to start, an observable completion condition, and no need for ongoing parent judgment. Keep work that owns shared state or final integration with the primary agent.
 
 ## Write the brief
 
@@ -25,4 +25,4 @@ Inspect the returned evidence and artifacts. Verify claims that affect the paren
 
 ## Output
 
-Return or send one self-contained brief. If delegation is unavailable or not authorized, keep the work local rather than inventing a delegation mechanism.
+Return or send one self-contained brief. If delegation is unavailable or prohibited by a higher-priority instruction, keep the work local rather than inventing a delegation mechanism.
