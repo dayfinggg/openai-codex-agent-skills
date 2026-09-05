@@ -1,0 +1,71 @@
+name: Telegram repository changes
+
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'codex/**'
+      - 'scripts/**'
+  workflow_dispatch:
+    inputs:
+      before:
+        description: Previous commit SHA
+        required: true
+        type: string
+      after:
+        description: New commit SHA
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: telegram-changes
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Validate notification settings
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.SOCIAL_NOTIFICATIONS_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.SOCIAL_NOTIFICATIONS_CHAT_ID }}
+        run: python3 .github/scripts/telegram_changes.py validate
+      - name: Prepare complete change archive
+        id: prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/telegram_changes.py prepare
+      - name: Persist archive and delivery intent
+        if: steps.prepare.outputs.ready == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: telegram-delivery-${{ github.run_id }}
+          path: ${{ runner.temp }}/telegram-changes/
+          retention-days: 90
+          if-no-files-found: error
+          compression-level: 0
+      - name: Send Telegram notification
+        if: steps.prepare.outputs.ready == 'true'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.SOCIAL_NOTIFICATIONS_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.SOCIAL_NOTIFICATIONS_CHAT_ID }}
+        run: python3 .github/scripts/telegram_changes.py send
+      - name: Persist delivery result
+        if: always() && steps.prepare.outputs.ready == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: telegram-result-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/telegram-result.json
+          retention-days: 90
+          if-no-files-found: ignore

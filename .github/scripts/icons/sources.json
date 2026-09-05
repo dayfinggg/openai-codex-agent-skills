@@ -1,0 +1,12 @@
+{
+  "devicon": {
+    "repository": "https://github.com/devicons/devicon",
+    "revision": "7330accdbc47e2dc0c19789a48533c4a3c50fe58",
+    "source_pattern": "icons/{name}/{name}-original.svg",
+    "fallback_pattern": "icons/{name}/{name}-plain.svg",
+    "license": "LICENSE.devicon",
+    "conversion": "PNG, 100 by 100 pixels, transparent background"
+  },
+  "folder.png": "Original geometric folder icon",
+  "file.png": "Original geometric document icon"
+}
