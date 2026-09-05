@@ -5,6 +5,8 @@ description: Determine what a proposed or completed change could break outside i
 
 # Impact
 
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
+
 Trace changed assumptions to every meaningful consumer and identify the evidence needed to call the change safe.
 
 ## Establish the changed contract
@@ -37,7 +39,7 @@ Treat redundancy as protection only when replicas do not share the same failure 
 
 ## Prove the critical fact
 
-Run or identify the smallest check that demonstrates the most important compatibility claim. Do not rely only on a written inventory. For recovery and rollback claims, prefer an exercised restore, downgrade, mixed-version, or failure-injection path over the existence of a backup, flag, playbook, or spare instance.
+Run or identify the smallest check for the critical compatibility claim. Use isolated test state for restore, downgrade, mixed-version, or failure-injection experiments. Do not change live systems or destroy data merely to prove a risk. If authorization or an appropriate environment is unavailable, report the verification limit.
 
 ## Output
 

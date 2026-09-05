@@ -96,6 +96,9 @@ codex_merge_config() {
       for (i = 1; i <= source_entry_count; i++) {
         section = source_entry_section[i]
         key = source_entry_key[i]
+        if (section == "" && key == "model_instructions_file") {
+          instruction_line = source_entry_line[i]
+        }
         if (!destination_key[section SUBSEP key]) {
           missing_line[section SUBSEP ++missing_count[section]] = source_entry_line[i]
           added++
@@ -117,6 +120,10 @@ codex_merge_config() {
           print line
           current_section = section_name(line)
         } else {
+          if ((current_section == "" || current_section ~ /^profiles[.]/) && instruction_line != "" && line ~ /^[[:space:]]*model_instructions_file[[:space:]]*=[[:space:]]*[\042\047]([^\042\047]*[/\\])?model-instructions[.]md[\042\047][[:space:]]*(#.*)?$/) {
+            line = instruction_line
+            added++
+          }
           print line
         }
       }
@@ -157,7 +164,7 @@ codex_write_manifest() {
   cwm_manifest="$cwm_destination/.openai-codex-agent-skills.manifest"
 
   {
-    printf '%s\n' "$cwm_source/model-instructions.md"
+    printf '%s\n' "$cwm_source/base_instructions.md"
     find "$cwm_source/skills" -type f
   } | LC_ALL=C sort >"$cwm_files"
 
@@ -176,7 +183,7 @@ codex_sync_payload() {
   csp_remove_legacy="$4"
   csp_work="$5"
 
-  for csp_required in config.toml model-instructions.md skills; do
+  for csp_required in config.toml base_instructions.md skills; do
     [ -e "$csp_source/$csp_required" ] || {
       printf 'Downloaded payload is missing codex/%s.\n' "$csp_required" >&2
       return 1
@@ -185,13 +192,16 @@ codex_sync_payload() {
 
   mkdir -p "$csp_destination"
   CODEX_SYNC_REMOVED=0
+  codex_backup_path "$csp_destination" "$csp_backup" base_instructions.md
   codex_backup_path "$csp_destination" "$csp_backup" model-instructions.md
   codex_backup_path "$csp_destination" "$csp_backup" skills
 
-  if [ -e "$csp_destination/model-instructions.md" ]; then
-    rm -rf "$csp_destination/model-instructions.md"
-    CODEX_SYNC_REMOVED=$((CODEX_SYNC_REMOVED + 1))
-  fi
+  for csp_instruction in base_instructions.md model-instructions.md; do
+    if [ -e "$csp_destination/$csp_instruction" ]; then
+      rm -rf "$csp_destination/$csp_instruction"
+      CODEX_SYNC_REMOVED=$((CODEX_SYNC_REMOVED + 1))
+    fi
+  done
 
   mkdir -p "$csp_destination/skills"
   csp_retired_count="$(find "$csp_destination/skills" -mindepth 1 ! -path "$csp_destination/skills/.system" ! -path "$csp_destination/skills/.system/*" -type f | wc -l | tr -d ' ')"
@@ -208,7 +218,7 @@ codex_sync_payload() {
     done
   fi
 
-  cp -p "$csp_source/model-instructions.md" "$csp_destination/model-instructions.md"
+  cp -p "$csp_source/base_instructions.md" "$csp_destination/base_instructions.md"
   cp -Rp "$csp_source/skills/." "$csp_destination/skills/"
   CODEX_SYNC_UPDATED=$((1 + $(find "$csp_source/skills" -type f | wc -l | tr -d ' ')))
   CODEX_CONFIG_ADDED="$(codex_merge_config "$csp_source/config.toml" "$csp_destination/config.toml" "$csp_destination" "$csp_backup" "$csp_work")"

@@ -1,9 +1,11 @@
 ---
 name: swarm
-description: Fan out several independent investigations or candidate solutions and synthesize them into one judged result. Use when collaboration tools are available and broad coverage, competing designs, or separable evidence lanes justify parallel agents. Do not use for dependent steps or shared mutable state.
+description: Fan out several independent investigations or candidate solutions and synthesize them into one judged result. Use when parallel agents are authorized by the user or governing instructions and independent investigations materially benefit from them. Do not use for dependent steps or shared mutable state.
 ---
 
 # Swarm
+
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Use parallel agents to increase coverage or diversity, not to duplicate the same unbounded request.
 
@@ -25,4 +27,4 @@ Compare evidence, reconcile duplicates, explain conflicts, and select a conclusi
 
 ## Boundaries
 
-Use this skill when collaboration tools are available and no higher-priority instruction prohibits multi-agent work. Do not ask for separate permission merely to fan out work already within the task's scope. Otherwise execute the lanes sequentially without pretending they were independently reviewed.
+Use parallel agents only when the user or governing instructions authorize them and collaboration tools are available. This skill does not itself grant that authorization. Respect a request to work personally without subagents. Do not ask again when delegation is already authorized. Otherwise work locally without claiming independent review.

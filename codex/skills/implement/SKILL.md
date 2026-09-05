@@ -5,27 +5,29 @@ description: Make an authorized code or configuration change from a settled requ
 
 # Implement
 
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
+
 Deliver the requested behavior with the smallest coherent change and evidence that it works.
 
 ## Prepare
 
 Read the governing instructions, target files, relevant tests, and one local precedent. Restate the required outcome internally and identify the narrowest verification that can prove it. Ask only if a missing decision would materially change behavior or risk.
 
-When progress depends on another subsystem or owner, locate the owning code, documentation, or person early. Ask one concise question with the observed evidence, required decision, and expected outcome, then record the answer instead of spending days reverse-engineering an unavailable contract in isolation.
+When progress depends on another subsystem, inspect its code and documentation first. Ask the user only for essential information that cannot be inferred. Continue independent authorized work while waiting. Do not contact another person without explicit authorization.
 
-Distinguish an estimate from a commitment. Before committing to a date or irreversible scope, expose material uncertainty, external dependencies, and assumptions. Commit only to actions within the task's control, and define the next checkpoint when evidence is still incomplete.
+Provide estimates only when requested. Base them on evidence and distinguish uncertainty from a commitment.
 
 ## Change
 
 Preserve user work and repository conventions. Before writing custom code, check whether no change is needed, the behavior already exists in the codebase, the standard library or native platform covers it, or an already-installed dependency solves it. Use the first option that completely satisfies the current requirements. Add a new dependency only when its current benefit outweighs its ownership, update, compatibility, and security costs. Keep the patch focused, update all affected callers, and avoid compatibility layers that the request does not require. Do not refactor adjacent code unless it is necessary for correctness.
 
-Raise an early warning as soon as evidence invalidates the forecast or required scope. Negotiate scope, priority, sequencing, or a safe fallback instead of promising to "try" without a credible path. Schedule pressure does not justify silently dropping required tests, review, migration safety, or structural safeguards.
+Do not narrate progress or routine plan changes. Interrupt only when essential user input, required approval, or a blocking condition needs intervention. Preserve the requested scope and required verification.
 
-Run safe independent reads and checks efficiently. Continue through ordinary in-scope external writes, commits, pushes, and deployments when the user or trusted project rules authorize the workflow. Stop only before a genuinely dangerous action that lacks exact authorization, a purchase, or a material scope expansion.
+Run safe independent reads and checks efficiently. Perform external writes, commits, pushes, or deployments only when covered by the active request or existing user authorization. A local edit request does not by itself authorize publication or production changes. Follow governing permission rules without adding redundant confirmation steps.
 
 Integrate in small working increments when the change spans several units. Treat strict compiler, linter, analyzer, and warning diagnostics as feedback to resolve or narrowly justify, not output to suppress broadly. Do not optimize without a relevant baseline and profile, and remeasure after any performance-motivated change.
 
-When changing build, configuration, deployment, or supply-chain behavior, version and review the configuration, bind provenance to the exact artifact, pass through one enforceable deployment policy, stage the rollout, observe the result, and preserve a tested rollback. Use the normal mechanism with an explicitly accelerated policy for emergencies rather than an untested alternate path. Audit break-glass use immediately and assign removal of any temporary bypass.
+When release or deployment behavior is in scope, use the project's existing validation, provenance, rollout, and recovery mechanisms appropriate to the affected risk. A small configuration edit does not require designing a new delivery system. Deploy or exercise emergency access only within the user's authorization.
 
 ## Verify
 

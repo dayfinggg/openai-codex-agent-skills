@@ -8,7 +8,7 @@ The `standards` skill routes to small responsibility-focused files under `codex/
 
 ## Install
 
-Every mode backs up and strictly replaces `model-instructions.md` and all non-system skills. Existing `config.toml` values are preserved, and repository parameters are added only when their keys are missing.
+Every mode backs up and strictly replaces `base_instructions.md` and all non-system skills. The legacy `model-instructions.md` file is backed up and removed, and its configuration path is updated. Other existing `config.toml` values are preserved, and repository parameters are added only when their keys are missing.
 
 ### macOS and Linux
 
@@ -28,7 +28,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1 -Mode Replace
 
 Replace mode also removes the legacy `AGENTS.md`, `AGENTS.override.md`, and `agents` paths. Merge mode leaves those unrelated paths intact.
 
-The managed configuration points to `~/.codex/model-instructions.md` through `model_instructions_file`.
+The managed configuration uses `model_instructions_file = "base_instructions.md"`, resolved relative to `config.toml`. New configurations default to GPT-6 Astra with low reasoning effort.
 
 ## Update
 

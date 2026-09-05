@@ -101,6 +101,18 @@ function Merge-CodexConfig {
 
     $Missing = [System.Collections.Generic.Dictionary[string, System.Collections.Generic.List[string]]]::new([System.StringComparer]::Ordinal)
     $Added = 0
+    $InstructionEntry = $SourceEntries | Where-Object { $_.Section -eq "" -and $_.Key -eq "model_instructions_file" } | Select-Object -First 1
+    $DestinationSection = ""
+    for ($Index = 0; $Index -lt $DestinationLines.Length; $Index++) {
+        $Line = $DestinationLines[$Index]
+        $Section = Get-CodexTomlSection -Line $Line
+        if ($null -ne $Section) {
+            $DestinationSection = $Section
+        } elseif (($DestinationSection -eq "" -or $DestinationSection -match '^profiles\.') -and $InstructionEntry -and $Line -match '^\s*model_instructions_file\s*=\s*([''"])(?:[^''"]*[/\\])?model-instructions\.md\1\s*(?:#.*)?$') {
+            $DestinationLines[$Index] = $InstructionEntry.Line
+            $Added++
+        }
+    }
     foreach ($Entry in $SourceEntries) {
         if ($DestinationKeys.Contains("$($Entry.Section)`0$($Entry.Key)")) {
             continue
@@ -190,7 +202,7 @@ function Write-CodexManifest {
 
     $SourcePrefix = $Source.TrimEnd("\", "/") + [System.IO.Path]::DirectorySeparatorChar
     $Files = @(
-        Get-Item -LiteralPath (Join-Path $Source "model-instructions.md")
+        Get-Item -LiteralPath (Join-Path $Source "base_instructions.md")
         Get-ChildItem -LiteralPath (Join-Path $Source "skills") -File -Recurse
     ) | Sort-Object FullName
     $Manifest = foreach ($File in $Files) {
@@ -213,7 +225,7 @@ function Sync-CodexPayload {
         [switch]$RemoveLegacyPaths
     )
 
-    foreach ($RequiredPath in @("config.toml", "model-instructions.md", "skills")) {
+    foreach ($RequiredPath in @("config.toml", "base_instructions.md", "skills")) {
         if (-not (Test-Path -LiteralPath (Join-Path $Source $RequiredPath))) {
             throw "Downloaded payload is missing codex/$RequiredPath."
         }
@@ -222,14 +234,17 @@ function Sync-CodexPayload {
     New-Item -ItemType Directory -Force -Path $Destination | Out-Null
     $Removed = 0
 
-    foreach ($RelativePath in @("model-instructions.md", "skills")) {
+    foreach ($RelativePath in @("base_instructions.md", "model-instructions.md", "skills")) {
         Copy-CodexBackupPath -Destination $Destination -BackupDirectory $BackupDirectory -RelativePath $RelativePath
     }
 
-    $InstructionPath = Join-Path $Destination "model-instructions.md"
-    if (Test-Path -LiteralPath $InstructionPath) {
-        Remove-Item -LiteralPath $InstructionPath -Recurse -Force
-        $Removed++
+    $InstructionPath = Join-Path $Destination "base_instructions.md"
+    foreach ($InstructionName in @("base_instructions.md", "model-instructions.md")) {
+        $PreviousInstructionPath = Join-Path $Destination $InstructionName
+        if (Test-Path -LiteralPath $PreviousInstructionPath) {
+            Remove-Item -LiteralPath $PreviousInstructionPath -Recurse -Force
+            $Removed++
+        }
     }
 
     $DestinationSkills = Join-Path $Destination "skills"
@@ -254,7 +269,7 @@ function Sync-CodexPayload {
         }
     }
 
-    Copy-Item -LiteralPath (Join-Path $Source "model-instructions.md") -Destination $InstructionPath -Force
+    Copy-Item -LiteralPath (Join-Path $Source "base_instructions.md") -Destination $InstructionPath -Force
     Get-ChildItem -LiteralPath (Join-Path $Source "skills") -Force |
         Copy-Item -Destination $DestinationSkills -Recurse -Force
 

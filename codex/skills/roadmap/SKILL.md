@@ -1,9 +1,11 @@
 ---
 name: roadmap
-description: Break a large or multi-session engineering objective into ordered, verifiable stages with dependencies and checkpoints. Use when the work spans several components or cannot be safely held in one execution pass. This skill plans but does not implement.
+description: Break a large or multi-session engineering objective into ordered, verifiable stages with dependencies and checkpoints. Use when the user asks for an implementation plan or complex authorized work needs internal sequencing. Do not turn an implementation request into a planning-only response.
 ---
 
 # Roadmap
+
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Create a route to the outcome that remains usable across sessions and agents.
 
@@ -15,7 +17,7 @@ State the final observable outcome, current state, constraints, non-goals, and d
 
 Split work into vertical units that leave the system in a valid, testable state. Make dependencies explicit. Put risk-reducing discovery and irreversible decisions early. Avoid tasks titled with multiple independent outcomes.
 
-Before a stage creates shared infrastructure, a generic framework, or a cross-cutting abstraction, require evidence from one working vertical scenario and multiple real consumers. Make generalization a checkpoint decision rather than an assumption in the first stage.
+Before introducing shared infrastructure or a general abstraction, require a present need such as real consumers, an existing compatibility contract, or an established safety boundary. Do not invent extra consumers or a demonstration stage merely to satisfy a process.
 
 Each unit must state its result, likely scope, prerequisites, acceptance criteria, and concrete verification. Identify safe parallel work only after contracts and shared ownership are settled.
 
@@ -29,7 +31,7 @@ Ensure the sequence contains no circular dependency, hidden migration step, unve
 
 ## Boundaries
 
-Do not start implementation. Do not overwrite an existing incomplete plan for different work. Do not create external tickets without authorization.
+For a planning-only request, return the plan without implementation. When planning supports an authorized implementation, keep it internal and continue the original task without an extra approval checkpoint. Do not overwrite an unrelated plan or create external tickets without authorization.
 
 ## Output
 
