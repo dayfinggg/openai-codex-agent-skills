@@ -142,7 +142,7 @@ def ensure_icons(payload):
         raise IconError('icon_owner_must_be_private_user')
     bot = api('getMe', {})
     namespace = hashlib.sha256((str(bot['id']) + ':' + owner).encode()).hexdigest()[:8]
-    name = f'code{namespace}_v1_by_{bot["username"]}'
+    name = f'code{namespace}_v2_by_{bot["username"]}'
     pack = api('getStickerSet', {'name': name})
     known = {item['emoji']: item['custom_emoji_id'] for item in pack['stickers']} if pack else {}
     for key, entities in pending.items():
@@ -167,6 +167,7 @@ def ensure_icons(payload):
                             'name': name,
                             'title': 'GitHub · языки и файлы',
                             'sticker_type': 'custom_emoji',
+                            'needs_repainting': True,
                             'stickers': [sticker],
                         },
                     )
