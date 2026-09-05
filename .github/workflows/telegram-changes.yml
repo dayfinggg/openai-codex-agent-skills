@@ -60,6 +60,7 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.SOCIAL_NOTIFICATIONS_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.SOCIAL_NOTIFICATIONS_CHAT_ID }}
+          TELEGRAM_EXTRA_CHAT_ID: ${{ github.event_name == 'push' && vars.SOCIAL_NOTIFICATIONS_EXTRA_CHAT_ID || '' }}
         run: python3 .github/scripts/telegram_changes.py send
       - name: Persist delivery result
         if: always() && steps.prepare.outputs.ready == 'true'

@@ -320,6 +320,7 @@ def prepare():
                 'run_id': run_id,
                 'before': before,
                 'after': after,
+                'production': os.environ['GITHUB_EVENT_NAME'] == 'push',
             }
         )
     )
@@ -348,6 +349,16 @@ def multipart(payload, archive):
     return b''.join(parts), 'multipart/form-data; boundary=' + boundary
 
 
+def recipients(intent):
+    destinations = [os.environ['TELEGRAM_CHAT_ID']]
+    extra = os.environ.get('TELEGRAM_EXTRA_CHAT_ID', '')
+    if intent.get('production') is True and extra:
+        if not re.fullmatch(r'-?[0-9]+', extra):
+            raise NotificationError('invalid_extra_chat')
+        destinations.append(extra)
+    return list(dict.fromkeys(destinations))
+
+
 def send():
     directory = Path(os.environ['RUNNER_TEMP']) / 'telegram-changes'
     result_path = directory.parent / 'telegram-result.json'
@@ -357,7 +368,36 @@ def send():
         raise NotificationError('archive_checksum_mismatch')
     payload = json.loads((directory / 'message.json').read_text())
     ensure_icons(payload)
-    payload['chat_id'] = os.environ['TELEGRAM_CHAT_ID']
+    destinations = recipients(intent)
+    if result_path.exists():
+        raise NotificationError('delivery_already_attempted')
+    if len(destinations) == 1:
+        return send_one({**payload, 'chat_id': destinations[0]}, archive, result_path)
+    results = {
+        'status': 'pending',
+        'recipients': {chat: {'status': 'not_started'} for chat in destinations},
+    }
+    result_path.write_text(json.dumps(results))
+    for index, chat in enumerate(destinations):
+        results['recipients'][chat] = {'status': 'uncertain'}
+        result_path.write_text(json.dumps(results))
+        recipient_path = directory.parent / f'telegram-recipient-{index}.json'
+        try:
+            send_one({**payload, 'chat_id': chat}, archive, recipient_path)
+        except Exception as error:
+            results['recipients'][chat]['error_type'] = type(error).__name__
+        if recipient_path.exists():
+            results['recipients'][chat].update(json.loads(recipient_path.read_text()))
+        result_path.write_text(json.dumps(results))
+    results['status'] = (
+        'sent' if all(r['status'] == 'sent' for r in results['recipients'].values()) else 'partial'
+    )
+    result_path.write_text(json.dumps(results))
+    if results['status'] != 'sent':
+        raise NotificationError('recipient_delivery_incomplete')
+
+
+def send_one(payload, archive, result_path):
     body, content_type = multipart(payload, archive)
     url = 'https://api.telegram.org/bot' + os.environ['TELEGRAM_BOT_TOKEN'] + '/sendRichMessage'
     result = {'status': 'uncertain', 'started_at_ms': time.time_ns() // 1000000}
