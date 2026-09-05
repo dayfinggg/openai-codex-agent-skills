@@ -21,10 +21,11 @@ class NotificationError(Exception):
     pass
 
 
-def git(*arguments, required=True):
+def git(*arguments, required=True, input_data=None):
     result = subprocess.run(
         ['git', '-c', 'core.hooksPath=/dev/null', '-c', 'gc.auto=0', *arguments],
-        stdin=subprocess.DEVNULL,
+        stdin=subprocess.DEVNULL if input_data is None else None,
+        input=input_data,
         stdout=subprocess.PIPE,
         stderr=subprocess.DEVNULL,
         timeout=120,
@@ -102,7 +103,29 @@ def create_archive(repository, before, after, target):
             item[side + '_path'].startswith(('codex/', 'scripts/')) for side in ('before', 'after')
         )
     ]
-    patch = git('diff', '--binary', '--full-index', *options, old, new, '--', 'codex', 'scripts')
+    blobs = sorted(
+        {
+            item[side + '_blob']
+            for item in files
+            for side in ('before', 'after')
+            if item[side + '_mode'] not in ('000000', '160000')
+        }
+    )
+    sizes = {}
+    if blobs:
+        lines = (
+            git(
+                'cat-file',
+                '--batch-check=%(objectname) %(objectsize)',
+                input_data=('\n'.join(blobs) + '\n').encode(),
+            )
+            .decode()
+            .splitlines()
+        )
+        sizes = {line.split()[0]: int(line.split()[1]) for line in lines}
+    for item in files:
+        for side in ('before', 'after'):
+            item[side + '_size'] = sizes.get(item[side + '_blob'], 0)
     revision = old if after == ZERO_SHA else new
     roots = [
         root
@@ -116,14 +139,22 @@ def create_archive(repository, before, after, target):
             pass
     if target.stat().st_size > 45000000:
         raise NotificationError('archive_exceeds_telegram_limit')
-    return files, patch
+    return files
 
 
 def paragraph(text):
     return {'type': 'paragraph', 'text': text}
 
 
-def notification(repository, branch, before, after, files, patch, commit_text='', icons=None):
+def file_size(size):
+    if size < 1024:
+        return f'{size} Б'
+    if size < 1024 * 1024:
+        return f'{size / 1024:.1f} КБ'
+    return f'{size / (1024 * 1024):.1f} МБ'
+
+
+def notification(repository, branch, before, after, files, commit_text='', icons=None):
     url = 'https://github.com/' + repository
     labels = {
         'A': 'Добавлен',
@@ -133,18 +164,27 @@ def notification(repository, branch, before, after, files, patch, commit_text=''
         'C': 'Скопирован',
         'T': 'Изменён тип',
     }
+    statuses = {item['status'][0] for item in files}
+    change_text = (
+        'Добавлены файлы.'
+        if statuses == {'A'}
+        else 'Добавлены и изменены файлы.'
+        if 'A' in statuses
+        else 'Изменены файлы.'
+    )
     blocks = [
         {
             'type': 'document',
             'document': {'type': 'document', 'media': 'attach://archive'},
         },
+        {'type': 'divider'},
         paragraph(
             [
                 'Ветка удалена. Последний коммит '
                 if after == ZERO_SHA
                 else 'Зафиксирован новый коммит ',
                 {'type': 'marked', 'text': before if after == ZERO_SHA else after},
-                '.',
+                '. ' + change_text if files else '.',
             ]
         ),
     ]
@@ -152,21 +192,10 @@ def notification(repository, branch, before, after, files, patch, commit_text=''
         blocks.append({'type': 'blockquote', 'blocks': [paragraph(commit_text)]})
     items = [
         [
-            {'text': 'Файлы', 'is_header': True, 'colspan': 2},
-            {},
+            {'text': 'Файл', 'is_header': True},
+            {'text': 'Размер: был → стал', 'is_header': True},
         ]
     ]
-    statuses = {item['status'][0] for item in files}
-    if files:
-        blocks.append(
-            paragraph(
-                'Добавлены файлы.'
-                if statuses == {'A'}
-                else 'Добавлены и изменены файлы.'
-                if 'A' in statuses
-                else 'Изменены файлы.'
-            )
-        )
     folders = set()
     for item in files:
         status = item['status'][0]
@@ -213,7 +242,12 @@ def notification(repository, branch, before, after, files, patch, commit_text=''
                 + item['before_path'].encode('utf-8', errors='backslashreplace').decode('utf-8')
                 + ')'
             )
-        items.append([{'text': link, 'colspan': 2}, {}])
+        items.append(
+            [
+                {'text': link},
+                {'text': file_size(item['before_size']) + ' → ' + file_size(item['after_size'])},
+            ]
+        )
     if files:
         for row in items:
             for cell in row:
@@ -229,38 +263,7 @@ def notification(repository, branch, before, after, files, patch, commit_text=''
         )
     else:
         blocks.append(paragraph('В папках codex и scripts изменений нет.'))
-    if patch and len(patch) <= 100000:
-        blocks.append(
-            {
-                'type': 'details',
-                'summary': 'Посмотреть diff',
-                'blocks': [
-                    {
-                        'type': 'pre',
-                        'language': 'diff',
-                        'text': patch.decode('utf-8', errors='replace'),
-                    }
-                ],
-            }
-        )
-    elif patch:
-        blocks.append(
-            paragraph(
-                {
-                    'type': 'url',
-                    'text': 'Открыть полный diff',
-                    'url': url + '/compare/' + before + '...' + after,
-                }
-            )
-        )
     buttons = [{'text': 'Открыть репозиторий', 'url': url}]
-    if ZERO_SHA not in (before, after):
-        buttons.append(
-            {
-                'text': 'Сравнить изменения',
-                'url': url + '/compare/' + before + '...' + after,
-            }
-        )
     return {
         'rich_message': {'blocks': blocks, 'skip_entity_detection': True},
         'reply_markup': {'inline_keyboard': [buttons]},
@@ -318,11 +321,11 @@ def prepare():
     directory.mkdir(parents=True, exist_ok=True)
     revision = before if after == ZERO_SHA else after
     target = directory / f'{revision}.zip'
-    files, patch = create_archive(repository, before, after, target)
+    files = create_archive(repository, before, after, target)
     commit_text = (
         git('show', '-s', '--format=%B', revision).decode('utf-8', errors='replace').strip()
     )
-    payload = notification(repository, branch, before, after, files, patch, commit_text)
+    payload = notification(repository, branch, before, after, files, commit_text)
     (directory / 'message.json').write_text(json.dumps(payload, ensure_ascii=True))
     (directory / 'intent.json').write_text(
         json.dumps(
