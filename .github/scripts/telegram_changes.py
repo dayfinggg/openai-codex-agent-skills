@@ -193,30 +193,14 @@ def notification(repository, branch, before, after, files, commit_text='', icons
     items = [
         [
             {'text': 'Файл', 'is_header': True},
-            {'text': 'Размер: был → стал', 'is_header': True},
+            {'text': 'Было', 'is_header': True},
+            {'text': 'Стало', 'is_header': True},
         ]
     ]
-    folders = set()
     for item in files:
         status = item['status'][0]
         path = item['before_path'] if status == 'D' else item['after_path']
         revision = before if status == 'D' else after
-        folder = path.split('/')[0]
-        if '/' in path and (folder, revision) not in folders:
-            folders.add((folder, revision))
-            items.append(
-                [
-                    {
-                        'text': {
-                            'type': 'url',
-                            'text': [file_icon(folder + '/', icons or {}, True), ' ', folder],
-                            'url': url + '/tree/' + revision + '/' + urllib.parse.quote(folder),
-                        },
-                        'colspan': 2,
-                    },
-                    {},
-                ]
-            )
         name = (
             path.encode('utf-8', errors='backslashreplace')
             .decode('utf-8')
@@ -245,7 +229,8 @@ def notification(repository, branch, before, after, files, commit_text='', icons
         items.append(
             [
                 {'text': link},
-                {'text': file_size(item['before_size']) + ' → ' + file_size(item['after_size'])},
+                {'text': file_size(item['before_size'])},
+                {'text': file_size(item['after_size'])},
             ]
         )
     if files:
