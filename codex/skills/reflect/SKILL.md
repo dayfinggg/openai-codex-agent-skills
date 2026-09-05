@@ -5,6 +5,8 @@ description: Extract reusable, evidence-supported improvements after a completed
 
 # Reflect
 
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
+
 Turn observed behavior into the smallest justified improvement.
 
 ## Gather evidence

@@ -6,7 +6,7 @@
 - Prefer `raise` over `fail` so raising and re-raising use one vocabulary.
 - Rescue the narrowest exception class that the code can handle, and keep the rescue scope small.
 - Do not rescue `Exception`, because that also catches signals and process-control exceptions.
-- Do not leave a rescue body empty. Recover, translate, report, or make an intentional no-op visible through control flow, configuration, or a test; add a source note only when the reason cannot be expressed otherwise.
+- Do not silently swallow failures. Recover, translate, report, or establish an intentional no-op through control flow, configuration, or a focused check. Do not add a source note as a substitute for explicit behavior.
 - Do not use exceptions for expected branching when a predicate or explicit result communicates the case.
 - Avoid modifier-form `rescue` when it would hide which expression is protected or which errors are caught.
 - Translate dependency-specific errors at an integration boundary and preserve the original cause where the runtime supports it.

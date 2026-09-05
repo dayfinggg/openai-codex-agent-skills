@@ -1,9 +1,11 @@
 ---
 name: standards
-description: Apply language, framework, database, security, algorithm, Git, automated-testing, HTML, CSS, accessibility, usability, and interaction-design quality standards when writing, editing, refactoring, reviewing, or organizing source code, tests, schemas, migrations, queries, and user interfaces. Detect the active stack and load only its references. Do not use for prose-only or non-code configuration tasks.
+description: Apply relevant code, test, database, and interface standards during implementation or review. Detect the installed stack and load only guidance needed for the changed behavior. Do not use for prose-only tasks or unrelated audits.
 ---
 
 # Standards
+
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Improve code clarity, correctness, maintainability, and scalability without expanding the requested scope or adding speculative architecture.
 
@@ -11,17 +13,18 @@ Improve code clarity, correctness, maintainability, and scalability without expa
 
 Apply standards in this order:
 
-1. User requirements and repository instructions.
-2. Checked-in formatter, linter, compiler, analyzer, test, and build configuration.
-3. Existing local conventions that are consistent and intentional.
-4. Current official language, framework, and database guidance.
-5. The references in this skill.
+1. Governing system and developer instructions, followed by the user's explicit requirements.
+2. Applicable repository instructions that do not conflict with those requirements.
+3. Checked-in formatter, linter, compiler, analyzer, test, and build configuration.
+4. Existing local conventions that are consistent and intentional.
+5. Current official guidance for the installed language, framework, and database versions.
+6. The references in this skill.
 
-Do not restyle a repository to match a personal preference. When local practice conflicts with correctness, security, or an explicit official requirement, surface the conflict and make the smallest justified correction.
+Do not restyle a repository to match a personal preference. Resolve routine differences within the authorized scope. Ask only when an essential requirement cannot be reconciled. Treat references as conditional guidance, not permission to change project policy, upgrade dependencies, publish code, or alter live systems.
 
 ## Load focused guidance
 
-Each technology has its own directory under `references/`. Open that directory's `index.md` first, then load only the linked topic files needed for the current decision. Do not load every topic file for a technology by default.
+Each technology has its own directory under `references/`. Open that directory's `index.md` first, then load only the linked topic files needed for the current decision. Do not load every topic file for a technology by default. Check installed versions and target environments before applying a version-sensitive claim. Verify uncertain or changing behavior in the corresponding official documentation. A bundled reference is not proof that a feature is available in the project.
 
 Inspect the files and project manifests before choosing references. Use `references/principles/index.md` only when deciding abstractions, duplication, file boundaries, refactoring, or structural tradeoffs. Use `references/testing/index.md` when test design, test doubles, suite reliability, or test boundaries materially affect the work. Use `references/ux/index.md` when the task includes interaction design, usability, user research, prototyping, or mobile interaction decisions. Then load only the language, framework, and database indexes needed for the current task.
 
@@ -93,10 +96,10 @@ Use `references/principles/index.md` as the router for the canonical DRY, KISS, 
 
 Apply these standards to new and materially changed code. Avoid unrelated cleanup, repository-wide reformatting, dependency replacement, or architectural migration unless the request requires it. Preserve generated files and vendor code unless their owning workflow says otherwise.
 
-Prefer names, types, structure, tests, and external documentation over source comments. Do not add comments, docstrings, TODO or FIXME markers, placeholder code, or commented-out code to narrate implementation or defer work. Keep only tool-required directives, license notices, public API documentation for an explicit contract, or a concise non-obvious reason that code cannot express and a maintainer or caller must know.
+Express intent through names, types, structure, and behavior. Follow the user's code-style rules across every reference in this skill. Do not add prose comments, docstrings, TODO or FIXME notes, commented-out code, placeholder implementations, or unsolicited documentation. Preserve mandatory license notices and directives or type annotations required by the toolchain. Do not remove unrelated existing comments. Documentation advice in the references applies only when documentation is explicitly requested.
 
-When a standard suggests a larger change than the task permits, keep the local change compatible and report the broader improvement separately.
+When a standard suggests a larger change than the task permits, keep the local change compatible. Mention a material limitation when necessary to explain the result. Offer broader improvements only when requested.
 
 ## Verify
 
-Run the configured checks that directly cover the changed code and behavior. Start with the applicable formatter, linter, compiler or type checker, and focused tests. Broaden or repeat checks only when the blast radius, a failure, a new edit, or a repository requirement justifies it. Inspect the final diff for unnecessary abstraction, duplicated knowledge, hidden behavior, unrelated churn, and violations of the loaded references.
+Use isolated or disposable state for destructive, recovery, or fault-injection checks. Do not write low-value tests for reversible small edits or tests that merely mirror the implementation. Run the configured checks that directly cover the changed code and behavior. Start with the applicable formatter, linter, compiler or type checker, and focused tests. Broaden or repeat checks only when the blast radius, a failure, a new edit, or a repository requirement justifies it. Inspect the final diff for unnecessary abstraction, duplicated knowledge, hidden behavior, unrelated churn, and violations of the loaded references.

@@ -5,6 +5,8 @@ description: Assemble the smallest trustworthy context needed for an active engi
 
 # Context
 
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
+
 Give the agent the information that changes decisions and omit the rest.
 
 ## Select

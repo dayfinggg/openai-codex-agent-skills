@@ -5,6 +5,8 @@ description: Maintain a compact evidence-backed decision trail for long-running,
 
 # Journal
 
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
+
 Record decisions that affect trust in the result, not a transcript of activity.
 
 ## Decide what deserves a record
@@ -25,8 +27,8 @@ Use one row or compact block per decision. Keep facts separate from inference. D
 
 ## Boundaries
 
-Keep the journal local unless the user or repository requires committing or publishing it. Treat that request or trusted project rule as authorization for the ordinary external write and do not ask again. A journal supports verification but does not replace it.
+Maintain a journal only when requested or when an existing authorized workflow requires a durable decision record. Otherwise keep working context internal. Use the specified destination, omit secrets, and do not commit, publish, or send the journal without user authorization. A journal supports verification but does not replace it.
 
 ## Output
 
-Return the current decision trail or append it to an authorized destination, followed by unresolved decisions and the evidence still needed.
+Update the authorized decision record without progress narration. Return the record when requested, otherwise include only its relevant result in the final response. Do not append unsolicited recommendations.

@@ -5,6 +5,8 @@ description: Reproduce a failure, regression, or performance problem and identif
 
 # Diagnose
 
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
+
 Replace speculation with a short feedback loop and a causal explanation.
 
 ## Reproduce
@@ -29,8 +31,8 @@ After establishing the cause, search the affected scope for analogous code, data
 
 Do not implement a repair for a diagnosis-only request. Do not hide the symptom with retries, guards, or broader timeouts. Redact secrets and personal data from evidence.
 
-When compromise is plausible, preserve evidence and timeline through clean channels, avoid ordinary credentials on the suspected host, and involve the authorized security or forensics owner. Do not contact attacker infrastructure or make irreversible containment changes that destroy evidence unless immediate harm requires it. Keep compromise investigation separate from ordinary bug repair.
+When evidence suggests compromise, preserve evidence and the timeline through available trusted mechanisms. Do not contact other people or attacker infrastructure, use credentials on a suspected host, or change live containment without appropriate authorization. Report an essential blocking condition to the user. Do not turn an ordinary bug investigation into an incident response based on speculation.
 
 ## Output
 
-State the reproduction, observations, eliminated hypotheses, root cause, confidence, affected scope, and the smallest justified repair direction.
+State the established cause, relevant reproduction evidence, affected scope, and remaining uncertainty. Include repair recommendations only when requested. Do not dump the investigation history.

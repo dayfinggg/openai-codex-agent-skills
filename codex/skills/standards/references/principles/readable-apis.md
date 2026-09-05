@@ -5,7 +5,7 @@
 - Prefer explicit result values and structured options over hidden output mutation and positional booleans.
 - Use domain types or enums when primitives would permit invalid states or make a call ambiguous.
 - Keep public visibility narrow and hide representation so implementations can change without forcing callers to change.
-- Document preconditions, postconditions, side effects, ownership, errors, panics, and cancellation when they are not obvious.
+- Make preconditions, ownership, errors, and cancellation explicit in the contract. Write explanatory documentation only when requested, without introducing unsolicited source comments.
 - Make units, bounds, cardinality, ordering requirements, call sequencing, ownership, mutation, and side effects visible through types, names, signatures, result shapes, validation, or focused contract tests.
 - Replace domain-specific magic literals with named constants, enums, or domain types when the name carries policy or prevents confusion. Do not mechanically name universally obvious mathematical constants or one-off local values.
 - Keep naming and word order consistent with the surrounding ecosystem because consistency makes APIs predictable.

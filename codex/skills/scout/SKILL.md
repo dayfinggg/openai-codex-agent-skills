@@ -5,6 +5,8 @@ description: Map an unfamiliar codebase, trace runtime flow, locate ownership, a
 
 # Scout
 
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
+
 Build a compact, evidence-backed map of the relevant code instead of summarizing the repository broadly.
 
 ## Explore
@@ -23,4 +25,4 @@ Do not edit files. Do not infer intent from names when implementation or tests c
 
 ## Output
 
-Return the entry point, flow, ownership map, key files, uncertainties, and the smallest useful next action.
+Answer the requested orientation or placement question using the relevant entry point, flow, file links, and uncertainty. Include a reading path or next action only when requested.

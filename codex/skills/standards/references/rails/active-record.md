@@ -10,7 +10,7 @@
 - Use `update_all`, `delete_all`, `insert_all`, and `upsert_all` only with an explicit decision about skipped callbacks and validations.
 - Remember that bulk SQL can bypass timestamps, callbacks, validations, and application-level invariants.
 - Parameterize custom SQL and prefer Arel or documented query methods over string interpolation.
-- Keep raw SQL narrowly scoped and make the reason visible through a named query, test, or public API documentation. Add a source note only when the relation API limitation is non-obvious and cannot be expressed otherwise.
+- Keep raw SQL narrowly scoped and express its purpose through a named query and focused verification. Add documentation only when explicitly requested, without unsolicited source notes.
 - Use `includes`, `preload`, or `eager_load` intentionally, and verify the resulting query plan.
 - Use `find_each` or `in_batches` for large sets instead of loading every row into memory.
 - Select or pluck only the columns needed by a measured hot path, while retaining records when behavior needs models.

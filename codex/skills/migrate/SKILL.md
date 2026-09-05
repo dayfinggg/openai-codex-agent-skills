@@ -5,6 +5,8 @@ description: Move code, callers, data, configuration, or dependencies from an ol
 
 # Migrate
 
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
+
 Converge on the target state without leaving an accidental permanent compatibility layer.
 
 ## Inventory
@@ -29,7 +31,7 @@ Check caller coverage, transformed data, mixed-version behavior, rollback, and a
 
 ## Boundaries
 
-Require confirmation only for destructive production-data operations that could cause material, difficult-to-recover harm and are not already explicitly authorized. Treat an explicit migration or deployment request as authorization for its ordinary in-scope production writes. Report unknown external consumers rather than assuming none exist.
+Distinguish preparing a migration from executing it against a live system. Use the environment and operations authorized by the user. A request to write or update a migration does not by itself authorize production execution, deletion, or credential revocation. Reuse existing authorization and follow the governing permission rules. Report unknown external consumers rather than assuming none exist.
 
 ## Output
 
