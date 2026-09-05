@@ -8,8 +8,6 @@ Name collection iterators `iter`, `iter_mut`, and `into_iter`, with matching ite
 Prefer meaningful enums, structs, and newtypes over several positional booleans or overloaded primitive arguments.
 Use a builder when a value has optional configuration, compound inputs, or side-effecting construction.
 Validate arguments at the narrowest boundary that can report a useful error.
-Document side effects, allocation behavior, blocking, ordering, panic conditions, and thread-safety when they matter to callers.
-When a public item's usage or failure contract is not clear from its signature, tests, and nearby examples, provide a focused rustdoc example or direct link; make fallible examples use `?`.
-Make examples compile as documentation tests and keep them free of accidental `unwrap` calls.
+Make caller-visible effects and failure behavior clear through signatures, types, and focused verification. Add rustdoc prose or examples only when documentation is explicitly requested. In that case, compile examples as documentation tests and use `?` for ordinary fallible operations.
 Avoid inherent methods on smart pointers when the method belongs semantically to the pointee.
 Treat every public signature, re-export, trait implementation, and error variant as a compatibility commitment.

@@ -5,6 +5,8 @@ description: Turn settled requirements or an existing conversation into an imple
 
 # Specify
 
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
+
 Synthesize what is already known. Do not restart discovery or invent missing product decisions.
 
 ## Establish the source
@@ -15,7 +17,7 @@ Use the current conversation, linked issue, accepted decisions, and relevant pro
 
 State the problem, users or callers, desired behavior, inputs, outputs, state transitions, error behavior, compatibility constraints, and non-functional requirements that affect implementation. Express acceptance criteria as observable outcomes.
 
-Cover successful, boundary, and failure cases. Resolve ambiguous business terms and keep stable business behavior separate from volatile UI or implementation detail. When several roles own the contract, require review by the relevant stakeholder, analyst, tester, developer, or operator rather than assuming one perspective is complete.
+Cover successful, boundary, and failure cases. Resolve ambiguous business terms and keep stable business behavior separate from volatile UI or implementation detail. When several roles own the contract, use available accepted decisions and identify genuinely missing requirements. Do not invent a mandatory stakeholder review or contact other people unless the task requires and authorizes it.
 
 Keep implementation choices only when they are already decided or required by the repository. Separate product requirements from implementation notes. Name what is out of scope so downstream work does not expand silently.
 

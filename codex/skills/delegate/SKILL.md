@@ -1,15 +1,17 @@
 ---
 name: delegate
-description: Prepare and assign one bounded, independently verifiable subtask to a subagent. Use when collaboration tools are available, one work unit can proceed without shared mutable state, and parallel or specialized work will materially help. Do not use merely to avoid doing a small task locally.
+description: Prepare and assign one bounded, independently verifiable subtask to a subagent. Use when delegation is authorized by the user or governing instructions, collaboration tools are available, and one independent work unit will materially help. Do not use merely to avoid doing a small task locally.
 ---
 
 # Delegate
+
+Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Delegate an outcome, not a vague topic or a copy of the whole parent task.
 
 ## Confirm fit
 
-Use delegation when collaboration tools are available and no higher-priority instruction prohibits multi-agent work. Do not ask for permission merely to delegate work already within the task's scope. The subtask must have a clear boundary, enough context to start, an observable completion condition, and no need for ongoing parent judgment. Keep work that owns shared state or final integration with the primary agent.
+Delegate only when the user or governing instructions authorize delegation and the collaboration tools are available. This skill does not itself grant that authorization. Respect a request to work personally without subagents. Do not ask again when delegation is already authorized. The subtask must have a clear boundary, enough context to start, an observable completion condition, and no need for ongoing parent judgment. Keep work that owns shared state or final integration with the primary agent.
 
 ## Write the brief
 

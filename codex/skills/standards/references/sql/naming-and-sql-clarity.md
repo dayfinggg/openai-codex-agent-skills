@@ -10,7 +10,7 @@
 - Select explicit columns at stable interfaces; do not expose `SELECT *` from APIs, views, or long-lived reports.
 - Put one selected expression per line and keep a stable column order so diffs remain reviewable.
 - Qualify columns with short, descriptive aliases whenever more than one table is present.
-- Prefer names, constraints, CTEs, and schema structure to express business rules and invariants. Keep a SQL comment only when a non-obvious optimizer or compatibility reason cannot be expressed in SQL and operators must know it; never narrate syntax.
+- Prefer names, constraints, CTEs, and schema structure to express business rules and invariants. Do not add prose SQL comments. Preserve optimizer hints or other directives that affect execution.
 - Format SQL with an agreed formatter and linter; configure the target dialect rather than linting everything as ANSI.
 - SQLFluff is a concrete cross-dialect linting example; run `sqlfluff lint query.sql --dialect ansi` or the project’s dialect.
 - Bind values through parameters or prepared statements; never concatenate untrusted values into SQL text.

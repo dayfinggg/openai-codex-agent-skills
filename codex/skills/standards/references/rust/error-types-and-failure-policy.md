@@ -11,6 +11,6 @@ Preserve lower-level causes through `source` or `From` conversions rather than f
 Use `?` and `From` conversions for routine propagation, and map errors only when the abstraction boundary changes.
 Do not use `bool`, `Option`, or a sentinel value to hide a meaningful error condition.
 Do not expose unstable implementation errors as public API unless callers can act on them.
-Document `Errors`, `Panics`, and `Safety` sections for public functions whenever those conditions are relevant.
+When API documentation is explicitly requested, cover relevant error, panic, and safety contracts. Otherwise express and check those invariants through types, control flow, and focused verification without adding prose comments.
 Write error names in a consistent order such as `ParseFooError`, matching standard-library vocabulary.
 At an application boundary, aggregate or render errors for humans only after the typed cause has done its work.

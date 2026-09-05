@@ -14,4 +14,4 @@
 - Keep a method name focused on one role; a name containing `and` often signals two responsibilities.
 - Choose collection names that are plural and element names that are singular.
 - Make negative predicates read naturally, and avoid double negatives at call sites.
-- Prefer names, types, and structure for intent, constraints, and tradeoffs. Keep a source note only when a non-obvious reason cannot be expressed in code; do not narrate syntax.
+- Express intent and constraints through names, types, and structure. Do not add prose comments or source notes. Preserve mandatory notices and tool-required directives.
