@@ -31,6 +31,8 @@ When release or deployment behavior is in scope, use the project's existing vali
 
 ## Verify
 
+Before verification, inspect the additions for parts that can be removed without losing required behavior or clarity. For each new helper, layer, option, or dependency, identify its present purpose internally. Remove unused flexibility and pass-through wrappers introduced by this patch. For example, a single export format normally needs a direct export function, not a configurable exporter registry. Stop simplifying when further reduction would hide intent or weaken a required boundary.
+
 Run the most relevant focused tests first, followed by broader checks in proportion to risk. Inspect the actual diff and exercise the real behavior when feasible. Treat a passing build as insufficient when the feature can be observed directly.
 
 ## Finish
