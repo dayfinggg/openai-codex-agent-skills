@@ -3,7 +3,7 @@
 Use this reference for FastAPI services and APIs.
 Use the [Python reference](../python/index.md) for naming, typing, packaging, exceptions, async primitives, and general testing rules.
 Prefer FastAPI's typed request, response, dependency, and lifespan contracts before adding framework layers.
-Treat the current FastAPI and Starlette documentation as normative when it conflicts with this reference.
+Resolve version-sensitive claims against documentation for the installed FastAPI and Starlette versions.
 
 ## Reference map
 

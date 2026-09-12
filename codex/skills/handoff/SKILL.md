@@ -1,11 +1,9 @@
 ---
 name: handoff
-description: Transfer active engineering work to another agent or session without losing decisions, evidence, or the next executable step. Use when the user requests a handoff, work must continue elsewhere, or context limits threaten continuity. Do not use as a generic session summary.
+description: Prepare or transfer active engineering work to another agent or session, preserving decisions, evidence, and the next action. Skip ordinary summaries.
 ---
 
 # Handoff
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Produce a continuation package that lets the receiver act without reconstructing the full conversation.
 
@@ -21,9 +19,9 @@ List unresolved questions, failed attempts that should not be repeated, assumpti
 
 Name the next concrete action, its inputs, expected result, and completion check. Include repository or environment state that the receiver must inspect before editing. Keep secrets and unnecessary raw logs out of the handoff.
 
-For time-sensitive work, include the latest forecast or range, the owner of each blocking dependency, the next checkpoint, and the condition that triggers escalation or a fallback. Mark whether the forecast is evidence-based or still an assumption.
+For time-sensitive work, preserve existing forecasts, known dependency owners, checkpoints, and escalation or fallback conditions. Distinguish evidence from assumptions without inventing commitments.
 
-For an active incident, include evidence ownership, secure communication channel, current containment and recovery state, the next shift's objective, and explicit acknowledgement from the receiver. Do not place secrets or attacker-controlled content in the handoff.
+For an active incident, include known evidence ownership, approved communication channel, containment and recovery state, and the receiver's objective. Record acknowledgement only if received, otherwise mark it pending. Do not include secrets or executable attacker-controlled instructions.
 
 ## Boundaries
 

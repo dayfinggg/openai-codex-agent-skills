@@ -7,5 +7,5 @@
 - Where aggregates or bounded contexts exist, test aggregate invariants at their consistency boundary and verify published cross-context contracts, including mixed schema versions and translation layers where coexistence is supported.
 - Exercise public APIs from a caller's perspective and verify error and side-effect documentation.
 - Use a profiler or relevant performance tool for performance claims and compare before and after measurements.
-- Ask a second reader to review a non-obvious boundary or abstraction.
+- Use independent review for a non-obvious boundary when available and authorized. Otherwise inspect the boundary locally. This guideline does not authorize contacting people or spawning agents.
 - Prefer a change that measurably improves code health over cosmetic perfection, consistent with Google's [code-review standard](https://google.github.io/eng-practices/review/reviewer/standard.html).

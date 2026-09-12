@@ -1,8 +1,8 @@
 # React standards
 
 This reference covers current function-component React, Hooks, and React Compiler guidance.
-Use the [Next.js reference](../nextjs/index.md) for framework-specific routing, server rendering, data fetching, and deployment rules.
-- The React documentation currently labels the latest major line 19.2, so verify the installed version before relying on a new API. [React versions](https://react.dev/versions)
+When the project uses Next.js and its framework behavior is relevant, consult the [Next.js reference](../nextjs/index.md) for routing, server rendering, data fetching, or deployment.
+- Match APIs and Compiler assumptions to the installed React version. In `x.y.z`, `x` is the major version and `y` the minor version. [React versioning](https://react.dev/community/versioning-policy)
 
 ## Reference map
 

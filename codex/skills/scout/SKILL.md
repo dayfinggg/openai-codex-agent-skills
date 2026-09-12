@@ -1,17 +1,15 @@
 ---
 name: scout
-description: Map an unfamiliar codebase, trace runtime flow, locate ownership, and identify the files that matter. Use for codebase orientation, onboarding, placement questions, and investigation before planning. This is a read-only skill and does not design or implement changes.
+description: Map relevant code, runtime flow, and ownership for orientation or placement questions. Read-only exploration, without design or implementation.
 ---
 
 # Scout
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Build a compact, evidence-backed map of the relevant code instead of summarizing the repository broadly.
 
 ## Explore
 
-Start from the observable entry point named by the user. Trace calls, data, state, errors, and side effects until responsibility becomes clear. Read tests and configuration only where they explain behavior. Prefer searches and targeted reads over directory-wide loading.
+Start from the named entry point, or locate it from the requested behavior. Trace calls, data, state, errors, and side effects until ownership is clear. Use targeted reads of source, tests, and configuration rather than directory-wide loading.
 
 Record the role of each important file, the public boundary between components, the authoritative source of data, and any generated or external layer. Distinguish verified behavior from an inference.
 

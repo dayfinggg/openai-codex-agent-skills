@@ -11,7 +11,7 @@
 - Give each slow dependency a narrower context deadline than the overall request budget.
 - Serve production traffic over HTTPS with managed certificates and a reviewed TLS policy.
 - Keep crypto/tls defaults unless compatibility or compliance requires an explicit change.
-- Never use InsecureSkipVerify in production.
+- Keep certificate and peer-identity verification enabled. Do not use `InsecureSkipVerify` as a workaround. A deliberate custom-verification design must enforce equivalent checks through `VerifyConnection` or `VerifyPeerCertificate`, including resumed connections where applicable. [Go TLS configuration](https://pkg.go.dev/crypto/tls#Config)
 - Start the server in a goroutine only when the lifecycle owner waits for it and observes startup errors.
 - On shutdown, stop accepting work, call Server.Shutdown with a deadline, wait for owned workers, then close databases and clients.
 - Handle hijacked connections such as WebSockets separately because Server.Shutdown does not wait for them.

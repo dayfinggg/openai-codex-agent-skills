@@ -1,11 +1,9 @@
 ---
 name: migrate
-description: Move code, callers, data, configuration, or dependencies from an old contract to a new one with explicit compatibility and rollback decisions. Use for API, schema, framework, dependency, or storage migrations. Do not use for a simple isolated replacement with no consumers.
+description: Migrate APIs, schemas, frameworks, dependencies, or storage while preserving required compatibility. Skip isolated replacements without affected consumers.
 ---
 
 # Migrate
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Converge on the target state without leaving an accidental permanent compatibility layer.
 
@@ -19,11 +17,11 @@ When domain meaning changes, inventory the bounded contexts and owners that use 
 
 Decide whether the change can be atomic or requires staged coexistence. State the compatibility window, rollback point, data transformation, observability, and deletion condition. Do not preserve the old path when no real compatibility requirement exists.
 
-For a security-sensitive version, credential, or signing-key migration, define the minimum safe version, revoke the retired authority, prove that old access no longer works, and prevent rollback or recovery from reviving a vulnerable artifact or credential. Give every temporary compatibility bypass an owner and deletion deadline or condition.
+For security-sensitive versions, credentials, or signing keys, define a security floor, the revocation sequence, and evidence that retired access is rejected after cutover. Plan rollback and recovery without restoring vulnerable artifacts or credentials. Temporary compatibility bypasses need an owner and removal condition. Execute revocation only within authorized live operations.
 
 ## Sequence
 
-Order work so every stage is deployable and verifiable. For a staged migration, introduce the new read or write path, validate real traffic or data, move consumers, then remove the old path. Make repeated operations idempotent when retries are possible.
+Keep each stage deployable and verifiable. For coexistence, order compatible readers, writers, data conversion, consumer cutover, and old-path removal according to the actual contract. Verify with representative data or authorized traffic. Make retryable transformations idempotent.
 
 ## Verify
 

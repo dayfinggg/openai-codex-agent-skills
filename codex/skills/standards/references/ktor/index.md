@@ -1,6 +1,6 @@
 # Ktor web backends
 This reference covers Ktor server choices at the routing, application, persistence, and operations boundaries.
-Use the [Kotlin](../kotlin/index.md) and [Java](../java/index.md) references for language, coroutine, collection, exception, and JVM fundamentals.
+Consult [Kotlin](../kotlin/index.md) for relevant language or coroutine decisions and [Java](../java/index.md) only for Java interoperability or JVM contracts. Do not load both by default.
 Ktor is intentionally unopinionated, so select the smallest structure that makes ownership, lifecycle, and tests clear.
 
 ## Reference map

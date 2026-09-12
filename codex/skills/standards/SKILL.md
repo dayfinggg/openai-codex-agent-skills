@@ -1,13 +1,9 @@
 ---
 name: standards
-description: Apply relevant code, test, database, and interface standards during implementation or review. Detect the installed stack and load only guidance needed for the changed behavior. Do not use for prose-only tasks or unrelated audits.
+description: Apply the installed language, framework, or database conventions to changed code when a stack-specific decision arises during implementation or review. Skip audits of unchanged code.
 ---
 
 # Standards
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
-
-Improve code clarity, correctness, maintainability, and scalability without expanding the requested scope or adding speculative architecture.
 
 ## Precedence
 
@@ -20,13 +16,13 @@ Apply standards in this order:
 5. Current official guidance for the installed language, framework, and database versions.
 6. The references in this skill.
 
-Do not restyle a repository to match a personal preference. Resolve routine differences within the authorized scope. Ask only when an essential requirement cannot be reconciled. Treat references as conditional guidance, not permission to change project policy, upgrade dependencies, publish code, or alter live systems.
+References are conditional guidance, not authority to restyle a repository, change policy, upgrade dependencies, publish, or alter live systems.
 
 ## Load focused guidance
 
-Each technology has its own directory under `references/`. Open that directory's `index.md` first, then load only the linked topic files needed for the current decision. Do not load every topic file for a technology by default. Check installed versions and target environments before applying a version-sensitive claim. Verify uncertain or changing behavior in the corresponding official documentation. A bundled reference is not proof that a feature is available in the project.
+Inspect affected files and manifests to identify the installed stack and runtime. Select the relevant indexes below, then read only topic files needed for the decision. Use each directory's `sources.md` to resolve citation labels or verify uncertain claims against official documentation for the installed version. Bundled notes do not prove feature availability. Do not traverse the entire reference tree.
 
-Inspect the files and project manifests before choosing references. Use `references/principles/index.md` only when deciding abstractions, duplication, file boundaries, refactoring, or structural tradeoffs. Use `references/testing/index.md` when test design, test doubles, suite reliability, or test boundaries materially affect the work. Use `references/ux/index.md` when the task includes interaction design, usability, user research, prototyping, or mobile interaction decisions. Then load only the language, framework, and database indexes needed for the current task.
+Use `references/principles/index.md` for abstraction, duplication, cohesion, coupling, sizing, or refactoring decisions. Use `references/testing/index.md` for test design, doubles, boundaries, or reliability. Use `references/ux/index.md` for interaction design, research, prototypes, or mobile usability. None is mandatory for unrelated changes.
 
 ### Languages
 
@@ -84,22 +80,8 @@ Inspect the files and project manifests before choosing references. Use `referen
 - Algorithms, data structures, and complexity: `references/algorithms/index.md`
 - Git state, integration, history, and publication safety: `references/git/index.md`
 
-For a cross-stack change, load the minimum combination that owns the affected boundaries. Do not load the entire reference set.
-
-Use DDD patterns only as vocabulary for real, changing domain complexity. Simple CRUD does not require repositories, services, aggregates, an event bus, plugin frameworks, or extra layers merely because those patterns exist.
-
-## Apply standards
-
-Use `references/principles/index.md` as the router for the canonical DRY, KISS, YAGNI, cohesion, coupling, abstraction-timing, and size guidance. Use the selected stack indexes for ecosystem-specific rules. Do not restate their guidance from memory or load unrelated topic files.
+For cross-stack changes, combine only references owning affected boundaries. Domain-driven design patterns require actual domain complexity. Simple CRUD does not justify repositories, services, aggregates, event buses, plugin frameworks, or extra layers by itself.
 
 ## Work within scope
 
-Apply these standards to new and materially changed code. Avoid unrelated cleanup, repository-wide reformatting, dependency replacement, or architectural migration unless the request requires it. Preserve generated files and vendor code unless their owning workflow says otherwise.
-
-Express intent through names, types, structure, and behavior. Follow the user's code-style rules across every reference in this skill. Do not add prose comments, docstrings, TODO or FIXME notes, commented-out code, placeholder implementations, or unsolicited documentation. Preserve mandatory license notices and directives or type annotations required by the toolchain. Do not remove unrelated existing comments. Documentation advice in the references applies only when documentation is explicitly requested.
-
-When a standard suggests a larger change than the task permits, keep the local change compatible. Mention a material limitation when necessary to explain the result. Offer broader improvements only when requested.
-
-## Verify
-
-Use isolated or disposable state for destructive, recovery, or fault-injection checks. Do not write low-value tests for reversible small edits or tests that merely mirror the implementation. Run the configured checks that directly cover the changed code and behavior. Start with the applicable formatter, linter, compiler or type checker, and focused tests. Broaden or repeat checks only when the blast radius, a failure, a new edit, or a repository requirement justifies it. Inspect the final diff for unnecessary abstraction, duplicated knowledge, hidden behavior, unrelated churn, and violations of the loaded references.
+Apply standards to new and materially changed code within scope. Preserve generated and vendor files unless their owning workflow requires changes. Documentation advice in the references applies only when documentation is explicitly requested, and the governing rules on comments and documentation override any reference. When guidance exceeds scope, keep the local change compatible and disclose material limits.

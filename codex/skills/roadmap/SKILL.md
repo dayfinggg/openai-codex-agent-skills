@@ -1,11 +1,9 @@
 ---
 name: roadmap
-description: Break a large or multi-session engineering objective into ordered, verifiable stages with dependencies and checkpoints. Use when the user asks for an implementation plan or complex authorized work needs internal sequencing. Do not turn an implementation request into a planning-only response.
+description: Sequence large engineering work into verifiable stages and dependencies. Use for requested plans or internal planning during authorized implementation.
 ---
 
 # Roadmap
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Create a route to the outcome that remains usable across sessions and agents.
 
@@ -15,7 +13,7 @@ State the final observable outcome, current state, constraints, non-goals, and d
 
 ## Decompose
 
-Split work into vertical units that leave the system in a valid, testable state. Make dependencies explicit. Put risk-reducing discovery and irreversible decisions early. Avoid tasks titled with multiple independent outcomes.
+Split work into coherent, testable stages with explicit dependencies. Investigate high-risk and irreversible commitments early, but perform irreversible actions only after their prerequisites and authorization are satisfied. Keep independent outcomes separate.
 
 Before introducing shared infrastructure or a general abstraction, require a present need such as real consumers, an existing compatibility contract, or an established safety boundary. Do not invent extra consumers or a demonstration stage merely to satisfy a process.
 
@@ -23,11 +21,11 @@ Each unit must state its result, likely scope, prerequisites, acceptance criteri
 
 Limit simultaneous in-progress stages to the work the available owners can finish and integrate. Starting more lanes is not progress when reviews, dependencies, or verification are already the bottleneck.
 
-For date-sensitive work, record an optimistic, nominal, and pessimistic range with its assumptions, dependency owners, next checkpoint, and fallback trigger. Do not present a nominal estimate as a promise. Update the forecast when evidence changes instead of preserving a stale date.
+When scheduling is part of the request, use evidence-backed ranges with assumptions, known dependency owners, checkpoints, and fallback conditions. Do not invent estimates or present a forecast as a promise. Revise it when evidence changes.
 
 ## Check the route
 
-Ensure the sequence contains no circular dependency, hidden migration step, unverified handoff, or stage that is too large for one focused session. Add checkpoints where evidence should be reviewed before more work depends on it.
+Check for dependency cycles, hidden migrations, and unverified handoffs. Give long stages resumable checkpoints rather than imposing a fixed session length. Place verification before dependent work.
 
 ## Boundaries
 

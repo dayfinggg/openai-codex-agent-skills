@@ -1,11 +1,9 @@
 ---
 name: specify
-description: Turn settled requirements or an existing conversation into an implementation-ready specification with testable behavior and explicit scope. Use when the desired outcome is mostly known and needs consolidation. Do not use for open-ended discovery or implementation.
+description: Consolidate accepted requirements into a testable implementation specification. Skip open-ended product discovery and implementation.
 ---
 
 # Specify
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Synthesize what is already known. Do not restart discovery or invent missing product decisions.
 

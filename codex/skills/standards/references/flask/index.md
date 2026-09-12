@@ -3,7 +3,7 @@
 Use this reference for Flask applications and services.
 Use the [Python reference](../python/index.md) for naming, typing, packaging, exceptions, async primitives, and general testing rules.
 Prefer Flask's explicit factory, blueprint, context, and WSGI contracts before adding extensions or architecture.
-Treat the current Pallets Flask documentation as normative when it conflicts with this reference.
+Resolve version-sensitive claims against Pallets documentation for the installed Flask version.
 
 ## Reference map
 

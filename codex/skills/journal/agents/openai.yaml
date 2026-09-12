@@ -1,6 +1,6 @@
 interface:
   display_name: "Journal"
-  short_description: "Record evidence backed decisions during long work"
+  short_description: "Maintain an authorized decision record"
   default_prompt: "Use $journal to keep an evidence backed decision record for this long task."
 
 policy:
