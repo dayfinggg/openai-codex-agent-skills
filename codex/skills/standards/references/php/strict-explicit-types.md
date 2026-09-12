@@ -1,9 +1,9 @@
 # Strict, explicit types
 
-- Start every PHP source file with `declare(strict_types=1);` unless an identified interoperability boundary requires otherwise.
+- Read [version compatibility](version-compatibility.md) before changing declarations. Prefer `declare(strict_types=1);` in new PHP 7+ files when compatible with project conventions. Introduce it into legacy callers only after checking existing coercion behavior.
 - Strict typing is file-scoped and affects calls made from the strict caller, so migrate callers as well as declarations.
 - Strict typing applies to scalar declarations; it does not make every PHP operation statically safe.
-- Type every parameter, return value, property, promoted constructor parameter, and public constant where the language permits it.
+- Add useful native declarations only where the minimum supported PHP version and existing consumer/inheritance contracts permit them. Do not mass-type legacy APIs as incidental cleanup.
 - Prefer the narrowest useful native type: a domain class or interface is clearer than `array` or `object`.
 - Use `?T`, unions, intersections, `void`, `never`, and enums when they describe the real contract.
 - Use `false` and `true` types only when the API genuinely returns those sentinel values.
@@ -16,3 +16,7 @@
 - Keep input validation at the boundary and pass normalized domain values inward.
 - Use `===` and `!==` by default; make any intentional coercion visible at the boundary.
 - Return one documented result shape; avoid APIs that mix a value, `false`, `null`, and exceptions without a reason.
+- Initialize typed properties before reads; nullable properties are not automatically initialized to null. Check serializer and ORM hydration behavior before adding property types.
+- Readonly restricts assignment, not mutation of an object stored in a property. Use immutable collaborators when the invariant requires deep immutability. Do not add readonly to proxy or hydrated classes without framework support.
+- Preserve nullable versus absent fields at input boundaries. A cast is not validation, and `isset()` treats null as absent. Use explicit shape and value checks for external data.
+- PHPDoc generics, shapes, and aliases guide analysis but do not enforce runtime values. Keep assertions consistent with guards and compatible with the installed analyzer. Do not invent native generic syntax.

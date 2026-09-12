@@ -11,3 +11,4 @@
 - Configure `E_ALL` during development and test; log production failures without exposing stack traces or secrets to users.
 - Avoid the error-control operator `@`; it hides unrelated failures and makes diagnosis harder.
 - Use a PSR-3 logger when a component needs logging; put an exception in the `exception` context key and keep messages stable.
+- Apply these APIs only where the runtime supports them: `Throwable` is PHP 7+, `finally` is PHP 5.5+. For older maintenance, preserve the project's explicit cleanup and exception boundaries rather than introducing unsupported syntax or assuming engine errors are catchable exceptions.

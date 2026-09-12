@@ -1,7 +1,7 @@
 # Testing
 
 - Name a test class after the subject with a `Test` suffix and keep it under `tests/`.
-- PHPUnit's basic convention is a `TestCase` subclass with public `test*` methods or an explicit `#[Test]` attribute.
+- Use the installed PHPUnit release's supported discovery and metadata. Public `test*` methods work across common legacy setups; use `#[Test]` only when both PHP and PHPUnit support it. Do not replace older metadata without checking the supported test matrix.
 - Prefer `assertSame` when identity of type and value matters.
 - Call `expectException` immediately before the operation expected to throw.
 - Use data providers for a behavior matrix; keep each dataset readable and purposeful.
@@ -11,4 +11,5 @@
 - Keep tests independent, repeatable, and free of hidden order or shared mutable state.
 - Coverage is evidence of exercised paths, not proof of correctness; prioritize meaningful assertions and edge cases.
 - Test the supported PHP versions and dependency ranges that the package promises to support.
+- Add behavior checks for changed compatibility-sensitive paths, including coercion, nullability, serialization, extension availability, and inheritance where relevant. Test cache invalidation/isolation and worker redelivery against real adapters when mocks cannot establish correctness.
 - Use traceable conference talks such as Dave Liddament's cited material to align a team on type safety and static analysis. Treat talks as practitioner guidance rather than language requirements.

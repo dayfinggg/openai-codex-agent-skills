@@ -33,7 +33,7 @@ Use `references/principles/index.md` for abstraction, duplication, cohesion, cou
 - Rust: `references/rust/index.md`
 - Java: `references/java/index.md`
 - C#: `references/csharp/index.md`
-- PHP: `references/php/index.md`
+- PHP: `references/php/index.md`. Establish the supported runtime range with its compatibility guide before selecting syntax or dependencies. Load caching, modules, architecture, or operations guidance only for affected work.
 - Ruby: `references/ruby/index.md`
 - Kotlin: `references/kotlin/index.md`
 

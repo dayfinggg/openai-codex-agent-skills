@@ -16,3 +16,11 @@
 - Ignore `vendor/` in application source control unless a packaging policy explicitly requires vendoring.
 - Keep Composer scripts small, deterministic, and safe to run in a clean checkout.
 - Use the maintained Symfony Demo repository as a concrete reference for `src/`, `tests/`, Composer autoloading, PHPStan, and PHPUnit configuration.
+- Distinguish application modules, distributable Composer packages, and native PHP extensions. Use a package only when separate distribution/versioning or an actual consumer requires it. Keep internal modules behind explicit entry points without introducing a plugin framework.
+- Declare each package's direct dependencies instead of relying on transitive installation. Preserve public namespaces, events, configuration keys, and serialized payloads when changing a module. Test the consuming application as well as the package.
+- Use explicit module registration and deterministic boot ordering where the framework needs it. Avoid scanning and including arbitrary PHP files from user-controlled paths. Preserve established CMS/plugin lifecycle hooks and framework service providers.
+- Required native extensions belong in `require` as `ext-*`; verify their configuration and availability in the actual SAPI. Optional extensions need a real supported fallback, not a silently degraded invariant.
+- Review Composer `allow-plugins` explicitly and keep credentials out of manifests and repository URLs. Composer plugins and scripts execute code; do not enable every plugin to bypass an install failure.
+- Use optimized classmaps for appropriate production builds. Enable authoritative classmaps only when runtime-generated classes and discovery remain compatible. An authoritative miss does not fall back to PSR-4 lookup.
+- Prefer reproducible application installs from the committed lock file. A library's lock file does not constrain downstream resolution, so test the declared dependency ranges separately.
+- Check command availability in the project's Composer version. Do not use `--ignore-platform-reqs` as proof of compatibility or upgrade dependencies merely to run a newer tool.
