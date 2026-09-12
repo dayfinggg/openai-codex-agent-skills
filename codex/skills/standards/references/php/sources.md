@@ -1,5 +1,35 @@
 # Sources
 
+## Version-aware use
+
+The additions below were checked against official documentation on 2026-09-12. Introduction versions are stable facts; support windows, package requirements, and framework APIs must be checked again for the installed release. A `/current/` page is a discovery entry point, not evidence that a legacy dependency supports the same API. The existing examples and talks below are illustrative, not compatibility requirements.
+
+### Compatibility, caching, and runtime additions
+
+- [PHP supported versions](https://www.php.net/supported-versions.php)
+- [PHP migration guide index](https://www.php.net/manual/en/appendices.php)
+- [PHP 8.0 new features](https://www.php.net/manual/en/migration80.new-features.php)
+- [PHP 8.1 new features](https://www.php.net/manual/en/migration81.new-features.php)
+- [PHP 8.2 new features](https://www.php.net/manual/en/migration82.new-features.php)
+- [PHP 8.4 new features](https://www.php.net/manual/en/migration84.new-features.php)
+- [PHP 8.5 new features](https://www.php.net/manual/en/migration85.new-features.php)
+- [PHP 8.2 deprecations](https://www.php.net/manual/en/migration82.deprecated.php)
+- [PHP 8.4 deprecations](https://www.php.net/manual/en/migration84.deprecated.php)
+- [PHP-FIG PER Coding Style](https://www.php-fig.org/per/coding-style/)
+- [PHP-FIG PSR-6: Cache pools and items](https://www.php-fig.org/psr/psr-6/)
+- [PHP-FIG PSR-16: Simple cache](https://www.php-fig.org/psr/psr-16/)
+- [Symfony Cache](https://symfony.com/doc/current/cache.html)
+- [Composer configuration: platform and plugins](https://getcomposer.org/doc/06-config.md)
+- [Composer autoloader optimization](https://getcomposer.org/doc/articles/autoloader-optimization.md)
+- [PHPUnit supported versions](https://phpunit.de/supported-versions.html)
+- [PHP OPcache configuration](https://www.php.net/manual/en/opcache.configuration.php)
+- [Symfony Messenger](https://symfony.com/doc/current/messenger.html)
+- [Doctrine transactions and concurrency](https://www.doctrine-project.org/projects/doctrine-orm/en/current/reference/transactions-and-concurrency.html)
+- [PHP JSON decoding](https://www.php.net/manual/en/function.json-decode.php)
+- [PHP floating-point precision](https://www.php.net/manual/en/language.types.float.php)
+- [PHP DateTimeImmutable](https://www.php.net/manual/en/class.datetimeimmutable.php)
+- [PHP unserialize security and behavior](https://www.php.net/manual/en/function.unserialize.php)
+
 ### Official specifications and documentation
 
 - [PHP Manual: Type system](https://www.php.net/manual/en/language.types.type-system.php)
