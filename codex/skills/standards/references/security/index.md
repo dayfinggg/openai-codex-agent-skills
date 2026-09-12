@@ -1,6 +1,6 @@
 # Framework-independent application security
 
-Use this reference for security decisions that cross language and framework boundaries. Load only the topic files relevant to the current threat surface, then apply the stack-specific security reference as well.
+Use this reference for security decisions crossing language and framework boundaries. Load only relevant threat-surface topics. Add stack-specific guidance when framework or runtime behavior affects the decision.
 
 ## Reference map
 

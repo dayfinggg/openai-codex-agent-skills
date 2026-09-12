@@ -1,11 +1,9 @@
 ---
 name: refactor
-description: Simplify existing code, improve module depth, or reduce reader load while preserving observable behavior. Use when the user explicitly requests restructuring or when a behavior-preserving cleanup is the task. Do not activate for ordinary feature work that merely touches imperfect code.
+description: Simplify code while preserving behavior and public contracts when restructuring is requested. Skip incidental cleanup during unrelated feature work.
 ---
 
 # Refactor
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Improve the shape of the code without changing its contract.
 
@@ -19,9 +17,7 @@ Locate duplicated decisions, scattered state, shallow wrappers, hidden mutation,
 
 ## Change incrementally
 
-Make one structural move at a time and rerun the focused checks. Preserve callers unless the request includes an interface migration. Do not mix unrelated formatting or feature changes into the refactor.
-
-Within code already touched by the authorized refactor, make a small verified clarity improvement or remove local dead code when doing so reduces reader load. Do not use this as permission for adjacent cleanup or a repository-wide "boy scout" pass.
+Group coherent structural edits and check behavior at meaningful boundaries. Preserve callers unless an interface migration is authorized. Clarity improvements or dead-code removal belong only in the requested refactor's scope. Avoid unrelated formatting, features, and adjacent cleanup.
 
 ## Verify
 

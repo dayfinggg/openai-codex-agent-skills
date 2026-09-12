@@ -9,7 +9,7 @@ Distributed transactions generally cost more than single-document writes and do 
 Use the driver callback or convenient transaction API so transient transaction and unknown commit results can be retried. Assume the callback may run more than once. Keep it idempotent and do not perform unguarded external side effects inside it.
 Pass the same session to every operation in the transaction.
 Set read concern, write concern, and read preference at the transaction level.
-Transactions containing reads must use primary read preference and route all operations to one member.
+Transactions containing reads require primary read preference. Within a replica set, use its primary. Sharded transactions may involve several shard primaries through `mongos`, with routing and session pinning handled by the supported driver.
 Keep transactions short, bounded, and abort them on every error.
 The default transaction lifetime is less than one minute, and long transactions increase cache pressure and conflicts.
 Each transaction oplog entry still must fit within the 16 MiB BSON limit.

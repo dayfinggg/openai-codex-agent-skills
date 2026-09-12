@@ -9,7 +9,7 @@
 - Store complete, validated values and reject oversized or malformed cache entries before they reach shared Redis.
 - For multi-key cached views, publish a versioned snapshot or update all keys atomically and invalidate derived variants together.
 - Redis client-side caching with `CLIENT TRACKING` sends invalidation messages when tracked keys change, expire, or are evicted.
-- The client must remove its local copy on invalidation. A disconnected tracked connection loses its local cache state.
+- Remove local entries on invalidation and discard the local cache when the invalidation connection is lost. Verify this recovery in the client library rather than assuming disconnect clears application memory.
 - Broadcasting tracking trades server-side tracking memory for broader invalidation traffic, so use it only for suitable key prefixes.
 - Pub/Sub is at-most-once and has no history, so an offline subscriber misses invalidations permanently.
 - Use a Stream or durable outbox when invalidation or change delivery must survive consumer disconnects.

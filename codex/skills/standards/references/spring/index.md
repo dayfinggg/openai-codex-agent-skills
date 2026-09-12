@@ -1,6 +1,6 @@
 # Spring Boot web backends
 This reference covers Spring Boot and Spring Framework choices at the HTTP, application, persistence, and operations boundaries.
-Use the [Java](../java/index.md) and [Kotlin](../kotlin/index.md) references for language, collection, exception, concurrency, and testing fundamentals.
+Consult the language used by the affected code: [Java](../java/index.md) or [Kotlin](../kotlin/index.md). Load both only for a relevant interoperability boundary.
 Framework APIs and defaults change, so verify the target Spring Boot and Spring Framework versions in the linked documentation.
 
 ## Reference map

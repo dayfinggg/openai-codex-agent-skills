@@ -1,9 +1,9 @@
 # Axum framework reference
 
-Read the [Rust reference](../rust/index.md) first for language-wide ownership, error, async, testing, and abstraction rules.
+Consult the [Rust reference](../rust/index.md) only for relevant language-wide ownership, error, async, testing, or abstraction decisions not covered by loaded guidance.
 This reference adds Axum, Tower, and Tokio integration details without repeating that baseline.
 Read documentation that matches the Axum version in `Cargo.lock`.
-Axum's repository says that `main` tracks work toward 0.9 while 0.8.x is the released branch [A12].
+Use release documentation matching `Cargo.lock`, not assumptions from the development branch [A12].
 
 ## Reference map
 

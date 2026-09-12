@@ -1,11 +1,9 @@
 ---
 name: verify
-description: Prove that completed engineering work satisfies its requirements using the real artifact, focused tests, and diff inspection. Use before declaring implementation complete or when the user asks whether a change actually works. Do not replace diagnosis or code review.
+description: Check completed engineering work against requirements using real artifacts, focused tests, and the diff. Report evidence and limits, not unsupported success.
 ---
 
 # Verify
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Completion is an evidence claim. Select checks that directly support that claim.
 

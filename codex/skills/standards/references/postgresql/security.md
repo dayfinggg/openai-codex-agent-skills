@@ -9,7 +9,7 @@ Remember that `pg_hba.conf` uses the first matching record and has no fall-throu
 Prefer `hostssl` rules with certificate validation or SCRAM-SHA-256 for remote password authentication.
 Avoid clear-text `password` authentication unless the connection is protected by TLS and policy requires it.
 Enable TLS, protect the server key, and use a CA-signed certificate in production.
-Enable row-level security only with explicit `USING` and `WITH CHECK` policies for every required command.
+Design RLS policies per command: `SELECT` and `DELETE` use `USING`, `INSERT` uses `WITH CHECK`, and `UPDATE` can use both. For `ALL` or `UPDATE`, understand the fallback from omitted `WITH CHECK` to `USING`. [CREATE POLICY](https://www.postgresql.org/docs/current/sql-createpolicy.html)
 Test RLS as table owner, ordinary role, superuser-equivalent role, and through backup or reporting paths because owners and bypass roles normally bypass RLS.
 Remember that RLS does not replace table privileges and that referential-integrity checks can bypass RLS.
 Treat `SECURITY DEFINER` functions as privileged entry points, lock their `search_path`, and restrict their execute privilege.

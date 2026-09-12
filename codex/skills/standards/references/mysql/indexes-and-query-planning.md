@@ -8,7 +8,7 @@
 - Treat Skip Scan as a possible plan, not as a guarantee that removes the need for a suitable index or query shape. [M22]
 - Confirm Skip Scan with `EXPLAIN`, which reports `Using index for skip scan` when it is used. [M22]
 - Skip Scan depends on predicates, index shape, statistics, optimizer switches, and data distribution, so benchmark representative data. [M22]
-- Use `EXPLAIN` or `EXPLAIN ANALYZE` to inspect join order, access paths, estimates, and actual work before changing a query. [M12]
+- Use `EXPLAIN` for estimates. `EXPLAIN ANALYZE` executes supported statements, so account for side effects and load and use authorized representative or isolated data. [M12]
 - Use `ANALYZE TABLE` when stale index statistics are causing poor estimates, then recheck the plan. [M22]
 - Recheck plans after data growth, statistics changes, version upgrades, or index changes.
 - Prefer sargable predicates and compare columns with compatible types so the optimizer can use indexes predictably.

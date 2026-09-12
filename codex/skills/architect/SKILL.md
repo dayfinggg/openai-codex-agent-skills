@@ -1,17 +1,15 @@
 ---
 name: architect
-description: Design types, interfaces, module boundaries, and ownership for a non-trivial feature or structural change. Use when an early choice affects several components. Skip small local edits and settled designs.
+description: Design types, interfaces, and ownership when a feature or structural change affects several components. Skip small edits and already-settled designs.
 ---
 
 # Architect
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Produce the smallest design that makes the requested implementation predictable.
 
 ## Ground the decision
 
-Read the relevant entry points, types, tests, and one nearby precedent. Establish the user-visible outcome, current invariants, compatibility requirements, and decisions that actually remain open. Separate evidence from assumptions. Resolve routine reversible choices without asking the user.
+Read relevant entry points, types, tests, and a nearby precedent when one exists. Establish the outcome, invariants, compatibility needs, and open decisions. Separate evidence from assumptions and resolve routine reversible choices from context.
 
 ## Shape the design
 
@@ -25,6 +23,4 @@ Compare alternatives internally when they materially differ. Provide options, re
 
 ## Complete the task
 
-For an architecture-only request, return the requested design and relevant evidence without implementing it. When design supports an authorized implementation, continue directly into that work. Ask only when an essential unresolved choice prevents a sound result and cannot be inferred from context. Do not create a separate approval gate merely because design work occurred.
-
-Use the user's response format. Include the concrete structure and consequences needed to understand the result, with material uncertainty and the relevant verification. Do not turn the design notes into a long generic checklist.
+For design-only work, provide the concrete structure, consequences, evidence, and material uncertainty without implementation. Otherwise continue the authorized implementation without a new design-approval gate. Ask only about an essential choice that cannot be resolved from context.

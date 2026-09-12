@@ -1,19 +1,15 @@
 ---
 name: journal
-description: Maintain a compact evidence-backed decision trail for long-running, unattended, or high-risk engineering work. Use when later reviewers must understand what changed, why, and what proved it. Do not activate for routine short tasks or duplicate ordinary progress narration.
+description: Maintain a durable decision record when requested or required by an authorized workflow. Skip routine tasks, transcripts, and progress narration.
 ---
 
 # Journal
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Record decisions that affect trust in the result, not a transcript of activity.
 
 ## Decide what deserves a record
 
-Log a choice when alternatives existed, a hypothesis changed the investigation, a risk was accepted, a user constraint redirected work, or evidence changed the plan. Skip routine reads, commands, and obvious mechanical edits.
-
-Also log a material change to an estimate, commitment, scope, dependency owner, escalation threshold, or fallback when later reviewers would otherwise misread what was promised and why it changed.
+Within an authorized journal, record consequential choices, changed hypotheses, accepted risks, user constraints, and evidence that redirected work. Include material changes to commitments, scope, dependency ownership, escalation, or fallback. Skip routine reads, commands, and mechanical edits.
 
 ## Record the decision
 
@@ -27,7 +23,7 @@ Use one row or compact block per decision. Keep facts separate from inference. D
 
 ## Boundaries
 
-Maintain a journal only when requested or when an existing authorized workflow requires a durable decision record. Otherwise keep working context internal. Use the specified destination, omit secrets, and do not commit, publish, or send the journal without user authorization. A journal supports verification but does not replace it.
+Create or maintain a journal only when requested or required by an authorized workflow. Otherwise keep context internal. Use the designated destination. Committing, publishing, or sending the record requires authorization. A journal does not replace verification.
 
 ## Output
 

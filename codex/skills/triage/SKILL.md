@@ -1,11 +1,9 @@
 ---
 name: triage
-description: Classify an incoming issue, bug report, alert, or external pull request and turn it into an actionable engineering brief. Use when work needs validation, priority, ownership, or missing-information assessment before implementation. Do not solve the issue unless separately requested.
+description: Classify an issue, alert, or incoming PR by evidence, impact, and likely owner. Produce an actionable brief. Implement fixes only when separately requested.
 ---
 
 # Triage
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Move an ambiguous incoming item to a justified next state.
 
@@ -21,7 +19,7 @@ Attempt the smallest safe reproduction or corroborating check. Distinguish confi
 
 Assess severity from impact and urgency rather than tone. Identify likely owning component, scope, dependencies, security or data risk, and whether immediate containment is needed. Do not invent priority labels that the project has not defined.
 
-For a suspected security event, distinguish an unsupported or false signal, opportunistic compromise, targeted compromise, and an extreme vulnerability requiring incident response. Route evidence through the approved security owner and preserve it instead of treating the item as an ordinary defect.
+For a suspected security event, preserve evidence and distinguish indicators from confirmed compromise. Identify a known security owner or an escalation need without inventing an attacker classification. Contacting people, sending evidence, or changing containment requires explicit authorization.
 
 ## Prepare the brief
 

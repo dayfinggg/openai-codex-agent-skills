@@ -1,11 +1,9 @@
 ---
 name: diagnose
-description: Reproduce a failure, regression, or performance problem and identify its root cause with evidence. Use when the user asks why something is broken, failing, crashing, flaky, or slow. Do not modify the implementation unless the request also asks for a fix.
+description: Reproduce a failure or performance problem and establish its cause. Use when asked why something fails, errors, or is slow. Repair only when a fix is also authorized.
 ---
 
 # Diagnose
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Replace speculation with a short feedback loop and a causal explanation.
 
@@ -19,7 +17,7 @@ Preserve a working baseline or last-known-good observation before changing the e
 
 Follow the failing value or event backward through boundaries. Compare a working and failing path when possible. Test one hypothesis at a time with the cheapest discriminating observation. Read logs and code around the first incorrect state, not only the final exception.
 
-For ordering or concurrency failures, build a timestamped event trace with identities and state transitions, then reproduce the smallest relevant interleaving with coordination primitives rather than sleep-based timing.
+For ordering or concurrency failures, trace event identities and state transitions, then reproduce the relevant interleaving with coordination primitives rather than sleeps. Across hosts, account for clock skew instead of treating timestamps alone as causal order.
 
 ## Establish cause
 
@@ -31,7 +29,7 @@ After establishing the cause, search the affected scope for analogous code, data
 
 Do not implement a repair for a diagnosis-only request. Do not hide the symptom with retries, guards, or broader timeouts. Redact secrets and personal data from evidence.
 
-When evidence suggests compromise, preserve evidence and the timeline through available trusted mechanisms. Do not contact other people or attacker infrastructure, use credentials on a suspected host, or change live containment without appropriate authorization. Report an essential blocking condition to the user. Do not turn an ordinary bug investigation into an incident response based on speculation.
+If evidence suggests compromise, preserve it and its timeline through trusted mechanisms. Contacting others or attacker infrastructure, using credentials on a suspected host, and changing live containment require appropriate authorization. Report essential blockers without turning speculative concerns into incident response.
 
 ## Output
 
