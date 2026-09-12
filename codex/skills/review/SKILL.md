@@ -1,11 +1,9 @@
 ---
 name: review
-description: Review a diff, branch, pull request, or work-in-progress change for correctness, requirement fit, regressions, and maintainability. Use when the user asks for code review or assessment of completed changes. Report findings without editing unless a fix is also requested.
+description: Review a diff, branch, or PR for actionable defects and requirement fit. Validate findings against evidence. Edit only when fixes are also authorized.
 ---
 
 # Review
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Find actionable defects that could change the decision to accept the work.
 
@@ -17,13 +15,9 @@ Identify the exact base and changed state. Read the originating requirement or s
 
 Check requirement compliance, behavioral correctness, state and error handling, compatibility, security boundaries, concurrency, tests, and maintainability. Trace beyond the diff only where a changed contract or shared state creates risk.
 
-Check for avoidable complexity introduced by the change, including a new dependency for a small operation, an interface with one implementation, a factory with one product, a pass-through wrapper, unused flexibility or configuration, and a hand-written substitute for the standard library or a native platform capability. Report it only when removing it preserves the required behavior and materially reduces ownership or change cost. Do not prefer fewer characters or files over correctness, readability, or a coherent boundary.
+Report avoidable complexity introduced by the change, such as a dependency for a small operation, an interface with one implementation, a pass-through wrapper, or a hand-written substitute for a standard library capability, only when removing it preserves required behavior and materially reduces ownership or change cost.
 
-At code level, inspect input validation, side-effect-free assertions, initialization before use, variable scope and lifetime, numeric conversion and overflow, loop bounds and termination, resource ownership, hidden side effects, and whether tests can fail for the intended defect. Apply only the checks relevant to the language and changed path.
-
-When delivery or security changes, include lockfiles, build scripts, generated artifacts, provenance and signing fields, deployment policies, bypass paths, break-glass controls, authorization matrices, fail semantics, rollback floors, and shared causes of failure among supposed backups.
-
-For structural changes, check dependency cycles, framework or persistence types leaking across intended boundaries, hidden composition or service lookup, and accidental changes to build or deployment units. Report them only when they create a concrete correctness, compatibility, ownership, testing, or future-change cost, not merely because they differ from a preferred architecture.
+When delivery, security, or structure changes, include lockfiles, build and deployment configuration, provenance and signing, authorization and bypass paths, rollback limits, dependency direction, and framework or persistence types leaking across boundaries. Report these only when they create a concrete correctness, compatibility, ownership, or future-change cost, not because they differ from a preferred architecture.
 
 Validate suspected defects against code, tests, or documentation. Do not report style preferences as defects. Consolidate findings that share one cause.
 

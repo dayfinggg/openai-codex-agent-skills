@@ -3,6 +3,7 @@
 Use this reference for usability, interaction design, user research, information architecture, prototyping, and mobile behavior.
 Use the [web UI reference](../web-ui/index.md) alongside it when implementing HTML, CSS, accessibility, or responsive browser interfaces.
 Treat observed user behavior and task outcomes as stronger evidence than stakeholder preference, aesthetics, or design convention alone.
+Research guidance applies to supplied evidence, drafting, or authorized sessions. It does not authorize contacting or recruiting participants or add questions to an implementation task.
 
 ## Reference map
 

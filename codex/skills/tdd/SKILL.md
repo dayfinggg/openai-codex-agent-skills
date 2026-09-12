@@ -1,11 +1,9 @@
 ---
 name: tdd
-description: Develop a feature or bug fix through a focused failing-test, minimal-implementation, and refactor loop. Use when the user requests TDD, asks for a regression test, or the bug has an obvious cheap local test target. Do not force TDD when the useful test path is unclear, expensive, or integration-heavy.
+description: Use a failing test to drive an authorized change when TDD is requested or a regression has a cheap reliable test. Skip brittle or impractical test-first loops.
 ---
 
 # TDD
-
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
 
 Use a test to define behavior before implementation when that test provides a fast and trustworthy feedback loop.
 
@@ -15,7 +13,7 @@ Choose the narrowest test seam that observes public behavior rather than interna
 
 ## Green
 
-Make the smallest production change that satisfies the test without weakening assertions or bypassing the real path. Run the focused test until it passes, then run nearby tests that protect the same contract.
+When implementation is authorized, make the smallest change that satisfies the test without weakening assertions or bypassing the real path. Rerun after each relevant edit, then check nearby behavior protecting the same contract. A test-only request does not authorize production changes.
 
 ## Refactor
 

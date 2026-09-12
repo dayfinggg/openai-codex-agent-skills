@@ -1,49 +1,35 @@
 ---
 name: impact
-description: Determine what a proposed or completed change could break outside its immediate diff. Use for blast-radius analysis, shared contracts, migrations, risky refactors, and changes to public interfaces or persistent data. Do not use for a general code review with no cross-boundary risk.
+description: Trace compatibility and failure risks beyond a change's diff, especially public contracts, persistent data, or shared state. Skip routine local review.
 ---
 
 # Impact
 
-Follow the governing instructions and the user's requirements for communication, code style, authorization, and delegation. This skill supplies task-specific guidance, not permission to expand the task. Its workflow and output fields describe internal checks and relevant content, not a mandatory response layout or a progress report. When used within broader authorized work, continue that work through completion rather than stopping to deliver this skill's intermediate result.
-
-Trace changed assumptions to every meaningful consumer and identify the evidence needed to call the change safe.
+Establish what a change can break beyond its own diff.
 
 ## Establish the changed contract
 
-Identify the type, interface, schema, behavior, configuration, timing, or state assumption that changes. State both the old and new contract.
-
-Include system qualities that may change without appearing in the signature, such as latency, throughput, consistency, durability, availability, authorization, resource use, ordering, idempotency, and recovery time.
+State the old and new type, interface, schema, behavior, configuration, timing, or state contract, including any affected latency, consistency, durability, availability, authorization, ordering, idempotency, or recovery guarantee.
 
 ## Trace consumers
 
-Search direct callers, re-exports, generated clients, tests, jobs, integrations, stored data, deployment configuration, and operational tooling as applicable. Follow semantic consumers, not only textual matches. Trace synchronous and asynchronous dependencies, event subscribers, retrying clients, caches, indexes, backups, restore tooling, dashboards, alerts, and emergency procedures when relevant.
+Follow semantic consumers, not just text matches: callers, re-exports, generated clients, tests, jobs, integrations, stored data, deployment, and operational tooling such as caches, indexes, backups, dashboards, and alerts where they are affected.
 
-Consider rollback and mixed-version operation when releases can overlap. For a data, schema, or event change, identify the oldest reader and writer that can coexist, the order of rollout, the point of no return, and whether rollback would restore code while leaving incompatible state behind.
+For overlapping releases, identify compatible reader and writer versions, rollout order, irreversible steps, and state that a code rollback cannot undo. Check that recovery does not restore vulnerable artifacts, stale policies, deleted data, or revoked credentials. A temporary mitigation needs an owner and a removal condition.
 
-Check whether rollback, restore, or migration can revive a known-vulnerable artifact, stale policy, deleted data, revoked credential, compromised source, or snapshot below the accepted security floor. Give every temporary mitigation an owner, expiry or removal condition, and evidence that it cannot persist silently.
-
-Trace failure propagation as well as normal data flow. Check whether a slow or failed dependency consumes threads, connections, queue capacity, retry budgets, or load-balancer capacity and can turn a local fault into overload elsewhere.
-
-For persistent or distributed writes, trace ambiguous timeout outcomes, partial writes, acknowledgement semantics, replay, and crash recovery. Verify end-to-end durability at the highest boundary that promises it instead of assuming a lower-layer acknowledgement proves the final state.
-
-Inspect the dependency graph for new cycles and for transport, ORM, framework, or deployment types leaking into a previously independent contract. If a module split changes artifacts, processes, services, or independent deployment, trace packaging, startup, configuration, ownership, and rollback as part of the changed contract.
-
-Treat a change to a domain term as a possible model and contract change. Trace bounded-context owners, upstream and downstream consumers, shared code or schemas, translation and anticorruption layers, aggregate invariants, transaction boundaries, and published event meanings before assuming a rename is local.
+For persistent or distributed writes, check ambiguous timeouts, partial outcomes, replay, and crash recovery, and verify durability at the boundary that promises it. For structural changes, inspect dependency cycles, leaked framework or persistence types, packaging, startup, and rollback. For domain renames, trace context owners, shared schemas, translation layers, transaction boundaries, and published event meanings.
 
 ## Rank risk
 
-For each plausible break, describe the consumer, failure mode, likelihood, impact, and current protection. Separate verified consumers from uncertain external dependencies. Identify the failure domain and blast radius, and distinguish corruption or security compromise from a clean availability failure.
-
-Treat redundancy as protection only when replicas do not share the same failure cause, control plane, credentials, configuration source, capacity bottleneck, or rollout. A duplicated component inside one failure domain may add cost without reducing risk.
+For each plausible failure, identify consumers, likelihood, impact, protections, and uncertainty. Distinguish data corruption or security compromise from availability loss. Redundancy protects only against failure causes it does not share, such as control planes, credentials, configuration, and rollout.
 
 ## Prove the critical fact
 
-Run or identify the smallest check for the critical compatibility claim. Use isolated test state for restore, downgrade, mixed-version, or failure-injection experiments. Do not change live systems or destroy data merely to prove a risk. If authorization or an appropriate environment is unavailable, report the verification limit.
+Run or identify the smallest check for each critical compatibility claim. Use isolated state for restore, downgrade, mixed-version, and fault-injection experiments. Do not mutate live systems or destroy data to prove risk. Report evidence or authorization that is unavailable.
 
 ## Output
 
-Return the changed contract, affected surfaces, ranked risks, evidence, unresolved consumers, and a focused verification plan. Include rollout order, rollback limits, failure propagation, and recovery evidence when they materially affect safety. Do not implement the change unless separately requested.
+Return the changed contract, affected surfaces, ranked risks, evidence, unresolved consumers, and a focused verification plan. Include rollout order, rollback limits, and recovery evidence when they affect safety. Do not implement the change unless separately requested.
 
 ## Sources
 

@@ -1,6 +1,6 @@
 # Actix Web framework reference
 
-Read the [Rust reference](../rust/index.md) first for language-wide ownership, error, async, testing, and abstraction rules.
+Consult the [Rust reference](../rust/index.md) only for relevant language-wide ownership, error, async, testing, or abstraction decisions not covered by loaded guidance.
 This reference adds Actix Web, Actix runtime, and ecosystem integration details without repeating that baseline.
 Read documentation that matches the Actix Web version in `Cargo.lock`.
 

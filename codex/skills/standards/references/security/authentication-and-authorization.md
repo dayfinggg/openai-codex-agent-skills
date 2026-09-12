@@ -5,7 +5,7 @@
 - Apply complete mediation: do not reuse a stale authorization decision when identity, policy, resource state, or requested operation may have changed.
 - Treat an authenticated remote component as identified, not automatically trustworthy. Validate its authorization and message content for each protected operation.
 - Deny by default and grant the smallest capability or role required. Avoid broad administrator checks when a narrow policy expresses the real rule.
-- Avoid ambient authority. Prefer small administrative operations with explicit target, action, duration, and business justification; require independent approval for exceptionally dangerous actions when the risk warrants it.
+- Avoid ambient authority. Design small administrative operations with explicit target, action, duration, and business justification. Enforce independent approval when required by the application's authorization policy, without inventing an extra agent approval gate.
 - Define authorization-controller failure per operation. Use fail-static behavior when retaining the last safe state is safer than granting new access or shutting down all existing access.
 - Protect against horizontal and vertical privilege escalation by testing access to another user's or tenant's identifiers.
 - Bind sessions and tokens to the intended audience, issuer, lifetime, scopes, and transport. Rotate or revoke them when privilege or compromise state changes.
