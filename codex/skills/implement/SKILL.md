@@ -5,11 +5,11 @@ description: Implement an authorized feature, fix, or configuration change with 
 
 # Implement
 
-Deliver the requested behavior with the smallest coherent change and evidence that it works.
+Deliver the requested behavior with the smallest coherent change.
 
 ## Prepare
 
-Establish the outcome and a focused verification path from governing instructions, target files, relevant tests, and available local precedents. Inspect a blocking subsystem's code and documentation before asking for essential missing information.
+Establish the outcome from the request, governing instructions, target files, relevant tests, and available local precedents. Inspect a blocking subsystem's code and documentation before asking for essential missing information.
 
 ## Change
 
@@ -19,6 +19,6 @@ Integrate in small working increments when the change spans several units. Treat
 
 For release or deployment changes, use existing validation, provenance, rollout, and recovery mechanisms proportionate to risk. Do not invent a delivery system for a small configuration edit.
 
-## Verify
+## Finish
 
-Inspect the additions for helpers, options, layers, or dependencies that can be removed without losing required behavior or clarity, and remove them. Run the most relevant focused checks first, then broader ones in proportion to risk. Exercise the real behavior when it can be observed directly. A passing build alone does not prove it. The change is done when the requested behavior works, failures it caused are fixed, and the affected checks pass.
+Inspect the additions for helpers, options, layers, or dependencies that can be removed without losing required behavior or clarity, and remove them. Exercise the real behavior when it can be observed directly, because a passing build alone does not prove it.
