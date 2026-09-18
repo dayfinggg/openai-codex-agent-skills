@@ -5,7 +5,7 @@ model_auto_compact_token_limit = 900000
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
 model_verbosity = "low"
-model_reasoning_effort = "low"
+model_reasoning_effort = "medium"
 
 [agents]
 default_subagent_model = "gpt-5.6-luna"

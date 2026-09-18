@@ -7,11 +7,11 @@ description: Simplify code while preserving behavior and public contracts when r
 
 Improve the shape of the code without changing its contract.
 
-## Fix the invariant
+## Establish the invariant
 
 Identify the observable behavior, public interfaces, performance constraints, and compatibility properties that must remain unchanged. Establish a passing focused test or another reliable baseline before editing.
 
-## Find the load
+## Find the complexity
 
 Locate duplicated decisions, scattered state, shallow wrappers, hidden mutation, misleading names, weak types, and boundaries that force readers to cross many files. Prefer deletion, consolidation, and narrower interfaces over new layers.
 

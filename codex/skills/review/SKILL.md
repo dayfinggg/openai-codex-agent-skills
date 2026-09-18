@@ -1,13 +1,13 @@
 ---
 name: review
-description: Review a diff, branch, or PR for actionable defects and requirement fit. Validate findings against evidence. Edit only when fixes are also authorized.
+description: Review a diff, branch, or PR for actionable defects and requirement fit. Use when the user asks for a review. Edit files only when fixes are also requested.
 ---
 
 # Review
 
 Find actionable defects that could change the decision to accept the work.
 
-## Fix the comparison
+## Establish the comparison
 
 Identify the exact base and changed state. Read the originating requirement or specification and the repository rules that govern the touched area. Inspect the diff before expanding into surrounding code.
 

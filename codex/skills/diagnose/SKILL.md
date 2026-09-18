@@ -1,6 +1,6 @@
 ---
 name: diagnose
-description: Reproduce a failure or performance problem and establish its cause. Use when asked why something fails, errors, or is slow. Repair only when a fix is also authorized.
+description: Reproduce a failure or performance problem and establish its cause. Use when asked why something fails, errors, or is slow. Repair only when a fix is also requested.
 ---
 
 # Diagnose

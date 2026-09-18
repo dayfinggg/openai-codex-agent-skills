@@ -9,15 +9,15 @@ Use parallel agents to increase coverage or diversity, not to duplicate the same
 
 ## Partition
 
-Define the shared question, success criteria, evidence standard, and final decision owner. Divide work into non-overlapping lanes by component, hypothesis, source class, risk category, or candidate approach. Resolve shared contracts before fan-out.
+Define the shared question, success criteria, evidence standard, and final decision owner. Divide work into non-overlapping parts by component, hypothesis, source class, risk category, or candidate approach. Resolve shared contracts before dispatching workers.
 
 ## Dispatch
 
-Give each worker a bounded brief with its lane, exclusions, output schema, and stopping condition. Use the smallest number of workers that covers the independent lanes. Do not let multiple workers edit the same files or state.
+Give each worker a bounded brief with its part, exclusions, output schema, and stopping condition. Use the smallest number of workers that covers the independent parts. Do not let multiple workers edit the same files or state.
 
-## Drain
+## Collect
 
-Collect all results before synthesis unless one result proves that the remaining work is unnecessary. Track missing or failed lanes. Do not hide disagreement between workers.
+Collect all results before synthesis unless one result proves that the remaining work is unnecessary. Track missing or failed parts. Do not hide disagreement between workers.
 
 ## Judge
 
