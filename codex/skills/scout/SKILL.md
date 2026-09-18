@@ -1,6 +1,6 @@
 ---
 name: scout
-description: Map relevant code, runtime flow, and ownership for orientation or placement questions. Read-only exploration, without design or implementation.
+description: Map relevant code, runtime flow, and ownership without changing files. Use for questions about where code lives, how a flow works, or where a change belongs.
 ---
 
 # Scout
@@ -15,7 +15,7 @@ Record the role of each important file, the public boundary between components, 
 
 ## Answer the actual question
 
-For a walkthrough, describe runtime flow in execution order. For a placement question, identify the owning module and the precedent that supports it. For onboarding, give a mental model and a short reading path. For a change investigation, identify likely touch points without proposing an implementation.
+For a walkthrough, describe runtime flow in execution order. For a placement question, identify the owning module and the precedent that supports it. For onboarding, explain how the main parts fit together and give a short reading path. For a change investigation, identify the places likely to change without proposing an implementation.
 
 ## Boundaries
 
@@ -23,4 +23,4 @@ Do not edit files. Do not infer intent from names when implementation or tests c
 
 ## Output
 
-Answer the requested orientation or placement question using the relevant entry point, flow, file links, and uncertainty. Include a reading path or next action only when requested.
+Answer the requested orientation or placement question using the relevant entry point, flow, file links, and uncertainty. Include a reading path only for onboarding or when requested, and a next action only when requested.

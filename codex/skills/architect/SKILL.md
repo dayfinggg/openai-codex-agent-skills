@@ -17,7 +17,7 @@ Identify responsibilities, public signatures, state ownership, data flow, and de
 
 Start from a direct implementation within the existing structure. Introduce another boundary only when current behavior, an established contract, or a concrete risk requires it. One implementation does not by itself justify an interface and factory, although a required framework or safety boundary may. Do not invent future consumers to justify a general design. Keep any rationale internal unless the requested deliverable calls for it.
 
-When the actual task involves distributed state, domain boundaries, resilience, recovery, or a critical external dependency, consult the relevant paragraphs in [design considerations](references/design-considerations.md). Do not apply all advanced considerations to every feature. Do not invent capacity plans, emergency procedures, migration stages, or organizational ownership for a local change.
+When the actual task involves distributed state, domain boundaries, resilience, recovery, or a critical external dependency, open [design considerations](references/design-considerations.md) and read its matching sections before you settle the design. Do not apply all advanced considerations to every feature. Do not invent capacity plans, emergency procedures, migration stages, or organizational ownership for a local change.
 
 Compare alternatives internally when they materially differ. Provide options, rejected alternatives, or recommendations only when the user requests them. Choose the approach consistent with accepted requirements and existing design.
 

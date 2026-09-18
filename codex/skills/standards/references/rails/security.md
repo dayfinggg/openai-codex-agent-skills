@@ -14,4 +14,4 @@
 - Filter passwords, tokens, authorization headers, and other secrets from logs and exception reports.
 - Use a Content Security Policy and prefer nonces over `unsafe-inline` when inline scripts remain necessary.
 - Validate upload type, size, name, and storage location, and do not serve untrusted files as executable content.
-- Add regression tests for authorization, parameter overposting, unsafe redirects, and injection-shaped input.
+- When a change fixes or alters authorization, parameter filtering, redirects, or handling of untrusted input, add a regression test that fails for that defect.

@@ -28,7 +28,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1 -Mode Replace
 
 Replace mode also removes the legacy `AGENTS.md`, `AGENTS.override.md`, and `agents` paths. Merge mode leaves those unrelated paths intact.
 
-The managed configuration uses `model_instructions_file = "base_instructions.md"`, resolved relative to `config.toml`. New configurations default to GPT-6 Astra with low reasoning effort.
+The managed configuration uses `model_instructions_file = "base_instructions.md"`, resolved relative to `config.toml`. New configurations default to GPT-6 Astra with medium reasoning effort.
 
 ## Update
 
