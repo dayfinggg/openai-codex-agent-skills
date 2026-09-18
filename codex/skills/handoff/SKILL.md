@@ -1,11 +1,11 @@
 ---
 name: handoff
-description: Prepare or transfer active engineering work to another agent or session, preserving decisions, evidence, and the next action. Skip ordinary summaries.
+description: Prepare or transfer active engineering work to another agent or session with its decisions, evidence, and next action. Use when work must continue elsewhere. Skip ordinary summaries.
 ---
 
 # Handoff
 
-Produce a continuation package that lets the receiver act without reconstructing the full conversation.
+Produce a handoff that lets the receiver act without reconstructing the full conversation.
 
 ## Capture current truth
 
@@ -15,7 +15,7 @@ State the objective, current status, completed work, files or systems touched, a
 
 List unresolved questions, failed attempts that should not be repeated, assumptions that still need proof, and any user approval that remains required. Separate facts from recommendations.
 
-## Make continuation executable
+## Make the next step actionable
 
 Name the next concrete action, its inputs, expected result, and completion check. Include repository or environment state that the receiver must inspect before editing. Keep secrets and unnecessary raw logs out of the handoff.
 

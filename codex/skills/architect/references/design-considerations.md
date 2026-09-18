@@ -1,6 +1,6 @@
 # Conditional design considerations
 
-Use only the considerations that correspond to actual requirements or existing boundaries. These are design questions, not instructions to perform live operations, add infrastructure, produce extra reports, or demand approval. Keep comparisons internal unless the user asks for design options or recommendations. Existing authorization and communication rules still apply.
+Use only the considerations that correspond to actual requirements or existing boundaries. These are design questions, not instructions to perform live operations, add infrastructure, produce extra reports, or demand approval. Keep comparisons internal unless the user asks for design options or recommendations. Existing authorization and communication rules still apply. A consideration may change how the requested behavior is built. It never adds a mechanism the request does not name, such as idempotency keys, deduplication, locks, retry budgets, or fallbacks.
 
 Sketch concrete module names, responsibilities, public signatures, data flow, state ownership, and dependency direction. Also identify consistency boundaries, trust boundaries, failure domains, and the component responsible for each cross-cutting invariant. Prefer deep modules with narrow, consistent, typed interfaces. Make invalid states difficult to represent. Keep validation at external boundaries and business logic independent of frameworks where practical.
 

@@ -19,7 +19,7 @@ Before introducing shared infrastructure or a general abstraction, require a pre
 
 Each unit must state its result, likely scope, prerequisites, acceptance criteria, and concrete verification. Identify safe parallel work only after contracts and shared ownership are settled.
 
-Limit simultaneous in-progress stages to the work the available owners can finish and integrate. Starting more lanes is not progress when reviews, dependencies, or verification are already the bottleneck.
+Limit simultaneous in-progress stages to the work the available owners can finish and integrate. Starting more parallel stages is not progress when reviews, dependencies, or verification are already the bottleneck.
 
 When scheduling is part of the request, use evidence-backed ranges with assumptions, known dependency owners, checkpoints, and fallback conditions. Do not invent estimates or present a forecast as a promise. Revise it when evidence changes.
 

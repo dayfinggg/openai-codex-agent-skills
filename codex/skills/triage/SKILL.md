@@ -1,6 +1,6 @@
 ---
 name: triage
-description: Classify an issue, alert, or incoming PR by evidence, impact, and likely owner. Produce an actionable brief. Implement fixes only when separately requested.
+description: Classify an incoming issue, alert, or PR by evidence, impact, and likely owner, and produce an actionable brief. Use when an incoming item needs a justified next state. Fix only when separately requested.
 ---
 
 # Triage
@@ -23,8 +23,8 @@ For a suspected security event, preserve evidence and distinguish indicators fro
 
 ## Prepare the brief
 
-State the problem, evidence, reproduction, expected behavior, acceptance criteria, constraints, likely touch points, and recommended next state. Write labels, comments, or tracker updates only with authorization.
+State the problem, evidence, reproduction, expected behavior, acceptance criteria, constraints, places likely to change, and recommended next state. Write labels, comments, or tracker updates only with authorization.
 
 ## Output
 
-Return the classification, confidence, rationale, missing information, owner candidate, and agent-ready brief.
+Return the classification, confidence, rationale, missing information, likely owner, and a brief another agent can act on.

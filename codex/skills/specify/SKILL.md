@@ -1,6 +1,6 @@
 ---
 name: specify
-description: Consolidate accepted requirements into a testable implementation specification. Skip open-ended product discovery and implementation.
+description: Consolidate accepted requirements into a testable implementation specification. Use when asked for a specification of decided behavior. Skip open-ended product discovery and implementation.
 ---
 
 # Specify

@@ -1,6 +1,6 @@
 ---
 name: standards
-description: Apply the installed language, framework, or database conventions to changed code when a stack-specific decision arises during implementation or review. Skip audits of unchanged code.
+description: Apply the installed language, framework, or database conventions to changed code. Use when a stack-specific decision comes up during implementation or review. Skip audits of unchanged code.
 ---
 
 # Standards
@@ -9,7 +9,7 @@ description: Apply the installed language, framework, or database conventions to
 
 Apply standards in this order:
 
-1. Governing system and developer instructions, followed by the user's explicit requirements.
+1. The user's explicit requirements and the governing system and developer instructions, in the priority those instructions define.
 2. Applicable repository instructions that do not conflict with those requirements.
 3. Checked-in formatter, linter, compiler, analyzer, test, and build configuration.
 4. Existing local conventions that are consistent and intentional.
@@ -20,9 +20,14 @@ References are conditional guidance, not authority to restyle a repository, chan
 
 ## Load focused guidance
 
-Inspect affected files and manifests to identify the installed stack and runtime. Select the relevant indexes below, then read only topic files needed for the decision. Use each directory's `sources.md` to resolve citation labels or verify uncertain claims against official documentation for the installed version. Bundled notes do not prove feature availability. Do not traverse the entire reference tree.
+The standards live in the reference files, and this SKILL.md only routes to them. Before you make the stack-specific decision, take these steps. Paths are relative to this skill's directory.
 
-Use `references/principles/index.md` for abstraction, duplication, cohesion, coupling, sizing, or refactoring decisions. Use `references/testing/index.md` for test design, doubles, boundaries, or reliability. Use `references/ux/index.md` for interaction design, research, prototypes, or mobile usability. None is mandatory for unrelated changes.
+1. Identify the installed stack and runtime from the affected files and manifests.
+2. Open in full the index for each affected language, framework, or database listed below.
+3. Also open `references/principles/index.md` when the change adds or reshapes an abstraction, duplicates logic, or splits code, `references/testing/index.md` when it adds or changes tests, and `references/ux/index.md` when it changes user interaction.
+4. From each opened index, open in full every topic file whose title matches something the change does, such as error handling, types, data access, or tests. Apply those files to the change.
+
+Stop when every part of the change is covered by an opened topic file, and leave indexes and topics for unaffected stacks unopened. Use each directory's `sources.md` to resolve citation labels or to check an uncertain claim against official documentation for the installed version, because bundled notes do not prove that a feature exists.
 
 ### Languages
 

@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Use a failing test to drive an authorized change when TDD is requested or a regression has a cheap reliable test. Skip brittle or impractical test-first loops.
+description: Drive a requested change with a failing test first. Use when TDD is requested or a regression has a cheap, reliable test. Skip brittle or impractical test-first loops.
 ---
 
 # TDD
@@ -9,7 +9,7 @@ Use a test to define behavior before implementation when that test provides a fa
 
 ## Red
 
-Choose the narrowest test seam that observes public behavior rather than internal steps. Write one test for the missing or broken behavior. Run it and confirm that it fails for the expected reason. A syntax error, unrelated failure, or test that already passes does not establish red.
+Test at the narrowest point that observes public behavior rather than internal steps. Write one test for the missing or broken behavior. Run it and confirm that it fails for the expected reason. A syntax error, unrelated failure, or test that already passes does not establish red.
 
 ## Green
 

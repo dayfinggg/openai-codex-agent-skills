@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Implement an authorized feature, fix, or configuration change with settled scope. Skip diagnosis-only, review-only, and planning-only requests.
+description: Implement a requested feature, fix, or configuration change. Use before editing code or configuration for the task. Skip diagnosis-only, review-only, and planning-only requests.
 ---
 
 # Implement
@@ -21,4 +21,4 @@ For release or deployment changes, use existing validation, provenance, rollout,
 
 ## Finish
 
-Inspect the additions for helpers, options, layers, or dependencies that can be removed without losing required behavior or clarity, and remove them. Exercise the real behavior when it can be observed directly, because a passing build alone does not prove it.
+Remove every feature, protection, check, or format change that this work added and the request did not name. Inspect the additions for helpers, options, layers, or dependencies that can be removed without losing required behavior or clarity, and remove them. Exercise the real behavior when it can be observed directly, because a passing build alone does not prove it.

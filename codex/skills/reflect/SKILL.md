@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: Audit a completed workflow or repeated failure for reusable, evidence-backed improvements. Edit instructions only when authorized. Skip routine retrospectives.
+description: Audit a completed workflow or repeated failure for evidence-backed improvements to instructions or skills. Use when asked to improve instructions or explain a repeated failure. Edit only when changes are requested.
 ---
 
 # Reflect

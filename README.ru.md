@@ -28,7 +28,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1 -Mode Replace
 
 Режим замены также удаляет устаревшие пути `AGENTS.md`, `AGENTS.override.md` и `agents`. Режим слияния оставляет эти посторонние пути без изменений.
 
-Управляемая конфигурация подключает инструкцию через `model_instructions_file = "base_instructions.md"` относительно `config.toml`. В новой конфигурации по умолчанию используется GPT-6 Astra с уровнем мышления `low`.
+Управляемая конфигурация подключает инструкцию через `model_instructions_file = "base_instructions.md"` относительно `config.toml`. В новой конфигурации по умолчанию используется GPT-6 Astra с уровнем мышления `medium`.
 
 ## Обновление
 

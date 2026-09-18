@@ -1,6 +1,6 @@
 ---
 name: migrate
-description: Migrate APIs, schemas, frameworks, dependencies, or storage while preserving required compatibility. Skip isolated replacements without affected consumers.
+description: Migrate APIs, schemas, frameworks, dependencies, or storage while keeping required compatibility. Use when the change has callers or stored data that must move with it. Skip isolated replacements.
 ---
 
 # Migrate

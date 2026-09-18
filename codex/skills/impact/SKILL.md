@@ -1,11 +1,13 @@
 ---
 name: impact
-description: Trace compatibility and failure risks beyond a change's diff, especially public contracts, persistent data, or shared state. Skip routine local review.
+description: Trace what a change can break beyond its diff in public contracts, persistent data, or shared state. Use when a planned or finished change touches one of them. Skip routine local edits.
 ---
 
 # Impact
 
 Establish what a change can break beyond its own diff.
+
+Impact analysis lists risks of the requested change. It does not add work. Report a risk that existed before the change in one sentence and do not fix it. Do not add idempotency keys, locks, retries, deduplication, or recovery code unless the user requested them.
 
 ## Establish the changed contract
 
