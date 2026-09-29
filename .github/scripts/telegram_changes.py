@@ -15,6 +15,8 @@ from pathlib import Path
 from telegram_icons import ensure_icons, file_icon, open_telegram
 
 ZERO_SHA = '0' * 40
+MAX_RICH_TEXT_LENGTH = 32768
+MAX_RICH_BLOCKS = 500
 
 
 class NotificationError(Exception):
@@ -329,6 +331,51 @@ def prepare():
     print(json.dumps({'changed_files': len(files), 'archive_bytes': target.stat().st_size}))
 
 
+def rich_message_size(value):
+    if isinstance(value, str):
+        return len(value), 0
+    if isinstance(value, list):
+        sizes = [rich_message_size(item) for item in value]
+        return sum(size[0] for size in sizes), sum(size[1] for size in sizes)
+    if isinstance(value, dict):
+        sizes = [
+            rich_message_size(value[key])
+            for key in ('text', 'alternative_text', 'blocks', 'cells')
+            if key in value
+        ]
+        return (
+            sum(size[0] for size in sizes),
+            sum(size[1] for size in sizes)
+            + len(value.get('blocks', []))
+            + len(value.get('cells', [])),
+        )
+    return 0, 0
+
+
+def notification_parts(payload):
+    blocks = payload['rich_message']['blocks']
+    if blocks[-1]['type'] != 'table':
+        return [payload]
+    table = blocks[-1]
+    header, *rows = table['cells']
+    parts = []
+    prefix = blocks[:-1]
+    cells = [header]
+    for row in rows:
+        candidate = [*prefix, {**table, 'cells': [*cells, row]}]
+        text_length, block_count = rich_message_size({'blocks': candidate})
+        if text_length > MAX_RICH_TEXT_LENGTH or block_count > MAX_RICH_BLOCKS:
+            parts.append([*prefix, {**table, 'cells': cells}])
+            prefix = []
+            cells = [header]
+        cells.append(row)
+    parts.append([*prefix, {**table, 'cells': cells}])
+    return [
+        {**payload, 'rich_message': {**payload['rich_message'], 'blocks': part}}
+        for part in parts
+    ]
+
+
 def multipart(payload, archive):
     boundary = uuid.uuid4().hex
     parts = []
@@ -339,13 +386,15 @@ def multipart(payload, archive):
                 f'--{boundary}\r\nContent-Disposition: form-data; name="{name}"\r\n\r\n{text}\r\n'
             ).encode()
         )
-    parts.append(
-        (
-            f'--{boundary}\r\nContent-Disposition: form-data; name="archive"; '
-            f'filename="{archive.name}"\r\nContent-Type: application/zip\r\n\r\n'
-        ).encode()
-    )
-    parts.extend([archive.read_bytes(), f'\r\n--{boundary}--\r\n'.encode()])
+    if archive is not None:
+        parts.append(
+            (
+                f'--{boundary}\r\nContent-Disposition: form-data; name="archive"; '
+                f'filename="{archive.name}"\r\nContent-Type: application/zip\r\n\r\n'
+            ).encode()
+        )
+        parts.append(archive.read_bytes())
+    parts.append(f'\r\n--{boundary}--\r\n'.encode())
     return b''.join(parts), 'multipart/form-data; boundary=' + boundary
 
 
@@ -398,41 +447,52 @@ def send():
 
 
 def send_one(payload, archive, result_path):
-    body, content_type = multipart(payload, archive)
+    parts = notification_parts(payload)
     url = 'https://api.telegram.org/bot' + os.environ['TELEGRAM_BOT_TOKEN'] + '/sendRichMessage'
     result = {'status': 'uncertain', 'started_at_ms': time.time_ns() // 1000000}
+    if len(parts) > 1:
+        result['message_ids'] = []
     result_path.write_text(json.dumps(result))
-    for attempt in range(3):
-        request = urllib.request.Request(
-            url, data=body, headers={'Content-Type': content_type}, method='POST'
-        )
-        try:
-            with open_telegram(request, timeout=60) as response:
-                answer = json.loads(response.read(2000000))
-        except urllib.error.HTTPError as error:
-            answer = json.loads(error.read(1000000))
-        if answer.get('ok'):
-            message = answer['result']
+    for index, part in enumerate(parts):
+        body, content_type = multipart(part, archive if index == 0 else None)
+        for attempt in range(3):
+            request = urllib.request.Request(
+                url, data=body, headers={'Content-Type': content_type}, method='POST'
+            )
+            try:
+                with open_telegram(request, timeout=60) as response:
+                    answer = json.loads(response.read(2000000))
+            except urllib.error.HTTPError as error:
+                answer = json.loads(error.read(1000000))
+            if answer.get('ok'):
+                message = answer['result']
+                result.update(
+                    message_id=str(message['message_id']),
+                    telegram_sent_at_ms=message['date'] * 1000,
+                    confirmed_at_ms=time.time_ns() // 1000000,
+                )
+                if len(parts) > 1:
+                    result['message_ids'].append(result['message_id'])
+                result_path.write_text(json.dumps(result))
+                print(json.dumps({'status': 'sent', 'message_id': result['message_id']}))
+                break
+            code = answer.get('error_code')
+            delay = (answer.get('parameters') or {}).get('retry_after')
+            if code == 429 and attempt < 2 and isinstance(delay, int) and 0 < delay <= 60:
+                time.sleep(delay)
+                continue
             result.update(
-                status='sent',
-                message_id=str(message['message_id']),
-                telegram_sent_at_ms=message['date'] * 1000,
-                confirmed_at_ms=time.time_ns() // 1000000,
+                status='partial'
+                if result.get('message_ids')
+                else 'rejected'
+                if isinstance(code, int) and 400 <= code < 500
+                else 'uncertain',
+                error_code=code,
             )
             result_path.write_text(json.dumps(result))
-            print(json.dumps({'status': 'sent', 'message_id': result['message_id']}))
-            return
-        code = answer.get('error_code')
-        delay = (answer.get('parameters') or {}).get('retry_after')
-        if code == 429 and attempt < 2 and isinstance(delay, int) and 0 < delay <= 60:
-            time.sleep(delay)
-            continue
-        result.update(
-            status='rejected' if isinstance(code, int) and 400 <= code < 500 else 'uncertain',
-            error_code=code,
-        )
-        result_path.write_text(json.dumps(result))
-        raise NotificationError('telegram_request_failed')
+            raise NotificationError('telegram_request_failed')
+    result['status'] = 'sent'
+    result_path.write_text(json.dumps(result))
 
 
 def validate():
