@@ -2,9 +2,9 @@
 
 English · [Українська](README.uk.md) · [Русский](README.ru.md)
 
-Twenty skills for production engineering, project architecture, agent workflows, and clear coding, with concise global instructions and a portable Codex configuration.
+Fourteen skills copied from the main folders of the user's `.claude/skills`, adapted for Codex without adding or renaming skills, with global instructions following the user's Silent output style.
 
-The `standards` skill routes to small responsibility-focused files under `codex/skills/standards/references/<domain>/`. Research coverage, the analytical video transcript, and before-and-after code examples are under `docs/`.
+The `writing-code` skill routes to the relevant language guides, and framework skills retain their supporting files. Proprietary skills from `.claude/skills/synced` and Codex-managed `.system` skills are not included. The imported `skill-creator` retains its Apache 2.0 license. Its instructions use Codex facilities, while its legacy Claude CLI evaluation drivers are not a GPT evaluation workflow.
 
 ## Install
 
@@ -28,7 +28,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1 -Mode Replace
 
 Replace mode also removes the legacy `AGENTS.md`, `AGENTS.override.md`, and `agents` paths. Merge mode leaves those unrelated paths intact.
 
-The managed configuration uses `model_instructions_file = "base_instructions.md"`, resolved relative to `config.toml`. New configurations default to GPT-6 Astra with medium reasoning effort.
+The managed configuration uses `model_instructions_file = "base_instructions.md"`, resolved relative to `config.toml`. New configurations default to `gpt-6.1-sol` with high reasoning effort.
 
 ## Update
 
@@ -46,4 +46,4 @@ Set-Location openai-codex-agent-skills
 powershell -ExecutionPolicy Bypass -File .\scripts\update.ps1
 ```
 
-Restart Codex after installation or update. MIT License.
+Restart Codex after installation or update. Repository instructions and scripts use the MIT License. Bundled skills retain their own license notices.

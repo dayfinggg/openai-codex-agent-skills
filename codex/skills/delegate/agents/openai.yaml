@@ -1,7 +1,0 @@
-interface:
-  display_name: "Delegate"
-  short_description: "Prepare one bounded task for a subagent"
-  default_prompt: "Use $delegate to prepare one bounded task for a subagent."
-
-policy:
-  allow_implicit_invocation: true
