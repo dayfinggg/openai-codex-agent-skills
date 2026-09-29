@@ -1,7 +1,0 @@
-interface:
-  display_name: "Review"
-  short_description: "Review changes against intent and standards"
-  default_prompt: "Use $review to assess these changes against their intent and project standards."
-
-policy:
-  allow_implicit_invocation: true

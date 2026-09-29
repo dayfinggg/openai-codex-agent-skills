@@ -1,7 +1,0 @@
-interface:
-  display_name: "Implement"
-  short_description: "Implement requested changes within scope"
-  default_prompt: "Use $implement to complete this requested change and verify it."
-
-policy:
-  allow_implicit_invocation: true
