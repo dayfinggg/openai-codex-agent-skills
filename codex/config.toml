@@ -1,11 +1,11 @@
-model = "gpt-6-astra"
+model = "gpt-6.1-sol"
 model_instructions_file = "base_instructions.md"
 model_context_window = 1000000
 model_auto_compact_token_limit = 900000
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
 model_verbosity = "low"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "high"
 
 [agents]
 default_subagent_model = "gpt-5.6-luna"
