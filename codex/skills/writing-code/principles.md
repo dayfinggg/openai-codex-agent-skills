@@ -12,9 +12,9 @@
 
 - One function does one thing at one level of abstraction.
 - Guard clauses and early returns instead of nested conditionals.
-- No boolean flag parameters that switch behavior. Write two functions or pass an options object with named fields.
+- Avoid flags that hide unrelated operations. Preserve ordinary boolean options and existing public signatures.
 - Group parameters when they form one meaningful concept, not solely because of their count.
-- A function either returns an answer or changes state, not both, unless the language idiom demands it.
+- Separate calculations from side effects when useful, without splitting a cohesive operation just because it also returns a result.
 - Pure functions for calculations. Keep side effects such as I/O, time and randomness at the edges and pass their results in.
 
 ## Data and state
@@ -23,7 +23,8 @@
 - No global mutable state and no singletons holding request data.
 - Named constants instead of magic numbers and strings.
 - Make invalid states unrepresentable with types, enums and constructors that validate.
-- Money as integer minor units or decimals, never floats. Times stored in UTC with the zone attached, converted only for display.
+- Money as integer minor units or decimals, never floats. Store instants consistently in UTC. Preserve calendar dates and named zones for local schedules.
+- Distinguish missing values from valid zero, false and empty values according to the contract. Do not use truthiness as a substitute for validation.
 - Leave no dead code, unused parameters or commented-out code in what you write or change. Version control keeps history.
 
 ## Errors
@@ -43,7 +44,8 @@
 
 ## Concurrency
 
-- Run independent I/O concurrently. Never block an event loop or request thread with synchronous file, network or CPU-heavy work.
+- Run independent I/O concurrently when useful, with bounded active and queued work for growing inputs. Respect stream backpressure and propagate cancellation to release abandoned resources.
+- Never block an event loop with synchronous file, network or CPU-heavy work. Offload according to the runtime and workload, not by adding threads indiscriminately.
 - Protect shared state with transactions, locks or atomic operations, and prefer designs without shared state.
 - Make handlers for queues, webhooks and retries idempotent, because they will run more than once.
 
@@ -68,7 +70,7 @@
 
 ## Changing existing code
 
-- Read the code you change, its tests and every caller before editing. Search for the callers instead of assuming there are few.
+- Read the affected code and tests. Search for callers and inspect those relevant to the changed contract, rather than requiring a full project scan for every edit.
 - Add a focused regression or behavior test when it provides a practical check through existing facilities. Untested code does not automatically require a new harness before every edit.
 - Keep refactoring and behavior changes apart. A refactoring leaves every existing test passing without editing it. Change behavior in a separate step with its own tests.
 - Check meaningful increments and the final changed behavior with relevant tests, expanding to the full suite when shared impact or project rules require it.

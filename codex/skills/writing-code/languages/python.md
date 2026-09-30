@@ -1,13 +1,10 @@
 # Python
 
-## Defaults for every file
+## Runtime and conventions
 
-- Full type hints with builtin generics and unions: `list[int]`, `dict[str, User]`, `X | None`, `collections.abc.Callable`.
-- `pathlib.Path` for file paths, f-strings for formatting, `dataclasses` or the project's model library for records.
-- `asyncio.TaskGroup` and `asyncio.timeout()` for concurrent work instead of bare `gather`.
-- Project metadata and tool config in `pyproject.toml`. Dev dependencies in `[dependency-groups]`.
-- Change dependencies with `uv add` and `uv remove`, not by editing `pyproject.toml` by hand or with `uv pip install`. Run everything through `uv run` instead of activating the virtual environment.
-- A standalone script with dependencies declares them inline with PEP 723: `uv add --script tool.py httpx` writes the `# /// script` block, and `uv run tool.py` runs it without a project.
+- Follow the project's Python version, type hints, environment and package manager. Prefer builtin generics, `pathlib`, f-strings and dataclasses where supported and useful. Do not convert unrelated code or introduce `uv` just for a fix.
+- Do not share mutable defaults between calls or instances. Use `None` or a distinct sentinel for function defaults and `default_factory` for dataclass fields.
+- Distinguish `None` from valid zero, false and empty collections. Preserve caller-owned mutation when it is part of the contract.
 
 ## Features by version
 
@@ -17,28 +14,17 @@ Use what the project's `requires-python` allows.
 |---|---|
 | 3.11+ | `Self`, `TaskGroup`, `asyncio.timeout`, `tomllib`, exception groups |
 | 3.12+ | Type parameter syntax `def first[T](items: list[T]) -> T`, `class Box[T]`, `type Alias = ...`, `@override` |
-| 3.14+ | Deferred annotations, so forward references need no quotes and no `from __future__ import annotations`, `except A, B:` without parentheses, t-strings |
+| 3.14+ | Deferred annotations and t-strings, when the project's libraries and tools support them |
 
 ## Errors and resources
 
 - Raise specific exceptions and chain them with `raise NewError(...) from err`. Never write a bare `except:` or `except Exception: pass`.
 - Manage files, locks and connections with `with` or `async with`.
 - Pass an explicit `timeout` to every `httpx` or `requests` call, because `requests` never times out by default.
-- Log with the `logging` module, not `print`.
-- In async code never call blocking functions directly. Move them to a thread with `asyncio.to_thread`.
+- Use the project's logger for application diagnostics. `print` remains appropriate for intended CLI output.
+- Move blocking I/O out of async code with `asyncio.to_thread` where suitable. Threads do not generally parallelize pure Python CPU work under the GIL. Choose CPU offloading from the actual runtime and workload.
+- Clean up cancellation in `finally` and propagate `CancelledError`. Choose `TaskGroup` or `gather` according to required failure and cancellation behavior, not as interchangeable recipes.
 
-## Size and complexity limits
+## Checks and tooling
 
-Enable Ruff's `C901`, `PLR0911`, `PLR0912`, `PLR0913` and `PLR0915` when the project has no limits of its own. Their defaults are complexity 10, 6 return statements, 12 branches, 5 arguments and 50 statements. Line length stays at Ruff's default of 88. Keep modules under about 300 lines.
-
-## Outdated patterns
-
-Do not write `typing.List`, `Dict`, `Optional`, `Union`, `TypeAlias`, standalone `TypeVar` boilerplate on 3.12+, `setup.py` for new projects, `python setup.py install`, a Black, isort and Flake8 stack, or `os.path` string juggling where `pathlib` fits.
-
-## Fallback commands
-
-- Environment and dependencies: `uv sync`, `uv add pkg`, `uv add --dev pkg`, `uv run ...`. Commit `uv.lock`.
-- Lint and format: `uv run ruff check --fix` then `uv run ruff format`. Select at least `E`, `F`, `UP`, `B`, `SIM`, `I`.
-- Types: `uv run mypy --strict .` or `uv run pyright`, whichever the project configures. Use `ty` only where the project already does, because it has not reached a stable release.
-- Tests: `uv run pytest`.
-- Known vulnerabilities in dependencies: `uv run --with pip-audit pip-audit`, which audits the project's environment.
+Use existing project commands for tests, formatting and type checks. Where already configured, examples include `uv run pytest`, `python -m unittest`, Ruff, mypy or pyright. Do not introduce linter limits, audit dependencies or reformat the whole project for an isolated change. For a new project, keep metadata in `pyproject.toml` and choose only the tooling the task needs.
