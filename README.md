@@ -2,7 +2,7 @@
 
 English · [Українська](README.uk.md) · [Русский](README.ru.md)
 
-Fourteen skills copied from the main folders of the user's `.claude/skills`, adapted for Codex without adding or renaming skills, with global instructions following the user's Silent output style.
+Fifteen task-focused skills for Codex, covering engineering, architecture, interface design and genuine 3D workflows, with global instructions following the user's Silent output style.
 
 The `writing-code` skill routes to the relevant language guides, and framework skills retain their supporting files. Proprietary skills from `.claude/skills/synced` and Codex-managed `.system` skills are not included. The imported `skill-creator` retains its Apache 2.0 license. Its instructions use Codex facilities, while its legacy Claude CLI evaluation drivers are not a GPT evaluation workflow.
 
