@@ -39,11 +39,11 @@ These patterns mark a page as generated. Use one only when the brief or the subj
 - Body line length between 45 and 80 characters, body line height around 1.5.
 - One spacing scale and one type scale used everywhere, with clear size jumps between levels.
 - Works at 320 CSS pixels wide without horizontal scrolling, then scales up.
-- Motion limited to one deliberate moment and disabled under `prefers-reduced-motion: reduce`.
+- Motion supports the interaction and respects `prefers-reduced-motion: reduce`.
 - Dark mode, when present, follows `prefers-color-scheme` and gets its own tuned palette.
 - Semantic landmarks (`header`, `nav`, `main`, `footer`), headings in order, labels on every input.
 - Real, specific content. Buttons say what happens ("Save changes", not "Submit"), errors say how to fix the problem, text in sentence case.
 
 ## Review before finishing
 
-Check the page in a browser as the `testing-code` skill's `browser-checks.md` describes. Compare it with the defaults list and the baseline, fix what matches, and remove one decorative element that adds nothing.
+Check the changed surface in a browser when available, as `testing-code`'s `browser-checks.md` describes. Fix relevant mismatches with the request and accessibility baseline. Remove decoration only when it is unnecessary within the requested scope, not to satisfy a quota.

@@ -1,6 +1,6 @@
 # Checking a page in a browser
 
-Any change to something a person sees is checked in a real browser before it is reported as done. Use the browser tools the session provides, or Playwright when there are none. Start the app with the project's own scripts.
+Check changed page behavior or layout in a real browser when available. Use the session's browser tools or existing Playwright setup and the project's own startup scripts. Choose checks relevant to the changed surface. If the browser or app cannot run, state what remains unverified.
 
 ## What to check
 
@@ -10,7 +10,7 @@ Any change to something a person sees is checked in a real browser before it is 
 - States: loading, empty, error, a very long text, many items and a single item, whichever the component can reach.
 - Keyboard: every control can be reached with Tab, focus is visible, Enter and Space activate buttons, and Escape closes dialogs and menus.
 - Color schemes and languages the project supports: dark mode through `colorScheme: 'dark'`, and the longest translation when the interface is localized.
-- Accessibility: run `@axe-core/playwright` with `new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()` when the project can install it. Automated checks catch only part of the problems, so the keyboard check still runs.
+- Accessibility: use the project's existing axe checks when available. Do not install `@axe-core/playwright` solely for a small edit. Automated checks cover only part of accessibility, so check relevant keyboard interactions too.
 
 ## Compare with the request
 
