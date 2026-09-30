@@ -9,7 +9,7 @@ Inspect the database, ORM versions, schema conventions and affected callers. Rea
 
 Use constraints for real integrity rules, explicit foreign-key behavior and appropriate types for money, instants and calendar values. Preserve existing key and timestamp contracts. Identity or UUID defaults, SQLite STRICT tables and WAL are choices for the workload and version, not a reason to migrate every existing schema.
 
-Parameterize values and allowlist dynamic identifiers. Select the data required by the caller, avoid queries per row, and bound or paginate growing result sets. Choose cursor or offset pagination from the actual ordering and compatibility contract.
+Parameterize values and allowlist dynamic identifiers. Select the data required by the caller, avoid queries per row, and bound or paginate growing result sets. Use deterministic ordering with a unique tie-breaker. Cursor values and comparisons must match that ordering. Choose cursor or offset pagination from the actual compatibility contract.
 
 Keep related writes atomic. Keep transactions short and avoid external waits while holding locks. Use conditional writes, consistent lock ordering or an appropriate lock when concurrent writers require it. Retry only transient transaction failures with a bounded policy and safe replay semantics.
 
