@@ -11,6 +11,6 @@ Check current official setup documentation and generator options for the chosen 
 
 Use the user's or repository's package manager and install into the project rather than globally unless global installation is requested. Let the package manager maintain dependency versions and lockfiles.
 
-Follow framework conventions and use designing-architecture for substantive layout decisions. Include the ecosystem's ignore file and required runtime configuration. Add language resources when localization is part of the interface. Do not add a README, CI pipeline, test framework or tooling stack solely to satisfy a generic checklist.
+Follow framework conventions. For substantial features, establish responsibility, state ownership and resource lifetime before growing the entry point. Select additional architecture or design guidance from the current descriptions when needed. Include the ecosystem's ignore file and required runtime configuration. Add language resources when localization is part of the interface. Do not add a README, CI pipeline, test framework or tooling stack solely to satisfy a generic checklist.
 
 Configure and run the checks appropriate to the project's deliverable and dependencies. Start its real entry point once when practical. A scaffold that exists but cannot run is not a completed application.
