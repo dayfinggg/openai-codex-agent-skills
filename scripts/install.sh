@@ -1,36 +1,26 @@
 #!/bin/sh
 set -eu
 
-mode="${1:---merge}"
+mode="${1:---replace}"
 case "$mode" in
   --merge|--replace) ;;
   *) printf 'Usage: %s [--merge|--replace]\n' "$0" >&2; exit 2 ;;
 esac
+[ "$#" -le 1 ] || { printf 'Too many arguments.\n' >&2; exit 2; }
 
 script_dir="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 . "$script_dir/lib.sh"
-
-repo="${CODEX_SKILLS_REPO:-dayfinggg/openai-codex-agent-skills}"
-branch="${CODEX_SKILLS_BRANCH:-main}"
-dest="$HOME/.codex"
-stamp="$(date -u +%Y%m%dT%H%M%SZ)"
-backup="$HOME/.codex-backups/$stamp"
+src="${CODEX_SKILLS_SOURCE:-$script_dir/../codex}"
+dest="${CODEX_HOME:-$HOME/.codex}"
 tmp="$(mktemp -d "${TMPDIR:-/tmp}/openai-codex-agent-skills-install.XXXXXX")"
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
+backup="$dest/.openai-codex-agent-skills-backups/$(date -u +%Y%m%dT%H%M%SZ)-$(basename "$tmp")"
 
-command -v curl >/dev/null 2>&1 || { printf 'curl is required.\n' >&2; exit 1; }
-command -v tar >/dev/null 2>&1 || { printf 'tar is required.\n' >&2; exit 1; }
-
-curl -fsSL "https://codeload.github.com/$repo/tar.gz/$branch" | tar -xz -C "$tmp"
-source_root="$(find "$tmp" -mindepth 1 -maxdepth 1 -type d | head -n 1)"
-[ -n "$source_root" ] || { printf 'Downloaded archive is empty.\n' >&2; exit 1; }
-src="$source_root/codex"
-
-remove_legacy=0
-install_mode=merge
-if [ "$mode" = --replace ]; then
-  remove_legacy=1
-  install_mode=replace
+remove_legacy=1
+install_mode=replace
+if [ "$mode" = --merge ]; then
+  remove_legacy=0
+  install_mode=merge
 fi
 
 codex_sync_payload "$src" "$dest" "$backup" "$remove_legacy" "$tmp"

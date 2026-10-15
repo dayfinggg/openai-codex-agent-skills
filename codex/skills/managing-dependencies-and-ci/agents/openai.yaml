@@ -1,0 +1,3 @@
+interface:
+  display_name: "Managing Dependencies And CI"
+  short_description: "Dependencies, lockfiles, and hardened CI"

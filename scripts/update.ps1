@@ -1,5 +1,4 @@
 $ErrorActionPreference = "Stop"
-. (Join-Path $PSScriptRoot "lib.ps1")
 
 $Repository = if ($env:CODEX_SKILLS_REPO) { $env:CODEX_SKILLS_REPO } else { "dayfinggg/openai-codex-agent-skills" }
 $Branch = if ($env:CODEX_SKILLS_BRANCH) { $env:CODEX_SKILLS_BRANCH } else { "main" }
@@ -27,7 +26,7 @@ try {
 
     $Source = Join-Path $SourceRoot.FullName "codex"
     $UserProfile = [Environment]::GetFolderPath("UserProfile")
-    $Destination = Join-Path $UserProfile ".codex"
+    $Destination = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $UserProfile ".codex" }
     $InstallModePath = Join-Path $Destination ".openai-codex-agent-skills.install-mode"
     $InstallMode = if (Test-Path -LiteralPath $InstallModePath) {
         (Get-Content -LiteralPath $InstallModePath -Raw).Trim().ToLowerInvariant()
@@ -35,13 +34,8 @@ try {
     else {
         "replace"
     }
-    $Stamp = [DateTime]::UtcNow.ToString("yyyyMMddTHHmmssZ")
-    $Backup = Join-Path $Destination ".openai-codex-agent-skills-backups\$Stamp"
-    $Result = Sync-CodexPayload `
-        -Source $Source `
-        -Destination $Destination `
-        -BackupDirectory $Backup `
-        -RemoveLegacyPaths:($InstallMode -ne "merge")
+    $Mode = if ($InstallMode -eq "merge") { "Merge" } else { "Replace" }
+    & (Join-Path $SourceRoot.FullName "scripts/install.ps1") -Source $Source -Mode $Mode
 
     $Utf8WithoutBom = New-Object System.Text.UTF8Encoding($false)
     [System.IO.File]::WriteAllText(
@@ -49,11 +43,7 @@ try {
         "$Commit`n",
         $Utf8WithoutBom
     )
-    Write-Host "Codex: updated=$($Result.Updated) removed=$($Result.Removed) config_added=$($Result.ConfigAdded) commit=$Commit"
-    if (Test-Path -LiteralPath $Backup) {
-        Write-Host "Previous files were backed up to $Backup"
-    }
-    Write-Host "Restart Codex to load the new instructions, skills, and configuration."
+    Write-Host "Codex source revision: $Commit"
 }
 finally {
     if (Test-Path -LiteralPath $TemporaryDirectory) {

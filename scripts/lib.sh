@@ -100,7 +100,8 @@ codex_merge_config() {
           instruction_line = source_entry_line[i]
         }
         if (!destination_key[section SUBSEP key]) {
-          missing_line[section SUBSEP ++missing_count[section]] = source_entry_line[i]
+          missing_count[section]++
+          missing_line[section SUBSEP missing_count[section]] = source_entry_line[i]
           added++
         }
       }
@@ -120,7 +121,7 @@ codex_merge_config() {
           print line
           current_section = section_name(line)
         } else {
-          if ((current_section == "" || current_section ~ /^profiles[.]/) && instruction_line != "" && line ~ /^[[:space:]]*model_instructions_file[[:space:]]*=[[:space:]]*[\042\047]([^\042\047]*[/\\])?model-instructions[.]md[\042\047][[:space:]]*(#.*)?$/) {
+          if (instruction_line != "" && ((current_section == "" && is_key(line) && key_name(line) == "model_instructions_file" && line != instruction_line) || (current_section ~ /^profiles[.]/ && line ~ /^[[:space:]]*model_instructions_file[[:space:]]*=[[:space:]]*[\042\047]([^\042\047]*[/\\])?model-instructions[.]md[\042\047][[:space:]]*(#.*)?$/))) {
             line = instruction_line
             added++
           }
@@ -166,6 +167,7 @@ codex_write_manifest() {
   {
     printf '%s\n' "$cwm_source/base_instructions.md"
     find "$cwm_source/skills" -type f
+    find "$cwm_source/agents" -type f
   } | LC_ALL=C sort >"$cwm_files"
 
   : >"$cwm_manifest"
@@ -183,18 +185,36 @@ codex_sync_payload() {
   csp_remove_legacy="$4"
   csp_work="$5"
 
-  for csp_required in config.toml base_instructions.md skills; do
+  for csp_required in config.toml base_instructions.md skills agents; do
     [ -e "$csp_source/$csp_required" ] || {
       printf 'Downloaded payload is missing codex/%s.\n' "$csp_required" >&2
       return 1
     }
   done
 
+  csp_source="$(CDPATH= cd -- "$csp_source" && pwd -P)"
   mkdir -p "$csp_destination"
+  csp_destination="$(CDPATH= cd -- "$csp_destination" && pwd -P)"
+  [ "$csp_source" != "$csp_destination" ] || {
+    printf 'Source and destination must be different directories.\n' >&2
+    return 1
+  }
+  for csp_directory in skills agents; do
+    [ ! -L "$csp_destination/$csp_directory" ] || {
+      printf 'Managed directory must not be a symbolic link.\n' >&2
+      return 1
+    }
+    case "$csp_source" in
+      "$csp_destination/$csp_directory"|"$csp_destination/$csp_directory/"*)
+        printf 'Source must not be inside a managed destination directory.\n' >&2
+        return 1 ;;
+    esac
+  done
   CODEX_SYNC_REMOVED=0
   codex_backup_path "$csp_destination" "$csp_backup" base_instructions.md
   codex_backup_path "$csp_destination" "$csp_backup" model-instructions.md
   codex_backup_path "$csp_destination" "$csp_backup" skills
+  codex_backup_path "$csp_destination" "$csp_backup" agents
 
   for csp_instruction in base_instructions.md model-instructions.md; do
     if [ -e "$csp_destination/$csp_instruction" ]; then
@@ -204,12 +224,18 @@ codex_sync_payload() {
   done
 
   mkdir -p "$csp_destination/skills"
-  csp_retired_count="$(find "$csp_destination/skills" -mindepth 1 ! -path "$csp_destination/skills/.system" ! -path "$csp_destination/skills/.system/*" -type f | wc -l | tr -d ' ')"
-  CODEX_SYNC_REMOVED=$((CODEX_SYNC_REMOVED + csp_retired_count))
-  find "$csp_destination/skills" -mindepth 1 -maxdepth 1 ! -name .system -exec rm -rf -- {} +
+  for csp_skill in "$csp_destination/skills/"* "$csp_destination/skills/".[!.]* "$csp_destination/skills/"..?*; do
+    [ -e "$csp_skill" ] || [ -L "$csp_skill" ] || continue
+    [ "$(basename "$csp_skill")" != .system ] || continue
+    if [ "$csp_remove_legacy" = 1 ] || [ -e "$csp_source/skills/$(basename "$csp_skill")" ]; then
+      csp_retired_count="$(find "$csp_skill" -type f | wc -l | tr -d ' ')"
+      CODEX_SYNC_REMOVED=$((CODEX_SYNC_REMOVED + csp_retired_count))
+      rm -rf -- "$csp_skill"
+    fi
+  done
 
   if [ "$csp_remove_legacy" = 1 ]; then
-    for csp_legacy in AGENTS.md AGENTS.override.md agents; do
+    for csp_legacy in AGENTS.md AGENTS.override.md; do
       if [ -e "$csp_destination/$csp_legacy" ]; then
         codex_backup_path "$csp_destination" "$csp_backup" "$csp_legacy"
         rm -rf "$csp_destination/$csp_legacy"
@@ -218,9 +244,15 @@ codex_sync_payload() {
     done
   fi
 
+  if [ "$csp_remove_legacy" = 1 ] && [ -e "$csp_destination/agents" ]; then
+    rm -rf -- "$csp_destination/agents"
+    CODEX_SYNC_REMOVED=$((CODEX_SYNC_REMOVED + 1))
+  fi
+  mkdir -p "$csp_destination/agents"
   cp -p "$csp_source/base_instructions.md" "$csp_destination/base_instructions.md"
   cp -Rp "$csp_source/skills/." "$csp_destination/skills/"
-  CODEX_SYNC_UPDATED=$((1 + $(find "$csp_source/skills" -type f | wc -l | tr -d ' ')))
+  cp -Rp "$csp_source/agents/." "$csp_destination/agents/"
+  CODEX_SYNC_UPDATED=$((1 + $(find "$csp_source/skills" "$csp_source/agents" -type f | wc -l | tr -d ' ')))
   CODEX_CONFIG_ADDED="$(codex_merge_config "$csp_source/config.toml" "$csp_destination/config.toml" "$csp_destination" "$csp_backup" "$csp_work")"
   codex_write_manifest "$csp_source" "$csp_destination" "$csp_work"
 }

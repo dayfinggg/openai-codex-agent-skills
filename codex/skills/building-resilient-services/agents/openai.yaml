@@ -1,0 +1,3 @@
+interface:
+  display_name: "Building Resilient Services"
+  short_description: "Timeouts, retries, breakers, and shutdown"

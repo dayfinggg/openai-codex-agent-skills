@@ -1,0 +1,3 @@
+interface:
+  display_name: "Writing Commit Messages"
+  short_description: "Commit messages and pull request text"

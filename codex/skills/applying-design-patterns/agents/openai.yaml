@@ -1,0 +1,3 @@
+interface:
+  display_name: "Applying Design Patterns"
+  short_description: "Choose or remove patterns from a real smell"
