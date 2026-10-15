@@ -108,7 +108,7 @@ function Merge-CodexConfig {
         $Section = Get-CodexTomlSection -Line $Line
         if ($null -ne $Section) {
             $DestinationSection = $Section
-        } elseif (($DestinationSection -eq "" -or $DestinationSection -match '^profiles\.') -and $InstructionEntry -and $Line -match '^\s*model_instructions_file\s*=\s*([''"])(?:[^''"]*[/\\])?model-instructions\.md\1\s*(?:#.*)?$') {
+        } elseif ($InstructionEntry -and (($DestinationSection -eq "" -and (Get-CodexTomlKey -Line $Line) -eq "model_instructions_file" -and $Line -ne $InstructionEntry.Line) -or ($DestinationSection -match '^profiles\.' -and $Line -match '^\s*model_instructions_file\s*=\s*([''"])(?:[^''"]*[/\\])?model-instructions\.md\1\s*(?:#.*)?$'))) {
             $DestinationLines[$Index] = $InstructionEntry.Line
             $Added++
         }
@@ -204,10 +204,17 @@ function Write-CodexManifest {
     $Files = @(
         Get-Item -LiteralPath (Join-Path $Source "base_instructions.md")
         Get-ChildItem -LiteralPath (Join-Path $Source "skills") -File -Recurse
+        Get-ChildItem -LiteralPath (Join-Path $Source "agents") -File -Recurse
     ) | Sort-Object FullName
     $Manifest = foreach ($File in $Files) {
         $Relative = $File.FullName.Substring($SourcePrefix.Length).Replace("\", "/")
-        $Hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $File.FullName).Hash.ToLowerInvariant()
+        $Hasher = [System.Security.Cryptography.SHA256]::Create()
+        try {
+            $Hash = [BitConverter]::ToString($Hasher.ComputeHash([System.IO.File]::ReadAllBytes($File.FullName))).Replace("-", "").ToLowerInvariant()
+        }
+        finally {
+            $Hasher.Dispose()
+        }
         "$Hash`t$Relative"
     }
     [System.IO.File]::WriteAllLines(
@@ -225,16 +232,31 @@ function Sync-CodexPayload {
         [switch]$RemoveLegacyPaths
     )
 
-    foreach ($RequiredPath in @("config.toml", "base_instructions.md", "skills")) {
+    $Source = [System.IO.Path]::GetFullPath($Source).TrimEnd("\", "/")
+    $Destination = [System.IO.Path]::GetFullPath($Destination).TrimEnd("\", "/")
+    if ($Source -eq $Destination) {
+        throw "Source and destination must be different directories."
+    }
+    foreach ($RequiredPath in @("config.toml", "base_instructions.md", "skills", "agents")) {
         if (-not (Test-Path -LiteralPath (Join-Path $Source $RequiredPath))) {
             throw "Downloaded payload is missing codex/$RequiredPath."
+        }
+    }
+
+    foreach ($Directory in @("skills", "agents")) {
+        $ManagedPath = Join-Path $Destination $Directory
+        if ((Test-Path -LiteralPath $ManagedPath) -and ((Get-Item -LiteralPath $ManagedPath -Force).Attributes -band [System.IO.FileAttributes]::ReparsePoint)) {
+            throw "Managed directory must not be a symbolic link: $ManagedPath"
+        }
+        if ($Source.StartsWith($ManagedPath + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase) -or $Source -eq $ManagedPath) {
+            throw "Source must not be inside a managed destination directory."
         }
     }
 
     New-Item -ItemType Directory -Force -Path $Destination | Out-Null
     $Removed = 0
 
-    foreach ($RelativePath in @("base_instructions.md", "model-instructions.md", "skills")) {
+    foreach ($RelativePath in @("base_instructions.md", "model-instructions.md", "skills", "agents")) {
         Copy-CodexBackupPath -Destination $Destination -BackupDirectory $BackupDirectory -RelativePath $RelativePath
     }
 
@@ -249,7 +271,7 @@ function Sync-CodexPayload {
 
     $DestinationSkills = Join-Path $Destination "skills"
     New-Item -ItemType Directory -Force -Path $DestinationSkills | Out-Null
-    $RetiredSkills = @(Get-ChildItem -LiteralPath $DestinationSkills -Force | Where-Object { $_.Name -ne ".system" })
+    $RetiredSkills = @(Get-ChildItem -LiteralPath $DestinationSkills -Force | Where-Object { $_.Name -ne ".system" -and ($RemoveLegacyPaths -or (Test-Path -LiteralPath (Join-Path $Source "skills/$($_.Name)"))) })
     foreach ($RetiredSkill in $RetiredSkills) {
         $Removed += @(Get-ChildItem -LiteralPath $RetiredSkill.FullName -File -Recurse -ErrorAction SilentlyContinue).Count
         if (-not $RetiredSkill.PSIsContainer) {
@@ -259,7 +281,7 @@ function Sync-CodexPayload {
     }
 
     if ($RemoveLegacyPaths) {
-        foreach ($RelativePath in @("AGENTS.md", "AGENTS.override.md", "agents")) {
+        foreach ($RelativePath in @("AGENTS.md", "AGENTS.override.md")) {
             $LegacyPath = Join-Path $Destination $RelativePath
             if (Test-Path -LiteralPath $LegacyPath) {
                 Copy-CodexBackupPath -Destination $Destination -BackupDirectory $BackupDirectory -RelativePath $RelativePath
@@ -269,11 +291,20 @@ function Sync-CodexPayload {
         }
     }
 
+    $DestinationAgents = Join-Path $Destination "agents"
+    if ($RemoveLegacyPaths -and (Test-Path -LiteralPath $DestinationAgents)) {
+        Remove-Item -LiteralPath $DestinationAgents -Recurse -Force
+        $Removed++
+    }
+    New-Item -ItemType Directory -Force -Path $DestinationAgents | Out-Null
+    Get-ChildItem -LiteralPath (Join-Path $Source "agents") -Force |
+        Copy-Item -Destination $DestinationAgents -Recurse -Force
+
     Copy-Item -LiteralPath (Join-Path $Source "base_instructions.md") -Destination $InstructionPath -Force
     Get-ChildItem -LiteralPath (Join-Path $Source "skills") -Force |
         Copy-Item -Destination $DestinationSkills -Recurse -Force
 
-    $Updated = 1 + @(Get-ChildItem -LiteralPath (Join-Path $Source "skills") -File -Recurse).Count
+    $Updated = 1 + @(Get-ChildItem -LiteralPath (Join-Path $Source "skills") -File -Recurse).Count + @(Get-ChildItem -LiteralPath (Join-Path $Source "agents") -File -Recurse).Count
     $ConfigAdded = Merge-CodexConfig `
         -SourcePath (Join-Path $Source "config.toml") `
         -DestinationPath (Join-Path $Destination "config.toml") `

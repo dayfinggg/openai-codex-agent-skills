@@ -1,0 +1,3 @@
+interface:
+  display_name: "Adding Observability"
+  short_description: "Logs, metrics, traces, and health checks"

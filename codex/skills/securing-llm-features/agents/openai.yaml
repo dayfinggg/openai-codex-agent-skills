@@ -1,0 +1,3 @@
+interface:
+  display_name: "Securing LLM Features"
+  short_description: "Prompt injection, agency, and LLM cost limits"

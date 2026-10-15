@@ -1,0 +1,3 @@
+interface:
+  display_name: "Writing Secure Code"
+  short_description: "OWASP and CWE rules at trust boundaries"
