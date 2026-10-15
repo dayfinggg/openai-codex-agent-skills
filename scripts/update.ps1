@@ -17,7 +17,7 @@ try {
     }
 
     $Archive = Join-Path $TemporaryDirectory "source.zip"
-    Invoke-WebRequest -Uri "https://codeload.github.com/$Repository/zip/$Commit" -OutFile $Archive
+    Invoke-WebRequest -UseBasicParsing -Uri "https://codeload.github.com/$Repository/zip/$Commit" -OutFile $Archive
     Expand-Archive -Path $Archive -DestinationPath $TemporaryDirectory
     $SourceRoot = Get-ChildItem -Path $TemporaryDirectory -Directory | Select-Object -First 1
     if (-not $SourceRoot) {
