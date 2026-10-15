@@ -1,0 +1,3 @@
+interface:
+  display_name: "Writing Clean Code"
+  short_description: "Clean names, functions, errors, and structure"

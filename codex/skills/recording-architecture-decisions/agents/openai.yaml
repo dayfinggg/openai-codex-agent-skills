@@ -1,0 +1,3 @@
+interface:
+  display_name: "Recording Architecture Decisions"
+  short_description: "ADRs and C4 diagrams as text"

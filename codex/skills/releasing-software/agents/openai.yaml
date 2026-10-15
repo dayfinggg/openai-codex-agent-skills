@@ -1,0 +1,3 @@
+interface:
+  display_name: "Releasing Software"
+  short_description: "SemVer releases, provenance, and SBOMs"

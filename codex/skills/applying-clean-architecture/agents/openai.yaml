@@ -1,0 +1,3 @@
+interface:
+  display_name: "Applying Clean Architecture"
+  short_description: "Layered structure with ports and adapters"
