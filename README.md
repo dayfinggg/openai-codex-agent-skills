@@ -2,7 +2,7 @@
 
 English · [Українська](README.uk.md) · [Русский](README.ru.md)
 
-A portable snapshot of the author's local Codex setup, synchronized on **2026-10-15**. It contains **18 engineering skills, 12 specialist agents**, shared instructions, and a portable configuration.
+A portable snapshot of the author's local Codex setup, synchronized on **2026-10-23**. It contains **18 engineering skills, 14 specialist agents**, shared instructions, and a portable configuration.
 
 Skills cover clean and secure code, testing, documentation, architecture, HTTP APIs, databases, interfaces, 3D, observability, resilient services, dependencies, releases, and LLM security. Agents provide focused research, diagnosis, implementation, review, and verification.
 
@@ -59,7 +59,7 @@ Updates require internet access, with `curl` and `tar` additionally required for
 
 - [Shared instructions](codex/base_instructions.md)
 - [18 skills and their references](codex/skills)
-- [12 custom agent definitions](codex/agents)
+- [14 custom agent definitions](codex/agents)
 - [Portable configuration](codex/config.toml)
 - [Installation modes, backups, and custom locations](docs/installation.md)
 
