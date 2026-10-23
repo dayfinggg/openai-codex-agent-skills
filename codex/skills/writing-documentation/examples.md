@@ -1,15 +1,8 @@
 # Documentation examples
 
-These pairs are illustrative. Copy the reasoning, not the exact shape.
+These pairs are illustrative.
 
-## Contents
-
-- README that mixes tutorial and reference (Markdown, Python)
-- Git log dump rewritten as a changelog (Markdown)
-- Vague how-to guide rewritten in Google style (Markdown, shell, YAML)
-- Migration guide (Markdown, TypeScript)
-
-## README that mixes tutorial and reference (Markdown, Python)
+## README that mixes tutorial and reference
 
 Before
 
@@ -86,9 +79,9 @@ See [Contributing to tidecache](CONTRIBUTING.md).
 tidecache is released under the [MIT License](LICENSE).
 ````
 
-The argument table moves to the reference page, the eviction design moves to an explanation page, and the install alternatives go away because a quickstart needs one path. The README keeps a quickstart that was run and shows its real output, and the vague "click here" becomes link text that names each page.
+The argument table moves to reference, the eviction design to explanation, and the install alternatives go because a quickstart needs one path.
 
-## Git log dump rewritten as a changelog (Markdown)
+## Git log dump rewritten as a changelog
 
 Before
 
@@ -147,115 +140,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [3.0.0]: https://github.com/example-org/shop-api/compare/v2.2.0...v3.0.0
 ```
 
-Hashes, merge commits, refactoring, CI, and the typo fix disappear because no user notices them, and each remaining commit becomes a sentence about its effect under one of the six types. The breaking change now says what clients must do and links the migration guide, and the date and comparison links make the version easy to place and inspect.
-
-## Vague how-to guide rewritten in Google style (Markdown, shell, YAML)
-
-Before
-
-```markdown
-## Deployment
-
-Deploying is pretty easy. The config should be set up first, it's in the deploy folder. Then the deploy script can be run and hopefully it will work. If you're on staging you might want the dry run flag. Click here for more info on environment variables.
-```
-
-After
-
-````markdown
-# Deploy the app to staging
-
-This guide shows you how to deploy the app to the staging environment. To deploy to production, see [Deploy the app to production](deploy-to-production.md).
-
-Before you begin, make sure that you can push images to the staging registry and that your working copy is on the `main` branch.
-
-1. Copy the example configuration file.
-
-   ```sh
-   cp deploy/staging.example.yaml deploy/staging.yaml
-   ```
-
-2. In `deploy/staging.yaml`, set `image_tag` to the tag that you want to deploy.
-
-   ```yaml
-   environment: staging
-   image_tag: 2026.10.11-1
-   replicas: 2
-   ```
-
-3. Optional: Preview the changes without applying them.
-
-   ```sh
-   ./scripts/deploy.sh --env staging --dry-run
-   ```
-
-   The script lists the resources that it would change and exits.
-
-4. Run the deployment.
-
-   ```sh
-   ./scripts/deploy.sh --env staging
-   ```
-
-   The script prints `Deployment complete` when the new version serves traffic.
-
-For every setting in the file, see the [deployment configuration reference](../reference/deploy-config.md).
-````
-
-The title names the goal, the reader is "you", and the conditions come before the steps. Each step holds one action that starts with an imperative verb and ends with its result, the flags and messages are copied from the script and its `--help` output, and the full settings list stays in reference behind a descriptive link.
-
-## Migration guide (Markdown, TypeScript)
-
-Before
-
-```markdown
-## Upgrading to v3
-
-v3 has a new client API. Things were refactored and some options were renamed, so update your code accordingly. See the changelog for details.
-```
-
-After
-
-````markdown
-# Upgrade from version 2 to version 3
-
-This guide shows you how to update an application that uses `@example/shop-client` version 2 to version 3.
-
-1. Update the package.
-
-   ```sh
-   npm install @example/shop-client@3
-   ```
-
-2. Update the `ShopClient` options. Version 3 renames `apiKey` to `token` and replaces `timeout` in seconds with `timeoutMs` in milliseconds.
-
-   Version 2
-
-   ```typescript
-   const client = new ShopClient({ apiKey: process.env.SHOP_TOKEN, timeout: 10 });
-   ```
-
-   Version 3
-
-   ```typescript
-   const client = new ShopClient({ token: process.env.SHOP_TOKEN, timeoutMs: 10_000 });
-   ```
-
-3. Replace `listOrders(page)` with `listOrders({ cursor })`, and pass the `nextCursor` of each response to the next call.
-
-   ```typescript
-   let cursor: string | undefined;
-   do {
-     const page = await client.listOrders({ cursor });
-     page.orders.forEach((order) => console.log(order.id));
-     cursor = page.nextCursor;
-   } while (cursor);
-   ```
-
-4. Handle the 403 response with the `email_not_verified` error type that login now returns for unverified accounts.
-
-5. Run your test suite against version 3.
-
-For every change in this release, see the [changelog entry for version 3.0.0](../../CHANGELOG.md).
-````
-
-A migration guide is a how-to guide with one goal, so it lists only what the reader must change, in order, with old and new code side by side. Every renamed option and unit is named exactly as in the source, and the full list of changes stays in the changelog.
+Hashes, merge commits, refactoring, CI, dependency bumps, and the typo fix go because no user notices them. The breaking change says what clients must do and links the migration guide.

@@ -1,19 +1,15 @@
 ---
 name: writing-commit-messages
-description: Writes git commit messages and pull request descriptions in the repository's convention, otherwise Conventional Commits. Use when creating a commit, splitting changes into commits, or writing a pull or merge request title and description.
+description: Writes git commit messages and pull request descriptions in the repository's convention, otherwise Conventional Commits. Use when creating or splitting commits or writing a pull or merge request.
 ---
 
 # Writing commit messages
 
-Commit history is documentation for future maintainers. A good message tells them what changed and why, so they can trust, revert, or bisect the change without reconstructing the reasoning from code. Create commits only when the user asks for them.
+Create commits only when the user asks.
 
-## Choose the format
+## Format
 
-1. Read recent history with `git log --oneline -20` and check for commitlint, a CONTRIBUTING file, or a pull request template.
-2. If the repository has a convention, follow it exactly, including language, casing, prefixes, and issue references.
-3. Otherwise use Conventional Commits.
-
-## Conventional Commits
+Read `git log --oneline -20` and look for commitlint, a CONTRIBUTING file, and a pull request template. When the repository has a convention, follow it exactly, including language, casing, prefixes, and issue references. Otherwise use Conventional Commits.
 
 ```
 <type>[optional scope][!]: <description>
@@ -23,48 +19,29 @@ Commit history is documentation for future maintainers. A good message tells the
 [optional footer(s)]
 ```
 
-| Type | Use for |
-|---|---|
-| feat | New behavior for users, a minor release |
-| fix | Bug fix, a patch release |
-| refactor | Structure change without behavior change |
-| perf | Performance improvement |
-| test | Adding or fixing tests only |
-| docs | Documentation only |
-| build | Build system or dependencies |
-| ci | CI configuration |
-| style | Formatting with no code change |
-| revert | Reverting an earlier commit |
-| chore | Maintenance that fits nothing above |
+Types are `feat` for new behavior and a minor release, `fix` for a bug fix and a patch release, `refactor`, `perf`, `test`, `docs`, `build`, `ci`, `style` for formatting only, `revert`, and `chore` for maintenance that fits nothing else. The scope names the affected area in one word, as in `feat(auth)`. Mark a breaking change with `!` before the colon, with a `BREAKING CHANGE: <what breaks and how to migrate>` footer, or both. Footers use git trailer form, such as `Refs: #123`. Start the description in lowercase, which the commitlint conventional preset expects.
 
-- The scope names the affected area in a word, as in `feat(auth):`.
-- Mark a breaking change with `!` before the colon, or with a `BREAKING CHANGE: <what breaks and how to migrate>` footer, or both.
-- Footers use git trailer form, such as `Refs: #123` or `Reviewed-by: Name`.
-- Start the description in lowercase, which is what the common commitlint conventional preset expects.
+## Message
 
-## Writing the message
+- The subject is imperative and completes the sentence "If applied, this commit will ...". It has about 50 characters, at most 72, and no trailing period.
+- A blank line follows the subject, and the body wraps at 72 characters.
+- The body explains what problem existed and why this solution was chosen, because the diff already shows how. It names side effects, limits, and follow-ups. Skip the body only when the subject says everything, as in a typo fix.
 
-- Write the subject in the imperative mood. It completes the sentence "If applied, this commit will ...", as in `fix(cart): keep total at zero for discounts over 100%`.
-- Keep the subject to about 50 characters and never over 72, with no trailing period.
-- Leave a blank line after the subject.
-- Wrap the body at 72 characters.
-- In the body explain what problem existed and why this solution was chosen. The diff already shows how.
-- Mention side effects, limitations, and follow-ups when they exist.
-- Skip the body only when the subject says everything, as in a typo fix.
+## Writing style
+
+Commit messages and pull request texts use plain words and short sentences. They contain no em dash or en dash, no semicolons, no colon that introduces an explanation, and only straight double quotes `"`, never `«»` or `“”`. The repository's own convention takes precedence for the subject format, so the colon after a Conventional Commits type stays.
 
 ## Shaping commits
 
-- One commit holds one logical change, and the build and tests pass at every commit so bisecting works.
-- Keep refactoring and behavior changes in separate commits.
-- Stage specific files instead of everything, and review the staged diff before committing.
-- Never commit secrets, credentials, local configuration, build output, or large generated files.
-- Do not mix unrelated formatting changes into a functional commit.
-- Sign commits when the repository's rules or branch protection require signed commits, as NIST SP 800-204D recommends for source integrity. Never turn signing on or change git configuration on your own initiative.
-- When the project keeps a CHANGELOG, commit types help sort entries into its sections, but the changelog stays written for people, never a dump of the git log. The writing-documentation skill covers it.
+- One commit holds one logical change, and the build and tests pass at every commit so bisect works.
+- Refactoring, behavior changes, and unrelated formatting go in separate commits.
+- Stage specific files and review the staged diff. Secrets, credentials, local configuration, build output, and large generated files stay out.
+- Sign commits when the repository's rules or branch protection require it, as NIST SP 800-204D recommends for source integrity. Turn on signing or change git configuration only when the user asks.
+- A CHANGELOG stays written for people and is never a copy of the log. The writing-documentation skill covers it.
 
-## Pull request descriptions
+## Pull requests
 
-The title follows the same rules as a commit subject. The description is written for a reviewer who has not seen the work.
+The title follows the subject rules. The description is written for a reviewer who has not seen the work. Use the repository's template when one exists, otherwise this one.
 
 ```
 ## Summary
@@ -72,10 +49,9 @@ What the change does and why, in two or three sentences.
 
 ## Changes
 - Main change
-- Notable secondary change
 
 ## Testing
-How the change was verified, such as tests added and manual steps.
+How the change was verified.
 
 ## Notes
 Risks, breaking changes, migrations, follow-ups, screenshots for UI.
@@ -83,38 +59,4 @@ Risks, breaking changes, migrations, follow-ups, screenshots for UI.
 Closes #123
 ```
 
-Use the repository's pull request template when one exists. Keep pull requests small enough to review in one sitting, and split large work into a series.
-
-## Checklist
-
-- [ ] The format matches the repository's convention
-- [ ] The subject is imperative, specific, and within the length limits
-- [ ] The body explains why, not how
-- [ ] Breaking changes are marked and explained
-- [ ] The commit holds one logical change and the tests pass
-- [ ] No secrets or unrelated files are staged
-
-## Examples
-
-```
-feat(api): add cursor pagination to order list
-
-Offset pagination returned duplicates when orders were created
-while a client paged through results. Cursors are based on
-createdAt and id, so pages stay stable under concurrent writes.
-
-Refs: #482
-```
-
-```
-refactor(billing): extract tax calculation into TaxPolicy
-
-No behavior change. Prepares for per-country tax rules.
-```
-
-```
-feat(auth)!: require email verification before login
-
-BREAKING CHANGE: unverified accounts now receive 403 on login.
-Clients must handle the new email_not_verified error type.
-```
+Keep pull requests small enough to review in one sitting, and split large work into a series.
