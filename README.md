@@ -34,4 +34,4 @@ Run `scripts/update.ps1` in PowerShell or `sh scripts/update.sh` on macOS or Lin
 - [Engineering skills](codex/skills)
 - [Portable configuration](codex/config.toml)
 
-Machine paths, project trust entries, account state, session history, generated system skills, and desktop settings are excluded. No Telegram notification workflow is included. This is an independent configuration, not an official OpenAI distribution.
+Machine paths, project trust entries, account state, session history, generated system skills, and desktop settings are excluded. Telegram notifications remain available for future repository updates. This is an independent configuration, not an official OpenAI distribution.
