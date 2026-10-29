@@ -5,7 +5,9 @@ model_auto_compact_token_limit = 900000
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
 model_verbosity = "low"
-model_reasoning_effort = "medium"
+web_search = "live"
+model_reasoning_effort = "high"
+
 service_tier = "default"
 
 [agents]
@@ -13,6 +15,15 @@ default_subagent_model = "gpt-6-luna"
 default_subagent_reasoning_effort = "max"
 max_concurrent_threads_per_session = 30
 
+
+
 [features]
-js_repl = false
 default_mode_request_user_input = true
+
+
+[tui]
+screen_reader_detection_done = true
+
+
+[skills]
+max_context_tokens = 10000
