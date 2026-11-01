@@ -1,6 +1,6 @@
 ---
 name: node-backend-change
-description: "Change Node.js backend behavior with HTTP, cancellation, timeout, streaming, and resource-lifecycle verification. Use for APIs, middleware, and Node service lifecycle work."
+description: "Change Node.js HTTP, cancellation, timeout, streaming, or resource-lifecycle behavior in services and standalone utilities. Use for request helpers, middleware, streams, and process lifecycle changes. Exclude pure value transformations without Node runtime behavior."
 ---
 
 Verify the complete Node.js request and process lifecycle.
@@ -13,5 +13,5 @@ Verify the complete Node.js request and process lifecycle.
 6. For shutdown, verify admission stops, active work drains, and connection pools close within the configured deadline. Work started during an HTTP request must not silently disappear after the response.
 7. Run the original scenario and relevant dependency-failure, client-disconnection, and shutdown checks. Correlate observed errors and durations with logs.
 
-Reuse framework and runtime mechanisms. Do not add unrelated middleware, retries, or signal handlers. Read version-matched [Node.js HTTP](https://nodejs.org/api/http.html), [Streams](https://nodejs.org/api/stream.html), and [Globals](https://nodejs.org/api/globals.html) documentation.
+Reuse framework and runtime mechanisms. Do not add unrelated middleware, retries, or signal handlers. Read the relevant sections of version-matched official documentation for the APIs and lifecycle behavior being changed. Use [Node.js HTTP](https://nodejs.org/api/http.html), [Streams](https://nodejs.org/api/stream.html), or [Globals](https://nodejs.org/api/globals.html) as applicable, not as a required reading list for every task.
 
