@@ -34,22 +34,22 @@ Then make an optimization suggestion based on collected information and MongoDB 
 
 ## MCP: available tools
 
-**How to invoke.** Call the **MongoDB MCP server** with the **exact tool name** as `toolName` and a single **arguments object** as `arguments`. Do not pass the tool name as an option, query param, or nested key; pass it as the MCP tool name and the parameters as the arguments object. Full MCP Server tool reference: [MongoDB MCP Server Tools](https://www.mongodb.com/docs/mcp-server/tools/).
+**How to invoke.** Call the **MongoDB MCP server** with the **exact tool name** as `toolName` and a single **arguments object** as `arguments`. Do not pass the tool name as an option, query param, or nested key. Pass it as the MCP tool name and the parameters as the arguments object. Full MCP Server tool reference: [MongoDB MCP Server Tools](https://www.mongodb.com/docs/mcp-server/tools/).
 
 **Database tools** (when the MCP cluster connection works):
 
 | Tool name (exact) | Arguments object |
 | :---- | :---- |
-| `collection-indexes` | `{ "database": "<db>", "collection": "<coll>" }` — both required strings. |
-| `explain` | `{ "database": "<db>", "collection": "<coll>", "method": [ { "name": "find", "arguments": { "filter": {...}, "sort": {...}, "limit": N } } ], "verbosity": "executionStats" }`. `method` is an array of one object: `name` is `"find"`, `"aggregate"`, or `"count"`; `arguments` holds that method's params (e.g. find: `filter`, `sort`, `limit`; aggregate: `pipeline`; count: `query`). Optional `verbosity`: `"queryPlanner"` (default), `"executionStats"`, `"queryPlannerExtended"`, `"allPlansExecution"`. |
-| `find` |  `{ "database": "<db>", "collection": "<coll>", "filter": {...}, "projection": {...}, "sort": {...}, "limit": N }` — `database`, `collection`, and `filter` are required. Optional: `projection`, `sort`, `limit`. |
+| `collection-indexes` | `{ "database": "<db>", "collection": "<coll>" }`, both required strings. |
+| `explain` | `{ "database": "<db>", "collection": "<coll>", "method": [ { "name": "find", "arguments": { "filter": {...}, "sort": {...}, "limit": N } } ], "verbosity": "executionStats" }`. `method` is an array of one object: `name` is `"find"`, `"aggregate"`, or `"count"`. `arguments` holds that method's params (e.g. find: `filter`, `sort`, `limit`, aggregate: `pipeline`, count: `query`). Optional `verbosity`: `"queryPlanner"` (default), `"executionStats"`, `"queryPlannerExtended"`, `"allPlansExecution"`. |
+| `find` |  `{ "database": "<db>", "collection": "<coll>", "filter": {...}, "projection": {...}, "sort": {...}, "limit": N }`. `database`, `collection`, and `filter` are required. Optional: `projection`, `sort`, `limit`. |
 
 **Atlas tools** (when Atlas API credentials are configured):
 
 | Tool name (exact) | Arguments object |
 | :---- | :---- |
-| `atlas-list-projects` | `{}` or `{ "orgId": "<24-char hex>" }`. Returns projects with their IDs; use to get `projectId` for Performance Advisor. |
-| `atlas-get-performance-advisor` | **Required:** `"projectId"` (24-character hex string), `"clusterName"` (string, 1–64 chars, alphanumeric/underscore/dash). **Optional:** `"operations"` — array of strings from `"suggestedIndexes"`, `"dropIndexSuggestions"`, `"slowQueryLogs"`, `"schemaSuggestions"` (request only what you need); for slowQueryLogs only: `"since"` (ISO 8601 date-time), `"namespaces"` (array of `"db.coll"` strings). |
+| `atlas-list-projects` | `{}` or `{ "orgId": "<24-char hex>" }`. Returns projects with their IDs. Use to get `projectId` for Performance Advisor. |
+| `atlas-get-performance-advisor` | **Required:** `"projectId"` (24-character hex string), `"clusterName"` (string, 1 to 64 chars, alphanumeric/underscore/dash). **Optional:** `"operations"`, array of strings from `"suggestedIndexes"`, `"dropIndexSuggestions"`, `"slowQueryLogs"`, `"schemaSuggestions"` (request only what you need). For slowQueryLogs only: `"since"` (ISO 8601 date-time), `"namespaces"` (array of `"db.coll"` strings). |
 
 For a user question, try to fetch information from both the connection string and Atlas API related to the query you are optimizing.
 
@@ -57,8 +57,8 @@ For a user question, try to fetch information from both the connection string an
 
 Typical flow: call `collection-indexes` → `explain` → `find` (sample doc).
 
-- **`collection-indexes`** — Use the result's `classicIndexes` (each has `name`, `key`) to see if the query can already use an existing index.
-- **`explain`** — Run in `"queryPlanner"` mode first to check for COLLSCAN. If the query uses an index or the collection is very small, run again with `"executionStats"` (10-second timeout) to get docs scanned vs. returned.
+- **`collection-indexes`**. Use the result's `classicIndexes` (each has `name`, `key`) to see if the query can already use an existing index.
+- **`explain`**. Run in `"queryPlanner"` mode first to check for COLLSCAN. If the query uses an index or the collection is very small, run again with `"executionStats"` (10-second timeout) to get docs scanned vs. returned.
 
 ### 2\. Atlas API access works for MongoDB MCP
 
@@ -66,18 +66,18 @@ If you need a project ID, call `atlas-list-projects` first. Then call `atlas-get
 
 | Operation value | Use when |
 | :---- | :---- |
-| `slowQueryLogs` | Fetching slow queries—**prioritize by slowest and most frequent**. Optional: `namespaces` to scope to a collection; `since` for a time window. |
+| `slowQueryLogs` | Fetching slow queries. **Prioritize by slowest and most frequent**. Optional: `namespaces` to scope to a collection. `since` for a time window. |
 | `suggestedIndexes` | Fetching cluster index recommendations |
 | `dropIndexSuggestions` | User asks what to remove or reduce index overhead |
 | `schemaSuggestions` | User asks for schema/query-structure advice alongside indexes |
 
-Do not pass the MCP tool name as an `operations` value—`operations` is a separate argument listing what data to fetch.
+Do not pass the MCP tool name as an `operations` value. `operations` is a separate argument listing what data to fetch.
 
 ## Example workflow 1 (help with specific query)
 
 **User:** "Why is this query slow? `db.orders.find({status: 'shipped', region: 'US'}).sort({date: -1})`"
 
-**If MCP db connection is configured and the database + collection names are known**, run steps 1–3. Otherwise skip to step 4.
+**If MCP db connection is configured and the database + collection names are known**, run steps 1 to 3. Otherwise skip to step 4.
 
 1. **Check existing collection indexes:**
    - Call `collection-indexes` with database=`store`, collection=`orders`
@@ -105,10 +105,10 @@ If the MongoDB MCP server is not set up, follow best indexing practices.
 
 ## Example workflow 2 (general database performance help)
 
-**User:** "Can you help with optimizing slow queries on my cluster?”
+**User:** "Can you help with optimizing slow queries on my cluster?"
 
 1. **Run atlas-get-performance-advisor:**  
-   - Try to get the cluster name from the connection string and deduce the project name you need in atlas-list-projects; if you are not sure, then ask the user for cluster name and project id.
+   - Try to get the cluster name from the connection string and deduce the project name you need in atlas-list-projects. If you are not sure, then ask the user for cluster name and project id.
    - Use slowQueryLogs to fetch slow query logs from the past 24 hours  
    - Use suggestedIndexes  
    - Use dropIndexSuggestions  
@@ -135,7 +135,7 @@ Conditionally load these files:
 
 - Keep answers short and clear: a few sentences on index and optimization suggestions, and reasoning behind them (e.g. general indexing principles, observing slow query logs in the cluster, or seeing advice in Performance Advisor)
 - Focus on highest impact indexes or optimizations - if you've omitted some optimizations let the user know and present them if asked.
-- Do not use strong language, such as saying “You should create these indexes and they will definitely improve application performance” \-  Explain they are suggestions for certain queries, and give the reasoning behind them.
+- Do not use strong language, such as saying "You should create these indexes and they will definitely improve application performance" \-  Explain they are suggestions for certain queries, and give the reasoning behind them.
 - Consider how many indexes already exist on the collection (if known) \- there shouldn’t generally be more than 20
 - Suggest removing indexes only if the suggestion comes from Atlas Performance Advisor
 - Do not create indexes directly via MCP unless the user gives approval
