@@ -1,6 +1,6 @@
 ---
 name: typescript-change
-description: "Change TypeScript with type, module, and runtime-data contract verification. Use for TypeScript source or tsconfig changes, not standalone Node server lifecycle work."
+description: "Change TypeScript source or compiler configuration with type, module, and runtime-data contract verification. Exclude JavaScript-only work unless TypeScript checking or configuration is affected. Use node-backend-change for standalone Node service lifecycle changes."
 ---
 
 Preserve TypeScript contracts both during type checking and at runtime.
