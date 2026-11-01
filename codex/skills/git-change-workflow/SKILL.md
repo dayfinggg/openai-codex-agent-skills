@@ -1,0 +1,26 @@
+---
+name: git-change-workflow
+description: Prepare clear commits and carry out authorized Git operations while preserving others' work. Use for commit messages, staging, commit, fetch, pull, merge, rebase, push, conflict resolution, and pull request descriptions. Ordinary file edits do not authorize commits, publication, or history rewriting.
+---
+
+Perform only the requested Git operation and its necessary checks. Automatic skill selection supplies guidance, not permission for external actions. Existing authorization persists within the task's scope. Creating a commit does not imply a push, and a push does not imply a release, deployment, or notification.
+
+1. Establish the repository root, current branch, upstream, and intended remote. Read applicable rules, PR templates, and signing requirements. Inspect `git status --short --branch`, staged and unstaged diffs, untracked files, and unfinished merges, rebases, or cherry-picks. Do not take over another person's unfinished operation as part of your task.
+
+2. Separate task changes from pre-existing work, including staged changes. Do not use `git add .`, `git add -A`, or `git commit -a` without reviewing everything they would include. Stage only the required paths or hunks. Do not stage an entire file that also contains someone else's changes. Hunk selection is described in the [git-add documentation](https://git-scm.com/docs/git-add).
+
+3. Before committing, read the [commit message guidance](references/commit-messages.md). Make each commit a coherent logical change that can be understood and reverted independently. Keep related code, tests, and documentation together. Do not mix the task with unrelated formatting or cleanup. For substantive documentation changes, use the available [documentation skill](../documentation-writing/SKILL.md).
+
+4. Verify the prospective commit, not just the working tree. Review its file list, full diff, and `git diff --cached --check`. Run the relevant project checks. Remember that working-tree tests may depend on changes excluded from the commit. Preserve unrelated staged paths. For files wholly owned by the task, `git commit --only` can exclude other staged paths, but it takes working-tree contents and does not preserve partial staging within the selected file. Its behavior is defined in the [git-commit documentation](https://git-scm.com/docs/git-commit).
+
+5. Commit only when authorized. Preserve configured authorship, signing, and required hooks. Do not invent coauthors, review acknowledgments, or sign-offs. Do not bypass checks with `--no-verify` or change global configuration to complete the operation. After committing, inspect the SHA, message, and actual included files, then confirm that unrelated work remains intact.
+
+6. To receive changes, fetch from the established remote and inspect divergence from the intended branch. Do not integrate changes over unreviewed uncommitted work. For an ordinary non-divergent update, use explicit `git pull --ff-only` or fast-forward after fetching. For divergent history, follow the repository policy and authorization instead of choosing merge or rebase blindly. The [git-pull documentation](https://git-scm.com/docs/git-pull) defines the refusal to integrate divergent history with `--ff-only`.
+
+7. For an authorized rebase, rewrite only the relevant unpublished commits. Do not rewrite published history without specific authorization. Resolve conflicts using the intent of both sides and rerun affected checks rather than automatically choosing ours or theirs. Do not discard or hide someone else's work through reset, restore, clean, or stash. If preserving changes requires a user decision, pause only the dependent operation and report the concrete conflict.
+
+8. Before pushing, inspect the destination branch, the entire outgoing commit range, and workflows triggered by publication. Do not publish unreviewed local commits with the task. Use an explicit remote and refspec rather than bulk branch or tag publication. If the remote has advanced, fetch and inspect the new commits before resolving the rejection. A force push is not a remedy for that rejection. Only for an authorized history rewrite, use a targeted `--force-with-lease` with an independently reviewed expected SHA. Lease limitations and background fetch interactions are documented in [git-push](https://git-scm.com/docs/git-push).
+
+9. Honor explicit notification restrictions. If the user forbids Telegram, inspect the notification workflow and use an existing suppression mechanism only for the authorized publication. Do not permanently disable notifications or bypass required checks. GitHub Actions skip markers apply to push and pull_request events and can leave required checks pending. Verify applicability against the [GitHub documentation](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/skip-workflow-runs). Do not add skip markers by default.
+
+10. If a PR is requested, follow the repository template. Describe the problem, final behavior, material limitations, and executed checks. After a push, verify the remote SHA. For a PR, use the available status tools and any required linking mechanism in the current host. Distinguish a created commit, successful push, completed CI, and deployment. Report only the verified result and remaining blockers.
