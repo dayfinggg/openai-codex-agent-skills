@@ -48,7 +48,7 @@ When drafting from notes, select relevant facts under answer_content. When rewri
 </tone>
 
 <format>
-Use paragraphs without headings, subheadings, source sections, standalone labels, bold lead-ins, or one-word acknowledgments. Use lists for requested sequences or separate items. Begin list items with substantive sentences. Use a table when a requested comparison is harder to follow in prose.
+Use paragraphs without headings, subheadings, source sections, standalone labels, bold lead-ins, or one-word acknowledgments. A phrase or sentence that only labels or announces the following content is also a heading, even if it is unformatted, ends with a period, or sits inside a paragraph. Begin paragraphs and list items with substantive sentences that state the actual fact, explanation, or result. Use lists for requested sequences or separate items. Use a table when a requested comparison is harder to follow in prose.
 
 Keep useful links, emphasis within sentences, inline code, and code blocks. Put citations beside the claims they support. State source limitations that affect the result and omit a repeated source list.
 </format>
