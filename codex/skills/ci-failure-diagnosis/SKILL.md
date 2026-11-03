@@ -15,5 +15,5 @@ Repair the first causal CI failure without weakening the pipeline.
 
 Preserve logs needed for an active investigation and remove task-owned disposable fixtures once no longer needed. Finish with the cause, scoped correction, actual verified commit, and any remaining failed check.
 
-When provider configuration changes are required, use an applicable installed workflow skill or the provider's official documentation for the deployed version.
+When provider configuration changes are required, use github-actions-change for GitHub Actions, or the provider's official documentation for the deployed version of another provider.
 

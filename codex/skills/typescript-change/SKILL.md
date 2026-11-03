@@ -12,7 +12,7 @@ Preserve TypeScript contracts both during type checking and at runtime.
 5. Implement the smallest compatible contract. For shared types, inspect affected projects and emitted declarations. Do not upgrade the compiler merely to simplify the edit.
 6. Run the installed type checker, relevant tests, and the actual build. For a package boundary, verify the published artifact shape when consumers use that shape.
 
-Checks must independently detect interface incompatibility and behavioral regressions. Use node-backend-change for HTTP-process behavior and a relevant installed framework specialist for framework work.
+Checks must independently detect interface incompatibility and behavioral regressions. Use node-backend-change for HTTP-process behavior, react-development for React or Next.js, and tanstack-versioned-skills for TanStack packages.
 
 Check version-specific rules in [TypeScript TSConfig](https://www.typescriptlang.org/tsconfig/) and [Node.js Packages](https://nodejs.org/api/packages.html).
 

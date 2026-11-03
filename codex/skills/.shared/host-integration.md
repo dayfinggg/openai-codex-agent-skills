@@ -6,4 +6,4 @@ Resolve Markdown links from the file containing them. Keep relative script argum
 
 On Windows, use an available compatible shell for Bash procedures or translate the operation accurately using native tools. Do not assume that Bash quoting and environment-assignment syntax work in PowerShell.
 
-Read only the procedure required by the task. Reuse already loaded shared guidance. Follow the current conversation and AGENTS.md for authorization, scope, communication, and temporary-file handling.
+Read only the procedure required by the task. Reuse already loaded shared guidance. Follow the current conversation and the project instructions (CLAUDE.md or AGENTS.md) for authorization, scope, communication, and temporary-file handling.

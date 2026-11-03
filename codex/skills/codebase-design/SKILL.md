@@ -1,6 +1,6 @@
 ---
 name: codebase-design
-description: Design or improve a module interface, dependency seam, or test boundary for the requested change without speculative abstraction.
+description: Design or improve a module interface, dependency seam, or test boundary for the requested change without speculative abstraction. Use when a task asks how to structure a module, where an interface or seam belongs, or how to make code testable, and when the tdd skill needs this vocabulary.
 ---
 
 Read [local host integration](../.shared/host-integration.md) before applying this imported workflow.
@@ -11,7 +11,7 @@ Design **deep modules**: a lot of behaviour behind a small interface, placed at 
 
 ## Glossary
 
-Use this vocabulary to reason consistently, while preserving the repository's established domain language. The terms below are design concepts rather than mandatory renaming rules.
+Use this vocabulary to reason consistently, while preserving the repository's established domain language. The terms below are design concepts rather than mandatory renaming rules, and replies to the user keep the project's own names for these things.
 
 **Module**: anything with an interface and an implementation. Deliberately scale-agnostic: a function, class, package, or tier-spanning slice. _Avoid_: unit, component, service.
 

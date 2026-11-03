@@ -1,6 +1,6 @@
 ---
 name: supply-chain-risk-auditor
-description: Audit npm, PyPI, or Go dependency supply-chain risk using exact resolved versions and measured registry or advisory evidence.
+description: Audit npm, PyPI, or Go dependency supply-chain risk using exact resolved versions and measured registry or advisory evidence. Use when asked to audit, assess, or report on dependency risk, abandoned packages, or advisories for an npm, PyPI, or Go project.
 ---
 
 Read [local host integration](../.shared/host-integration.md) before applying this imported workflow.
@@ -65,9 +65,9 @@ The scripts enforce two rules worth knowing before you read their output:
 
 ## Style for what you add
 
-Write added prose the way a security report reads, and apply the same register to the
-report addendum and the final reply alike — replies get pasted into tickets and reports
-verbatim. State the finding, the datum behind it, and the action.
+Write the prose you add to the report addendum the way a security report reads, because
+it gets pasted into tickets verbatim. State the finding, the datum behind it, and the
+action. The chat reply follows the active response style.
 
 - Impersonal and declarative: no first or second person ("I ran the collector", "you
   should upgrade"), no contractions, no exclamation points.
@@ -78,9 +78,6 @@ verbatim. State the finding, the datum behind it, and the action.
 - Tense: past for what the audit did, present for the state of the dependencies,
   future for the consequences of acting or not.
 - Constructive: a recommendation names the action and its cost, never a culprit.
-
-If the `report-writing:writing-style` skill is available in the session, follow it —
-it is the full version of this register.
 
 The rendered evidence view carries facts only. The interpretive rules below are instructions
 to you, not content for the reader — do not copy them into the deliverable as caveats

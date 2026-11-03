@@ -13,7 +13,7 @@ Preserve the application's data contract while changing its cache.
 6. Check compatibility of serialized values during rolling releases. Avoid clearing all keys or changing global Redis settings to resolve one application's issue.
 7. Verify miss, hit, update, expiration, concurrent access, and relevant outage paths. Measure origin load and latency only with comparable data and conditions.
 
-Use installed Redis specialists for command, connection, or cluster details. Preserve durability-sensitive data that happens to share the Redis instance.
+Use the redis skill for command, connection, or cluster details. Preserve durability-sensitive data that happens to share the Redis instance.
 
 Consult [Redis caching patterns](https://redis.io/docs/latest/develop/use/) and version-matched client documentation. Finish with evidence that both cached and uncached behavior satisfy the requested contract.
 

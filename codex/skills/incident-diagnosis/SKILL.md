@@ -10,7 +10,7 @@ Find the cause of the reported incident with the least expensive reliable eviden
 3. Build a timeline from evidence. Separate connection failures, application exceptions, dependency waits, resource saturation, and rollout changes. A temporal correlation alone does not prove causation.
 4. Form ranked hypotheses that can be weakened as well as supported. Choose a bounded check for each material uncertainty. Inspect counterevidence before making a cause claim.
 5. Compare equivalent request populations, parameters, and deployments. Distinguish missing data, inaccessible data, and an actual measured zero. Account for retention, sampling, and clock differences.
-6. Use php-fpm-opcache-diagnostics, database-query-diagnosis, or a relevant installed runtime specialist when the evidence points there. Keep investigation read-only until an authorized correction is established.
+6. Use php-fpm-opcache-diagnostics, symfony-diagnostics, database-query-diagnosis, or node-backend-change when the evidence points at that runtime. Keep investigation read-only until an authorized correction is established.
 7. Verify the original symptom after a correction and check the relevant regression signal. A restarted service or successful health endpoint does not by itself prove the failing operation is repaired.
 
 Do not repeatedly restart components, raise limits, clear shared caches, or disable checks to make symptoms disappear. Ask only for a missing fact or access that materially blocks diagnosis and cannot be obtained.

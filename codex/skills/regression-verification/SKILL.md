@@ -16,5 +16,3 @@ Verify the requested behavior without creating redundant tests or claiming unper
 
 Finish once the requirements and relevant checks are satisfied. Report what changed, the performed validation, and only material limitations. Keep explanatory reports in chat unless a standalone document is requested.
 
-For skill development, structural validity and host discovery are different from measured improvement on real engineering tasks. Preserve that distinction in completion claims.
-

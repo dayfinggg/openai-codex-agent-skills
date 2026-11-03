@@ -1,6 +1,6 @@
 ---
 name: diagnosing-bugs
-description: Diagnose a difficult reproducible bug or performance regression through a feedback loop, competing hypotheses, and regression proof.
+description: Diagnose a difficult reproducible bug or performance regression through a feedback loop, competing hypotheses, and regression proof. Use when a bug or regression resists a first-pass fix and its cause is uncertain. Not for a defect whose cause the error message already shows.
 ---
 
 Read [local host integration](../.shared/host-integration.md) before applying this imported workflow.
@@ -19,9 +19,7 @@ If the redacted output is not enough to diagnose the bug, say so and ask the use
 
 ## Phase 1: Build a feedback loop
 
-**This is the skill.** Everything else is mechanical. If you have a **tight** pass/fail signal for the bug (one that goes red on _this_ bug), you will find the cause; bisection, hypothesis-testing, and instrumentation all just consume it. If you don't have one, no amount of staring at code will save you.
-
-Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give up.**
+A tight pass/fail signal for the bug, one that goes red on this bug and green once it is fixed, is what makes bisection, hypothesis testing, and instrumentation work. Without one, reading code produces guesses. Spend most of the diagnostic effort on building that signal.
 
 ### Ways to construct one, in roughly this order
 
@@ -36,8 +34,6 @@ Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give
 9. **Differential loop.** Run the same input through old-version vs new-version (or two configs) and diff outputs.
 10. **HITL bash script.** Last resort. If a human must click, drive _them_ with `scripts/hitl-loop.template.sh` so the loop is still structured. Captured output feeds back to you.
 
-Build the right feedback loop, and the bug is 90% fixed.
-
 ### Tighten the loop
 
 Treat the loop as a product. Once you have _a_ loop, **tighten** it:
@@ -46,7 +42,7 @@ Treat the loop as a product. Once you have _a_ loop, **tighten** it:
 - Can I make the signal sharper? (Assert on the specific symptom, not "didn't crash".)
 - Can I make it more deterministic? (Pin time, seed RNG, isolate filesystem, freeze network.)
 
-A 30-second flaky loop is barely better than no loop; a 2-second deterministic one is tight, a debugging superpower.
+A 30-second flaky loop is barely better than no loop. A 2-second deterministic one is tight.
 
 ### Non-deterministic bugs
 
@@ -54,7 +50,7 @@ The goal is not a clean repro but a **higher reproduction rate**. Loop the trigg
 
 ### When you genuinely cannot build a loop
 
-Stop and say so explicitly. List what you tried. Ask the user for: (a) access to whatever environment reproduces it, (b) a redacted captured artifact (HAR file, log dump, core dump, screen recording with timestamps), or (c) permission to add temporary production instrumentation. Do **not** proceed to hypothesise without a loop.
+Say so explicitly and list what you tried. Ask the user for whichever of these would allow a loop: access to the environment that reproduces it, a redacted captured artifact (HAR file, log dump, core dump, screen recording with timestamps), or permission to add temporary production instrumentation. While that is pending, continue the work that does not depend on it, and report any cause you infer from logs or code as an unverified hypothesis, not as a diagnosis.
 
 ### Completion criterion: a tight loop that goes red
 
@@ -65,7 +61,7 @@ Phase 1 is done when the loop is **tight** and **red-capable**: you can name **o
 - [ ] **Fast**: seconds, not minutes.
 - [ ] **Agent-runnable**: you can run it unattended; a human in the loop only via `scripts/hitl-loop.template.sh`.
 
-If you catch yourself reading code to build a theory before this command exists, **stop: jumping straight to a hypothesis is the exact failure this skill prevents.** No red-capable command, no Phase 2.
+Reading code to build a theory before this command exists is the failure this skill prevents. Phase 2 starts only with a red-capable command, or with the explicit fallback above when none can be built.
 
 ## Phase 2: Reproduce + minimise
 

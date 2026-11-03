@@ -1,6 +1,6 @@
 ---
 name: redis
-description: "Develop or diagnose Redis data structures, commands, connections, clustering, access security, metrics, or search. Load the procedure matching the actual Redis task."
+description: "Develop or diagnose Redis data structures, commands, connections, clustering, access security, metrics, or search. Use when the task names Redis, a Redis client, Redis keys, or Redis Search, and load the procedure matching that task."
 ---
 
 Identify the Redis version, client version, deployment topology, and requested outcome. Choose a procedure before changing configuration or data.
@@ -16,7 +16,7 @@ Read [host integration](../.shared/host-integration.md) once for the imported re
 | Investigate memory, latency, connections, or slow commands | [Diagnostics](references/diagnostics/guide.md) |
 | Implement text, aggregation, vector, or hybrid retrieval | [Redis Search](references/search/guide.md) |
 
-Each procedure keeps its complete nested references and client guidance. Read only the branches needed by the task. Redis Search requires the actual supported server and client features.
+Each procedure has nested references and client-specific guidance. Read only the branches the task needs. Redis Search requires the actual supported server and client features.
 
 Use application-cache-change for application-level invalidation and failure semantics. A Redis command change does not itself define the application's cache contract. Preserve unrelated data and existing access policy.
 

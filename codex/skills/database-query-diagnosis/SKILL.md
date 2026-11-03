@@ -13,7 +13,7 @@ Locate the database bottleneck with evidence from the affected workload.
 6. Test the smallest plausible correction against counterevidence. Consider index write cost, parameter sensitivity, result correctness, and other consumers before changing a shared object.
 7. Compare equivalent inputs, data, concurrency, and cache conditions before and after. Verify row identity and ordering as well as latency. Stop when the reported issue is resolved and the relevant regression check passes.
 
-Use installed PostgreSQL, MongoDB, Redis, or ClickHouse specialists when their engine-specific procedure applies. Do not broaden production scans or terminate sessions merely to simplify investigation.
+Use the postgres, mongodb, or redis skill when the engine matches. Do not broaden production scans or terminate sessions merely to simplify investigation.
 
 Consult the engine's official plan and monitoring documentation. Distinguish a suspected bottleneck from a reproduced and measured cause.
 
