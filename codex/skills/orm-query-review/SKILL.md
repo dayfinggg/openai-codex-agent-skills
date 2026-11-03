@@ -1,6 +1,6 @@
 ---
 name: orm-query-review
-description: "Review ORM query correctness and performance, including EF Core specifics. Check generated SQL, loading, pagination, transactions, tracking, and concurrent updates."
+description: "Review ORM query correctness and performance, including EF Core specifics. Use when reviewing or fixing data access written through an ORM such as EF Core, Doctrine, SQLAlchemy, or Prisma, including generated SQL, N+1 loading, pagination, transactions, tracking, and concurrent updates."
 ---
 
 Establish the ORM, driver, database provider, and observable query or mutation contract.

@@ -1,6 +1,6 @@
 ---
 name: research
-description: Research an engineering API, version, configuration, or integration question against primary sources and report findings in chat.
+description: Research an engineering API, version, configuration, or integration question against primary sources and report findings in chat. Use when the answer depends on current documentation, a specific version, or a specification and the user asks a question rather than requesting a change.
 ---
 
 Read [local host integration](../.shared/host-integration.md) before applying this workflow.

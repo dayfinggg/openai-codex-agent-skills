@@ -1,6 +1,6 @@
 ---
 name: mongodb
-description: "Design MongoDB schemas, write queries, optimize query performance, or diagnose application client connections. Select the relevant workload and version-matched procedure."
+description: "Design MongoDB schemas, write queries, optimize query performance, or diagnose application client connections. Use when the task touches MongoDB collections, documents, aggregation, indexes, or driver connections, and select the procedure for that workload and version."
 ---
 
 Establish the target MongoDB deployment, server and driver versions, authorized database, and requested result. Choose the relevant procedure from verified workload evidence.
