@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Implement behavior test-first or fix a defect through a failing behavior test and the smallest passing change.
+description: Implement behavior test-first or fix a defect through a failing behavior test and the smallest passing change. Use when asked to work test-first, to add a failing test before a fix, or when the project requires tests for the change.
 ---
 
 Read [local host integration](../.shared/host-integration.md) before applying this imported workflow.
@@ -37,4 +37,4 @@ When the shape of that interface is itself in question (how deep the module is, 
 
 - **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
 - **One slice at a time.** One seam, one test, one minimal implementation per cycle.
-- **Refactoring is not part of the loop.** It belongs to the review stage (see the `code-review` skill), not the red → green implementation cycle.
+- **Refactor only on green.** Restructure code after the test passes and within the task's scope, then run the tests again. Do not restructure during the red step.

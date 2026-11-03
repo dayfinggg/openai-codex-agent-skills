@@ -1,6 +1,6 @@
 ---
 name: postgres
-description: "Inspect PostgreSQL schemas or work on table design, SQL, indexes, extensions, search, or migrations. Select version-matched procedures for the actual database task."
+description: "Inspect PostgreSQL schemas or work on table design, SQL, indexes, extensions, search, or migrations. Use when the task names PostgreSQL, psql, a Postgres schema, or an extension such as PostGIS, pgvector, or TimescaleDB, and select the version-matched procedure for that task."
 ---
 
 Use the PostgreSQL procedure that owns the requested result. Establish the database version, connection scope, and relevant schemas before applying version-sensitive SQL.

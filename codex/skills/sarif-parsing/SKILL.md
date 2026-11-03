@@ -1,6 +1,6 @@
 ---
 name: sarif-parsing
-description: Inspect, filter, deduplicate, or validate existing SARIF results without claiming an unperformed source scan.
+description: Inspect, filter, deduplicate, or validate existing SARIF results without claiming an unperformed source scan. Use when the task supplies or names .sarif files or static-analysis results in SARIF format.
 ---
 
 Read [local host integration](../.shared/host-integration.md) before applying this imported workflow.
@@ -25,7 +25,7 @@ Do NOT use this skill for:
 - Running static analysis scans. This skill processes existing result files.
 - Writing or maintaining scanner rules.
 - Analyzing source code directly (SARIF is for processing existing scan results)
-- Triaging findings without SARIF input (use variant-analysis or audit skills)
+- Triaging findings without SARIF input (use code-review or backend-security-change)
 
 ## SARIF Structure Overview
 

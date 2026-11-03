@@ -1,6 +1,6 @@
 ---
 name: symfony-diagnostics
-description: "Diagnose Symfony request errors, latency, DI wiring, environment loading, or log patterns using available project tools and the appropriate evidence source."
+description: "Diagnose Symfony request errors, latency, DI wiring, environment loading, or log patterns using available project tools and the appropriate evidence source. Use when a Symfony application fails, is slow, or injects the wrong service, and the task supplies a request, a profiler token, or a log."
 ---
 
 Establish the Symfony application, relevant request or time interval, and available project tools. Select the sharpest evidence source already identified by the task.
@@ -17,5 +17,5 @@ Read [host integration](../.shared/host-integration.md) once for the imported pr
 
 Skip triage when the task already identifies the correct source. Keep tool-runtime failures separate from application failures. For a suspected Mate PHP runtime problem, use the [PHP environment procedure](../php-change/references/environment/guide.md). For dependency identity or an API-version mismatch, use [PHP dependency versions](../php-change/references/versions/guide.md).
 
-Use installed Mate capabilities when available. Otherwise inspect the same evidence through the application's existing supported CLI, profiler, and logs. Do not install Mate or change production diagnostics merely to satisfy a procedure's example. Never expose raw secret values.
+Use the Symfony Mate tools (its CLI and MCP server) when the project has them installed. Otherwise inspect the same evidence through the application's existing CLI, profiler, and logs. Do not install Mate or change production diagnostics merely to satisfy a procedure's example. Never expose raw secret values.
 

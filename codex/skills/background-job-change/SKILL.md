@@ -1,6 +1,6 @@
 ---
 name: background-job-change
-description: "Change queue consumers, scheduled tasks, or background workers with duplicate-delivery, retry, timeout, shutdown, and commit-boundary verification."
+description: "Change queue consumers, scheduled tasks, or background workers with duplicate-delivery, retry, timeout, shutdown, and commit-boundary verification. Use when a change touches a queue consumer, worker, cron or scheduled job, retry policy, or acknowledgment behavior."
 ---
 
 Verify the worker's delivery contract and side effects.
