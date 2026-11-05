@@ -1,6 +1,6 @@
 ---
 name: typescript
-description: Changes TypeScript, compiler configuration, JavaScript projects, and Node.js services or utilities. Use for type contracts, module resolution, HTTP, cancellation, timeouts, streams, and process lifecycle. React component and Next.js rendering work belongs to react.
+description: Changes TypeScript, compiler configuration, JavaScript projects, and Node.js services or utilities. Use when editing or creating .ts, .js, .mjs, or .cjs files, tsconfig, package.json, or when the user mentions TypeScript, Node, npm, pnpm, a CLI tool, HTTP servers, streams, timeouts, or process lifecycle. React component and Next.js rendering work belongs to react.
 ---
 
 1. Read the affected package manifests, lockfile, runtime pin, applicable tsconfig or jsconfig, project references, and existing check scripts. Record the resolved compiler, runtime, and changed library versions, not just manifest ranges. Identify whether the build checks types or only strips syntax.

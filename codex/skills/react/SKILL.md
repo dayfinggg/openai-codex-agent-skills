@@ -1,6 +1,6 @@
 ---
 name: react
-description: Implements and refactors React or Next.js components, hooks, data loading, rendering, bundles, and composition. Use for React UI behavior and Next.js routes, or accessibility and interface review of web UI, including HTML and CSS without React.
+description: Implements and refactors React or Next.js components, hooks, data loading, rendering, bundles, and composition. Use when editing or creating .tsx or .jsx files, React components, Next.js routes, or when the user mentions React, Next.js, UI, frontend, HTML, CSS, Tailwind, or accessibility, including HTML and CSS without React.
 ---
 
 1. Identify the requested behavior, affected route and components, their callers, React and framework versions, router, bundler, runtime, and existing checks. Inspect whether React Compiler is enabled. For a standalone HTML/CSS review, use the interface reference without imposing a React toolchain.

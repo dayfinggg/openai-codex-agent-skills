@@ -1,6 +1,6 @@
 ---
 name: go
-description: Implements and tests Go changes with module, context, goroutine, and race checks. Use for Go code, go.mod, go.sum, or concurrency defects.
+description: Implements and tests Go changes with module, context, goroutine, and race checks. Use when editing or creating .go files, go.mod, go.sum, or when the user mentions Go, Golang, goroutines, channels, or a data race.
 ---
 
 1. Before editing, run `go version` and `go env GOMOD GOWORK GOOS GOARCH CGO_ENABLED GOTOOLCHAIN`. Read `go.mod`, `go.work` if present, build tags, CI, and existing check commands. Establish the language baseline, selected toolchain, workspace modules, and target platform. Modern Go may select or download a different toolchain from the local default. Match changed APIs and loop-variable semantics to the module's language version.
