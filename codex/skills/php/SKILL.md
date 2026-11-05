@@ -1,0 +1,18 @@
+---
+name: php
+description: Implements and tests PHP changes and repairs Composer dependencies. Use for PHP code, PHPUnit or Pest tests, PHPStan findings, composer.json, composer.lock, or PHP version mismatches. Excludes FPM and OPcache operations.
+---
+
+1. Before editing, run `php -v`, `php --ini`, `php -m`, and `composer --version` using the project's executable or container. Read `composer.json`, relevant lock entries, autoload mappings, `config.platform`, runner bootstrap, and CI. Establish supported PHP and extensions. CLI PHP does not establish FPM or another SAPI's runtime. Read installed-major documentation for changed PHP, framework, runner, or analyzer APIs.
+
+2. For code or dependency changes, read [the shared procedure](../python/references/common.md). When installing, resolving, or updating dependencies, also read [Composer operations](references/composer.md). For version-only diagnosis, use read-only `composer show vendor/package` or `composer show --format=json vendor/package`, then compare the failing API with that release. `composer.lock` is the resolved graph, `composer show` inspects installed packages. Path repositories may expose a local development reference instead of a release.
+
+3. Preserve namespaces, public signatures, strict-types policy, and PSR autoload case sensitivity. Distinguish missing keys, `null`, empty strings, zero, and `false`. `isset` excludes null values, `array_key_exists` detects them. Do not replace domain rules with loose equality or truthiness. Preserve exception categories and return shapes across HTTP, commands, and workers. Reuse framework patterns only where the change needs them.
+
+4. For Fibers or async libraries, identify the actual runtime, extension, task owner, cancellation API, and shutdown behavior. Fibers alone do not provide an I/O scheduler. Read that library's installed-version cancellation contract. Release streams, connections, and transactions on success, exception, cancellation, and early exit using explicit ownership and `finally`. Do not swallow cancellation in a broad `Throwable` handler or assume a timeout stops remote work. Test the changed cleanup and cancellation path.
+
+5. Before reporting code changes, run the installed PHPUnit or Pest runner against affected tests. In a Composer project with the default bin directory, use `vendor/bin/phpunit PATH` or `vendor/bin/pest PATH`. Preserve runner-supported attributes, extensions, configuration, fixtures, and transaction behavior. Check executed tests, skips, and warnings. Run configured PHPStan or Psalm and formatter checks without raising the baseline or lowering levels. With PHPStan use `vendor/bin/phpstan analyse`. With PHP CS Fixer 3 use `vendor/bin/php-cs-fixer fix --dry-run --diff`. Otherwise use the repository's existing Pint, PHPCS, or formatter command. Syntax-check changed PHP files with `php -l FILE`, which does not replace tests.
+
+6. If an optional Symfony Mate inspection tool fails, inspect its own runtime separately. When available, `server-info` without arguments reports that runtime's PHP, OS, and loaded extensions. Missing SimpleXML can explain failed container XML parsing. Mate requires PHP 8.2 or later. Prefer native PHP inspection when the tool is absent, and do not infer application failure from a tool failure. Use symfony-diagnostics for profiler or container diagnosis and php-fpm-opcache-diagnostics for serving-runtime operations when available.
+
+Consult the [PHP manual](https://www.php.net/manual/en/), [PHPUnit](https://docs.phpunit.de/), [Pest](https://pestphp.com/docs), and [PHPStan CLI](https://phpstan.org/user-guide/command-line-usage) for the detected versions.
