@@ -2,7 +2,7 @@
 
 A portable configuration for GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Astra, and GPT-6 Luna, synchronized with the current local setup.
 
-The payload contains 41 engineering skills with their shared resources, the complete operating instructions, and portable settings. No custom agent definitions are installed. Codex supplies its own system skills and discovers available tools at runtime.
+The payload contains 20 engineering skills, the complete operating instructions, and portable settings. No custom agent definitions are installed. Codex supplies its own system skills and discovers available tools at runtime.
 
 The instructions require complete retrieval and verification within the requested scope, concise answers in the user's language, plain natural wording, and evidence for completion claims. Lists and tables remain available when useful. Intermediate messages are reserved for requested status, material blockers or changes, findings that change the next step, and approaches the user needs to understand beforehand. Routine tool narration is excluded. The instructions do not install response filters, enforcement hooks, or notification integrations.
 

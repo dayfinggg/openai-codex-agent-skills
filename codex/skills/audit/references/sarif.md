@@ -1,0 +1,23 @@
+1. Keep original SARIF inputs unchanged. Record file identity, producer/version, invocation success, analysis scope, and requested filter. Parse JSON, require the intended SARIF version, and validate against a trusted pinned schema. Do not fetch a schema from an input-controlled URL or upload private results to a public validator. Version equality alone is not schema validation. Check semantic references separately from JSON schema constraints.
+
+   Use the [OASIS SARIF 2.1.0 standard](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html) and its linked schema. With an already available Python jsonschema installation, use its validate API, not the deprecated CLI. Record schema identity and errors. Validate transformed SARIF again.
+
+   ```sh
+   python -c "import json, sys; from jsonschema import validate; validate(json.load(open(sys.argv[1], encoding='utf-8')), json.load(open(sys.argv[2], encoding='utf-8')))" input.sarif trusted-schema.json
+   ```
+
+2. Enumerate every run, preserving its driver, extensions, rules, artifacts, URI bases, invocations, and other metadata. Handle missing optional arrays and locations without dropping results. An absent results property does not prove a successful scan with zero findings. Do not concatenate findings into a run with different rule tables. Whole-run aggregation avoids rebasing indices. If runs are edited or combined internally, update every affected reference and validate it.
+
+3. Resolve effective level before filtering. Respect explicit result levels and non-failure kinds. Resolve descriptors using result.rule, its tool component, ruleIndex, or ruleId as appropriate. Apply the matching invocation's rule configuration override when the specification requires it, then descriptor defaults and the warning fallback. Read section 3.27.10 for this resolution and section 3.52 for descriptor lookup. A driver-only rule lookup is insufficient for extensions. If a parser cannot handle an emitted construct, stop the affected severity gate as unsupported instead of silently defaulting it.
+
+4. Preserve both SARIF level and any tool-specific security severity. Do not equate error with a CVSS threshold. Report suppression and baseline state separately. A filtered-out, suppressed, or unchanged result is not a repaired vulnerability. Preserve message identifiers, arguments, markdown/text, related locations, and code flows in the original result even if a display extracts only selected fields.
+
+5. Resolve artifact indices and originalUriBaseIds before comparing locations. Decode URI encoding and normalize separators while retaining the complete repository-relative path and directory. Use an explicit mapping for differing checkout roots. Preserve case where the source filesystem distinguishes it. Do not open a URI or local path from a finding unless it is within the authorized target. Missing locations remain distinguishable records.
+
+6. Deduplicate conservatively. Scope fingerprints to producer, rule identity, fingerprint name/version, and the documented comparison scope. A shared arbitrary fingerprint value across different tools is not identity. Treat partial fingerprints as inputs to matching, not universally unique IDs. Without compatible fingerprints, compare the full normalized path, rule, region, and full message and retain ambiguous matches. Keep a mapping from each output finding to all contributing input records. Do not use basenames or truncated message prefixes as identity.
+
+7. For baseline comparison, establish compatible source scope, configuration, tool versions, and path mappings first. If coverage changed, report records as absent from the current artifact rather than fixed. For large inputs use a streaming parser that retains run-level rule and URI context. Streaming only results while discarding their run loses severity information.
+
+8. Before trusting a filter or gate, exercise rule-inherited and explicit levels, invocation overrides, extension rules, non-failure kinds, missing optional locations, identical basenames in different directories, and cross-tool fingerprint collisions. Check that input count equals kept plus explicitly excluded records before deduplication, then reconcile duplicate groups separately. Verify expected failures on malformed JSON/schema and unsupported constructs. Preserve the filter expression, counts, validation result, and exclusions in the requested output.
+
+9. Describe findings as reported by the supplied artifacts. State whether schema validation, filtering, or comparison actually ran. Do not claim source scanning, exploitability, remediation, or complete source coverage from SARIF parsing alone.
