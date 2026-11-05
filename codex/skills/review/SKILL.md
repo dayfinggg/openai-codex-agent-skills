@@ -1,6 +1,6 @@
 ---
 name: review
-description: Reviews a diff, branch, or pull request against requirements and repository standards, with general and security-focused modes. Applies to review requests, not implementation of fixes.
+description: Reviews a diff, branch, or pull request against requirements and repository standards, with general and security-focused modes. Use when the user asks to review, check, audit, or verify code changes, a PR, a branch, a diff, or findings from another session, including XSS, SQL injection, or other security findings. Not implementation of fixes.
 ---
 
 1. Pin the reviewed head, baseline, and requested working-tree changes. For a branch or PR, resolve the target's merge-base. For an explicit snapshot comparison, use the supplied endpoints. Include staged, unstaged, and untracked files only within the requested scope. Verify that the references resolve and distinguish an empty diff from a failed retrieval. Inspect baseline files without moving HEAD or changing the index.

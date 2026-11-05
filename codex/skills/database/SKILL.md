@@ -1,6 +1,6 @@
 ---
 name: database
-description: Inspects and changes SQL schemas, queries, indexes, migrations, ORM data access, and MongoDB documents, queries, indexes, and driver pools. Use for PostgreSQL, Prisma, EF Core, Doctrine, or SQLAlchemy query correctness, N+1, pagination, transactions, tracking, migration rollout, or MongoDB aggregation and schema design. Redis and HTTP caching belong to caching.
+description: Inspects and changes SQL schemas, queries, indexes, migrations, ORM data access, and MongoDB documents, queries, indexes, and driver pools. Use when editing SQL, migrations, schemas, indexes, ORM models or queries, or when the user mentions PostgreSQL, MySQL, SQLite schema design, Prisma, EF Core, Doctrine, SQLAlchemy, MongoDB, N+1, slow queries, pagination, or transactions. Redis and HTTP caching belong to caching.
 ---
 
 1. Identify the requested result and authorized database, schemas, environment, and role. For review-only work, inspect and report without applying changes. A reachable connection or generated command does not authorize execution.

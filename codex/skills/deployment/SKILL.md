@@ -1,6 +1,6 @@
 ---
 name: deployment
-description: Builds and troubleshoots Dockerfiles, images, BuildKit caches and Compose stacks, prepares and verifies releases and rollbacks, and changes GitHub Actions CI/CD workflows. Applies to containerization, deployment and workflow YAML, not ordinary Git operations.
+description: Builds and troubleshoots Dockerfiles, images, BuildKit caches and Compose stacks, prepares and verifies releases and rollbacks, and changes GitHub Actions CI/CD workflows. Use when creating or editing a Dockerfile, docker-compose or compose.yaml, a workflow under .github/workflows, or when the user mentions Docker, containers, deploy, release, rollback, CI, or pipeline. Not ordinary Git operations.
 ---
 
 1. Identify the requested outcome and authorized environment. Read project instructions, existing container files, release scripts, workflows and runtime manifests before changing them. Record runtime, Docker Engine, Buildx and Compose versions when relevant. Match documentation and CLI help to those versions. The bundled Docker commands target Linux containers with BuildKit on Engine 23+ and the Compose plugin v2 or later. Preserve supported older installations rather than upgrading them incidentally.

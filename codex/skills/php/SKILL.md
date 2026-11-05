@@ -1,6 +1,6 @@
 ---
 name: php
-description: Implements and tests PHP changes and repairs Composer dependencies. Use for PHP code, PHPUnit or Pest tests, PHPStan findings, composer.json, composer.lock, or PHP version mismatches. Excludes FPM and OPcache operations.
+description: Implements and tests PHP changes and repairs Composer dependencies. Use when editing or creating .php files, PHP modules or plugins, PHPUnit or Pest tests, PHPStan findings, composer.json or composer.lock, or when the user mentions PHP, Laravel, Symfony, or a PHP version mismatch. Excludes FPM and OPcache operations.
 ---
 
 1. Before editing, run `php -v`, `php --ini`, `php -m`, and `composer --version` using the project's executable or container. Read `composer.json`, relevant lock entries, autoload mappings, `config.platform`, runner bootstrap, and CI. Establish supported PHP and extensions. CLI PHP does not establish FPM or another SAPI's runtime. Read installed-major documentation for changed PHP, framework, runner, or analyzer APIs.

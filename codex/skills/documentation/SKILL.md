@@ -1,6 +1,6 @@
 ---
 name: documentation
-description: Writes or updates READMEs, guides, API references, runbooks, ADRs, and changelogs for a specific reader. Applies to project documentation deliverables, not ordinary chat answers or external-documentation research.
+description: Writes or updates READMEs, guides, API references, runbooks, ADRs, and changelogs for a specific reader. Use when the user asks for a README, documentation, a guide, a runbook, a changelog, an ADR, or an API reference. Not ordinary chat answers or external-documentation research.
 ---
 
 1. Identify the reader, task, and existing source of truth. Match each changed behavioral claim to implementation, configuration, a versioned contract, or an executed example. Distinguish shipped behavior, unreleased changes, proposals, and unknowns. Preserve the project's document language and format.
