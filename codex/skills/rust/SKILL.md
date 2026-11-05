@@ -1,6 +1,6 @@
 ---
 name: rust
-description: Implements and tests Rust changes with ownership, Cargo, feature, and async checks. Use for Rust code, borrow errors, Cargo dependencies, or async runtime defects.
+description: Implements and tests Rust changes with ownership, Cargo, feature, and async checks. Use when editing or creating .rs files, Cargo.toml, Cargo.lock, or when the user mentions Rust, borrow errors, crates, or an async runtime.
 ---
 
 1. Before editing, run `rustc -Vv` and `cargo -V` from the workspace. Read `rust-toolchain.toml` or its legacy equivalent, `Cargo.toml`, `Cargo.lock`, `.cargo/config.toml`, and CI. Establish edition, minimum supported Rust version (MSRV), workspace default members, targets, features, and async runtime versions. The local compiler and edition do not establish the MSRV. Do not raise `rust-version` or use newer APIs to make a patch easier.

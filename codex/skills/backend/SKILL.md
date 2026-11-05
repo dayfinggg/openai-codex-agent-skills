@@ -1,6 +1,6 @@
 ---
 name: backend
-description: Changes backend HTTP contracts, security boundaries, structured logs, and background jobs. Applies to endpoints, validation, authentication, authorization, signed webhooks, uploads, SSRF, log correlation or redaction, queues, workers, and scheduled tasks. Excludes unrelated backend edits and repository-wide audits.
+description: Changes backend HTTP contracts, security boundaries, structured logs, and background jobs. Use when creating or editing API endpoints, REST or JSON APIs, request validation, authentication, authorization, signed webhooks, file uploads, SSRF protection, logging, queues, workers, or cron and scheduled tasks. Excludes unrelated backend edits and repository-wide audits.
 ---
 
 1. Read affected entry points, callers, configuration, and tests. Establish the requested behavior, failing layer, and existing client, access, and event contracts. Reproduce a reported defect when practical.

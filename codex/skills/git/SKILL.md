@@ -1,6 +1,6 @@
 ---
 name: git
-description: Stages and commits scoped changes, fetches and integrates branches, resolves conflicts, pushes authorized history, and writes PR descriptions while preserving others' work. Applies to Git operations and commit messages, not permission to publish ordinary file edits.
+description: Stages and commits scoped changes, fetches and integrates branches, resolves conflicts, pushes authorized history, and writes PR descriptions while preserving others' work. Use before any git commit, push, rebase, merge, or branch operation, when the user asks to commit, push, open a PR, write a commit message, or resolve a conflict. Not permission to publish ordinary file edits.
 ---
 
 1. Establish the authorized operation, repository root, branch, upstream and intended remote. Read project rules, signing requirements and PR templates. Inspect `git status --short --branch`, staged and unstaged diffs, untracked files and unfinished merges, rebases or cherry-picks. Do not take over someone else's unfinished operation. Use `git --no-pager` for log, diff, show and other paged output, and prevent unexpected editor or credential prompts.

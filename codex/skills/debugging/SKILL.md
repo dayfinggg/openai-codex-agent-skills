@@ -1,6 +1,6 @@
 ---
 name: debugging
-description: Diagnoses bugs, performance regressions, outages, failed CI jobs, slow SQL, PHP-FPM failures, and Symfony errors through reproduction, fault localization, and regression proof. Applies when debugging an unexplained failure or local-versus-production discrepancy, not routine feature work or schema design.
+description: Diagnoses bugs, performance regressions, outages, failed CI jobs, slow SQL, PHP-FPM failures, and Symfony errors through reproduction, fault localization, and regression proof. Use before changing code when the user reports an error, a bug, a crash, a 500, a failing job, a timeout, something that stopped working, or a difference between local and production. Not routine feature work or schema design.
 ---
 
 1. Establish the expected and observed behavior, affected operation, environment, revision, runtime and dependency versions, inputs, and relevant time interval. Read applicable project instructions, the affected callers and contracts, and relevant glossary entries or architecture decisions. An investigation request does not authorize a fix or deployment. Keep live investigation read-only until a specific correction is supported and authorized.

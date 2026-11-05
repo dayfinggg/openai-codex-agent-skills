@@ -1,6 +1,6 @@
 ---
 name: python
-description: Implements and tests Python changes with interpreter, typing, packaging, and asyncio checks. Use for Python code, pytest failures, or Python environment mismatches.
+description: Implements and tests Python changes with interpreter, typing, packaging, and asyncio checks. Use when editing or creating .py files, Python scripts or packages, pytest or unittest tests, pyproject.toml, or when the user mentions Python, Django, FastAPI, mypy, or a Python environment mismatch.
 ---
 
 1. Before editing, run `python --version` through the project's environment runner and `python -c "import sys; print(sys.executable); print(sys.prefix)"`. Read `pyproject.toml`, existing requirements or lockfiles, `.python-version`, test settings, and CI. Establish the minimum supported Python, build backend, dependency groups, and installed framework versions. `requires-python` constrains installation, classifiers do not. Read version-matched documentation for changed Django, FastAPI, SQLAlchemy, or stdlib APIs.
