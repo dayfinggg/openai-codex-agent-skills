@@ -226,7 +226,3 @@ Confirm these points before you start implementation.
 
 Acceptance criteria belong to each task and answer whether we built the right thing. They sit on top of the `verification` block of the coding instructions. That block is the standing bar every task clears before it counts as done.
 </plan_check>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

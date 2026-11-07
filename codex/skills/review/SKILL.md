@@ -81,7 +81,3 @@ A change can pass one axis and fail the other.
 
 Separate reports stop one axis from masking the other.
 </why_two_axes>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

@@ -36,6 +36,12 @@ codex_merge_config() {
   fi
 
   awk -v count_file="$cm_count" '
+    function normalize_name(value) {
+      if (value ~ /^"[A-Za-z0-9_-]+"$/ || value ~ /^\047[A-Za-z0-9_-]+\047$/) {
+        return substr(value, 2, length(value) - 2)
+      }
+      return value
+    }
     function is_section(line) {
       return line ~ /^[[:space:]]*\[[^]]+\][[:space:]]*(#.*)?$/
     }
@@ -45,16 +51,16 @@ codex_merge_config() {
       sub(/\][[:space:]]*(#.*)?$/, "", value)
       sub(/^[[:space:]]+/, "", value)
       sub(/[[:space:]]+$/, "", value)
-      return value
+      return normalize_name(value)
     }
     function is_key(line) {
-      return line ~ /^[[:space:]]*[A-Za-z0-9_.-]+[[:space:]]*=/
+      return line ~ /^[[:space:]]*([A-Za-z0-9_.-]+|"[A-Za-z0-9_.-]+"|\047[A-Za-z0-9_.-]+\047)[[:space:]]*=/
     }
     function key_name(line, value) {
       value = line
       sub(/^[[:space:]]*/, "", value)
       sub(/[[:space:]]*=.*/, "", value)
-      return value
+      return normalize_name(value)
     }
     function emit_missing(section, before_section, i) {
       if (emitted[section] || missing_count[section] == 0) {
@@ -166,6 +172,7 @@ codex_write_manifest() {
 
   {
     printf '%s\n' "$cwm_source/base_instructions.md"
+    printf '%s\n' "$cwm_source/LICENSE"
     find "$cwm_source/skills" -type f
     find "$cwm_source/agents" -type f
   } | LC_ALL=C sort >"$cwm_files"
@@ -185,7 +192,7 @@ codex_sync_payload() {
   csp_remove_legacy="$4"
   csp_work="$5"
 
-  for csp_required in config.toml base_instructions.md skills agents; do
+  for csp_required in config.toml base_instructions.md LICENSE skills agents; do
     [ -e "$csp_source/$csp_required" ] || {
       printf 'Downloaded payload is missing codex/%s.\n' "$csp_required" >&2
       return 1
@@ -213,10 +220,11 @@ codex_sync_payload() {
   CODEX_SYNC_REMOVED=0
   codex_backup_path "$csp_destination" "$csp_backup" base_instructions.md
   codex_backup_path "$csp_destination" "$csp_backup" model-instructions.md
+  codex_backup_path "$csp_destination" "$csp_backup" LICENSE
   codex_backup_path "$csp_destination" "$csp_backup" skills
   codex_backup_path "$csp_destination" "$csp_backup" agents
 
-  for csp_instruction in base_instructions.md model-instructions.md; do
+  for csp_instruction in base_instructions.md model-instructions.md LICENSE; do
     if [ -e "$csp_destination/$csp_instruction" ]; then
       rm -rf "$csp_destination/$csp_instruction"
       CODEX_SYNC_REMOVED=$((CODEX_SYNC_REMOVED + 1))
@@ -250,9 +258,10 @@ codex_sync_payload() {
   fi
   mkdir -p "$csp_destination/agents"
   cp -p "$csp_source/base_instructions.md" "$csp_destination/base_instructions.md"
+  cp -p "$csp_source/LICENSE" "$csp_destination/LICENSE"
   cp -Rp "$csp_source/skills/." "$csp_destination/skills/"
   cp -Rp "$csp_source/agents/." "$csp_destination/agents/"
-  CODEX_SYNC_UPDATED=$((1 + $(find "$csp_source/skills" "$csp_source/agents" -type f | wc -l | tr -d ' ')))
+  CODEX_SYNC_UPDATED=$((2 + $(find "$csp_source/skills" "$csp_source/agents" -type f | wc -l | tr -d ' ')))
   CODEX_CONFIG_ADDED="$(codex_merge_config "$csp_source/config.toml" "$csp_destination/config.toml" "$csp_destination" "$csp_backup" "$csp_work")"
   codex_write_manifest "$csp_source" "$csp_destination" "$csp_work"
 }

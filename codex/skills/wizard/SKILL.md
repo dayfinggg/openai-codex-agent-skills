@@ -52,7 +52,3 @@ Verify the script statically, because a real run opens browsers and blocks on hu
 4. Tell the user the command that runs it. Change a README only when requested, as `code_rules` requires.
 </verify_and_hand_off>
 </process>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>
