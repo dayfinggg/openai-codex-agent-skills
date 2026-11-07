@@ -24,7 +24,3 @@ Six rules apply to both branches.
 5. It surfaces the state. After every action (logic) or variant switch (UI), render the full relevant state. The user then sees what changed.
 6. It ends with a captured answer. Report the verdict and the question it settled. Fold the validated decision into the real code when the user wants that. Then remove the prototype files from the main code. Keep them only where the user asks, such as a throwaway branch.
 </rules_for_both>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

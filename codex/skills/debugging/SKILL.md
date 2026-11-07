@@ -124,7 +124,3 @@ These items are required before you declare the bug done.
 - [ ] Throwaway files are removed, as `code_rules` in the coding instructions requires.
 - [ ] The report states the hypothesis that turned out correct. When the user asks for a commit or PR, its message states it too, so the next debugger learns it.
 </phase_6_cleanup>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

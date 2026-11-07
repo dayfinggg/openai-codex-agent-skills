@@ -22,6 +22,7 @@ class PayloadChecks:
         self.work = self.root / "work"
         self.work.mkdir()
         self.write(self.source / "base_instructions.md", "Current instructions\n")
+        self.write(self.source / "LICENSE", "Distribution notices\n")
         self.write(self.source / "config.toml", 'model = "current-model"\nmodel_instructions_file = "base_instructions.md"\n[agents]\nmax_concurrent_threads_per_session = 30\n')
         self.write(self.source / "skills/demo/SKILL.md", "Current skill\n")
         self.write(self.source / "agents/demo.toml", 'name = "demo"\n')
@@ -43,6 +44,12 @@ class PayloadChecks:
 
         self.assertEqual((self.destination / "agents/demo.toml").read_bytes(),
                          (self.source / "agents/demo.toml").read_bytes())
+
+    def test_installs_distribution_notices(self):
+        self.sync()
+        self.assertEqual((self.destination / "LICENSE").read_bytes(),
+                         (self.source / "LICENSE").read_bytes())
+        self.assertIn("\tLICENSE\n", (self.destination / ".openai-codex-agent-skills.manifest").read_text())
 
     def test_replaces_old_skills_and_agents_but_keeps_system_and_private_data(self):
         self.write(self.destination / "skills/obsolete/SKILL.md", "old")
@@ -92,6 +99,24 @@ class PayloadChecks:
         self.assertFalse((self.destination / "AGENTS.md").exists())
         self.assertFalse((self.destination / "AGENTS.override.md").exists())
         self.assertEqual((self.backup / "AGENTS.md").read_text(), "old global guidance")
+
+    def test_preserves_quoted_keys_and_sections(self):
+        for quote in ['"', "'"]:
+            with self.subTest(quote=quote):
+                original = (
+                    f'{quote}model{quote} = "personal-model"\n'
+                    f'{quote}model_instructions_file{quote} = "custom.md"\n'
+                    f'[{quote}agents{quote}]\n'
+                    f'{quote}max_concurrent_threads_per_session{quote} = 7\n'
+                    '["unrelated.section"]\n"value.with.dots" = "keep"\n'
+                )
+                self.write(self.destination / "config.toml", original)
+                self.sync()
+                config = tomllib.loads((self.destination / "config.toml").read_text())
+                self.assertEqual(config["model"], "personal-model")
+                self.assertEqual(config["model_instructions_file"], "base_instructions.md")
+                self.assertEqual(config["agents"]["max_concurrent_threads_per_session"], 7)
+                self.assertEqual(config["unrelated.section"]["value.with.dots"], "keep")
 
     def test_manifest_tracks_agent_hashes(self):
         self.sync()

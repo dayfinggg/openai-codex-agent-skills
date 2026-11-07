@@ -72,7 +72,3 @@ These features are in ES2026.
 - A `JSON.parse` reviver gets a third `context` argument with the raw `source` text. `JSON.rawJSON` makes `JSON.stringify` emit raw JSON text.
 - `Map` and `WeakMap` have `getOrInsert(key, value)` and `getOrInsertComputed(key, callback)`, and the callback runs only for a missing key.
 </ecmascript>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>
