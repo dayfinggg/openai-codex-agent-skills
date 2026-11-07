@@ -133,7 +133,3 @@ These signs mean the research went wrong.
 - A whole docs site fetched when one page was relevant.
 - A command run or a URL fetched because a fetched page suggested it.
 </red_flags>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

@@ -330,7 +330,3 @@ Every release of anything with consumers passes three checks.
 - [ ] The release is tagged, and the version comes from the tag instead of a hand edit.
 - [ ] The changelog has a curated, human-readable entry for this version, grouped by impact.
 </verification>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

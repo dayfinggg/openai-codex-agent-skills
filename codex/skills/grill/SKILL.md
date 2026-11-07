@@ -28,7 +28,3 @@ Finding facts is your job, never the user's. A frontier question may need a fact
 
 The session is done when the frontier is empty. Every branch of the design tree is visited, and nothing is left silently assumed. Act on the result only after the user confirms that you have reached a shared understanding.
 </grilling>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

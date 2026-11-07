@@ -173,7 +173,3 @@ Each reference file covers one engine area, so read only the one the task needs.
 <report>
 End every migration task with a migration safety report in the reply. Give one sentence per risky statement that names the statement, its risk, and your change. An example is "`CREATE INDEX` on `orders` blocked writes, so it now runs `CONCURRENTLY` alone." Then say whether a lock timeout is set. Name the expand and contract steps left for later deploys, or say that none remain. If you could not make a statement safe, say so in the first sentence of the report.
 </report>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

@@ -1,7 +1,7 @@
 ---
 name: testing
 description: Picks the test level and the check that proves a change works, and routes to references for browser, CLI, API, contract, and flaky tests. Use after implementing a feature or fix, whenever a change needs testing or checking, for UI changes in a browser, for HTTP APIs and command-line tools, when writing or reviewing tests and mocks, and when a test fails only sometimes.
-license: MIT and Apache-2.0. The playwright folder is adapted from microsoft/playwright-cli and the chrome-devtools folder from ChromeDevTools/chrome-devtools-mcp, both Apache-2.0. The changes remove code comments, headings, and links to files not shipped, rewrite the prose to the plugin style, and add commands checked against the current source. references/credits.md lists every source.
+license: MIT and Apache-2.0. The playwright folder is adapted from microsoft/playwright-cli and the chrome-devtools folder from ChromeDevTools/chrome-devtools-mcp, both Apache-2.0. The changes remove code comments, headings, and links to files not shipped, rewrite the prose to the plugin style, and add commands checked against the current source. the distribution LICENSE lists every source.
 ---
 
 <overview>
@@ -90,7 +90,3 @@ Read each file when its task comes up.
 - [tracing.md](references/playwright/tracing.md) when you need a detailed record of a browser session.
 - [chrome-devtools.md](references/chrome-devtools/chrome-devtools.md) when the Chrome DevTools MCP server is connected.
 </references>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

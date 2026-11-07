@@ -14,7 +14,3 @@ Redact sensitive information, such as API keys, passwords, and personally identi
 
 If the user passed arguments, they describe what the next session will focus on. Tailor the document to that focus.
 </handoff>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

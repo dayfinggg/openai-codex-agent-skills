@@ -123,7 +123,3 @@ Each rule file explains one technique with examples. Read a file when the task n
 - [rules/error-diagnosis.md](references/error-diagnosis.md) explains how to read long compiler errors and isolate their cause. Read it when an error message is long or unclear.
 </debugging>
 </rules>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

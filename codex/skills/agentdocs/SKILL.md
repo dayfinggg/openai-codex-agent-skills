@@ -94,7 +94,3 @@ Four habits keep a document lean.
 <emphasis>
 Current models follow instructions closely, so emphasis overcorrects. Capitals, "CRITICAL", "MUST", and pressure such as "be thorough, do not be lazy" make a model over-trigger and act rigidly. A hedge such as "try to" on a real requirement reads as permission to skip it. State each rule once at normal volume, with its reason beside it. A word too weak to beat the default is a no-op, so delete it. An example is "be thorough" for an agent that is already thorough. Choose a stronger word, such as "relentless", only when a run shows the default falls short. Trigger text in a description is the one place where calibrated urgency can help, because skills tend to under-trigger.
 </emphasis>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

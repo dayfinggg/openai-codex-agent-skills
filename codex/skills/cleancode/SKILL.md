@@ -23,7 +23,3 @@ The coding instructions win where a book disagrees with them. The `code_rules` b
 
 The `design` skill owns module interfaces, depth, and seam placement.
 </precedence>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

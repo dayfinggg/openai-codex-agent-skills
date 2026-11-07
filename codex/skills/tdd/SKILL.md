@@ -36,7 +36,3 @@ The loop has three rules.
 - Work one slice at a time, with one seam, one test, and one minimal implementation per cycle.
 - Refactoring is not part of the loop. It follows the review stage, where the `review` skill reports the smells, not the red-green cycle.
 </rules_of_the_loop>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

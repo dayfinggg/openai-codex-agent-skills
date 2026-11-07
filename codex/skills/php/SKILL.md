@@ -1,7 +1,7 @@
 ---
 name: php
 description: Modern PHP practice current for November 2026, with Laravel and Symfony references. Use it when writing, reviewing, upgrading, or setting up PHP code, including Composer packages, PHPStan or Rector configuration, and PHPUnit or Pest tests. Use it for every Laravel or Symfony change, because it routes to framework references for Eloquent, validation, queues, testing, Doctrine, Messenger, forms, and voters.
-license: MIT. See references/credits.md for each source and its license.
+license: MIT. See the distribution LICENSE for each source and its license.
 ---
 
 <project_first>
@@ -116,7 +116,3 @@ Read the framework reference before you change code in a framework project. Comp
 - A project that requires `symfony/framework-bundle` starts with [references/symfony.md](references/symfony.md). It targets Symfony 7.4 LTS and 8.x. It covers services and autowiring, Messenger, forms and validation, voters, DTOs, and quality checks.
 - A project that uses Doctrine ORM also reads [references/symfony-doctrine.md](references/symfony-doctrine.md) for relations, fetch modes, batch processing, and transactions with ORM 3.
 </framework_references>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

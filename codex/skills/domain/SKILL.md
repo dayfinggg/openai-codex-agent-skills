@@ -71,7 +71,3 @@ Offer to create an ADR only when three conditions all hold.
 If any of the three is missing, skip the ADR. Read [ADR-FORMAT.md](references/ADR-FORMAT.md) before you write one, for its template, numbering, and the kinds of decisions that qualify.
 </offer_adrs_sparingly>
 </during_the_session>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>

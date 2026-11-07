@@ -72,7 +72,3 @@ Read a rule file when the task touches its topic.
 - [rules/typescript.md](references/typescript.md) for type stripping, its tsconfig, and publishing TypeScript packages
 - [node-lts.md](references/node-lts.md) when the Node.js version matters, such as for an upgrade or a new API
 </references>
-
-<attribution>
-Read [credits](references/credits.md) when checking source attribution or redistribution terms.
-</attribution>
