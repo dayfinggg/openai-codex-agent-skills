@@ -1,18 +1,122 @@
 ---
 name: php
-description: Implements and tests PHP changes and repairs Composer dependencies. Use when editing or creating .php files, PHP modules or plugins, PHPUnit or Pest tests, PHPStan findings, composer.json or composer.lock, or when the user mentions PHP, Laravel, Symfony, or a PHP version mismatch. Excludes FPM and OPcache operations.
+description: Modern PHP practice current for November 2026, with Laravel and Symfony references. Use it when writing, reviewing, upgrading, or setting up PHP code, including Composer packages, PHPStan or Rector configuration, and PHPUnit or Pest tests. Use it for every Laravel or Symfony change, because it routes to framework references for Eloquent, validation, queues, testing, Doctrine, Messenger, forms, and voters.
+license: MIT. See references/credits.md for each source and its license.
 ---
 
-1. Before editing, run `php -v`, `php --ini`, `php -m`, and `composer --version` using the project's executable or container. Read `composer.json`, relevant lock entries, autoload mappings, `config.platform`, runner bootstrap, and CI. Establish supported PHP and extensions. CLI PHP does not establish FPM or another SAPI's runtime. Read installed-major documentation for changed PHP, framework, runner, or analyzer APIs.
+<project_first>
+The project's own PHP version and tools come first, as `code_rules` requires. Read `composer.json` for `require.php`, `config.platform.php`, the framework, and the dev tools. Read `composer.lock` or run `composer show <vendor/package>` for the installed versions. Use only language features that the lowest allowed PHP version supports. Run tools the way the project runs them, such as `composer` scripts, `vendor/bin/`, a Makefile, Docker, or Sail. The modern defaults in this skill apply to new projects, or when the user asks for them.
+</project_first>
 
-2. For code or dependency changes, read [the shared procedure](../python/references/common.md). When installing, resolving, or updating dependencies, also read [Composer operations](references/composer.md). For version-only diagnosis, use read-only `composer show vendor/package` or `composer show --format=json vendor/package`, then compare the failing API with that release. `composer.lock` is the resolved graph, `composer show` inspects installed packages. Path repositories may expose a local development reference instead of a release.
+<php_versions>
+PHP 8.5 is the current stable release. PHP 8.6 is at RC5 and its general availability is planned for November 19, 2026. Each branch gets 2 years of active support and 2 more years of security fixes, as [php.net](https://www.php.net/supported-versions.php) lists.
 
-3. Preserve namespaces, public signatures, strict-types policy, and PSR autoload case sensitivity. Distinguish missing keys, `null`, empty strings, zero, and `false`. `isset` excludes null values, `array_key_exists` detects them. Do not replace domain rules with loose equality or truthiness. Preserve exception categories and return shapes across HTTP, commands, and workers. Reuse framework patterns only where the change needs them.
+| Branch | Released | Active support until | Security fixes until |
+| --- | --- | --- | --- |
+| 8.2 | December 8, 2022 | December 31, 2024 | December 31, 2026 |
+| 8.3 | November 23, 2023 | December 31, 2025 | December 31, 2027 |
+| 8.4 | November 21, 2024 | December 31, 2026 | December 31, 2028 |
+| 8.5 | November 20, 2025 | December 31, 2027 | December 31, 2029 |
 
-4. For Fibers or async libraries, identify the actual runtime, extension, task owner, cancellation API, and shutdown behavior. Fibers alone do not provide an I/O scheduler. Read that library's installed-version cancellation contract. Release streams, connections, and transactions on success, exception, cancellation, and early exit using explicit ownership and `finally`. Do not swallow cancellation in a broad `Throwable` handler or assume a timeout stops remote work. Test the changed cleanup and cancellation path.
+A new project targets PHP 8.4 or 8.5. Laravel 13 needs PHP 8.3 or later, and Symfony 8 needs PHP 8.4 or later.
+</php_versions>
 
-5. Before reporting code changes, run the installed PHPUnit or Pest runner against affected tests. In a Composer project with the default bin directory, use `vendor/bin/phpunit PATH` or `vendor/bin/pest PATH`. Preserve runner-supported attributes, extensions, configuration, fixtures, and transaction behavior. Check executed tests, skips, and warnings. Run configured PHPStan or Psalm and formatter checks without raising the baseline or lowering levels. With PHPStan use `vendor/bin/phpstan analyse`. With PHP CS Fixer 3 use `vendor/bin/php-cs-fixer fix --dry-run --diff`. Otherwise use the repository's existing Pint, PHPCS, or formatter command. Syntax-check changed PHP files with `php -l FILE`, which does not replace tests.
+<php_8_4>
+PHP 8.4 adds these features, which apply when the project allows PHP 8.4 or later. The [8.4 release page](https://www.php.net/releases/8.4/en.php) has the full list.
+- Property hooks give a property `get` and `set` logic, as in `public string $name { set => trim($value); }`. Interfaces can declare hooked properties.
+- Asymmetric visibility separates read and write access, as in `public private(set) string $version`.
+- `#[\Deprecated]` marks user functions, methods, and class constants as deprecated.
+- `array_find`, `array_find_key`, `array_any`, and `array_all` replace manual search loops when the code does not use collections.
+- A method call on `new Foo()` needs no wrapping parentheses, as in `new Foo()->run()`.
+- Lazy objects come from `ReflectionClass::newLazyGhost()` and `newLazyProxy()`.
+- `Dom\HTMLDocument` parses HTML5, and `BcMath\Number` is an immutable number object with operators.
+- `mb_trim`, `mb_ucfirst`, `mb_lcfirst`, the `RoundingMode` enum, and `PDO::connect()` with driver subclasses such as `Pdo\Sqlite` are new.
 
-6. If an optional Symfony Mate inspection tool fails, inspect its own runtime separately. When available, `server-info` without arguments reports that runtime's PHP, OS, and loaded extensions. Missing SimpleXML can explain failed container XML parsing. Mate requires PHP 8.2 or later. Prefer native PHP inspection when the tool is absent, and do not infer application failure from a tool failure. Use symfony-diagnostics for profiler or container diagnosis and php-fpm-opcache-diagnostics for serving-runtime operations when available.
+PHP 8.4 deprecates implicitly nullable parameters. Write `?Type $x = null` instead of `Type $x = null`. It also deprecates `E_STRICT` and `trigger_error()` with `E_USER_ERROR`.
+</php_8_4>
 
-Consult the [PHP manual](https://www.php.net/manual/en/), [PHPUnit](https://docs.phpunit.de/), [Pest](https://pestphp.com/docs), and [PHPStan CLI](https://phpstan.org/user-guide/command-line-usage) for the detected versions.
+<php_8_5>
+PHP 8.5 adds these features, which apply when the project allows PHP 8.5 or later. The [8.5 release page](https://www.php.net/releases/8.5/en.php) has the full list.
+- The pipe operator `|>` passes a value through callables from left to right. It replaces nested calls, as in `$slug = $title |> trim(...) |> strtolower(...);`.
+- `clone($object, ['prop' => $value])` changes properties while it clones, which suits `readonly` classes.
+- `array_first()` and `array_last()` return the first or last value, or `null` for an empty array.
+- `#[\NoDiscard]` warns when a caller ignores the return value, and a `(void)` cast marks an intentional discard.
+- The built-in URI extension parses URLs with `Uri\Rfc3986\Uri` and `Uri\WhatWg\Url`. Prefer it over `parse_url()` in new code.
+- Static closures and first-class callables work in constant expressions, such as attribute arguments and default values.
+- Constructor promotion accepts `final` properties, and `#[\Override]` works on properties.
+
+PHP 8.5 deprecates the backtick operator, the casts `(boolean)`, `(integer)`, `(double)`, and `(binary)`, and `null` as an array offset. It soft-deprecates `__sleep()` and `__wakeup()` in favor of `__serialize()` and `__unserialize()`.
+</php_8_5>
+
+<php_8_6>
+PHP 8.6 is not released yet, so use its features only in a project that already requires 8.6. Its [UPGRADING](https://github.com/php/php-src/blob/PHP-8.6/UPGRADING) file lists these changes.
+- Partial function application creates a closure with `?` for one missing argument and `...` for the rest.
+- `clamp()` limits a value to a range.
+- Readonly properties can declare default values.
+- `Time\Duration` is a new class in the date extension.
+- A `return` inside `finally` is deprecated, and so are `spl_object_hash()`, `is_long()`, `is_integer()`, `is_double()`, and `doubleval()`.
+</php_8_6>
+
+<code_style>
+Modern PHP code follows these defaults where the project has no other convention.
+- Start each new file with `declare(strict_types=1);` if the project's other files do, and in every new project. Strict types apply to calls made from that file, so a caller without it still gets type coercion.
+- Use curly braces for every control structure, even a single-line body.
+- Use constructor property promotion, and remove an empty constructor without parameters unless it is private.
+- Declare parameter, return, and property types everywhere. Prefer `readonly` properties or `readonly` classes for value objects.
+- Use backed enums instead of class constants for a fixed set of values. Name enum cases in PascalCase, such as `Monthly`, unless the project's enums use another style.
+- Add a PHPDoc tag only for types that native types cannot express, such as `list<User>`, `array{id: int, name: string}`, generics, and `@throws`.
+- Use `match` instead of `switch` when each branch returns a value, and use first-class callables such as `strlen(...)`.
+
+The shared format is [PER Coding Style 3.1](https://www.php-fig.org/per/coding-style/), which extends PSR-12. It also covers enums, property hooks, asymmetric visibility, and the pipe operator. Run the formatter that the project has configured. Laravel projects use Pint, many others use PHP-CS-Fixer with the `@PER-CS` rule set, and some use PHP_CodeSniffer. Format only the files you change.
+</code_style>
+
+<composer>
+Composer manages dependencies and autoloading. The current release is 2.11.
+- Add a package with `composer require vendor/package`, and a dev tool with `composer require --dev vendor/package`. Never edit `composer.lock` by hand.
+- Install from the lockfile with `composer install`, and in CI or production add `--no-dev --optimize-autoloader` where the project deploys that way.
+- Update one package with `composer update vendor/package --with-dependencies`. Add `--minimal-changes` to keep the other locked versions.
+- Run `composer audit` to check installed packages against security advisories. Composer 2.10 and later can also block versions flagged for malware through the `policy` config.
+- Run `composer validate --strict` after you edit `composer.json`, and `composer dump-autoload` after you change the `autoload` section.
+- Map namespaces with PSR-4 in `autoload` and `autoload-dev`, so that each class lives in a file that matches its name.
+</composer>
+
+<static_analysis>
+PHPStan is the common static analyzer, and its current major is 2.x. Its [rule levels](https://phpstan.org/user-guide/rule-levels) run from 0 to 10, and `max` is level 10. Level 9 rejects most operations on explicit `mixed`, and level 10 also rejects implicit `mixed` from missing types. Read the level and paths from `phpstan.neon` or `phpstan.neon.dist`, and run `vendor/bin/phpstan analyse`. A legacy project often keeps a baseline file that `vendor/bin/phpstan analyse --generate-baseline` created. Leave existing baseline entries alone, and keep new code free of new errors. Framework extensions improve the results, such as `larastan/larastan` for Laravel and `phpstan/phpstan-symfony` with `phpstan/phpstan-doctrine` for Symfony. A project that uses Psalm instead keeps its `psalm.xml` and runs `vendor/bin/psalm`.
+
+Fix type errors in the code. Do not hide them, as the `verification` block of the coding instructions requires.
+</static_analysis>
+
+<rector>
+Rector rewrites code automatically, for example to adopt newer PHP syntax or remove dead code. Its current major is 2.x. Run `vendor/bin/rector process --dry-run` first to see the diff. Then run `vendor/bin/rector process` on the paths of the task only. This `rector.php` reads the PHP version from `composer.json` and enables two prepared sets.
+
+```php
+<?php
+
+use Rector\Config\RectorConfig;
+
+return RectorConfig::configure()
+    ->withPaths([
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
+    ])
+    ->withPhpSets()
+    ->withPreparedSets(deadCode: true, codeQuality: true);
+```
+
+An existing project adopts Rector gradually with `withTypeCoverageLevel(0)`, `withDeadCodeLevel(0)`, or `withPhpLevel(0)`, and raises the level step by step. `withComposerBased()` adds sets that match the installed framework packages, such as Laravel, Symfony, Doctrine, and PHPUnit.
+</rector>
+
+<testing>
+Use the test runner that the project already has. PHPUnit 13 needs PHP 8.4 and PHPUnit 12 needs PHP 8.3, and both [read metadata only from attributes](https://phpunit.de/announcements/phpunit-12.html). Write `#[Test]`, `#[DataProvider('cases')]`, and `#[CoversClass(Foo::class)]` instead of docblock annotations such as `@test`. Data provider methods are `public static`. Pest 5 runs on PHPUnit 13 and needs PHP 8.4, and Pest 4 runs on PHPUnit 12. Run one file or test with `vendor/bin/phpunit tests/FooTest.php --filter testName` or `vendor/bin/pest tests/FooTest.php --filter "name"`. The `tdd` and `testing` skills cover test design.
+</testing>
+
+<framework_references>
+Read the framework reference before you change code in a framework project. Composer's `require` section shows the framework.
+- A project that requires `laravel/framework` starts with [references/laravel.md](references/laravel.md). It covers versions, structure, Artisan, and Pint, and it links to the topic files `laravel-database.md`, `laravel-http.md`, `laravel-async.md`, `laravel-app.md`, and `laravel-testing.md`.
+- A project that requires `symfony/framework-bundle` starts with [references/symfony.md](references/symfony.md). It targets Symfony 7.4 LTS and 8.x. It covers services and autowiring, Messenger, forms and validation, voters, DTOs, and quality checks.
+- A project that uses Doctrine ORM also reads [references/symfony-doctrine.md](references/symfony-doctrine.md) for relations, fetch modes, batch processing, and transactions with ORM 3.
+</framework_references>
+
+<attribution>
+Read [credits](references/credits.md) when checking source attribution or redistribution terms.
+</attribution>
