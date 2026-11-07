@@ -1,28 +1,87 @@
 ---
 name: review
-description: Reviews a diff, branch, or pull request against requirements and repository standards, with general and security-focused modes. Use when the user asks to review, check, audit, or verify code changes, a PR, a branch, a diff, or findings from another session, including XSS, SQL injection, or other security findings. Not implementation of fixes.
+description: "Reviews a branch, a PR, or work-in-progress changes since a fixed point (commit, branch, tag, or merge-base) along two axes. The Standards axis checks the repo's documented coding standards. The Spec axis checks what the originating issue or spec asked for. Both run in parallel sub-agents. Use when asked to review changes, or before opening a pull request for a multi-file change."
 ---
 
-1. Pin the reviewed head, baseline, and requested working-tree changes. For a branch or PR, resolve the target's merge-base. For an explicit snapshot comparison, use the supplied endpoints. Include staged, unstaged, and untracked files only within the requested scope. Verify that the references resolve and distinguish an empty diff from a failed retrieval. Inspect baseline files without moving HEAD or changing the index.
+<overview>
+This skill reviews the diff between `HEAD` and a fixed point along two axes.
+- The Standards axis asks whether the code conforms to this repo's documented coding standards.
+- The Spec axis asks whether the code faithfully implements the originating issue or spec.
 
-2. Recover requirements from the request, linked issue, and relevant repository specifications. Read applicable repository instructions, CONTRIBUTING.md, and CODING_STANDARDS.md when present. Keep two internal records, requirement coverage and documented-standard compliance. An unavailable specification limits coverage assessment, not the remaining review. Treat author claims such as "safe refactor" as hypotheses rather than evidence.
+Both axes run as parallel sub-agents, so they do not pollute each other's context. This skill then aggregates their findings. Use a sub-agent type that starts with a fresh context, not a fork of this conversation.
+</overview>
 
-3. Use general mode by default. Read [the security procedure](references/security.md) when security review is requested or a changed trust boundary, permission, validation, cryptographic operation, value transfer, or external interaction needs adversarial analysis. This adds security analysis to the same review and evidence gate. Do not classify UI, logging, or tests as harmless by filename.
+<process>
+<step_1_pin_the_fixed_point>
+The fixed point is whatever the user named, such as a commit SHA, branch name, tag, `main`, or `HEAD~5`. If the user named none, use the default branch.
 
-4. Account for every in-scope changed file. Read changed logic with its surrounding implementation and affected callers, dependencies, configuration, and tests. Follow a path beyond the diff when needed to resolve a concrete compatibility or behavior question. Record any excluded or unread portions. Use these defect classes as prompts for relevant checks, not as a quota of findings.
+Capture the diff command once as `git diff <fixed-point>...HEAD`. The three dots compare against the merge-base. Also note the list of commits from `git log <fixed-point>..HEAD --oneline`. That command leaves out uncommitted changes. To review uncommitted work, use `git diff HEAD`, and list untracked files with `git status --short`.
 
-- Requirements can be missing, partially wired, implemented in the wrong layer, or accompanied by unrequested behavior.
-- Callers can retain old types, defaults, error handling, serialization, event types, or access assumptions after a contract changes.
-- State transitions can double-apply effects, lose updates, violate transaction boundaries, or behave differently on retry, cancellation, timeout, and partial failure.
-- Data paths can mishandle empty, null, zero, duplicate, boundary, timezone, ordering, pagination, or tenant-specific inputs admitted by the contract.
-- Resource paths can leak handles or memory, outlive owners, deadlock, race, or turn expected workloads into unbounded work.
-- Rollouts can mix incompatible code, schemas, configuration, cache entries, or installed dependency versions.
-- Tests can mock away the broken boundary, never reach the changed branch, assert implementation details, or pass even with the defect present. User-facing changes can leave instructions or interfaces inconsistent.
+Before you go further, confirm the fixed point with `git rev-parse <fixed-point>`. Also confirm that the diff is not empty. A bad ref or an empty diff should fail here, not inside two parallel sub-agents.
+</step_1_pin_the_fixed_point>
 
-5. Challenge each candidate before reporting it. Identify the violated requirement, contract, invariant, or explicit repository rule. Cite the smallest relevant code location and quote the decisive line. Trace the admitted input or reachable state through the real caller to the wrong result. Search for validation, synchronization, ownership, or a repair elsewhere that would invalidate the claim. Compare with the baseline to separate introduced regressions from pre-existing issues.
+<step_2_identify_the_spec_source>
+Look for the originating spec in this order.
+1. Issue references in the commit messages, such as `#123`, `Closes #45`, or GitLab `!67`, fetched with the tracker's CLI.
+2. A path the user passed as an argument.
+3. A spec file under `docs/`, `specs/`, or `.scratch/` that matches the branch name or feature.
+4. The user's request in this conversation.
+5. If none of these exists, the Spec sub-agent skips and reports "no spec available".
+</step_2_identify_the_spec_source>
 
-6. Require reproducible evidence for every finding. Prefer a focused test or minimal reproducer with exact setup, input, expected result, actual result, and executed output. When execution is unavailable, supply a deterministic, line-by-line counterexample using concrete values or a specified interleaving, labelled as static evidence. If neither establishes the failure, keep it out of confirmed findings and report only a material unresolved check. Run review probes without editing tracked source or contacting live systems outside the authorized scope.
+<step_3_identify_the_standards_sources>
+Search the repo for every file that documents how code should be written. When `CODING_STANDARDS.md`, `CONTRIBUTING.md`, `CLAUDE.md`, or `AGENTS.md` exists, it must be on the list.
 
-7. Report findings by actual impact using the requested format. For each, give severity with its reason, file and line at the reviewed revision, decisive code, triggering condition, wrong behavior, reproducible evidence, and the violated requirement or rule. Group repeated symptoms under their shared cause. Separate explicit standards violations from functional defects. Omit personal style preferences, smell labels without consequences, formatter output, speculative refactors, and unsupported performance claims. Missing tests guide investigation and may violate an explicit test requirement, but do not establish a vulnerability or its severity.
+The Standards axis always carries the smell baseline below, on top of whatever the repo documents. The baseline is a fixed set of Fowler code smells from Refactoring, chapter 3. It applies even when a repo documents nothing. Two rules bind it.
+- The repo overrides the baseline. A documented repo standard always wins. Where it endorses something the baseline would flag, suppress the smell.
+- Each smell is a judgement call. Label it as a heuristic, as in "possible Feature Envy", never as a hard violation. Like any standard here, skip anything tooling already enforces.
 
-8. End with the checked scope, relevant validation outcome, and material gaps. When none are confirmed, say no defects were found within that scope. Do not equate this with exhaustive correctness. Return the review in chat unless a report artifact was requested. A GitHub comment, approval, or request-changes submission needs explicit publication authorization, separate from the local verdict.
+Each smell below says what it is and then how to fix it. Match each one against the diff.
+- Mysterious Name means a function, variable, or type whose name hides what it does or holds. Rename it, and if no honest name comes, the design is murky.
+- Duplicated Code means the same logic shape appears in more than one hunk or file in the change. Extract the shared shape, and call it from both places.
+- Feature Envy means a method that reaches into another object's data more than its own. Move the method onto the data it envies.
+- Data Clumps means the same few fields or parameters keep travelling together, so a type wants to be born. Bundle them into one type, and pass that.
+- Primitive Obsession means a primitive or string stands in for a domain concept that deserves its own type. Give the concept its own small type.
+- Repeated Switches means the same `switch` or `if` cascade on the same type recurs across the change. Replace it with polymorphism, or with one map that both sites share.
+- Shotgun Surgery means one logical change forces scattered edits across many files in the diff. Gather what changes together into one module.
+- Divergent Change means one file or module is edited for several unrelated reasons. Split it, so each module changes for one reason.
+- Speculative Generality means abstraction, parameters, or hooks added for needs the spec does not have. Delete it, and inline it back until a real need shows.
+- Message Chains means long `a.b().c().d()` navigation that the caller should not depend on. Hide the walk behind one method on the first object.
+- Middle Man means a class or function that mostly just delegates onward. Cut it, and call the real target directly.
+- Refused Bequest means a subclass or implementer that ignores or overrides most of what it inherits. Drop the inheritance, and use composition.
+</step_3_identify_the_standards_sources>
+
+<step_4_spawn_both_sub_agents>
+Issue both sub-agent calls together, in the foreground, and aggregate the reports they return.
+
+The Standards sub-agent prompt includes these items.
+- The full diff command and the commit list.
+- The list of standards source files from step 3, plus the smell baseline from step 3 pasted in full. The sub-agent has no other access to it.
+- This brief. "Report each place where the diff violates a documented standard, per file or hunk where relevant. Cite the standard by its file and rule. Also report each baseline smell you spot, with its name and the quoted hunk. Separate hard violations from judgement calls. A documented-standard breach can be hard, but a baseline smell is always a judgement call. A documented repo standard overrides the baseline. Skip anything tooling enforces. Stay under 400 words."
+
+The Spec sub-agent prompt includes these items.
+- The diff command and the commit list.
+- The path or the fetched contents of the spec.
+- This brief. "Report the requirements that the spec asked for and the diff misses or only partly covers. Report the behaviour in the diff that nobody asked for, which is scope creep. Report the requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Stay under 400 words."
+
+If the spec is missing, skip the Spec sub-agent and note this in the final report.
+</step_4_spawn_both_sub_agents>
+
+<step_5_aggregate>
+Present the two reports separately, Standards first and Spec second, in the format the output style sets. Do not merge or rerank the findings, because the two axes are deliberately separate.
+
+End with a one-line summary of the total findings per axis and the worst issue within each axis, if any. Do not pick a single winner across axes, because that is the reranking the separation exists to prevent.
+</step_5_aggregate>
+</process>
+
+<why_two_axes>
+A change can pass one axis and fail the other.
+- Code that follows every standard but implements the wrong thing passes Standards and fails Spec.
+- Code that does exactly what the issue asked but breaks the project's conventions passes Spec and fails Standards.
+
+Separate reports stop one axis from masking the other.
+</why_two_axes>
+
+<attribution>
+Read [credits](references/credits.md) when checking source attribution or redistribution terms.
+</attribution>
