@@ -84,7 +84,8 @@ Negation is the failure mode beside this lever. Steering by prohibition drags th
 </leading_words>
 
 <pruning>
-Four habits keep a document lean.
+Five habits keep a document lean.
+- Fix a recurring review complaint at its source. When reviews keep flagging the same problem, add the rule once to `CLAUDE.md`, `AGENTS.md`, a lint rule, or the skill that caused it. Later runs then avoid the problem instead of collecting the same comment.
 - Keep each meaning in a single source of truth, so changing a behavior is a one-place edit. Duplication costs maintenance and tokens. It also lifts a meaning's prominence on the ladder past its real rank. Duplication is the accidental inverse of a leading word, which repeats a token on purpose, never the meaning.
 - Treat the environment as a source of truth too. That covers `package.json` scripts, config files, the directory layout, and `--help` output. A document that restates it is a cache, meaning a copy of a lookup. A cache earns its load only when the lookup is expensive. Cache what the agent cannot find by looking. Examples are an unwritten convention, the reason behind a choice, or a gotcha no config reveals. Leave one-file and one-command lookups to the environment, where they cannot go stale.
 - Check every line for relevance to what the document does. A line loses relevance when it never bears on the task. Mere exposition and a branch that belongs behind a pointer are such lines. It also loses relevance when the behavior or world it describes changes. Without a pruning habit, stale layers settle as sediment, because adding feels safe and removing feels risky.
