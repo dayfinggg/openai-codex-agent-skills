@@ -35,7 +35,7 @@ Follow the project's existing pattern where it has one. Deviate only to fix a co
 </conventions>
 
 <pint>
-Laravel projects format PHP with [Pint](https://laravel.com/docs/13.x/pint), which uses the `laravel` preset unless `pint.json` sets another one. After you change PHP files, run `vendor/bin/pint --dirty` to fix the style of files with uncommitted changes. Run `vendor/bin/pint` without `--test` to fix issues, because `--test` only reports them. Pint 1.27 and later accept `--format agent` for compact output meant for coding agents. `--blade` also formats Blade templates, which needs Node.js and Prettier.
+Laravel projects format PHP with [Pint](https://laravel.com/docs/13.x/pint), which uses the `laravel` preset unless `pint.json` sets another one. After you change PHP files, run `vendor/bin/pint` with the paths of the files you changed. `--dirty` also formats files with other uncommitted work, so use it only on a clean working tree. Run `vendor/bin/pint` without `--test` to fix issues, because `--test` only reports them. Pint 1.27 and later accept `--format agent` for compact output meant for coding agents. `--blade` also formats Blade templates, which needs Node.js and Prettier.
 </pint>
 
 <reference_index>

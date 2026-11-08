@@ -87,7 +87,7 @@ async function fetchUser(id: string): Promise<User> {
 </async_errors>
 
 <process_level_errors>
-Do not write your own `unhandledRejection` and `uncaughtException` handlers. [close-with-grace](https://github.com/fastify/close-with-grace) handles both and starts a graceful shutdown. [graceful-shutdown.md](graceful-shutdown.md) shows the setup.
+Let [close-with-grace](https://github.com/fastify/close-with-grace) handle `unhandledRejection` and `uncaughtException` when the project has it, because it also starts a graceful shutdown. [graceful-shutdown.md](graceful-shutdown.md) shows the setup. Without it, register one handler for each event in the entry module, log the error, and start the same shutdown that the signal handlers use.
 </process_level_errors>
 
 

@@ -27,7 +27,7 @@ Teams that use gitflow or long-lived branches can adapt these principles to thei
 </trunk_based_development>
 
 <commit_often>
-Commit early and commit often. Commit and push only when the user asks, as Claude Code's instructions require. Once the user wants commits, each successful increment gets its own commit. Do not accumulate large uncommitted changes.
+Commit and push only when the user asks, as the base instructions require. Once the user wants commits, commit early and often, and give each successful increment its own commit, so large uncommitted changes do not pile up.
 
 Work in a loop. Implement a slice, test it, verify it, commit it, and move to the next slice. Never implement everything at once, hope it works, and make one giant commit. Commits are save points. If the next change breaks something, you can revert to the last known-good state at once.
 </commit_often>
@@ -164,7 +164,7 @@ Worktrees bring four benefits.
 </worktrees>
 
 <save_points>
-Each passing change becomes a save point. In this flow, the agent commits after each passing test and investigates each failing one.
+Once the user wants commits, each passing change becomes a save point. In this flow, the agent commits after each passing test and investigates each failing one.
 
 ```
 Agent starts work
@@ -302,7 +302,7 @@ For a pull request body, follow [pull-requests.md](references/pull-requests.md).
 <red_flags>
 These signs show that the git workflow has gone wrong.
 
-- Large uncommitted changes accumulate.
+- Large uncommitted changes accumulate after the user asked for commits.
 - Commit messages say "fix", "update", or "misc".
 - Formatting changes are mixed with behavior changes.
 - The project has no `.gitignore`.

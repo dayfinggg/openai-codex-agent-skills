@@ -1,6 +1,6 @@
 ---
 name: cleancode
-description: Rules for clean, maintainable code from four books, Code Complete, Refactoring, Working Effectively with Legacy Code, and Release It. Use when writing or changing production code, refactoring or cleaning up code, or changing code that lacks trustworthy tests. Also use when adding outbound calls, retries, queues, background jobs, migrations, or deploy steps. Each book's rules sit in a reference file to read when the task fits.
+description: Rules for clean, maintainable code from four books, Code Complete, Refactoring, Working Effectively with Legacy Code, and Release It. Use when writing or changing production code, refactoring or cleaning up code, or changing code that lacks trustworthy tests. Also use when adding outbound calls, retries, queues, background jobs, migrations, or deploy steps.
 ---
 
 <overview>

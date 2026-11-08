@@ -36,11 +36,11 @@ Claude Code loads a listing of every skill's name and description into context o
 </the_listing>
 
 <the_body>
-Invoking a skill adds its rendered `../SKILL.md` content to the conversation as one message. It stays there on later turns. Claude Code does not re-read the file. So write guidance that applies to the whole task as standing instructions, not one-time steps.
+Invoking a skill adds its rendered `SKILL.md` content to the conversation as one message. It stays there on later turns. Claude Code does not re-read the file. So write guidance that applies to the whole task as standing instructions, not one-time steps.
 
-After auto-compaction, Claude Code re-attaches the most recent invocation of each skill but keeps only its first 5,000 tokens. All re-attached skills share a budget of 25,000 tokens, filled from the most recently invoked skill. So put the most important instructions near the top of `../SKILL.md`.
+After auto-compaction, Claude Code re-attaches the most recent invocation of each skill but keeps only its first 5,000 tokens. All re-attached skills share a budget of 25,000 tokens, filled from the most recently invoked skill. So put the most important instructions near the top of the skill's `SKILL.md`.
 
-The docs ask for a `../SKILL.md` under 500 lines. Move detailed reference to separate files in the skill folder. Link each one from `../SKILL.md` with the condition for reading it.
+The docs ask for a skill's `SKILL.md` to stay under 500 lines. Move detailed reference to separate files in the skill folder. Link each one from `SKILL.md` with the condition for reading it.
 </the_body>
 
 <splitting_by_invocation>

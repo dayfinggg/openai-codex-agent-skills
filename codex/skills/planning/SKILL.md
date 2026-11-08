@@ -92,7 +92,7 @@ It depends on [task numbers, or no other task].
 
 It likely touches `src/path/to/file.ts` and `tests/path/to/test.ts`.
 
-Its estimated scope is [small for 1-2 files, medium for 3-5 files, or large for 5 or more files].
+Its size is [XS, S, M, or L], from the file counts in the `task_sizing` table.
 ```
 </task_template>
 
@@ -123,8 +123,8 @@ Task size follows the number of files and the scope.
 | XS | 1 | Single function or config change | Add a validation rule |
 | S | 1-2 | One component or endpoint | Add a new API endpoint |
 | M | 3-5 | One feature slice | User registration flow |
-| L | 5-8 | Multi-component feature | Search with filtering and pagination |
-| XL | 8+ | Too large, so break it down further | None |
+| L | 6-8 | Multi-component feature | Search with filtering and pagination |
+| XL | 9+ | Too large, so break it down further | None |
 
 Break an L or larger task into smaller tasks, because S and M tasks are easier to verify and review.
 

@@ -1,6 +1,6 @@
 ---
 name: database
-description: Guides safe, current database work on PostgreSQL and MySQL. Use it for any task that touches a database, such as schema changes, migrations, queries, ORM code, data fixes, imports, backfills, or deletes. It covers lock-safe migrations, expand and contract, ORM migration traps, N+1 queries, parameterized SQL, and backups. Use it before any command that resets, drops, truncates, or wipes data, or that connects to a production database.
+description: Guides safe, current database work on PostgreSQL and MySQL. Use it for any task that touches a database, such as schema changes, migrations, queries, ORM code, data fixes, imports, backfills, or deletes. Use it before any command that resets, drops, truncates, or wipes data, or that connects to a production database.
 ---
 
 <overview>

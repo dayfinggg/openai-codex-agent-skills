@@ -61,17 +61,17 @@ Issue all sub-agent calls together, in the foreground, and collect the reports t
 
 The Correctness sub-agent prompt includes these items.
 - The full diff command, the commit list, and the stated intent from step 2.
-- This brief. "Find bugs and security problems that the diff introduces. Read the changed code against the rest of the repo, including callers, tests, and config. Check that the change solves its stated problem and fits the system. For a bug fix, check that it removes the root cause. Look for injection, exposed secrets, and missing authorization. Give each finding its file and line, the input or scenario that fails, and the consequence. Mark a problem that existed before this diff as pre-existing. Skip style, naming, and cleanup. Stay under 400 words."
+- This brief. "Find bugs and security problems that the diff introduces. Read the changed code against the rest of the repo, including callers, tests, and config. Check that the change solves its stated problem and fits the system. For a bug fix, check that it removes the root cause. Look for injection, exposed secrets, and missing authorization. Give each finding its file and line, the input or scenario that fails, and the consequence. Mark a problem that existed before this diff as pre-existing. Skip style, naming, and cleanup. Report each finding once, in one short entry, with no preamble or recap."
 
 The Standards sub-agent prompt includes these items.
 - The full diff command and the commit list.
 - The list of standards source files from step 3, plus the smell baseline from step 3 pasted in full. The sub-agent has no other access to it.
-- This brief. "Report each place where the diff violates a documented standard, per file or hunk where relevant. Cite the standard by its file and rule. Also report each baseline smell you spot, with its name and the quoted hunk. Separate hard violations from judgement calls. A documented-standard breach can be hard, but a baseline smell is always a judgement call. A documented repo standard overrides the baseline. Skip anything tooling enforces. Stay under 400 words."
+- This brief. "Report each place where the diff violates a documented standard, per file or hunk where relevant. Cite the standard by its file and rule. Also report each baseline smell you spot, with its name and the quoted hunk. Separate hard violations from judgement calls. A documented-standard breach can be hard, but a baseline smell is always a judgement call. A documented repo standard overrides the baseline. Skip anything tooling enforces. Report each finding once, in one short entry, with no preamble or recap."
 
 The Spec sub-agent prompt includes these items.
 - The diff command and the commit list.
 - The path or the fetched contents of the spec.
-- This brief. "Report the requirements that the spec asked for and the diff misses or only partly covers. Report the behaviour in the diff that nobody asked for, which is scope creep. Report the requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Stay under 400 words."
+- This brief. "Report the requirements that the spec asked for and the diff misses or only partly covers. Report the behaviour in the diff that nobody asked for, which is scope creep. Report the requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Report each finding once, in one short entry, with no preamble or recap."
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
 </step_4_spawn_the_sub_agents>

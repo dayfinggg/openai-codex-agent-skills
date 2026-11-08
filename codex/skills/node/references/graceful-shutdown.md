@@ -46,7 +46,7 @@ closeWithGrace({ delay: 10000 }, async ({ signal, err }) => {
 });
 ```
 
-[assets/graceful-server.ts](../assets/graceful-server.ts) is a complete example. It stops accepting connections, closes idle keep-alive connections, and force-closes the rest after five seconds. [assets/graceful-server.test.ts](../assets/graceful-server.test.ts) tests its health and `Connection` header behavior.
+[assets/graceful-server.ts](../assets/graceful-server.ts) is a complete example. It stops accepting connections, closes idle keep-alive connections, and force-closes the rest after five seconds. [assets/graceful-server-test.ts](../assets/graceful-server-test.ts) tests its health and `Connection` header behavior.
 </http_server>
 
 

@@ -1,6 +1,6 @@
 ---
 name: delegation
-description: Decides when to hand work to another agent, picks the provider, model, and effort from what the runtime offers, and writes a complete brief. Use before spawning any subagent, child task, or parallel agent, before delegating to a model of another provider, and when the user asks to delegate, parallelize, or run agents. Covers native subagents and child tasks in T3 Code, an app that runs agents from several providers.
+description: Decides when to hand work to another agent, picks the provider, model, and effort from what the runtime offers, and writes a complete brief. Use before spawning any subagent, child task, or parallel agent, before delegating to a model of another provider, and when the user asks to delegate, parallelize, or run agents.
 ---
 
 <when_to_delegate>
@@ -36,7 +36,7 @@ The agent sees only the brief, so give the whole task once and precisely. Write 
 1. Goal and finish line. State what is wrong or wanted. Say what done looks like, such as "the suite passes 30 runs in a row".
 2. Context. Give exact paths, the relevant facts you already know, and what you ruled out. Pass long material as file paths, not pasted text.
 3. Scope. Name the files or modules the agent owns, and what it must not touch.
-4. Rules. Point to the user's standing rules, because a subagent may not apply them unless the brief names them. Name the base instructions at `../../base_instructions.md` relative to this skill, as an absolute path. Ask the agent to follow its `output_style`, `code_rules`, and `verification` blocks. Name the skills that fit the task.
+4. Rules. Point to the user's standing rules, because a native subagent does not inherit them. Name the base instructions at `../../base_instructions.md`, relative to this skill, as an absolute path, and ask the agent to follow their output style, coding instructions, and `final_answer` block. Name the skills that fit the task.
 5. Proof. Say which check proves the work, such as a command, a test, or a screenshot. Ask the agent to report any check it could not run.
 6. Stop conditions. The agent asks only when it cannot continue, or before a destructive or external action. It reports a blocker instead of working around it.
 7. Return contract. Ask for a short report that opens with the outcome. It gives evidence with file and line, and it marks unverified claims.
@@ -53,5 +53,5 @@ Do not poll an agent, sleep, or re-brief it while it runs. Keep working on what 
 </waiting>
 
 <results>
-Check each report's evidence before you accept it, such as the command, its output, and the cited lines. Do not redo the agent's work or re-derive its findings when the evidence holds. When several agents changed code, check for conflicts. Then run the project's checks on the combined result, as the `verification` block of the base instructions requires. Relay findings to the user in the output style, and name each agent or thread as the runtime shows it.
+Check each report's evidence before you accept it, such as the command, its output, and the cited lines. Do not redo the agent's work or re-derive its findings when the evidence holds. When several agents changed code, check for conflicts. Then run the project's checks on the combined result, as the `verification` block of the coding instructions requires. Relay findings to the user in the output style, and name each agent or thread as the runtime shows it.
 </results>

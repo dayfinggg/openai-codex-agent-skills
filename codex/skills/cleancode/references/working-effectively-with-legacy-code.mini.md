@@ -21,7 +21,7 @@ Each legacy change follows these steps in order.
 
 <decision_rules>
 - Treat any area without trustworthy tests as legacy code. Do not start with a rewrite or module-wide cleanup unless it is required or clearly safer.
-- Before you edit, state the requested behavior change and the current behavior that must remain. Characterize uncertain or suspicious behavior instead of fixing it silently.
+- Before you edit, pin down the requested behavior change and the current behavior that must remain. Characterize uncertain or suspicious behavior instead of fixing it silently.
 - Prefer fast, focused tests around the slice you change. Use broader interception or integration tests only when they are the safest first observation point.
 - Choose test points by tracing effects outward from the change point. Follow values, calls, fields, outputs, and collaborators to interception points and pinch points.
 - Use the smallest seam that allows substitution, observation, or interception. Make clear whether the seam serves sensing, separation, or both.
@@ -48,7 +48,7 @@ Each legacy change follows these steps in order.
 
 <final_checklist>
 - Is the untested or weakly tested area treated as a legacy risk?
-- Are the behavior change and the behavior to preserve stated?
+- Are the behavior change and the behavior to preserve identified?
 - Is uncertain current behavior characterized or observed?
 - Are the tests close enough and fast enough to diagnose the change?
 - Is the seam the smallest useful one, with sensing or separation clear?

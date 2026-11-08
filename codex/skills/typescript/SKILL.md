@@ -95,31 +95,31 @@ async function fetchUser(): Promise<User> {
 Each rule file explains one technique with examples. Read a file when the task needs that technique.
 
 <core_patterns>
-- [rules/as-const-typeof.md](references/as-const-typeof.md) derives types from runtime values with `as const` and `typeof`. Read it when one object should define both values and types.
-- [rules/array-index-access.md](references/array-index-access.md) gets element types with `[number]`. Read it when you need a union of the items in an array or tuple.
-- [rules/utility-types.md](references/utility-types.md) covers `Parameters`, `ReturnType`, `Awaited`, `Omit`, `Partial`, `Record`, and related types. Read it when you wrap a function or derive a type from another type.
+- [references/as-const-typeof.md](references/as-const-typeof.md) derives types from runtime values with `as const` and `typeof`. Read it when one object should define both values and types.
+- [references/array-index-access.md](references/array-index-access.md) gets element types with `[number]`. Read it when you need a union of the items in an array or tuple.
+- [references/utility-types.md](references/utility-types.md) covers `Parameters`, `ReturnType`, `Awaited`, `Omit`, `Partial`, `Record`, and related types. Read it when you wrap a function or derive a type from another type.
 </core_patterns>
 
 <advanced_generics>
-- [rules/generics-basics.md](references/generics-basics.md) covers type parameters, constraints, defaults, and inference. Read it when a generic loses information or infers `unknown`.
-- [rules/builder-pattern.md](references/builder-pattern.md) tracks state in the type of a chainable builder. Read it when a fluent API must remember earlier calls.
-- [rules/deep-inference.md](references/deep-inference.md) keeps literal types in nested arguments with `const` type parameters. Read it when a config object widens to `string` or `string[]`.
+- [references/generics-basics.md](references/generics-basics.md) covers type parameters, constraints, defaults, and inference. Read it when a generic loses information or infers `unknown`.
+- [references/builder-pattern.md](references/builder-pattern.md) tracks state in the type of a chainable builder. Read it when a fluent API must remember earlier calls.
+- [references/deep-inference.md](references/deep-inference.md) keeps literal types in nested arguments with `const` type parameters. Read it when a config object widens to `string` or `string[]`.
 </advanced_generics>
 
 <type_level_programming>
-- [rules/conditional-types.md](references/conditional-types.md) covers `extends ? :` logic and distribution over unions. Read it when a type depends on another type.
-- [rules/infer-keyword.md](references/infer-keyword.md) extracts parts of a type with `infer`. Read it when you need the element, argument, or return type of something.
-- [rules/template-literal-types.md](references/template-literal-types.md) builds and parses string types. Read it for typed routes, event names, or key renames.
-- [rules/mapped-types.md](references/mapped-types.md) transforms each property of a type, with key remapping and modifiers. Read it when a new type follows the shape of another type.
+- [references/conditional-types.md](references/conditional-types.md) covers `extends ? :` logic and distribution over unions. Read it when a type depends on another type.
+- [references/infer-keyword.md](references/infer-keyword.md) extracts parts of a type with `infer`. Read it when you need the element, argument, or return type of something.
+- [references/template-literal-types.md](references/template-literal-types.md) builds and parses string types. Read it for typed routes, event names, or key renames.
+- [references/mapped-types.md](references/mapped-types.md) transforms each property of a type, with key remapping and modifiers. Read it when a new type follows the shape of another type.
 </type_level_programming>
 
 <type_safety_patterns>
-- [rules/opaque-types.md](references/opaque-types.md) brands primitives so different IDs or validated strings cannot mix. Read it when values share a primitive type but mean different things.
-- [rules/type-narrowing.md](references/type-narrowing.md) covers control-flow narrowing, type predicates, assertion functions, and exhaustive checks. Read it when a union or `unknown` value needs a specific type.
-- [rules/function-overloads.md](references/function-overloads.md) gives one function several call signatures. Read it when the return type depends on the argument type.
+- [references/opaque-types.md](references/opaque-types.md) brands primitives so different IDs or validated strings cannot mix. Read it when values share a primitive type but mean different things.
+- [references/type-narrowing.md](references/type-narrowing.md) covers control-flow narrowing, type predicates, assertion functions, and exhaustive checks. Read it when a union or `unknown` value needs a specific type.
+- [references/function-overloads.md](references/function-overloads.md) gives one function several call signatures. Read it when the return type depends on the argument type.
 </type_safety_patterns>
 
 <debugging>
-- [rules/error-diagnosis.md](references/error-diagnosis.md) explains how to read long compiler errors and isolate their cause. Read it when an error message is long or unclear.
+- [references/error-diagnosis.md](references/error-diagnosis.md) explains how to read long compiler errors and isolate their cause. Read it when an error message is long or unclear.
 </debugging>
 </rules>

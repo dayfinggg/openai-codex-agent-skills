@@ -26,7 +26,7 @@ Construction quality is not accidental. Code that works once, or that uses a cle
 </decision_rules>
 
 <trigger_rules>
-- When coding starts from a proposed solution, first restate the requirement, the architecture fit, the risks, and the success criteria.
+- When coding starts from a proposed solution, first check it against the requirement, the architecture fit, the risks, and the success criteria.
 - When a routine is hard to name, mixes phases, or has flag arguments, redesign its interface or split it. Long parameter lists and hidden side effects call for the same fix.
 - Readers should not have to decode units, ranges, precision, encoding, ownership, status, or magic values. Move that meaning into names, constants, types, or structures.
 - When input crosses a trust boundary, decide what is validated, rejected, recovered from, and kept diagnosable.

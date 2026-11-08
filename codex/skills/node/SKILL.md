@@ -28,17 +28,17 @@ const greet = (name: string): string => `Hello, ${name}!`;
 console.log(greet('world'));
 ```
 
-[rules/typescript.md](references/typescript.md) has the full rules and the tsconfig.
+[references/typescript.md](references/typescript.md) has the full rules and the tsconfig.
 </typescript_in_node>
 
 <workflows>
 Five workflows recur often. Each one links to its rule file.
 
-- Graceful shutdown registers handlers for `SIGTERM` and `SIGINT` and stops accepting new work. It then drains in-flight requests, closes external connections such as the database and cache, and exits with the right code. See [rules/graceful-shutdown.md](references/graceful-shutdown.md).
-- Error handling classifies errors by code and keeps the `cause` chain. It leaves process-level handlers to close-with-grace and logs context before it responds or crashes. See [rules/error-handling.md](references/error-handling.md).
-- A flaky test needs its cause found. Isolate the test, check shared state and timer dependencies, and inspect the async teardown order. A retry or a longer timeout hides the fault, so fix the cause instead. See [rules/flaky-tests.md](references/flaky-tests.md).
-- A stuck process or test run needs its open handles found. Isolate the file and test, run with an explicit timeout and reporter, and inspect the handles with `why-is-node-running`. Then fix the teardown where the resource is created and rerun until stable. See [rules/stuck-processes-and-tests.md](references/stuck-processes-and-tests.md).
-- A slow path needs a profile. Reproduce it under realistic load and capture a CPU profile with flame or `--cpu-prof`. Find the hot functions, check for backpressure problems or needless serialization, and measure the fix with a benchmark. See [rules/profiling.md](references/profiling.md) and [rules/performance.md](references/performance.md).
+- Graceful shutdown registers handlers for `SIGTERM` and `SIGINT` and stops accepting new work. It then drains in-flight requests, closes external connections such as the database and cache, and exits with the right code. See [references/graceful-shutdown.md](references/graceful-shutdown.md).
+- Error handling classifies errors by code and keeps the `cause` chain. It leaves process-level handlers to close-with-grace when the project has it and logs context before it responds or crashes. See [references/error-handling.md](references/error-handling.md).
+- A flaky test needs its cause found. Isolate the test, check shared state and timer dependencies, and inspect the async teardown order. A retry or a longer timeout hides the fault, so fix the cause instead. See [references/flaky-tests.md](references/flaky-tests.md).
+- A stuck process or test run needs its open handles found. Isolate the file and test, run with an explicit timeout and reporter, and inspect the handles with `why-is-node-running`. Then fix the teardown where the resource is created and rerun until stable. See [references/stuck-processes-and-tests.md](references/stuck-processes-and-tests.md).
+- A slow path needs a profile. Reproduce it under realistic load and capture a CPU profile with flame or `--cpu-prof`. Find the hot functions, check for backpressure problems or needless serialization, and measure the fix with a benchmark. See [references/profiling.md](references/profiling.md) and [references/performance.md](references/performance.md).
 </workflows>
 
 <streams_and_caching>
@@ -47,28 +47,28 @@ Apply this checklist to CSV, ETL, ingestion pipelines, large files, and backpres
 1. Use `await pipeline(...)` from `node:stream/promises` instead of chained `.pipe()`.
 2. Use an `async function*` transform when the existing stream stages cannot express the required transformation simply.
 3. Consider a cache when repeated work causes a measured problem and the freshness requirements allow reuse. `lru-cache` fits bounded in-memory reuse in one process. `async-cache-dedupe` fits async request deduplication and stale-while-revalidate. Follow `code_rules` before adding either dependency.
-4. Show where backpressure is handled, through `pipeline()` or through an explicit `drain` wait.
+4. Handle backpressure through `pipeline()` or through an explicit `drain` wait.
 
-For large CSV or ETL inputs, `createReadStream(input)` and `await pipeline(...)` keep memory bounded. Reuse the existing parser and add enrichment or caching only when the task needs them. [rules/streams.md](references/streams.md) and [rules/caching.md](references/caching.md) have the details.
+For large CSV or ETL inputs, `createReadStream(input)` and `await pipeline(...)` keep memory bounded. Reuse the existing parser and add enrichment or caching only when the task needs them. [references/streams.md](references/streams.md) and [references/caching.md](references/caching.md) have the details.
 </streams_and_caching>
 
 <references>
 Read a rule file when the task touches its topic.
 
-- [rules/async-patterns.md](references/async-patterns.md) for async/await, parallel work, concurrency limits, and cancellation
-- [rules/error-handling.md](references/error-handling.md) for error codes, causes, and async errors
-- [rules/streams.md](references/streams.md) for pipelines, transforms, backpressure, and stream consumers
-- [rules/modules.md](references/modules.md) for ESM, CommonJS, `require(esm)`, and import paths
-- [rules/testing.md](references/testing.md) for `node:test`, mocks, snapshots, and hooks
-- [rules/flaky-tests.md](references/flaky-tests.md) for tests that fail at random
-- [rules/stuck-processes-and-tests.md](references/stuck-processes-and-tests.md) for processes and test runs that never exit
-- [rules/node-modules-exploration.md](references/node-modules-exploration.md) for installed versions, dependency trees, and package internals
-- [rules/performance.md](references/performance.md) for event loop blocking, worker threads, pools, and leaks
-- [rules/caching.md](references/caching.md) for choosing and invalidating caches
-- [rules/profiling.md](references/profiling.md) for flame graphs, benchmarks, and diagnostic reports
-- [rules/logging.md](references/logging.md) for pino, redaction, and debug output
-- [rules/environment.md](references/environment.md) for env files, config validation, and secrets
-- [rules/graceful-shutdown.md](references/graceful-shutdown.md) for signals, server shutdown, and health checks
-- [rules/typescript.md](references/typescript.md) for type stripping, its tsconfig, and publishing TypeScript packages
+- [references/async-patterns.md](references/async-patterns.md) for async/await, parallel work, concurrency limits, and cancellation
+- [references/error-handling.md](references/error-handling.md) for error codes, causes, and async errors
+- [references/streams.md](references/streams.md) for pipelines, transforms, backpressure, and stream consumers
+- [references/modules.md](references/modules.md) for ESM, CommonJS, `require(esm)`, and import paths
+- [references/testing.md](references/testing.md) for `node:test`, mocks, snapshots, and hooks
+- [references/flaky-tests.md](references/flaky-tests.md) for tests that fail at random
+- [references/stuck-processes-and-tests.md](references/stuck-processes-and-tests.md) for processes and test runs that never exit
+- [references/node-modules-exploration.md](references/node-modules-exploration.md) for installed versions, dependency trees, and package internals
+- [references/performance.md](references/performance.md) for event loop blocking, worker threads, pools, and leaks
+- [references/caching.md](references/caching.md) for choosing and invalidating caches
+- [references/profiling.md](references/profiling.md) for flame graphs, benchmarks, and diagnostic reports
+- [references/logging.md](references/logging.md) for pino, redaction, and debug output
+- [references/environment.md](references/environment.md) for env files, config validation, and secrets
+- [references/graceful-shutdown.md](references/graceful-shutdown.md) for signals, server shutdown, and health checks
+- [references/typescript.md](references/typescript.md) for type stripping, its tsconfig, and publishing TypeScript packages
 - [node-lts.md](references/node-lts.md) when the Node.js version matters, such as for an upgrade or a new API
 </references>
