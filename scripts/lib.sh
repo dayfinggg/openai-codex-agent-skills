@@ -127,7 +127,7 @@ codex_merge_config() {
           print line
           current_section = section_name(line)
         } else {
-          if (instruction_line != "" && ((current_section == "" && is_key(line) && key_name(line) == "model_instructions_file" && line != instruction_line) || (current_section ~ /^profiles[.]/ && line ~ /^[[:space:]]*model_instructions_file[[:space:]]*=[[:space:]]*[\042\047]([^\042\047]*[/\\])?model-instructions[.]md[\042\047][[:space:]]*(#.*)?$/))) {
+          if (instruction_line != "" && ((current_section == "" && is_key(line) && key_name(line) == "model_instructions_file" && line != instruction_line) || (current_section ~ /^profiles[.]/ && line ~ /^[[:space:]]*model_instructions_file[[:space:]]*=[[:space:]]*[\042\047]([^\042\047]*[\/\\])?model-instructions[.]md[\042\047][[:space:]]*(#.*)?$/))) {
             line = instruction_line
             added++
           }
