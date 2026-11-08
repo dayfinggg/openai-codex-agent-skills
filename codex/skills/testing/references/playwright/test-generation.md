@@ -339,6 +339,6 @@ After the user answers, update the spec for an intended change. For a regression
 </reconcile_with_the_spec>
 
 <iteration>
-Fix failures one at a time, and run the test again after each fix. Sometimes the test is correct, the app is wrong, and the user confirms the bug. Then mark the test with `test.fixme()`, and give the user's decision or the issue link in its description. Never skip a test silently.
+Fix failures one at a time and rerun the affected test. If the test exposes an application bug outside scope, report the failing test and leave it enabled.
 </iteration>
 </heal>
