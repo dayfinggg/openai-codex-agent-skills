@@ -35,7 +35,7 @@ These ways to construct a loop come in roughly this order of preference.
 </ways_to_build_a_loop>
 
 <hitl_script>
-`scripts/hitl-loop.template.sh` is a human-in-the-loop reproduction loop. Copy it, replace its `step` and `capture` lines and the matching `printf` lines, and run it with `bash`. The agent runs the script, and the user follows the prompts in their terminal. `step "<instruction>"` shows an instruction and waits for Enter. `capture VAR "<question>"` shows a question and reads the answer into VAR. At the end, the script prints the captured values as KEY=VALUE lines for the agent to parse. `capture` prints its value back to the terminal, where the agent reads it. So capture only observations, and leave signing in to the user as a `step`.
+`scripts/hitl-loop.template.sh` is a human-in-the-loop reproduction loop. Copy it, and replace its `step` and `capture` lines and the matching `printf` lines. Give the user the `bash` command that runs it, because it reads answers from the keyboard and needs their terminal. `step "<instruction>"` shows an instruction and waits for Enter. `capture VAR "<question>"` shows a question and reads the answer into VAR. At the end, the script prints the captured values as KEY=VALUE lines, and the user passes that output back to you. Every captured value appears in that output, so capture only observations, and leave signing in to the user as a `step`.
 </hitl_script>
 
 <tighten_the_loop>

@@ -1,5 +1,5 @@
 <overview>
-This file is a method for reviewing Django code for validated performance issues. It covers Django 5.2 LTS, 6.0, and 6.1, and Django REST framework (DRF). Research the codebase to confirm each issue before you report it, and report only what you can prove. This file is a modified version of Sentry's django-perf-review skill under Apache-2.0, and `credits.md` lists the changes.
+This file is a method for reviewing Django code for validated performance issues. It covers Django 5.2 LTS, 6.0, and 6.1, and Django REST framework (DRF). Research the codebase to confirm each issue before you report it. This file is a modified version of Sentry's django-perf-review skill under Apache-2.0. The `license` field of `../SKILL.md` lists the changes, and the distribution `LICENSE` holds the license text.
 </overview>
 
 <review_approach>
@@ -323,7 +323,7 @@ for id in ids:
 </inefficient_patterns>
 
 <validation_requirements>
-Complete every step before you report an issue. If you cannot validate all steps, do not report it.
+Complete every step before you report an issue as validated. When a step needs evidence the code cannot give, such as the table size, report the issue as unconfirmed and name the missing evidence.
 1. Trace the data flow, and follow the queryset from creation to consumption.
 2. Search for existing optimizations, such as `select_related`, `prefetch_related`, and pagination.
 3. Verify the data volume, and check that the table is actually large.

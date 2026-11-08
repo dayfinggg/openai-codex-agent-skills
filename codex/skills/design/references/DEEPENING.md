@@ -12,9 +12,7 @@ Local-substitutable dependencies have local test stand-ins, such as PGlite for P
 </local_substitutable>
 
 <remote_but_owned>
-Remote but owned dependencies are your own services across a network, such as microservices or internal APIs. Following ports and adapters, define a port at the seam. A port is an interface. The deep module owns the logic, and the transport is injected as an adapter. Tests use an in-memory adapter, and production uses an HTTP, gRPC, or queue adapter.
-
-A typical recommendation defines a port at the seam. Production gets an HTTP adapter, and tests get an in-memory adapter. The logic then sits in one deep module, even when it is deployed across a network.
+Remote but owned dependencies are your own services across a network, such as microservices or internal APIs. Following ports and adapters, define a port at the seam. A port is an interface. The deep module owns the logic, and the transport is injected as an adapter. Tests use an in-memory adapter, and production uses an HTTP, gRPC, or queue adapter. The logic then sits in one deep module, even when it is deployed across a network.
 </remote_but_owned>
 
 <true_external>

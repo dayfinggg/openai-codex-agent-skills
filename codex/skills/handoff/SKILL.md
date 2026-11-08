@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Compacts the current conversation into a handoff document that a fresh agent or session can pick up. Use when the user wants to continue the work in a new session or hand it to another agent. Use when the context is close to full mid-task, or when the user stops before the work is done.
+description: Compacts the current conversation into a handoff document that a fresh agent or session can pick up. Use when the user wants to continue the work in a new session or hand it to another agent.
 ---
 
 <handoff>

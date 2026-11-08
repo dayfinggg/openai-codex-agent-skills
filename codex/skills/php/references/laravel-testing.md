@@ -26,9 +26,9 @@ Test observable behavior and application contracts. A test must still pass after
 - Leave framework behavior to framework tests. A relation with a constraint, a cast, a scope, or a validation rule belongs to this project, so test it.
 - Write a feature test first. Write a unit test only for logic that does not use the framework.
 - Write a browser test only for JavaScript behavior that a feature test cannot reach.
-- When two tests detect the same defect, trim the higher-layer test to one case and report the duplication.
+- When two tests detect the same defect, keep one case in the higher-layer test. Trim a test you wrote in this change, and report duplication in existing tests to the user.
 
-Read the code under test before you write the test, and list its decisions. Some code has a defect, such as an empty method, an unused policy, or a write action without validation. Test the actual behavior and report the defect to the user.
+Read the code under test before you write the test, and list its decisions. Some code has a defect, such as an empty method, an unused policy, or a write action without validation. Assert no defect as expected behavior. Report the defect to the user, as the `verification` block of the coding instructions requires, and test the decisions that work.
 
 A Pest architecture test follows other rules. An `arch()` test declares a convention for a whole directory, such as the parent class of every model. It checks declarations on purpose and fails when a new file breaks the convention.
 </what_to_test>
@@ -167,7 +167,7 @@ Write one test for each validation rule when each failure is a separate contract
 
 Send an invalid value through the application and assert the error. An assertion that an array of rules contains a string tests the declaration, not the behavior. Use such an assertion only for a rule that no request can reach, and state the reason in the test.
 
-The rule-class test owns the matrix of passing and failing values. The endpoint test proves that the endpoint applies the rule and shows the message. When both hold the matrix, move it to the rule-class test and keep one case in the endpoint test. Keep that last case, because the rule-class test still passes when the request omits the rule. The same split applies to policies, scopes, and other classes that a request calls.
+The rule-class test owns the matrix of passing and failing values. The endpoint test proves that the endpoint applies the rule and shows the message. When both hold the matrix in tests you write, put it in the rule-class test and keep one case in the endpoint test. Report the same overlap in existing tests to the user. Keep that last case, because the rule-class test still passes when the request omits the rule. The same split applies to policies, scopes, and other classes that a request calls.
 </validation>
 </endpoint_tests>
 

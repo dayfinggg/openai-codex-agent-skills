@@ -13,7 +13,7 @@ The release schedule changes with Node.js 27. One major line is branched each Oc
 </release_lines>
 
 <typescript>
-Type stripping runs `.ts` files without a flag since 23.6 and 22.18, and it is stable since 25.2 and 24.12. Node.js 26 removed `--experimental-transform-types`, so enums, runtime namespaces, and parameter properties fail on every line. [rules/typescript.md](typescript.md) has the rules and the tsconfig.
+Type stripping runs `.ts` files without a flag since 23.6 and 22.18, and it is stable since 25.2 and 24.12. Node.js 26 removed `--experimental-transform-types`, so enums, runtime namespaces, and parameter properties fail on every line. [typescript.md](typescript.md) has the rules and the tsconfig.
 </typescript>
 
 <language_and_globals>
