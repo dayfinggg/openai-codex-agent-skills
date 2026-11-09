@@ -6,6 +6,12 @@ metadata:
     organisation: Humanlayer
     url: "https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md"
 ---
+<contents>
+This file has these sections, in order.
+- template
+- sections
+</contents>
+
 
 <template>
 A pull request body has three parts in this order. They are the summary, the evidence, and the merge danger. This template shows each part as plain paragraphs.

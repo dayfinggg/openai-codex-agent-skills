@@ -1,3 +1,13 @@
+<contents>
+This file has these sections, in order.
+- prefer async await
+- parallel execution
+- controlled concurrency
+- fault tolerance
+- async construction
+- cancellation
+</contents>
+
 <prefer_async_await>
 Use async/await over raw promise chains, because the code reads top to bottom. This function processes items in order with `await`.
 

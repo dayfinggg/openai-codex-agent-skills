@@ -1,3 +1,14 @@
+<contents>
+This file has these sections, in order.
+- triggers
+- cache selection
+- sync memoization
+- async cache dedupe
+- lru cache
+- invalidation
+- when to cache
+</contents>
+
 <triggers>
 Choose a cache strategy and state the reason when the task has repeated async lookups. Other signals are duplicate concurrent requests, CSV enrichment, ETL transforms, N+1 remote calls, and hot keys.
 </triggers>

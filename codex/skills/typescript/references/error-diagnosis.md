@@ -1,6 +1,16 @@
 <overview>
 TypeScript errors can be hard to read, most of all with complex generic types. These strategies find the real cause of an error and how to fix it.
 </overview>
+<contents>
+This file has these sections, in order.
+- general strategies
+- common errors
+- debugging techniques
+- long error messages
+- wrong library types
+- prevention
+</contents>
+
 
 <general_strategies>
 <read_bottom_up>

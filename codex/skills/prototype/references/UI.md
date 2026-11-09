@@ -1,3 +1,12 @@
+<contents>
+This file has these sections, in order.
+- ui prototype
+- when it fits
+- two sub shapes
+- process
+- anti patterns
+</contents>
+
 <ui_prototype>
 A UI prototype generates several radically different UI variations on a single route, switchable from a floating bottom bar. The user flips between variants in the browser and picks one, or takes parts from each. Then the rest goes away.
 

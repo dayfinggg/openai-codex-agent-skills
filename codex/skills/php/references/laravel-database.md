@@ -1,6 +1,25 @@
 <overview>
 This file covers Eloquent models, query performance, advanced queries, and migrations for Laravel 12 and 13. Read it before you write or review queries, models, relationships, or schema changes.
 </overview>
+<contents>
+This file has these sections, in order.
+- eager loading
+- prevent lazy loading
+- select columns
+- large data sets
+- indexes
+- counts and aggregates
+- subqueries
+- inverse relations
+- relationships
+- scopes
+- casts
+- model attributes
+- model aware queries
+- queries outside views
+- migrations
+</contents>
+
 
 <eager_loading>
 Eager load a relationship with `with()` when code reads it on many models. Eager loading avoids the N+1 pattern of one query plus one query per model. Lazy loading is fine when the code may not need the relationship or loads only one model.

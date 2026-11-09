@@ -1,6 +1,20 @@
 <overview>
 Overloads give one function implementation several call signatures. TypeScript picks the signature that matches the arguments of each call.
 </overview>
+<contents>
+This file has these sections, in order.
+- syntax
+- resolution order
+- dom example
+- wrapping overloaded functions
+- class methods
+- call signatures in types
+- event handler pattern
+- overloads versus unions
+- pitfalls
+- when to use
+</contents>
+
 
 <syntax>
 Callers see only the overload signatures. The implementation signature comes last and must be compatible with every overload. Here `greet("Alice")` uses the first overload, and `greet("Alice", "Smith")` uses the second.

@@ -1,3 +1,15 @@
+<contents>
+This file has these sections, in order.
+- type stripping
+- limits
+- erasable syntax
+- file extensions
+- tsconfig development
+- tsconfig build
+- package json
+- type checking
+</contents>
+
 <type_stripping>
 Node.js runs TypeScript files directly by stripping the type annotations. It does no type checking and no transform. Stripping is on by default since Node.js 23.6 and 22.18, and it is stable since 25.2 and 24.12. So `node app.ts` works on every supported line without a flag. Node.js 26 removed `--experimental-transform-types`, so enums and other transformed syntax no longer run at all.
 

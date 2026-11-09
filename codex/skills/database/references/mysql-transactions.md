@@ -1,3 +1,11 @@
+<contents>
+This file has these sections, in order.
+- isolation levels
+- row locks
+- deadlocks
+- connections
+</contents>
+
 <isolation_levels>
 Keep the InnoDB default of `REPEATABLE READ`. It is the most tested level and prevents phantom reads. Change the level only per session and only with a measured reason.
 

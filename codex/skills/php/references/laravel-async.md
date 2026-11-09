@@ -1,6 +1,16 @@
 <overview>
 This file covers work that runs outside the request in a Laravel application. It covers queued jobs, scheduled tasks, events, notifications, mail, and caching. It targets Laravel 13 (PHP 8.3 or newer) and notes where Laravel 12 differs.
 </overview>
+<contents>
+This file has these sections, in order.
+- queues
+- scheduling
+- events
+- notifications
+- mail
+- caching
+</contents>
+
 
 <queues>
 <job_settings>

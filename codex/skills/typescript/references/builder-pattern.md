@@ -1,6 +1,19 @@
 <overview>
 A builder builds a data structure through a chain of method calls. In TypeScript, each call can return a builder with an updated type. The type then tracks what the chain has added.
 </overview>
+<contents>
+This file has these sections, in order.
+- basic concept
+- implementation
+- how types build up
+- key techniques
+- query builder
+- required fields builder
+- default values
+- when to use
+- pitfalls
+</contents>
+
 
 <basic_concept>
 Each method returns the builder with more type information. After this chain, the result knows that user `matt` and post `post1` exist.

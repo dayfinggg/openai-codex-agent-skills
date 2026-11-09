@@ -9,6 +9,14 @@ The sections work on their own.
 
 All three rely on one mechanic. Run `npx playwright test --debug=cli` in the background, then run `playwright-cli attach tw-XXXX` to drive the paused page. [playwright-tests.md](playwright-tests.md) explains the debug and attach steps.
 </overview>
+<contents>
+This file has these sections, in order.
+- how generation works
+- plan
+- generate
+- heal
+</contents>
+
 
 <how_generation_works>
 Every action you perform with `playwright-cli` prints the matching Playwright TypeScript code. You can copy it directly into test files. In this session, the snapshot shows `e1` as the Email textbox and `e2` as the Password textbox. `e3` is the Sign In button.
@@ -339,6 +347,6 @@ After the user answers, update the spec for an intended change. For a regression
 </reconcile_with_the_spec>
 
 <iteration>
-Fix failures one at a time and rerun the affected test. If the test exposes an application bug outside scope, report the failing test and leave it enabled.
+Fix failures one at a time, and run the test again after each fix. Sometimes the test is correct, the app is wrong, and the user confirms the bug. Then mark the test with `test.fixme()`, and give the user's decision or the issue link in its description. Never skip a test silently.
 </iteration>
 </heal>

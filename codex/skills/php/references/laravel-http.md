@@ -1,6 +1,20 @@
 <overview>
 This file covers the HTTP edge of a Laravel application. It covers routes, controllers, validation, security, outbound HTTP calls, and exception handling. It targets Laravel 13 (PHP 8.3 or newer) and notes where Laravel 12 differs.
 </overview>
+<contents>
+This file has these sections, in order.
+- routing
+- validation
+- security
+- rate limiting
+- uploads
+- secrets and serialization
+- dependency audit
+- encrypted attributes
+- http client
+- error handling
+</contents>
+
 
 <routing>
 <route_model_binding>

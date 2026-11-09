@@ -1,6 +1,20 @@
 <overview>
 This file covers FastAPI facts from 2025 and 2026 that models often miss. It targets FastAPI 0.162 (October 2026) with Pydantic 2.9 or later and Starlette 1.x. Read the pinned FastAPI version in the lockfile first, and apply only the facts that version includes.
 </overview>
+<contents>
+This file has these sections, in order.
+- versions
+- install and cli
+- dependencies
+- lifespan
+- requests
+- responses
+- streaming
+- security
+- other features
+- testing
+</contents>
+
 
 <versions>
 FastAPI is still 0.x, and a minor release can break behavior. Read the [release notes](https://fastapi.tiangolo.com/release-notes/) for every version between the pinned one and the target before an upgrade. These floors and removals matter most.

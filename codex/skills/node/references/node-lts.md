@@ -1,3 +1,17 @@
+<contents>
+This file has these sections, in order.
+- release lines
+- typescript
+- language and globals
+- modules
+- configuration
+- permission model
+- test runner
+- sqlite
+- network
+- removed and deprecated
+</contents>
+
 <release_lines>
 Three Node.js lines have support in November 2026. Use the version that the project pins in `engines`, `.nvmrc`, `.node-version`, or its CI and container images.
 

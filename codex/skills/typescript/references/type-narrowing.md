@@ -1,6 +1,20 @@
 <overview>
 Narrowing refines a type through control flow analysis. After a check, TypeScript uses the narrower type inside the guarded code.
 </overview>
+<contents>
+This file has these sections, in order.
+- built in narrowing
+- discriminated unions
+- type predicates
+- assertion functions
+- opaque types
+- array filtering
+- aliased conditions
+- api response example
+- which technique
+- pitfalls
+</contents>
+
 
 <built_in_narrowing>
 `typeof` narrows primitives. After the check, `value` is `string` inside the `if` and `number` after it.

@@ -1,3 +1,9 @@
+<contents>
+This file has these sections, in order.
+- request waterfalls
+- bundle size
+</contents>
+
 <request_waterfalls>
 Waterfalls cost the most load time. Each sequential `await` adds a full network round trip, so removing them gives the largest gains. These rules apply to any async JavaScript, including Server Components, Server Actions, and request handlers.
 

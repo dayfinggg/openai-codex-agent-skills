@@ -1,3 +1,13 @@
+<contents>
+This file has these sections, in order.
+- event loop
+- worker threads
+- connection pooling
+- memory leaks
+- lazy loading
+- related
+</contents>
+
 <event_loop>
 Never run CPU-intensive work synchronously, because it blocks the event loop for every request. This function blocks while it hashes.
 

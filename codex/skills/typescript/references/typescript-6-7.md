@@ -1,6 +1,21 @@
 <overview>
 This file lists the compiler changes from TypeScript 5.9 to 7.1 beta that matter for real projects. Check the installed version first, because each fact applies only from the version it names. TypeScript 6.0 changed the defaults and deprecated old options. TypeScript 7.0 is the Go-based native compiler, and it turns every 6.0 deprecation into a hard error. The TypeScript team recommends a move to 6.0 before 7.0.
 </overview>
+<contents>
+This file has these sections, in order.
+- changed defaults
+- removed options
+- syntax changes
+- module settings
+- new config
+- named files
+- standard library
+- inference changes
+- native compiler
+- compiler api
+- javascript checking
+</contents>
+
 
 <changed_defaults>
 TypeScript 6.0 changed seven defaults, and 7.0 keeps them. A project that relied on an old default must now set the option explicitly.

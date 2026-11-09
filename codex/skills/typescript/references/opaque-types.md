@@ -1,6 +1,19 @@
 <overview>
 Opaque types, also called branded or nominal types, create distinct types from a primitive. They stop the mix-up of values that share a primitive type but mean different things.
 </overview>
+<contents>
+This file has these sections, in order.
+- the problem
+- creating opaque types
+- type predicates
+- assertion functions
+- predicate versus assertion
+- registration example
+- factory functions
+- when to use
+- pitfalls
+</contents>
+
 
 <the_problem>
 TypeScript compares types by structure, so two aliases of `string` are interchangeable. The last call passes a post ID where a user ID belongs, and it compiles without an error.

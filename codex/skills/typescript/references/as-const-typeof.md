@@ -1,6 +1,17 @@
 <overview>
 The pair `as const` and `typeof` derives types from runtime values. One object then serves as the single source of truth at runtime and at compile time.
 </overview>
+<contents>
+This file has these sections, in order.
+- as const
+- typeof
+- object values
+- subset selection
+- when to use
+- pitfalls
+- complete example
+</contents>
+
 
 <as_const>
 A const assertion makes an object deeply readonly and keeps literal types instead of widened types. Without `as const`, this object has the type `{ GROUP: string; ANNOUNCEMENT: string }`.

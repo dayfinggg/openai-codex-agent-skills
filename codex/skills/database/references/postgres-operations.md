@@ -1,3 +1,13 @@
+<contents>
+This file has these sections, in order.
+- server settings
+- pooling
+- prepared statements
+- timeouts
+- privileges
+- row level security
+</contents>
+
 <server_settings>
 `ALTER SYSTEM`, `postgresql.conf` edits, and pooler config changes affect every session on the server. On a shared or production server they are production commands, so they need the user's confirmation first.
 </server_settings>

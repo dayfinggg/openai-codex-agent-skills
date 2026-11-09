@@ -1,3 +1,13 @@
+<contents>
+This file has these sections, in order.
+- env files
+- validation
+- avoid node env
+- config object
+- env file layout
+- production secrets
+</contents>
+
 <env_files>
 Node.js loads environment files with the built-in `--env-file` flag. The flag is stable since Node.js 24.10 and 22.21. With several files, later files override earlier ones.
 

@@ -1,6 +1,18 @@
 <overview>
 An indexed access type gets the element types of an array or tuple. The index `[number]` gives the union of all element types.
 </overview>
+<contents>
+This file has these sections, in order.
+- basic concept
+- element types
+- tuple versus array
+- parameter types
+- when to use
+- access control example
+- pitfalls
+- conditional access
+</contents>
+
 
 <basic_concept>
 A numeric index works like a string key on an object. In this example, `FirstRole` is `"user"`, `SecondRole` is `"admin"`, and `AnyRole` is `"user" | "admin" | "anonymous"`.

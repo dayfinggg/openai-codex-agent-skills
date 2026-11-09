@@ -1,6 +1,17 @@
 <overview>
 TypeScript widens literal types when it infers objects and arrays. A type-safe API often needs the literal types deep inside a nested argument. A `const` type parameter keeps them without any library and without work for the caller.
 </overview>
+<contents>
+This file has these sections, in order.
+- the problem
+- const type parameters
+- caller as const
+- router example
+- common uses
+- comparison
+- pitfalls
+</contents>
+
 
 <the_problem>
 Default inference widens nested literals. In this example, `TConfig` is inferred with `search: string[]`, not `["query", "page"]`.

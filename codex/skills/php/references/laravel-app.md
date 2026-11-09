@@ -1,6 +1,27 @@
 <overview>
 This file covers Laravel application structure, dependencies, naming, configuration, collections, and Blade views for Laravel 12 and 13. Read it when you add classes, wire dependencies, touch config or environment values, or work in Blade.
 </overview>
+<contents>
+This file has these sections, in order.
+- actions
+- dependency injection
+- framework conventions
+- naming
+- idiomatic syntax
+- utilities
+- deterministic order
+- locks
+- deferred work
+- context
+- concurrency
+- configuration
+- collections
+- blade
+- scripts and assets
+- view composers
+- fragments
+</contents>
+
 
 <actions>
 Extract a discrete business operation into an action class when that makes it easier to reuse or test. Laravel gives action classes no special meaning, so follow the project's naming and invocation style.

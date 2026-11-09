@@ -1,6 +1,18 @@
 <overview>
 The `infer` keyword captures part of a type inside a conditional type. It works like pattern matching, because you write a pattern and name the parts you want.
 </overview>
+<contents>
+This file has these sections, in order.
+- syntax
+- simple extractions
+- template literals
+- function types
+- constrained infer
+- recursive extraction
+- practical examples
+- pitfalls
+</contents>
+
 
 <syntax>
 Here `infer U` captures the type argument of `SomePattern` into `U`.

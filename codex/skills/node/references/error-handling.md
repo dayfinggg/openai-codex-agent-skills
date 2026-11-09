@@ -1,3 +1,13 @@
+<contents>
+This file has these sections, in order.
+- custom errors
+- checking error codes
+- async errors
+- process level errors
+- never swallow
+- cause chain
+</contents>
+
 <custom_errors>
 Use [@fastify/error](https://github.com/fastify/fastify-error) to create custom errors with codes. Each factory takes a code, a message format, and a status code.
 

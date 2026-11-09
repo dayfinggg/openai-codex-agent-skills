@@ -1,6 +1,17 @@
 <overview>
 This file holds Django facts that models often miss, current for November 2026, and an access control guide. It covers Django 5.2 LTS, 6.0, and 6.1, and Django REST framework (DRF). Read `django-performance.md` for query performance reviews.
 </overview>
+<contents>
+This file has these sections, in order.
+- versions
+- django 5 2
+- django 6 0
+- tasks framework
+- django 6 1
+- removed apis
+- access control
+</contents>
+
 
 <versions>
 Django 6.1 is the current feature release, and 6.1.3 is its latest patch. Check the installed version in `pyproject.toml`, the lockfile, or `python -m django --version` before you use a version-specific API.
