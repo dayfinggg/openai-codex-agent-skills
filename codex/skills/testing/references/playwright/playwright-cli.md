@@ -13,6 +13,20 @@ playwright-cli screenshot
 playwright-cli close
 ```
 </overview>
+<contents>
+This file has these sections, in order.
+- installation
+- commands
+- raw output
+- open parameters
+- windows urls
+- snapshots
+- targeting elements
+- sessions
+- examples
+- specific tasks
+</contents>
+
 
 <installation>
 Check for a local Playwright first, because a project install pins the version the tests use.

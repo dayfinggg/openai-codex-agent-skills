@@ -1,3 +1,16 @@
+<contents>
+This file has these sections, in order.
+- scope
+- built in runner
+- mocking
+- organization
+- snapshots
+- hooks
+- isolation
+- event emitter timing
+- running tests
+</contents>
+
 <scope>
 Use the test runner and the test layout the project already has. Add tests only when the `code_rules` block allows it. The patterns here use the built-in `node:test` runner, and most of them carry over to Vitest or Jest.
 </scope>

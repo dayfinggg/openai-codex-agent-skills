@@ -1,6 +1,14 @@
 <overview>
 This file covers test data, fakes, determinism, suite speed, and existing test features. It targets Laravel 12 or 13 with Pest 4 or 5, or PHPUnit 12 or 13. Read [laravel-testing.md](laravel-testing.md) first for what to test, names, and assertions.
 </overview>
+<contents>
+This file has these sections, in order.
+- test data
+- isolation
+- suite speed
+- existing features
+</contents>
+
 
 <test_data>
 <own_data>

@@ -1,3 +1,11 @@
+<contents>
+This file has these sections, in order.
+- browser loading
+- dom and events
+- storage
+- hot paths
+</contents>
+
 <browser_loading>
 The browser's loading and painting work decides how fast a page appears. These rules have a high impact, because each one removes blocking work from the first load.
 

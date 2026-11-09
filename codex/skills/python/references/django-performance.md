@@ -1,6 +1,21 @@
 <overview>
 This file is a method for reviewing Django code for validated performance issues. It covers Django 5.2 LTS, 6.0, and 6.1, and Django REST framework (DRF). Research the codebase to confirm each issue before you report it. This file is a modified version of Sentry's django-perf-review skill under Apache-2.0. The `license` field of `../SKILL.md` lists the changes, and the distribution `LICENSE` holds the license text.
 </overview>
+<contents>
+This file has these sections, in order.
+- review approach
+- impact categories
+- n plus one
+- unbounded querysets
+- missing indexes
+- write loops
+- inefficient patterns
+- validation requirements
+- output format
+- what not to report
+- false positives
+</contents>
+
 
 <review_approach>
 The review follows four principles.

@@ -26,8 +26,8 @@ True external dependencies are third-party services you do not control, such as 
 </seam_discipline>
 
 <testing_strategy>
-Preserve regression coverage while changing the test boundary.
-- Retire an old test only when its behavior is covered at the new interface and its removal is part of the authorized refactor.
+New tests replace the old ones instead of adding a layer on top.
+- Once tests at the deepened module's interface cover the behavior, the old unit tests on the shallow modules become waste. Delete them.
 - Write the new tests at the deepened module's interface, because the interface is the test surface.
 - Assert on observable outcomes through the interface, not on internal state.
 - Tests should survive internal refactors, because they describe behavior and not implementation. A test that must change with the implementation is testing past the interface.

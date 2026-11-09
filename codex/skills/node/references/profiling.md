@@ -1,3 +1,12 @@
+<contents>
+This file has these sections, in order.
+- flame graphs
+- load testing
+- built in profiling
+- workflow
+- tool comparison
+</contents>
+
 <flame_graphs>
 Use [@platformatic/flame](https://github.com/platformatic/flame) for CPU and heap profiles with flame graphs. `flame run` starts the application with profiling on. On exit, flame writes a `.pb` profile, an `.html` flame graph, and a `.md` analysis. It does so for both CPU and heap.
 

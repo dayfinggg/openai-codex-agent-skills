@@ -1,6 +1,17 @@
 <overview>
 This file covers Doctrine ORM 3 and DBAL 4 in Symfony projects. It holds relations, fetching, read models, large datasets, transactions, multiple entity managers, and the ORM 3 removals. ORM 3.7 is the current release in November 2026, and DoctrineBundle 3.3 pairs with Symfony 7.4 and 8.x.
 </overview>
+<contents>
+This file has these sections, in order.
+- orm3 facts
+- relations
+- fetching
+- large datasets
+- transactions and locking
+- multiple entity managers
+- dbal4
+</contents>
+
 
 <orm3_facts>
 ORM 3 and DBAL 4 removed APIs that older code and training data still use. Check `composer.lock` for `doctrine/orm` and `doctrine/dbal` before you write against either major.

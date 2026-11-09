@@ -1,6 +1,21 @@
 <overview>
 Template literal types build and match string types with the syntax of JavaScript template literals. With `infer`, they parse and transform strings at the type level.
 </overview>
+<contents>
+This file has these sections, in order.
+- syntax
+- union expansion
+- pattern matching
+- case utilities
+- name generation
+- key transformation
+- route parameters
+- validation patterns
+- complex parsing
+- when to use
+- pitfalls
+</contents>
+
 
 <syntax>
 A template literal type describes a string pattern. The first assignment compiles, and the second fails, because `"Hi, World"` does not match the pattern.

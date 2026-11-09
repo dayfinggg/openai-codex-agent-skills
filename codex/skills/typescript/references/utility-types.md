@@ -1,6 +1,21 @@
 <overview>
 TypeScript ships utility types that transform types in common ways. Prefer them over a hand-written mapped or conditional type with the same effect.
 </overview>
+<contents>
+This file has these sections, in order.
+- parameters
+- return type
+- awaited
+- wrap library functions
+- record
+- partial and required
+- omit and pick
+- union filters
+- reusable wrapper
+- which utility
+- pitfalls
+</contents>
+
 
 <parameters>
 `Parameters<T>` returns the parameter types of a function type as a tuple. Here `FetchUserParams` is `[id: string, opts?: { timeout?: number } | undefined]`. A wrapper can reuse that tuple for its rest parameter.

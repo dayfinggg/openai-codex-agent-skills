@@ -1,6 +1,19 @@
 <overview>
 This file covers everyday Symfony work on 7.4 LTS and 8.x. It holds version facts, services, controllers, voters, forms, validation, DTOs, Messenger, console commands, and quality checks. Read [symfony-doctrine.md](symfony-doctrine.md) when the task touches Doctrine entities, relations, queries, or transactions.
 </overview>
+<contents>
+This file has these sections, in order.
+- version facts
+- services
+- controllers
+- voters
+- forms and validation
+- dtos and value objects
+- messenger
+- console commands
+- quality checks
+</contents>
+
 
 <version_facts>
 Symfony 8.1 is the current stable release in November 2026, and 8.2 is due at the end of November 2026. Symfony 7.4 is the LTS, with bug fixes until November 2028 and security fixes until November 2029. Symfony 8.x requires PHP 8.4 or later, and 7.4 requires PHP 8.2. Check `composer.lock` for the installed `symfony/*` version before you use a feature from the list below.

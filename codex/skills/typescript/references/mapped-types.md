@@ -1,6 +1,20 @@
 <overview>
 A mapped type builds a new type by transforming each property of an existing type. It iterates over keys and applies the same transformation to each one.
 </overview>
+<contents>
+This file has these sections, in order.
+- syntax
+- modifiers
+- key remapping
+- filtering keys
+- transforming values
+- deep mapped types
+- practical examples
+- combining mapped types
+- pitfalls
+- when to use
+</contents>
+
 
 <syntax>
 A mapped type iterates over a union of keys, usually `keyof T`.

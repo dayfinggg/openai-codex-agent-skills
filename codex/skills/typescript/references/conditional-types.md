@@ -1,6 +1,21 @@
 <overview>
 Conditional types express if and else logic at the type level. They use `extends` to test whether one type is assignable to another and return a type for each case.
 </overview>
+<contents>
+This file has these sections, in order.
+- syntax
+- null check
+- chained conditions
+- distribution
+- optional features
+- filtering
+- recursive conditions
+- tuple checks
+- common patterns
+- when to use
+- pitfalls
+</contents>
+
 
 <syntax>
 The condition checks whether `SomeType` is assignable to `OtherType`.

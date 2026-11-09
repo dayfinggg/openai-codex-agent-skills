@@ -1,6 +1,21 @@
 <overview>
 Generics let one function, type, or class work with many types and keep the type information. They are the base of most type-safe APIs.
 </overview>
+<contents>
+This file has these sections, in order.
+- generic functions
+- inference dependencies
+- constraints
+- defaults
+- inference needs usage
+- multiple parameters
+- keyof with generics
+- generic classes
+- complete example
+- when to use
+- pitfalls
+</contents>
+
 
 <generic_functions>
 A function that takes and returns `any` loses the type of its input.

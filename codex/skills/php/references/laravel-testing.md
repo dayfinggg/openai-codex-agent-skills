@@ -1,6 +1,18 @@
 <overview>
 This file covers test design and review in Laravel 12 or 13. It targets Pest 4 or 5 and PHPUnit 12 or 13. It covers what to test, names, assertions, endpoint tests, browser tests, and security tests. Read [laravel-testing-data.md](laravel-testing-data.md) for factories, fakes, time, suite speed, and features that already do the work.
 </overview>
+<contents>
+This file has these sections, in order.
+- frameworks
+- what to test
+- naming and structure
+- assertions
+- endpoint tests
+- browser tests
+- security tests
+- reviewing tests
+</contents>
+
 
 <frameworks>
 Check `composer.json` to see whether the project uses Pest or PHPUnit, and which major version. Write each new test in the style of the tests in the same directory. Each section below gives the Pest form first and the PHPUnit form second where they differ.

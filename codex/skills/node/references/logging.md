@@ -1,3 +1,15 @@
+<contents>
+This file has these sections, in order.
+- pino
+- log levels
+- transports
+- child loggers
+- redaction
+- debug module
+- util debuglog
+- sensitive data
+</contents>
+
 <pino>
 Use [pino](https://github.com/pinojs/pino) for fast, structured JSON logging. Pass context as an object first and the message second.
 

@@ -1,3 +1,15 @@
+<contents>
+This file has these sections, in order.
+- triggers
+- pipeline
+- csv etl pattern
+- chained transforms
+- async iteration
+- readable from
+- backpressure
+- stream consumers
+</contents>
+
 <triggers>
 Use `pipeline()` with explicit async generator transforms for CSV, ETL, ingestion, and large files. The same applies to transform streams, backpressure, and line-by-line processing.
 </triggers>

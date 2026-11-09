@@ -1,6 +1,15 @@
 <overview>
 A flaky test passes or fails without a code change. Flaky tests erode trust in the suite and waste debugging time. Find the root cause and fix it, as the `debugging` block of the coding instructions requires. A retry, a longer timeout, or a skipped test hides the fault. The `verification` block rules out each of them.
 </overview>
+<contents>
+This file has these sections, in order.
+- find the timing out test
+- common causes
+- debugging strategies
+- prevention
+- ci flakiness
+</contents>
+
 
 <find_the_timing_out_test>
 Six techniques find the test or file that times out.

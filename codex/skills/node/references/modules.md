@@ -1,3 +1,14 @@
+<contents>
+This file has these sections, in order.
+- prefer esm
+- file extensions
+- barrel exports
+- named exports
+- dynamic imports
+- esm paths
+- require esm
+</contents>
+
 <prefer_esm>
 Use ES Modules (ESM) for new projects. In an existing project, keep the module system it already uses. `"type": "module"` in `package.json` makes `.js` files ESM.
 

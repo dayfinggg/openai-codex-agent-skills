@@ -1,3 +1,16 @@
+<contents>
+This file has these sections, in order.
+- n plus one
+- keyset pagination
+- upsert
+- short transactions
+- deadlocks
+- queues
+- explain
+- statistics
+- bulk loads
+</contents>
+
 <n_plus_one>
 An N+1 pattern runs one query per item in a loop, so 100 users cost 101 round trips. Collect the IDs and query once with an array parameter, or join the tables. The application passes the IDs as one array value.
 

@@ -1,3 +1,14 @@
+<contents>
+This file has these sections, in order.
+- data types
+- primary keys
+- foreign key indexes
+- idempotent constraints
+- identifiers
+- partial indexes
+- jsonb indexes
+</contents>
+
 <data_types>
 The right column types prevent overflow, time zone bugs, and rounding errors.
 - Use `bigint` for IDs, because `int` overflows at about 2.1 billion.
