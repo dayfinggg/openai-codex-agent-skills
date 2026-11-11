@@ -28,7 +28,7 @@ These rules decide how a factory builds a record.
 These factory calls use a named state, a shared parent, and a sequence.
 
 ```php
-$organization = Organization::factory()->onPlan(BillingPlan::PRO)->create();
+$organization = Organization::factory()->onPlan(BillingPlan::Pro)->create();
 
 $environment = Environment::factory()->recycle($organization)->create();
 
@@ -52,7 +52,7 @@ it('forbids roles other than admin', function (Role $role) {
     $this->actingAs(User::factory()->hasOrganization($role)->create())
         ->post('/settings')
         ->assertForbidden();
-})->with(collect(Role::cases())->reject(fn (Role $role) => $role === Role::ADMIN));
+})->with(collect(Role::cases())->reject(fn (Role $role) => $role === Role::Admin));
 ```
 
 This PHPUnit test does the same with a data provider. A data provider method is `public static`.
@@ -61,7 +61,7 @@ This PHPUnit test does the same with a data provider. A data provider method is 
 public static function nonAdminRoles(): array
 {
     return collect(Role::cases())
-        ->reject(fn (Role $role): bool => $role === Role::ADMIN)
+        ->reject(fn (Role $role): bool => $role === Role::Admin)
         ->mapWithKeys(fn (Role $role): array => [$role->value => [$role]])
         ->all();
 }

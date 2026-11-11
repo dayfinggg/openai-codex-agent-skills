@@ -1,12 +1,12 @@
 ---
 name: agentdocs
-description: Guides the writing and audit of documents that agents read. Use when creating, editing, or reviewing a skill, its description, or its reference files, and when writing or modifying AGENTS.md, CLAUDE.md, a rule file, or a doc that an agent reaches through a pointer.
+description: Guides the writing and audit of documents that agents read. Use when creating, editing, or reviewing a skill, its description, or its reference files, when installing or adapting a skill from another source, and when writing or modifying AGENTS.md, CLAUDE.md, a rule file, or a doc that an agent reaches through a pointer.
 ---
 
 <overview>
 This skill is a reference for writing any document an agent consumes. That covers a skill, an `AGENTS.md` or `CLAUDE.md`, and a doc reached by a pointer. The packaging differs, but the writing does not. The same levers make each one predictable. The agent then takes the same process every run, though its output may differ.
 
-When the document is a Codex skill, read [SKILL-MECHANICS.md](references/SKILL-MECHANICS.md). It covers frontmatter, the invocation choice, the skill listing, and router skills. For another harness, check its own skill documentation before applying invocation fields or context budgets.
+When the document is a Codex skill, or you take a skill from another source, read [SKILL-MECHANICS.md](references/SKILL-MECHANICS.md). It covers frontmatter, the invocation choice, the skill listing, the body and its reference files, third-party skills, and router skills. For another harness, check its own skill documentation before applying invocation fields or context budgets.
 </overview>
 
 <context_pointers>

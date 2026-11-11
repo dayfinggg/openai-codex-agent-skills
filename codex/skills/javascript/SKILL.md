@@ -16,8 +16,27 @@ Some rules name a library, such as SWR, TanStack Query, `lru-cache`, or `better-
 </project_first>
 
 <boundary>
-This skill covers the JavaScript language, browser APIs, React, and Next.js. Types, generics, and `tsconfig.json` belong to the `typescript` skill. The Node.js runtime belongs to the `node` skill. For server frameworks, use their documentation for the installed version.
+This skill covers the JavaScript language, browser APIs, React, and Next.js. The language and browser rules hold for any framework, and a project on another UI framework follows its existing patterns and that framework's documentation for the installed version. Types, generics, and `tsconfig.json` belong to the `typescript` skill. The Node.js runtime belongs to the `node` skill. For server frameworks, use their documentation for the installed version.
 </boundary>
+
+<priorities>
+The reference files hold the React and browser rules, which this file does not repeat. Read a file whole before you change code on its topic, also when the work reaches that topic later in the task.
+- When code awaits several independent operations or a page loads too much JavaScript, read [react-async-and-bundle.md](references/react-async-and-bundle.md).
+- When you write Server Components, Server Actions, server-side caches, or props that cross the server and client boundary, read [react-server.md](references/react-server.md).
+- When you write hooks, effects, state updates, or components that render too often or mismatch on hydration, read [react-rendering.md](references/react-rendering.md).
+- When you add scripts or preloads, render long lists, or touch the DOM, storage, or a hot loop, read [js-performance.md](references/js-performance.md).
+
+The files rank rules by their effect on load time and responsiveness. Fix the higher categories first, because a single request waterfall or a large bundle costs more than many extra re-renders.
+
+| Category | Impact | Reference file |
+|---|---|---|
+| Request waterfalls | Critical | [react-async-and-bundle.md](references/react-async-and-bundle.md) |
+| Bundle size | Critical | [react-async-and-bundle.md](references/react-async-and-bundle.md) |
+| Server rendering and Server Components | High | [react-server.md](references/react-server.md) |
+| Script loading, resource hints, long lists | High | [js-performance.md](references/js-performance.md) |
+| Re-renders and rendering | Medium | [react-rendering.md](references/react-rendering.md) |
+| DOM, storage, and JavaScript hot paths | Low to medium | [js-performance.md](references/js-performance.md) |
+</priorities>
 
 <nextjs>
 Next.js 16.2 and later ship [version-matched docs](https://nextjs.org/docs/app/guides/ai-agents) inside the package at `node_modules/next/dist/docs/`. The folder mirrors the structure of nextjs.org/docs, with `01-app/`, `02-pages/`, and `03-architecture/`. For Next.js work, check the installed `next` version first. On 16.2 or later, read the relevant guide in that folder before you write code. Its APIs may differ from your training data.
@@ -28,25 +47,10 @@ From 16.3, `next dev` writes a managed block between `nextjs-agent-rules` marker
 </nextjs>
 
 <react>
-React 19.3 is the current release. React 19.2 added `<Activity>` and `useEffectEvent`. React 19.3 made `<ViewTransition>` and `<Fragment ref>` stable and added `addTransitionType` and `browser()` from `react-dom`. Check the installed version before you use any of these.
+React 19.3 is the current release in November 2026. React 19.2 added `<Activity>` and `useEffectEvent`. React 19.3 made `<ViewTransition>` and `<Fragment ref>` stable and added `addTransitionType` and `browser()` from `react-dom`. Check the installed version before you use any of these.
 
 React Compiler 1.0 is stable and memoizes components and values on its own. When the project has it on, write new code without `memo`, `useMemo`, or `useCallback`. Keep them only where a value must stay stable as an effect dependency. Leave existing memoization in place, because removing it can change the compiled output. Rules in the reference files that add manual memoization apply only to projects without the compiler.
 </react>
-
-<priorities>
-The reference files rank rules by their effect on load time and responsiveness. Fix the higher categories first, because a single request waterfall or a large bundle costs more than many extra re-renders.
-
-| Category | Impact | Reference file |
-|---|---|---|
-| Request waterfalls | Critical | [react-async-and-bundle.md](references/react-async-and-bundle.md) |
-| Bundle size | Critical | [react-async-and-bundle.md](references/react-async-and-bundle.md) |
-| Server rendering and Server Components | High | [react-server.md](references/react-server.md) |
-| Script loading, resource hints, long lists | High | [js-performance.md](references/js-performance.md) |
-| Re-renders and rendering | Medium | [react-rendering.md](references/react-rendering.md) |
-| DOM, storage, and JavaScript hot paths | Low to medium | [js-performance.md](references/js-performance.md) |
-
-Read each file whole before you change code on its topic. Read [react-async-and-bundle.md](references/react-async-and-bundle.md) when code awaits several independent operations or when a page loads too much JavaScript. Read [react-server.md](references/react-server.md) when you write Server Components, Server Actions, server-side caches, or props that cross the server and client boundary. Read [react-rendering.md](references/react-rendering.md) when you write hooks, effects, state updates, or components that render too often or mismatch on hydration. Read [js-performance.md](references/js-performance.md) when you add scripts or preloads, render long lists, or touch the DOM, storage, or a hot loop.
-</priorities>
 
 <ecmascript>
 ES2025 and ES2026 add features that older training data lacks. They come from the [TC39 finished proposals list](https://github.com/tc39/proposals/blob/main/finished-proposals.md). Use one only when the project's target runtimes support it. The `browserslist` setting, the Node.js version, or the TypeScript `lib` setting shows this. Otherwise keep the older form or a polyfill the project already has.

@@ -50,7 +50,7 @@ import { preload, preinit } from 'react-dom'
 
 export default function RootLayout({ children }) {
   preload('/fonts/inter.woff2', { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' })
-  preinit('/styles/critical.css', { as: 'style' })
+  preinit('/styles/critical.css', { as: 'style', precedence: 'high' })
 
   return (
     <html>
@@ -218,73 +218,6 @@ const sorted = useMemo(
 
 `toReversed()`, `toSpliced()`, and `with()` are the immutable forms of `reverse()`, `splice()`, and index assignment. They are ES2023, Baseline since 2023, and in Node.js 20. For older targets, copy first, as in `[...items].sort(compare)`.
 </immutable_array_methods>
-
-<length_check_first>
-Before an expensive array comparison, such as a sort or a deep equal, compare the lengths. Arrays of different length cannot be equal. This version also avoids mutating the inputs and returns at the first difference.
-
-```typescript
-function hasChanges(current: string[], original: string[]) {
-  if (current.length !== original.length) {
-    return true
-  }
-  const currentSorted = current.toSorted()
-  const originalSorted = original.toSorted()
-  for (let i = 0; i < currentSorted.length; i++) {
-    if (currentSorted[i] !== originalSorted[i]) {
-      return true
-    }
-  }
-  return false
-}
-```
-</length_check_first>
-
-<lookups>
-Convert an array to a `Set` or a `Map` when code looks up items in it repeatedly. `includes()` and `find()` scan the whole array on each call. This version builds the map once, so each order finds its user in constant time.
-
-```typescript
-function processOrders(orders: Order[], users: User[]) {
-  const userById = new Map(users.map(u => [u.id, u]))
-
-  return orders.map(order => ({
-    ...order,
-    user: userById.get(order.userId)
-  }))
-}
-```
-
-For 1000 orders and 1000 users, this cuts about a million comparisons to about two thousand operations. A membership test works the same way with `new Set(allowedIds)` and `has()`.
-</lookups>
-
-<cache_function_results>
-Cache the results of a pure function that runs many times with the same input during render. A module-level `Map` works in components, utilities, and event handlers alike. This version slugifies each unique name once.
-
-```typescript
-const slugifyCache = new Map<string, string>()
-
-function cachedSlugify(text: string): string {
-  const cached = slugifyCache.get(text)
-  if (cached !== undefined) return cached
-  const result = slugify(text)
-  slugifyCache.set(text, result)
-  return result
-}
-```
-
-Bound the cache or clear it when the input set can grow without limit.
-</cache_function_results>
-
-<single_pass_iteration>
-Combine several passes over one array when the array is large. `flatMap` maps and filters in one pass without an intermediate array. This version collects the names of active users in one pass.
-
-```typescript
-const userNames = users.flatMap(user =>
-  user.isActive ? [user.name] : []
-)
-```
-
-Several `filter()` calls on one array can also become one `for...of` loop that pushes into each result. To find a minimum or a maximum, loop once instead of sorting, which costs O(n log n). `Math.min(...values)` works for small arrays, but a very large spread can throw a `RangeError`.
-</single_pass_iteration>
 
 <hoist_regexp>
 Create a `RegExp` outside render, at module level, or memoize it on its inputs. Escape user input with `RegExp.escape()` where the targets support it. A global regex with the `g` flag keeps state in `lastIndex`. A shared instance then gives different results on repeated `test()` calls. This highlighter builds its regex only when the query changes.

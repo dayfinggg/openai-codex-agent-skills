@@ -24,7 +24,7 @@ TypeScript 6.0 changed seven defaults, and 7.0 keeps them. A project that relied
 |---|---|---|
 | `strict` | `true` | Fix the new errors, or set `"strict": false` |
 | `module` | `esnext` | Set the module mode the runtime needs |
-| `target` | The newest stable ECMAScript version before `esnext`, now `es2025` | Pin a target when output must stay the same |
+| `target` | The most recent supported ECMAScript version, which is `es2025` in 6.0 and 7.0 | Pin a target when output must stay the same |
 | `types` | `[]` | List global packages, as in `"types": ["node", "jest"]` |
 | `rootDir` | The directory that holds `tsconfig.json` | Set it, as in `"rootDir": "./src"` |
 | `noUncheckedSideEffectImports` | `true` | Add declarations for intended side-effect imports |
@@ -108,7 +108,7 @@ Choose the module mode by the runtime that executes the output.
 | Code that a bundler processes | `module` `preserve` with `moduleResolution` `bundler` |
 | CommonJS output during a move off `node10` resolution | `module` `commonjs` with `moduleResolution` `bundler`, allowed from 6.0 |
 
-From 6.0, `nodenext` and `bundler` resolution support package `imports` keys that start with `#/`. Node.js supports them in newer Node.js 20 releases. This `package.json` entry maps `#/utils.js` to `./dist/utils.js`.
+From 6.0, `nodenext` and `bundler` resolution support package `imports` keys that start with `#/`. Node.js supports them from 24.14 and 25.4. This `package.json` entry maps `#/utils.js` to `./dist/utils.js`.
 
 ```json
 {

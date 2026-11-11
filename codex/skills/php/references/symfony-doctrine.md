@@ -1,5 +1,5 @@
 <overview>
-This file covers Doctrine ORM 3 and DBAL 4 in Symfony projects. It holds relations, fetching, read models, large datasets, transactions, multiple entity managers, and the ORM 3 removals. ORM 3.7 is the current release in November 2026, and DoctrineBundle 3.3 pairs with Symfony 7.4 and 8.x.
+This file covers Doctrine ORM 3 and DBAL 4 in Symfony projects. It holds relations, fetching, read models, large datasets, transactions, multiple entity managers, and the ORM 3 removals. ORM 3.7 is the current release in November 2026, and DoctrineBundle 3.3 pairs with Symfony 7.4 and 8.x and requires PHP 8.4.
 </overview>
 <contents>
 This file has these sections, in order.
@@ -27,7 +27,7 @@ ORM 3 and DBAL 4 removed APIs that older code and training data still use. Check
 | `Tools\Pagination\Paginator` | Deprecated in ORM 3.7 | `OffsetPaginator` with a `Window` |
 | DBAL `query()`, `exec()`, `fetchAll()` | Removed in DBAL 4 | `fetchAllAssociative()`, `executeQuery()`, `executeStatement()` |
 
-On PHP 8.4, ORM 3.5 deprecates disabling native lazy objects, which replace generated proxy classes. DoctrineBundle 3.1 and later enable them by default and deprecate the `enable_native_lazy_objects` option. With DBAL 4, the `AUTO` id strategy on PostgreSQL resolves to `IDENTITY` instead of a sequence.
+On PHP 8.4, ORM 3.5 deprecates disabling native lazy objects, which replace generated proxy classes. DoctrineBundle 3.1 and later always enable them and deprecate the `enable_native_lazy_objects` option. With DBAL 4, the `AUTO` id strategy on PostgreSQL resolves to `IDENTITY` instead of a sequence.
 </orm3_facts>
 
 <relations>

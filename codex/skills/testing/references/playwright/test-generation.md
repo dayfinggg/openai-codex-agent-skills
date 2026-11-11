@@ -255,7 +255,7 @@ playwright-cli resume
 
 Always start from the test, not from the app URL in `playwright-cli`. Then you capture the setup the test does.
 
-Walk the scenario's steps one by one with `playwright-cli`. The spec is the plan, and the live app is the source of truth. A step can be vague, as in "click the button" with several buttons. It can name an element that no longer exists, or contradict what the app does. Then update the spec to match what the app really does, and continue. Editing the spec during generation is expected.
+Walk the scenario's steps one by one with `playwright-cli`. The spec is the plan, and the live app is the source of truth for how a step is carried out. A step can be vague, as in "click the button" with several buttons, or name an element that no longer exists. Then update the spec to match what the app really does, and continue. Editing the spec during generation is expected. When the app contradicts an outcome the spec expects, decide first whether the app changed on purpose or broke, as the `reconcile_with_the_spec` block describes, because a spec rewritten to match a defect hides it.
 
 Every action prints the matching Playwright TypeScript, as `how_generation_works` describes.
 

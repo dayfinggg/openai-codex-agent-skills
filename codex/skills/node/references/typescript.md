@@ -11,7 +11,7 @@ This file has these sections, in order.
 </contents>
 
 <type_stripping>
-Node.js runs TypeScript files directly by stripping the type annotations. It does no type checking and no transform. Stripping is on by default since Node.js 23.6 and 22.18, and it is stable since 25.2 and 24.12. So `node app.ts` works on every supported line without a flag. Node.js 26 removed `--experimental-transform-types`, so enums and other transformed syntax no longer run at all.
+Node.js runs TypeScript files directly by stripping the type annotations. It does no type checking and no transform. Stripping is on by default since Node.js 23.6 and 22.18, and it is stable since 25.2 and 24.12. So `node app.ts` works on every supported line without a flag. Node.js 26 removed `--experimental-transform-types`. On 22 and 24 that flag still runs enums and other transformed syntax, and without it they fail on every line.
 
 ```bash
 node app.ts

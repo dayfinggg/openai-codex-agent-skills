@@ -3,12 +3,10 @@ This file has these sections, in order.
 - scope
 - built in runner
 - mocking
-- organization
 - snapshots
-- hooks
-- isolation
 - event emitter timing
 - running tests
+- flaky runs
 </contents>
 
 <scope>
@@ -94,19 +92,6 @@ t.mock.module('./dependency.ts', {
 ```
 </mocking>
 
-<organization>
-Many Node.js projects keep each test next to its source file. Follow the layout the project already uses.
-
-```
-src/
-  user/
-    user.service.ts
-    user.service.test.ts
-    user.repository.ts
-    user.repository.test.ts
-```
-</organization>
-
 <snapshots>
 Snapshots fit complex output. `t.assert.snapshot` stores values in a snapshot file next to the test. `t.assert.fileSnapshot(value, path)` (Node.js 23.7 and 22.14) stores one value in a file of your choice. Run with `--test-update-snapshots` to create or update the snapshots.
 
@@ -121,74 +106,6 @@ describe('ReportGenerator', () => {
 });
 ```
 </snapshots>
-
-<hooks>
-Lifecycle hooks set up and tear down shared resources. Here `before` and `after` manage the connection, and each test runs in a transaction that `afterEach` rolls back.
-
-```typescript
-import { describe, it, before, after, beforeEach, afterEach } from 'node:test';
-
-describe('Database tests', () => {
-  let db: Database;
-
-  before(async () => {
-    db = await Database.connect(testConfig);
-  });
-
-  after(async () => {
-    await db.disconnect();
-  });
-
-  beforeEach(async () => {
-    await db.beginTransaction();
-  });
-
-  afterEach(async () => {
-    await db.rollback();
-  });
-
-  it('should insert record', async (t) => {
-    await db.insert({ name: 'test' });
-    const records = await db.findAll();
-    t.assert.equal(records.length, 1);
-  });
-});
-```
-</hooks>
-
-<isolation>
-Tests must not share mutable state. In this file, test 2 passes only when test 1 runs first.
-
-```typescript
-let counter = 0;
-
-it('test 1', (t) => {
-  counter++;
-  t.assert.equal(counter, 1);
-});
-
-it('test 2', (t) => {
-  counter++;
-  t.assert.equal(counter, 2);
-});
-```
-
-Keep the state inside each test instead. Each test now passes alone and in any order.
-
-```typescript
-it('test 1', (t) => {
-  let counter = 0;
-  counter++;
-  t.assert.equal(counter, 1);
-});
-
-it('test 2', (t) => {
-  let counter = 0;
-  counter++;
-  t.assert.equal(counter, 1);
-});
-```
-</isolation>
 
 <event_emitter_timing>
 Register an `EventEmitter` listener before you trigger the action that emits the event. An event emitted before `on()`, `once()`, or `events.once()` is attached is lost. The test then hangs or fails at random. This test subscribes first and starts the work second.
@@ -222,3 +139,7 @@ node --test --watch
 
 Coverage is still experimental. `--test-coverage-lines`, `--test-coverage-branches`, and `--test-coverage-functions` set minimum thresholds. [node-lts.md](node-lts.md) lists newer runner features, such as global setup, tags, reruns, and expected failures.
 </running_tests>
+
+<flaky_runs>
+For a test that fails only sometimes, follow the flaky test procedure of the `testing` skill. These `node:test` options serve it. `--test-name-pattern="<name>"` runs one test, and `--test-timeout=<ms>` makes a hang fail with the test name. `--test-concurrency=<n>` raises the load to expose a race, and a shell loop repeats a file. `--test-rerun-failures <file>` (24.7) stores the failed tests of a run and runs only those next time. `t.waitFor()` (23.7 and 22.14) retries an assertion until it passes, with a 50 ms interval and a 1000 ms timeout by default, so no test needs a fixed sleep. `t.mock.timers.enable({ apis: ['Date'] })` pins the clock, and mock timers are stable since 23.1. Register cleanup with `t.after()` right after you create a resource, and bind port 0 so the system assigns a free port.
+</flaky_runs>

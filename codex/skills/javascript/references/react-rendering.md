@@ -1,3 +1,11 @@
+<contents>
+This file has these sections, in order.
+- components and state, with inline components, derived state, events in handlers, effect events, functional updates, and lazy initial state
+- effects and reads, with narrow dependencies, split work, deferred reads, and refs for transient values
+- transitions, deferred values, manual memoization, and activity
+- conditional rendering, hydration without flicker, one-time app init, and client data fetching
+</contents>
+
 <react_rendering>
 Extra renders and slow commits make the UI feel sluggish. These rules reduce wasted work in components, hooks, and effects. When React Compiler is on, skip the rules that only add manual memoization. The `react` section of the skill explains why.
 
@@ -301,7 +309,7 @@ function Tracker() {
 </refs_for_transient_values>
 
 <transitions>
-Mark non-urgent updates as transitions, so urgent input stays responsive. Wrap frequent updates, such as scroll position, in `startTransition`. Use `useTransition` instead of a manual loading flag, because its `isPending` resets even when the work throws. A newer transition also supersedes a pending one. This search updates the input at once and the results inside a transition.
+Mark non-urgent updates as transitions, so urgent input stays responsive. Wrap frequent updates, such as scroll position, in `startTransition`. Use the `isPending` flag of `useTransition` instead of a manual loading flag, so React tracks the pending state. This search updates the input at once and the results inside a transition.
 
 ```tsx
 import { useTransition, useState } from 'react'

@@ -1,15 +1,29 @@
 ---
 name: php
 description: Gives current PHP practice for language features, Composer, static analysis, and tests, with Laravel and Symfony references. Use it whenever you write, review, upgrade, or set up PHP code, including Composer packages, PHPStan or Rector configuration, and PHPUnit or Pest tests. Use it for every Laravel or Symfony change, because it routes to framework references for Eloquent, validation, queues, testing, Doctrine, Messenger, forms, and voters.
-license: MIT. See the distribution LICENSE for each source and its license.
+license: MIT
 ---
 
 <project_first>
 The project's own PHP version and tools come first, as `code_rules` requires. Read `composer.json` for `require.php`, `config.platform.php`, the framework, and the dev tools. Read `composer.lock` or run `composer show <vendor/package>` for the installed versions. Use only language features that the lowest allowed PHP version supports. Run tools the way the project runs them, such as `composer` scripts, `vendor/bin/`, a Makefile, Docker, or Sail. The modern defaults in this skill apply to new projects, or when the user asks for them.
 </project_first>
 
+<framework_references>
+The framework reference files hold rules that this file does not repeat. Composer's `require` section shows the framework. Read a file whole before you change code on its topic, also when the work reaches that topic later in the task.
+- In a project that requires `laravel/framework`, read [laravel.md](references/laravel.md) first. It covers versions, structure, Artisan, and Pint.
+- For Eloquent models, queries, eager loading, indexes, and migrations, read [laravel-database.md](references/laravel-database.md).
+- For routes, controllers, middleware, form requests, validation, authorization, outbound HTTP calls, and error handling, read [laravel-http.md](references/laravel-http.md).
+- For queued jobs, scheduled tasks, events, notifications, mail, and caching, read [laravel-async.md](references/laravel-async.md).
+- For actions, dependency injection, config and environment values, locks, collections, and Blade, read [laravel-app.md](references/laravel-app.md).
+- For Pest or PHPUnit tests in a Laravel project, read [laravel-testing.md](references/laravel-testing.md), and for factories, fakes, time, and suite speed read [laravel-testing-data.md](references/laravel-testing-data.md).
+- In a project that requires `symfony/framework-bundle`, read [symfony.md](references/symfony.md). It targets Symfony 7.4 LTS and 8.x and covers services and autowiring, Messenger, forms and validation, voters, DTOs, and quality checks.
+- In a project that uses Doctrine ORM, also read [symfony-doctrine.md](references/symfony-doctrine.md) for relations, fetch modes, batch processing, and transactions with ORM 3.
+
+Every other rule of this file holds for any PHP code. A project on another framework, a CMS, or an engine of its own follows that code's existing patterns and its documentation for the installed version.
+</framework_references>
+
 <php_versions>
-PHP 8.5 is the current stable release. PHP 8.6 is at RC5 and its general availability is planned for November 19, 2026. Each branch gets 2 years of active support and 2 more years of security fixes, as [php.net](https://www.php.net/supported-versions.php) lists.
+On November 11, 2026, PHP 8.5 was the newest stable branch and PHP 8.6 was at RC5, with general availability planned for November 19, 2026. Each branch gets 2 years of active support and 2 more years of security fixes, as [php.net](https://www.php.net/supported-versions.php) lists.
 
 | Branch | Released | Active support until | Security fixes until |
 | --- | --- | --- | --- |
@@ -49,7 +63,7 @@ PHP 8.5 deprecates the backtick operator, the casts `(boolean)`, `(integer)`, `(
 </php_8_5>
 
 <php_8_6>
-PHP 8.6 is not released yet, so use its features only in a project that already requires 8.6. Its [UPGRADING](https://github.com/php/php-src/blob/PHP-8.6/UPGRADING) file lists these changes.
+Use PHP 8.6 features only in a project that already requires 8.6. Its [UPGRADING](https://github.com/php/php-src/blob/PHP-8.6/UPGRADING) file lists these changes.
 - Partial function application creates a closure with `?` for one missing argument and `...` for the rest.
 - `clamp()` limits a value to a range.
 - Readonly properties can declare default values.
@@ -71,7 +85,7 @@ The shared format is [PER Coding Style 3.1](https://www.php-fig.org/per/coding-s
 </code_style>
 
 <composer>
-Composer manages dependencies and autoloading. The current release is 2.11.
+Composer manages dependencies and autoloading. The current release in November 2026 is 2.11.
 - Add a package with `composer require vendor/package`, and a dev tool with `composer require --dev vendor/package`. Never edit `composer.lock` by hand.
 - Install from the lockfile with `composer install`, and in CI or production add `--no-dev --optimize-autoloader` where the project deploys that way.
 - Update one package with `composer update vendor/package --with-dependencies`. Add `--minimal-changes` to keep the other locked versions.
@@ -109,10 +123,3 @@ An existing project adopts Rector gradually with `withTypeCoverageLevel(0)`, `wi
 <testing>
 Use the test runner that the project already has. PHPUnit 13 needs PHP 8.4 and PHPUnit 12 needs PHP 8.3, and both [read metadata only from attributes](https://phpunit.de/announcements/phpunit-12.html). Write `#[Test]`, `#[DataProvider('cases')]`, and `#[CoversClass(Foo::class)]` instead of docblock annotations such as `@test`. Data provider methods are `public static`. Pest 5 runs on PHPUnit 13 and needs PHP 8.4, and Pest 4 runs on PHPUnit 12. Run one file or test with `vendor/bin/phpunit tests/FooTest.php --filter testName` or `vendor/bin/pest tests/FooTest.php --filter "name"`. The `tdd` and `testing` skills cover test design.
 </testing>
-
-<framework_references>
-Read the framework reference before you change code in a framework project. Composer's `require` section shows the framework.
-- A project that requires `laravel/framework` starts with [references/laravel.md](references/laravel.md). It covers versions, structure, Artisan, and Pint, and it links to the topic files `laravel-database.md`, `laravel-http.md`, `laravel-async.md`, `laravel-app.md`, `laravel-testing.md`, and `laravel-testing-data.md` (factories, fakes, time, and suite speed), all in `references/`.
-- A project that requires `symfony/framework-bundle` starts with [references/symfony.md](references/symfony.md). It targets Symfony 7.4 LTS and 8.x. It covers services and autowiring, Messenger, forms and validation, voters, DTOs, and quality checks.
-- A project that uses Doctrine ORM also reads [references/symfony-doctrine.md](references/symfony-doctrine.md) for relations, fetch modes, batch processing, and transactions with ORM 3.
-</framework_references>

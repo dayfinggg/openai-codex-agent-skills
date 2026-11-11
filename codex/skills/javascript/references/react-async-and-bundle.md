@@ -204,7 +204,7 @@ Skip this pattern for data that decides the layout, for search-critical content 
 A smaller initial bundle improves Time to Interactive and Largest Contentful Paint. These rules apply to any bundler. On Next.js, check its bundled docs first, because the framework handles some of these cases itself.
 
 <barrel_imports>
-Import from the module file instead of a barrel file that re-exports a whole library. Icon and component libraries can re-export thousands of modules from one entry file. Importing them can cost hundreds of milliseconds in development and on every cold start. Tree shaking does not help when the library is external to the bundle. This import loads the full entry module of each library.
+Import from the module file instead of a barrel file that re-exports a whole library. Icon and component libraries can re-export thousands of modules from one entry file. Importing them slows development builds and every cold start. Tree shaking does not help when the library is external to the bundle. This import loads the full entry module of each library.
 
 ```tsx
 import { Check, X, Menu } from 'lucide-react'

@@ -2,15 +2,13 @@
 This file has these sections, in order.
 - triggers
 - cache selection
-- sync memoization
 - async cache dedupe
 - lru cache
 - invalidation
-- when to cache
 </contents>
 
 <triggers>
-Choose a cache strategy and state the reason when the task has repeated async lookups. Other signals are duplicate concurrent requests, CSV enrichment, ETL transforms, N+1 remote calls, and hot keys.
+Add a cache only when repeated work causes a measured problem and the freshness requirements allow reuse. Typical signals are repeated async lookups, duplicate concurrent requests, enrichment calls in a stream transform, N+1 remote calls, and hot keys. State the reason for the strategy you choose.
 </triggers>
 
 <cache_selection>
@@ -20,25 +18,6 @@ Three choices cover most cases.
 - Use `async-cache-dedupe` when concurrent calls can request the same key and you want one in-flight request per key.
 - In stream or ETL code, prefer `async-cache-dedupe` for enrichment calls inside an `async function*` transform.
 </cache_selection>
-
-<sync_memoization>
-Use [mnemonist](https://github.com/Yomguithereal/mnemonist) for synchronous memoization. This function returns a cached user or loads and stores it.
-
-```typescript
-import { LRUCache } from 'mnemonist';
-
-const cache = new LRUCache<string, User>(1000);
-
-function getUser(id: string): User | undefined {
-  if (cache.has(id)) {
-    return cache.get(id);
-  }
-  const user = fetchUserSync(id);
-  cache.set(id, user);
-  return user;
-}
-```
-</sync_memoization>
 
 <async_cache_dedupe>
 Use [async-cache-dedupe](https://github.com/mcollina/async-cache-dedupe) for async operations with request deduplication. In this setup, `ttl` is the fresh time in seconds. `stale` is the extra time in which the cache serves a stale value while it revalidates.
@@ -144,19 +123,19 @@ const cache = createCache({
 Manual invalidation works per entry, per function, or for the whole cache. The three calls below do each in that order.
 
 ```typescript
-await cache.invalidate('getUser', '123');
+await cache.clear('getUser', '123');
 
 await cache.clear('getUser');
 
 await cache.clear();
 ```
 
-Reference-based invalidation tags entries with references and then clears every entry that carries a reference. Here `invalidateAll` clears both cached functions for user 123.
+Reference-based invalidation tags entries with references and then clears every entry that carries a reference. It is off by default, so the storage options turn it on. Here `invalidateAll` clears both cached functions for user 123.
 
 ```typescript
 const cache = createCache({
   ttl: 60,
-  storage: { type: 'memory' },
+  storage: { type: 'memory', options: { invalidation: true } },
 });
 
 cache.define('getUser', {
@@ -175,18 +154,3 @@ await cache.invalidateAll(`user:123`);
 ```
 </invalidation>
 
-<when_to_cache>
-Cache these kinds of data.
-
-- Database query results
-- External API responses
-- Computed values that are expensive to calculate
-- Configuration that rarely changes
-
-Do not cache these kinds of data.
-
-- User-specific sensitive data without proper isolation
-- Rapidly changing data
-- Data that must always be consistent
-- Large objects that would exhaust memory
-</when_to_cache>

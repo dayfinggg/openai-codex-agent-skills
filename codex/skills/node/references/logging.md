@@ -1,13 +1,8 @@
 <contents>
 This file has these sections, in order.
 - pino
-- log levels
 - transports
-- child loggers
 - redaction
-- debug module
-- util debuglog
-- sensitive data
 </contents>
 
 <pino>
@@ -24,17 +19,6 @@ logger.info({ userId: user.id }, 'User created');
 logger.error({ err, orderId: order.id }, 'Failed to process payment');
 ```
 </pino>
-
-<log_levels>
-Each level has one purpose. `debug` carries detail for debugging, and `info` carries normal operational events. `warn` marks unexpected but handled situations, and `error` marks errors that need attention.
-
-```typescript
-logger.debug({ itemId: item.id, step: 'validation' }, 'Processing item');
-logger.info({ userId: user.id }, 'User created');
-logger.warn({ currentRate: 95, limit: 100 }, 'Rate limit approaching');
-logger.error({ err, orderId: order.id }, 'Failed to process payment');
-```
-</log_levels>
 
 <transports>
 Pino transports process logs outside the main thread. They format, filter, and send logs to external services.
@@ -86,23 +70,8 @@ const logger = pino({
 Transports exist for most log backends. Examples are [pino-elasticsearch](https://github.com/pinojs/pino-elasticsearch), [pino-loki](https://github.com/Julien-R44/pino-loki), and [pino-datadog](https://github.com/ovhemert/pino-datadog).
 </transports>
 
-<child_loggers>
-Child loggers bind context to every line they write. This child adds the request and user IDs.
-
-```typescript
-const requestLogger = logger.child({
-  requestId: req.id,
-  userId: req.user?.id,
-});
-
-requestLogger.info('Processing request');
-requestLogger.info({ itemId }, 'Item processed');
-```
-</child_loggers>
-
-
 <redaction>
-Pino redaction replaces sensitive fields with `[Redacted]`. With this config, the call below logs `{"password":"[Redacted]","msg":"User login"}`.
+Pino redaction replaces sensitive fields with `[Redacted]`. With this config, the line that the call below logs carries `"password":"[Redacted]"`. Keep credentials, tokens, and personal data out of log calls in the first place.
 
 ```typescript
 const logger = pino({
@@ -113,55 +82,3 @@ logger.info({ password: 'secret123' }, 'User login');
 ```
 </redaction>
 
-<debug_module>
-The [debug](https://github.com/debug-js/debug) module lets library authors emit tracing output. It is not meant for application logs, which belong to pino.
-
-```typescript
-import createDebug from 'debug';
-
-const debug = createDebug('mymodule:connection');
-
-debug('Connecting to %s:%d', host, port);
-debug('Query executed in %dms', duration);
-```
-
-The `DEBUG` environment variable turns its output on.
-
-```bash
-DEBUG=mymodule:* node app.ts
-```
-</debug_module>
-
-<util_debuglog>
-`util.debuglog` traces a module without an external dependency. The `NODE_DEBUG` environment variable turns it on.
-
-```typescript
-import { debuglog } from 'node:util';
-
-const debug = debuglog('mymodule');
-
-debug('Starting operation %s', operationId);
-debug('Connection established to %s', host);
-```
-
-```bash
-NODE_DEBUG=mymodule node app.ts
-NODE_DEBUG=mymodule,http,net node app.ts
-```
-
-`NODE_DEBUG` also traces Node.js internals, as in `NODE_DEBUG=http,net,tls`.
-</util_debuglog>
-
-<sensitive_data>
-Never log credentials, tokens, or personal data. This call logs a password.
-
-```typescript
-logger.info({ email, password }, 'User login');
-```
-
-Log only safe identifiers instead.
-
-```typescript
-logger.info({ email }, 'User login');
-```
-</sensitive_data>

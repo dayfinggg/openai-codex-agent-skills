@@ -39,27 +39,15 @@ Search the repo for every file that documents how code should be written. When `
 
 A `REVIEW.md` file sets the review rules for its repo. It can say what failure means there, which paths to skip, and how many nits to report. When it exists, pass it to every sub-agent, and follow it over this skill's defaults.
 
-The Standards axis always carries the smell baseline below, on top of whatever the repo documents. The baseline is a fixed set of Fowler code smells from Refactoring, chapter 3. It applies even when a repo documents nothing. Two rules bind it.
+The Standards axis always carries the smell baseline in [smell-baseline.md](references/smell-baseline.md), on top of whatever the repo documents. The baseline is a fixed set of Fowler code smells from Refactoring, chapter 3. It applies even when a repo documents nothing. Two rules bind it.
 - The repo overrides the baseline. A documented repo standard always wins. Where it endorses something the baseline would flag, suppress the smell.
 - Each smell is a judgement call. Label it as a heuristic, as in "possible Feature Envy", never as a hard violation. Like any standard here, skip anything tooling already enforces.
 
-Each smell below says what it is and then how to fix it. Match each one against the diff.
-- Mysterious Name means a function, variable, or type whose name hides what it does or holds. Rename it, and if no honest name comes, the design is murky.
-- Duplicated Code means the same logic shape appears in more than one hunk or file in the change. Extract the shared shape, and call it from both places.
-- Feature Envy means a method that reaches into another object's data more than its own. Move the method onto the data it envies.
-- Data Clumps means the same few fields or parameters keep travelling together, so a type wants to be born. Bundle them into one type, and pass that.
-- Primitive Obsession means a primitive or string stands in for a domain concept that deserves its own type. Give the concept its own small type.
-- Repeated Switches means the same `switch` or `if` cascade on the same type recurs across the change. Replace it with polymorphism, or with one map that both sites share.
-- Shotgun Surgery means one logical change forces scattered edits across many files in the diff. Gather what changes together into one module.
-- Divergent Change means one file or module is edited for several unrelated reasons. Split it, so each module changes for one reason.
-- Speculative Generality means abstraction, parameters, or hooks added for needs the spec does not have. Delete it, and inline it back until a real need shows.
-- Message Chains means long `a.b().c().d()` navigation that the caller should not depend on. Hide the walk behind one method on the first object.
-- Middle Man means a class or function that mostly just delegates onward. Cut it, and call the real target directly.
-- Refused Bequest means a subclass or implementer that ignores or overrides most of what it inherits. Drop the inheritance, and use composition.
+The Standards sub-agent reads that file itself, so pass its absolute path and do not paste the list. Read the file whole yourself only when you run the Standards axis without a sub-agent.
 </step_3_identify_the_standards_sources>
 
 <step_4_spawn_the_sub_agents>
-Issue all sub-agent calls together, in the foreground, and collect the reports they return. For a small change, give one sub-agent the items and briefs of all three axes, and ask it to report each axis apart.
+Issue all sub-agent calls together, in the foreground, and collect the reports they return. Each prompt holds only the items below, the read-only limits of the review, and the length of the report, because the form and language of the report come from the base instructions. For a small change, give one sub-agent the items and briefs of all three axes, and ask it to report each axis apart.
 
 The Correctness sub-agent prompt includes these items.
 - The full diff command, the commit list, and the stated intent from step 2.
@@ -67,12 +55,12 @@ The Correctness sub-agent prompt includes these items.
 
 The Standards sub-agent prompt includes these items.
 - The full diff command and the commit list.
-- The list of standards source files from step 3, plus the smell baseline from step 3 pasted in full. The sub-agent has no other access to it.
+- The list of standards source files from step 3, plus the absolute path of the smell baseline file from step 3, with the instruction to read it whole before judging the diff.
 - This brief. "Report each place where the diff violates a documented standard, per file or hunk where relevant. Cite the standard by its file and rule. Also report each baseline smell you spot, with its name and the quoted hunk. Separate hard violations from judgement calls. A documented-standard breach can be hard, but a baseline smell is always a judgement call. A documented repo standard overrides the baseline. Skip anything tooling enforces. Report each finding once, in one short entry, with no preamble or recap."
 
 The Spec sub-agent prompt includes these items.
 - The diff command and the commit list.
-- The path or the fetched contents of the spec.
+- The path of the spec, or its fetched contents once in their original wording, without a translation.
 - This brief. "Report the requirements that the spec asked for and the diff misses or only partly covers. Report the behaviour in the diff that nobody asked for, which is scope creep. Report the requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Report each finding once, in one short entry, with no preamble or recap."
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.

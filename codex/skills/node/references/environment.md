@@ -1,30 +1,8 @@
 <contents>
 This file has these sections, in order.
-- env files
 - validation
 - avoid node env
-- config object
-- env file layout
-- production secrets
 </contents>
-
-<env_files>
-Node.js loads environment files with the built-in `--env-file` flag. The flag is stable since Node.js 24.10 and 22.21. With several files, later files override earlier ones.
-
-```bash
-node --env-file=.env app.ts
-node --env-file=.env --env-file=.env.local app.ts
-```
-
-`--env-file-if-exists` does the same but does not fail when the file is missing. `process.loadEnvFile()` loads a file from code. Without an argument it reads `.env` in the current directory.
-
-```typescript
-import { loadEnvFile } from 'node:process';
-
-loadEnvFile();
-loadEnvFile('.env.local');
-```
-</env_files>
 
 <validation>
 Validate environment variables once at startup, because they are a system boundary. Use the validation library the project already has.
@@ -114,78 +92,3 @@ const config = {
 Explicit variables make configuration discoverable and give fine-grained control per environment. They also avoid hidden behavior changes and make each setting easy to test. Libraries and frameworks may still read `NODE_ENV`, so keep it where a dependency needs it.
 </avoid_node_env>
 
-<config_object>
-A typed configuration object puts every setting in one place. `requireEnv` fails at startup when a required variable is missing.
-
-```typescript
-interface Config {
-  server: {
-    port: number;
-    host: string;
-  };
-  database: {
-    url: string;
-    poolSize: number;
-  };
-  auth: {
-    jwtSecret: string;
-    jwtExpiresIn: string;
-  };
-}
-
-function createConfig(): Config {
-  return {
-    server: {
-      port: parseInt(process.env.PORT || '3000', 10),
-      host: process.env.HOST || '0.0.0.0',
-    },
-    database: {
-      url: requireEnv('DATABASE_URL'),
-      poolSize: parseInt(process.env.DB_POOL_SIZE || '10', 10),
-    },
-    auth: {
-      jwtSecret: requireEnv('JWT_SECRET'),
-      jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1h',
-    },
-  };
-}
-
-function requireEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
-
-export const config = createConfig();
-```
-</config_object>
-
-<env_file_layout>
-Keep three kinds of env files. `.env.example` is committed to git and documents every variable with placeholder values.
-
-```bash
-PORT=3000
-DATABASE_URL=postgresql://user:pass@localhost:5432/db
-API_KEY=your-api-key-here
-```
-
-`.env` holds local development values and is never committed.
-
-```bash
-PORT=3000
-DATABASE_URL=postgresql://dev:dev@localhost:5432/myapp
-API_KEY=sk-dev-key-123
-```
-
-`.env.test` holds values for the test environment.
-
-```bash
-DATABASE_URL=postgresql://test:test@localhost:5432/myapp_test
-```
-</env_file_layout>
-
-<production_secrets>
-Never commit secrets to version control. In production, use the secrets service of the platform the project runs on. Examples are AWS Secrets Manager, Google Cloud Secret Manager, Azure Key Vault, HashiCorp Vault, Kubernetes Secrets, and CI secret stores. These services inject secrets as environment variables at runtime, so secrets stay out of the code and its history.
-</production_secrets>
