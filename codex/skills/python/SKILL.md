@@ -1,6 +1,6 @@
 ---
 name: python
-description: Modern Python practice current for November 2026, with Django and FastAPI references. Use it whenever you write, review, upgrade, or set up Python code, including dependencies, virtual environments, scripts, linting, formatting, type checking, and pytest tests. Use it for every Django or FastAPI change, because it routes to framework references.
+description: Gives current Python practice for uv, ruff, ty, and pytest, with Django and FastAPI references. Use it whenever you write, review, upgrade, or set up Python code, including dependencies, virtual environments, scripts, linting, formatting, type checking, and pytest tests. Use it for every Django or FastAPI change, because it routes to framework references.
 license: MIT for SKILL.md (uv, ruff, and ty guidance from astral-sh/claude-code-plugins). Apache-2.0 for references/django-performance.md, adapted from getsentry/skills django-perf-review with headings and checklists converted to XML sections and prose, code comments moved to prose, the report template rewritten as prose, Sentry tooling references removed, one model example fixed, and a Django 6.1 fetch mode note added. See the distribution LICENSE.
 ---
 
@@ -127,7 +127,7 @@ ty runs as `uv run ty check` when it is a project dependency, and as `uvx ty che
 - `--error <rule>`, `--warn <rule>`, and `--ignore <rule>` change the level of one rule.
 - `--output-format concise` prints one line per diagnostic.
 
-ty reads its configuration from `[tool.ty]` tables in `pyproject.toml` or from `ty.toml`. This example sets the target version, the checked paths, two rule levels, and looser rules for tests.
+ty reads its configuration from `[tool.ty]` tables in `pyproject.toml` or from `ty.toml`. This example sets the target version, the checked paths, and two rule levels.
 
 ```toml
 [tool.ty.environment]
@@ -140,12 +140,6 @@ exclude = ["**/migrations/**"]
 [tool.ty.rules]
 possibly-unresolved-reference = "warn"
 division-by-zero = "error"
-
-[[tool.ty.overrides]]
-include = ["tests/**"]
-
-[tool.ty.overrides.rules]
-possibly-unresolved-reference = "ignore"
 ```
 
 ty fails on warnings by default, and `error-on-warning = false` under `[tool.ty.terminal]` turns that off. The rule `unresolved-import` is now named `import-not-found`, and the old name still works as an alias. Fix type errors instead of suppressing them, as the `verification` block of the coding instructions requires. If the user asks for a suppression, use a rule-specific comment such as `# ty: ignore[import-not-found]`, not a blanket `# type: ignore`. The [ty documentation](https://docs.astral.sh/ty/) lists the rules.

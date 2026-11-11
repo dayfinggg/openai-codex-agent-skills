@@ -4,7 +4,7 @@ description: Applies current JavaScript, browser, and React practice, with perfo
 ---
 
 <project_first>
-The project's own tools and versions come first, as `code_rules` in the coding instructions requires. Before you apply any rule here, read five things in the project.
+The project's own tools and versions come first, as `code_rules` in the coding instructions requires. Before you apply any rule here, read these things in the project, and skip the ones the task does not involve.
 
 1. Read `package.json` and the lockfile for the installed versions of React, React DOM, Next.js, and the data-fetching libraries.
 2. Find the bundler and its config, such as Vite, webpack, Rollup, esbuild, Turbopack, or the Next.js config.

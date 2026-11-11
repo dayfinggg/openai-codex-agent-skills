@@ -37,7 +37,7 @@ Copy `scripts/template.sh` to the target path. Replace the example stage inside 
 Hold the bar the template sets.
 - Open the URL before you ask for its value.
 - Use the harness's secret input mechanism when available. Otherwise use `ask_secret` for hidden local input, never paste secrets into chat.
-- Call `write_env` for every persisted value.
+- Call `write_env` for every value the scope step sends to `.env`.
 - Call `set_secret` only for the values CI actually needs.
 - Call `confirm` before any irreversible action.
 
@@ -45,7 +45,7 @@ Each `stage` clears the screen so only the current step is visible. So keep a st
 </author_the_wizard>
 
 <verify_and_hand_off>
-Verify the script statically, because a real run opens browsers and blocks on human input.
+Verify the script statically, because a real run opens browsers and blocks on human input. Say in the reply that the script was checked by reading and not by a run.
 1. Run `bash -n` on the script, and run `shellcheck` if it is installed.
 2. Run `chmod +x` on the script.
 3. Trace it by reading. Every value from the scope step must be captured and land where that step said. Every `set_secret` name must exactly match a `secrets.*` reference in CI.

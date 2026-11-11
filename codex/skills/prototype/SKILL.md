@@ -20,7 +20,7 @@ Six rules apply to both branches.
 1. The prototype is throwaway from day one and clearly marked as such. Its files live in the session's scratchpad or a temporary directory, unless the user wants them in the repository. A UI prototype runs inside the app, so its variants go in the repository. There they follow the project's routing convention and carry `prototype` in their names. Tell the user which repository files the prototype adds.
 2. It is trivial to run. A UI prototype starts with one command in the project's task runner, such as `pnpm <name>`, `python <path>`, or `bun <path>`. A logic demo is a single HTML file the user double-clicks.
 3. It has no persistence by default, so state lives in memory. Persistence is the thing a prototype may check, not something it depends on. If the question involves a database, use a scratch database or a local file. Give it a clear "PROTOTYPE, wipe me" name.
-4. It skips the polish. It has no tests, no error handling beyond what keeps it runnable, and no abstractions. The point is to learn something fast.
+4. It skips the polish. It has no test suite, no error handling beyond what keeps it runnable, and no abstractions. Run it once and use it yourself before you hand it over. The point is to learn something fast.
 5. It surfaces the state. After every action (logic) or variant switch (UI), render the full relevant state. The user then sees what changed.
 6. It ends with a captured answer. Report the verdict and the question it settled. Fold the validated decision into the real code when the user wants that. Then remove the prototype files from the main code. Keep them only where the user asks, such as a throwaway branch.
 </rules_for_both>

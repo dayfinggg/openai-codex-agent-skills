@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Test-driven development and test quality. Use it whenever you are about to create or change a test file for a feature or bug fix, including a regression test, before the first edit of that file, when the user asks for test-first work, TDD, or red-green-refactor, and when you decide where tests go and what to mock.
+description: Guides test-first work through a failing test and the smallest change that passes it, with tests placed at public seams. Use it before you write a new test for a feature or a bug fix, including a regression test, and when the user asks for test-first work, TDD, or red-green-refactor. The `testing` skill covers which check a change needs and the repair of existing tests.
 ---
 
 <overview>
@@ -18,7 +18,7 @@ Read [tests.md](references/tests.md) whole before you write the first test of a 
 <seams>
 A seam is the public boundary you test at. It is the interface where you observe behavior without reaching inside. Tests live at seams, never against internals.
 
-Test only at chosen seams. Before you write any test, write down the seams under test. Give each one a one-line note on what it catches and what it misses. When the user is present, confirm the seams. Otherwise choose them and state the choice in the report. You cannot test everything, so choosing the seams up front puts testing effort on the critical paths and complex logic.
+Test only at chosen seams. Before you write any test, write down the seams under test. Give each one a one-line note on what it catches and what it misses. Choose the seams and state the choice in the report, and ask the user first only when the choice changes what gets built. You cannot test everything, so choosing the seams up front puts testing effort on the critical paths and complex logic.
 
 When the shape of the interface is in question, such as module depth or seam placement, consult the `design` skill.
 </seams>
@@ -34,5 +34,5 @@ These three anti-patterns make tests worthless.
 The loop has three rules.
 - Red comes before green. Write the failing test first, then only enough code to pass it. Do not anticipate future tests or add speculative features.
 - Work one slice at a time, with one seam, one test, and one minimal implementation per cycle.
-- Refactoring is not part of the loop. It follows the review stage, where the `review` skill reports the smells, not the red-green cycle.
+- Refactoring is not part of the loop. Once a slice is green, tidy only the lines that slice added, and leave wider refactoring to a request from the user.
 </rules_of_the_loop>

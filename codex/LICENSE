@@ -987,7 +987,7 @@ This skill merges several sources. The MIT sources share the license text in `cr
 
 The claim table in `../SKILL.md` comes from [`verification-before-completion`](https://github.com/obra/superpowers/tree/main/skills/verification-before-completion) in obra/superpowers, under MIT. The rest of that skill was left out, because the `verification` block of the coding instructions covers it.
 
-The test pyramid, the sizes, and the level guide in `../SKILL.md` come from [`test-driven-development`](https://github.com/addyosmani/agent-skills/tree/main/skills/test-driven-development) by Addy Osmani, under MIT. The revision is `301b02b12bff98e4688e6984af6556802322bbde`. The "Beyonce Rule" was removed, because it asks for tests on every change, and the coding instructions limit new tests. The Supertest example in `cli-and-api.md` comes from `references/testing-patterns.md` in the same repository.
+The test sizes and the level guide in `../SKILL.md` come from [`test-driven-development`](https://github.com/addyosmani/agent-skills/tree/main/skills/test-driven-development) by Addy Osmani, under MIT. The revision is `301b02b12bff98e4688e6984af6556802322bbde`. The "Beyonce Rule" was removed, because it asks for tests on every change, and the coding instructions limit new tests. The test pyramid with its fixed shares was removed too. The Supertest example in `cli-and-api.md` comes from `references/testing-patterns.md` in the same repository.
 
 The security boundaries and the clean console rule in `chrome-devtools/chrome-devtools.md` come from [`browser-testing-with-devtools`](https://github.com/addyosmani/agent-skills/tree/main/skills/browser-testing-with-devtools) by Addy Osmani, under MIT. They were shortened to the rules, without the tables and diagrams.
 

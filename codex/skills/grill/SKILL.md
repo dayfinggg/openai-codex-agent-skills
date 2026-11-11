@@ -24,7 +24,7 @@ Word each question so that "yes" accepts your recommended answer.
 
 Each round of answers reshapes the tree. Settled decisions push the frontier outward and unblock the questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another open question in this round belongs to a later round.
 
-Finding facts is your job, never the user's. A frontier question may need a fact from the environment, such as the filesystem or a tool. Dispatch a subagent with a fresh context to find it. Never ask the user for anything you could look up yourself. Do not block on the lookup. A running exploration is an unsettled prerequisite, so only the questions downstream of it wait for its report. Ask the rest of the frontier now. The decisions belong to the user, so put each one to them and wait.
+Finding facts is your job, never the user's. A frontier question may need a fact from the environment, such as the filesystem or a tool. Look it up yourself, and give the search to a subagent only when it is large. Never ask the user for anything you could look up. Do not block on the lookup. A running exploration is an unsettled prerequisite, so only the questions downstream of it wait for its result. Ask the rest of the frontier now. The decisions belong to the user, so put each one to them and wait.
 
-The session is done when the frontier is empty. Every branch of the design tree is visited, and nothing is left silently assumed. Act on the result only after the user confirms that you have reached a shared understanding.
+The session is done when the frontier is empty or the user says the matter is settled. Every branch that matters to the decision is visited, and nothing is left silently assumed. Act on the result only after the user confirms that you have reached a shared understanding.
 </grilling>

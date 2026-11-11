@@ -347,7 +347,7 @@ Complete every step before you report an issue as validated. When a step needs e
 </validation_requirements>
 
 <output_format>
-The report follows the output style, so it uses plain paragraphs. It opens with the count of validated issues by severity, such as "Two validated issues, one critical and one high." Each finding then gets one short paragraph and its code.
+The report follows the `writing_style` rules, so it uses plain paragraphs. It opens with the count of validated issues by severity, such as "Two validated issues, one critical and one high." Each finding then gets one short paragraph and its code.
 - The first sentence names the issue, the severity, and the location, as in "N+1 query in `UserListView` at `views.py:45` (critical)."
 - The next sentences give the validation evidence. Name the traced path, the search for existing optimizations, the table size, and why the path is hot.
 - A code block shows the current code, and a second code block shows the fix.
