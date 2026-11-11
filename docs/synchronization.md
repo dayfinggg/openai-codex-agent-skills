@@ -1,5 +1,5 @@
-This snapshot synchronizes the installed Concise 0.30.5 configuration with Codex on November 11, 2026.
-The source repository is [anthropic-claude-code-agent-skills](https://github.com/dayfinggg/anthropic-claude-code-agent-skills/tree/c45a398dad990e56c5b094e5bcd7d6ac7a1e750c/plugins/concise) at `c45a398dad990e56c5b094e5bcd7d6ac7a1e750c`.
+This snapshot synchronizes the installed Concise 0.33.0 configuration with Codex on November 12, 2026.
+The source repository is [anthropic-claude-code-agent-skills](https://github.com/dayfinggg/anthropic-claude-code-agent-skills/tree/c9f05585daaf9a953ae411e7c8e42544ca822b1b/plugins/concise) at `c9f05585daaf9a953ae411e7c8e42544ca822b1b`.
 Its instruction files match the installed Claude plugin, whose configured response language is Russian.
 
 The new base begins with the local instruction template for `gpt-6.1-sol` from Codex 0.167.1.
@@ -21,7 +21,9 @@ Existing runtime safety and permission instructions still apply, and a skill alo
 The configured file replaces Codex's built-in instructions through `model_instructions_file`, as the [configuration reference](https://learn.chatgpt.com/docs/config-file/config-reference) documents.
 
 Every block in `instructions/work.md` is represented in the new base, including the reminder rules.
-The task, investigation, debugging, code, and verification blocks preserve the source text and its exceptions.
+The task, investigation, debugging, code, verification, shared systems, and secrets blocks preserve the source text and its exceptions.
+The standing rules and the delegated work block are merged into the opening paragraphs of the base.
+The waiting block keeps the rules that hold in any harness and leaves out the source's description of Claude Code callbacks.
 Claude's `Read`, `Edit`, `Write`, `Bash`, and `Skill` operations become Codex file reads, patches, shell commands, and skill reads.
 Windows path and command rules accompany those replacements, and runtime tool schemas remain authoritative.
 The complete `instructions/style.md` body is preserved with its language placeholder resolved to the installed Russian setting.
@@ -34,7 +36,7 @@ The presentation rules apply after tool results and delegation, without installi
 Claude's per-model notes contribute their shared requirements for scope, completion, literal language, and current research.
 They are expressed as GPT-6 instructions rather than Claude model-name routing or executable Claude hooks.
 
-The source and destination contain the same 22 engineering skill directories and supporting resources.
+The source and destination contain the same 24 engineering skill directories and supporting resources.
 Their subject-specific guidance stays intact, while active tool names and instruction paths use Codex equivalents.
 The `agentdocs` mechanics reference describes Codex skill metadata, discovery, and invocation instead of Claude-only frontmatter.
 References retain their attribution, and scripts and assets keep the behavior provided by the source.
