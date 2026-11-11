@@ -4,7 +4,7 @@ description: Guides safe, current database work on PostgreSQL and MySQL. Use it 
 ---
 
 <overview>
-Write every migration and data change as if it runs against production. Assume a 50M-row table, live traffic, and the previous app version still serving requests during the deploy. A change that finishes at once on a dev database can lock a production table for an hour. Data that a statement deletes or overwrites is gone unless a backup exists.
+Write every migration and data change as if it runs against production. Until you know the real table sizes and traffic, assume a large table, live traffic, and the previous app version still serving requests during the deploy. A change that finishes at once on a dev database can lock a production table for an hour. Data that a statement deletes or overwrites is gone unless a backup exists.
 </overview>
 
 <data_safety>
@@ -31,7 +31,7 @@ A copy inside the same database is enough for a small data fix. It does not surv
 CREATE TABLE orders_backup_20261107 AS SELECT * FROM orders WHERE status = 'stale';
 ```
 
-Investigate a production database inside a read-only transaction. PostgreSQL uses `BEGIN READ ONLY`, and MySQL uses `START TRANSACTION READ ONLY`. `EXPLAIN ANALYZE` executes the statement, so wrap an analyzed write in a transaction that ends with `ROLLBACK`.
+Investigate a production database inside a read-only transaction. PostgreSQL uses `BEGIN READ ONLY`, and MySQL uses `START TRANSACTION READ ONLY`. `EXPLAIN ANALYZE` executes the statement, so analyze a write only when the user asked for it, inside a transaction that ends with `ROLLBACK`.
 </data_safety>
 
 <never_run>
@@ -171,5 +171,5 @@ Each reference file covers one engine area, so read only the one the task needs.
 </references>
 
 <report>
-End every migration task with a migration safety report in the reply. Give one sentence per risky statement that names the statement, its risk, and your change. An example is "`CREATE INDEX` on `orders` blocked writes, so it now runs `CONCURRENTLY` alone." Then say whether a lock timeout is set. Name the expand and contract steps left for later deploys, or say that none remain. If you could not make a statement safe, say so in the first sentence of the report.
+End every migration task with a migration safety report in the reply, inside the length the `writing_style` rules set. Give one sentence per risky statement that names the statement, its risk, and your change, and group statements that share a risk. An example is "`CREATE INDEX` on `orders` blocked writes, so it now runs `CONCURRENTLY` alone." Then say whether a lock timeout is set. Name the expand and contract steps left for later deploys, or say that none remain. If you could not make a statement safe, say so in the first sentence of the report.
 </report>

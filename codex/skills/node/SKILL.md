@@ -11,7 +11,7 @@ Follow the project's existing tools and versions before any advice here, as `cod
 - The `type` field, which decides between ESM and CommonJS
 - The test runner, framework, logger, and validation library already in `package.json`
 
-Use an API only when the project's Node.js version has it. [node-lts.md](references/node-lts.md) lists the supported lines and what each one added or removed. A library recommended here, such as pino or close-with-grace, is a default for new code. A new dependency still needs the user's request, as `code_rules` says.
+Use an API only when the project's Node.js version has it. [node-lts.md](references/node-lts.md) lists the supported lines and what each one added or removed. A library recommended here, such as pino or close-with-grace, is a default for new code. A new dependency still needs the user's request or the repository's practice for this kind of change, as `code_rules` says.
 </project_first>
 
 <scope>

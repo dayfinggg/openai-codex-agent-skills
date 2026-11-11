@@ -1,6 +1,6 @@
 ---
 name: php
-description: Modern PHP practice current for November 2026, with Laravel and Symfony references. Use it whenever you write, review, upgrade, or set up PHP code, including Composer packages, PHPStan or Rector configuration, and PHPUnit or Pest tests. Use it for every Laravel or Symfony change, because it routes to framework references for Eloquent, validation, queues, testing, Doctrine, Messenger, forms, and voters.
+description: Gives current PHP practice for language features, Composer, static analysis, and tests, with Laravel and Symfony references. Use it whenever you write, review, upgrade, or set up PHP code, including Composer packages, PHPStan or Rector configuration, and PHPUnit or Pest tests. Use it for every Laravel or Symfony change, because it routes to framework references for Eloquent, validation, queues, testing, Doctrine, Messenger, forms, and voters.
 license: MIT. See the distribution LICENSE for each source and its license.
 ---
 
@@ -64,7 +64,7 @@ Modern PHP code follows these defaults where the project has no other convention
 - Use constructor property promotion, and remove an empty constructor without parameters unless it is private.
 - Declare parameter, return, and property types everywhere. Prefer `readonly` properties or `readonly` classes for value objects.
 - Use backed enums instead of class constants for a fixed set of values. Name enum cases in PascalCase, such as `Monthly`, unless the project's enums use another style.
-- Add a PHPDoc type tag only for types that native types cannot express, such as `list<User>`, `array{id: int, name: string}`, generics, and `@throws`. PHPStan and the Symfony serializer read these tags as types, so the no-comments rule in `code_rules` does not cover them. Write no descriptive PHPDoc text.
+- Add a PHPDoc type tag only for types that native types cannot express, such as `list<User>`, `array{id: int, name: string}`, generics, and `@throws`. PHPStan and the Symfony serializer read these tags as types, so the rule on comments in `code_rules` does not cover them. Write no descriptive PHPDoc text.
 - Use `match` instead of `switch` when each branch returns a value, and use first-class callables such as `strlen(...)`.
 
 The shared format is [PER Coding Style 3.1](https://www.php-fig.org/per/coding-style/), which extends PSR-12. It also covers enums, property hooks, asymmetric visibility, and the pipe operator. Run the formatter that the project has configured. Laravel projects use Pint, many others use PHP-CS-Fixer with the `@PER-CS` rule set, and some use PHP_CodeSniffer. Format only the files you change.

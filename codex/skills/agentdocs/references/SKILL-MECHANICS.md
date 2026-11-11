@@ -1,52 +1,57 @@
 <skill_mechanics>
-This file is the skill-specific branch of [SKILL.md](../SKILL.md). It covers what changes for a skill, meaning frontmatter, the invocation choice, the skill listing, and router skills. Everything else about writing a skill is the general reference in `../SKILL.md`. The facts follow the [Claude Code skills documentation](https://code.claude.com/docs/en/skills).
+This file is the skill-specific branch of [SKILL.md](../SKILL.md). It covers frontmatter, invocation, the skill listing, and router skills. Everything else about writing a skill is the general reference in `../SKILL.md`. The facts follow the [Codex skills documentation](https://learn.chatgpt.com/docs/build-skills) and the [Agent Skills specification](https://agentskills.io/specification). Check the current documentation before relying on version-dependent mechanics.
 </skill_mechanics>
 
-<invocation>
-Two frontmatter fields set who can invoke a skill, and each choice trades the two loads. This table shows the three settings.
+<frontmatter>
+A skill is a directory with `SKILL.md`, which starts with YAML frontmatter containing `name` and `description`. The name matches the directory, uses lowercase letters, digits, and hyphens, and has at most 64 characters. The description states what the skill does and when to use it, with at most 1024 characters. Preserve applicable license and metadata fields. Scripts, references, and assets are optional resources, not required scaffolding.
 
-| Frontmatter | User can invoke | Claude can invoke | Context load |
-| :- | :- | :- | :- |
-| (default) | Yes | Yes | Description always in context |
-| `disable-model-invocation: true` | Yes | No | Description not in context |
-| `user-invocable: false` | No | Yes | Description always in context |
+Use Codex-supported invocation settings in `agents/openai.yaml`, rather than another harness's frontmatter. When you write a skill for Claude Code or another harness, check that harness's own documentation instead of transferring Codex fields or context budgets to it.
+</frontmatter>
+
+<invocation>
+Codex offers explicit and implicit invocation. In the CLI or IDE extension, the user can type `$` to mention a skill or use `/skills`. Implicit invocation matches the task against the skill's description. Invocation policy lives in the skill's optional `agents/openai.yaml` file.
+
+| Policy | User can invoke | Codex can select implicitly |
+| :- | :- | :- |
+| Default | Yes | Yes |
+| `policy.allow_implicit_invocation: false` | Yes | No |
 
 <model_invoked>
-A model-invoked skill is the default. It keeps a description in the listing, so the agent can fire it on its own. Other skills can reach it too. The user can still type its name. The description is the skill's top-level context pointer and stays loaded every turn. That is permanent context load in exchange for discovery. A model-invoked skill whose content is all reference is one home for shared reference. Another skill can tell the agent to invoke it, so reference that several skills need lives in one place. Write a model-facing description that carries the trigger branches, and apply the pointer rules in `../SKILL.md` in full.
+The default keeps the skill discoverable for automatic selection. Its description is the top-level context pointer. Write a model-facing description with the trigger branches, and apply the pointer rules in `../SKILL.md` in full. A reference-only skill can hold guidance that several workflows need when independent discovery earns the listing cost. Otherwise link those workflows to one plain reference file.
 </model_invoked>
 
 <user_invoked>
-A user-invoked skill sets `disable-model-invocation: true`. Its description leaves the agent's context, so only the human typing its name can invoke it. If the agent calls it through the Skill tool anyway, Claude Code blocks the call. So no other skill can fire it, and subagents cannot preload it. It costs no context load but spends cognitive load, because you are the index that must remember it exists. Its description becomes human-facing, a one-line summary without trigger lists. The docs recommend it for workflows with side effects or timing the user controls, such as deploy or commit.
+An explicit-only skill sets this policy in `agents/openai.yaml`.
+
+```yaml
+policy:
+  allow_implicit_invocation: false
+```
+
+The user still invokes it with `$skill-name`, but Codex does not activate it implicitly from the prompt. This spends cognitive load because the human must know when to select it. Keep normal automatic discovery unless the user requests explicit-only invocation, and preserve an existing policy unless the user asks to change it. A workflow's side effects still need the authorization that the user and runtime require, regardless of invocation policy.
+
+The documented policy controls implicit invocation. Do not assume that it removes metadata from the listing or prevents every file read. Codex documents no equivalent here for hiding a skill from users while leaving it model-invocable. Use the default for background reference that needs automatic discovery.
 </user_invoked>
 
-<model_only>
-A model-only skill sets `user-invocable: false`. Claude Code hides it from the `/` menu, so only the agent can invoke it. Use it for background knowledge that makes no sense as a command for the user. Its description costs the same context load as the default.
-</model_only>
-
-Pick model invocation only when the agent must reach the skill on its own, or another skill must. A skill that only ever fires by hand, with side effects or timing that matters, can be user-invoked. It then costs no context load.
-
-Shared reference that two user-invoked skills both need can live in neither. Neither has a description in context, so neither can fire the other. Put that reference in a plain file outside the skill system, as external reference any skill can point at.
+Choose independent discovery when the agent or another workflow needs to reach the skill without the user selecting it. For shared reference that explicit-only workflows need, link each workflow to one plain file instead of relying on implicit activation of another skill.
 </invocation>
 
 <the_listing>
-Claude Code loads a listing of every skill's name and description into context on every turn. Three facts shape how a description should read.
-- The `description` field, plus the optional `when_to_use` field appended to it, is cut at 1,536 characters in the listing. Put the key use case first.
-- The whole listing has a budget of 1% of the model's context window by default. On overflow, Claude Code drops descriptions from the least invoked skills first. Those skills then list by name only.
-- If the frontmatter YAML is malformed, the skill loads with empty metadata. The user can still type its name, but the agent cannot match its description.
+Codex starts with skill names, descriptions, and file paths. The initial list defaults to at most 2 percent of the model's context window, or 8000 characters when the window is unknown. If the list grows too large, Codex shortens descriptions first and may omit skills with a warning. `skills.max_context_tokens` can set a different listing budget, up to 10000 tokens. This budget does not truncate a selected skill's full body.
+
+Front-load the key use case and trigger words so a shortened description still routes correctly. Validate YAML and required fields before installation, because malformed metadata cannot provide a reliable discovery pointer.
 </the_listing>
 
 <the_body>
-Invoking a skill adds its rendered `SKILL.md` content to the conversation as one message. It stays there on later turns. Claude Code does not re-read the file. So write guidance that applies to the whole task as standing instructions, not one-time steps.
+Codex reads the full `SKILL.md` when it selects the skill, then reaches supporting resources as the task needs them. Put shared constraints and routing in the entrypoint, and link branch-specific detail with the condition for reading it. The Agent Skills specification recommends an entrypoint under 500 lines.
 
-After auto-compaction, Claude Code re-attaches the most recent invocation of each skill but keeps only its first 5,000 tokens. All re-attached skills share a budget of 25,000 tokens, filled from the most recently invoked skill. So put the most important instructions near the top of the skill's `SKILL.md`.
-
-The docs ask for a skill's `SKILL.md` to stay under 500 lines. Move detailed reference to separate files in the skill folder. Link each one from `SKILL.md` with the condition for reading it.
+Write instructions that remain useful across the task, with clear completion criteria for ordered steps. After compaction, reread each skill still in use as the base instructions require. Do not assume another harness's message retention, automatic reattachment, or token limits apply to Codex.
 </the_body>
 
 <splitting_by_invocation>
-The invocation cut is the skill-specific way to split, while the sequence cut lives in `../SKILL.md`. Split off a model-invoked skill in two cases. One is a distinct leading word that should trigger it on its own. That word is one you actually use in your prompts. The other is another skill that must reach it. The new description costs context load on every turn, so that independent reach has to be worth it.
+The invocation cut is the skill-specific way to split, while the sequence cut lives in `../SKILL.md`. Split off an automatically discoverable skill when a distinct leading word should trigger it on its own, or another workflow needs that independent entrypoint. The description spends listing space, so the independent reach must earn it. Reading another skill in the current conversation does not create a fresh context.
 </splitting_by_invocation>
 
 <router_skills>
-User-invoked skills can multiply past what you can remember. A router skill cures that cognitive load. It is one user-invoked skill that names the others and when to reach for each. The human then remembers one skill instead of many. It can only hint and never fire them. The others have no description in context, and Claude Code blocks the agent's calls to them. So only the human can invoke them.
+Explicit-only skills can multiply past what a human remembers. A router gives the human one entrypoint that names those workflows and when to select each. For an explicit-only destination, have the user select the named skill rather than relying on implicit activation. Keep shared guidance in linked references when it needs no independent invocation. A router is useful only when it reduces the human's indexing work enough to earn another entrypoint.
 </router_skills>

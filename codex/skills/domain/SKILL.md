@@ -57,7 +57,7 @@ Check whether the code agrees when the user states how something works. Surface 
 </cross_reference_with_code>
 
 <update_the_glossary_inline>
-Update `GLOSSARY.md` right when a term is resolved. Capture terms as they happen instead of in batches. Use the format in [GLOSSARY-FORMAT.md](references/GLOSSARY-FORMAT.md), and read it before the first glossary edit.
+When the project keeps a `GLOSSARY.md` or the user agreed to one, update it right when a term is resolved. Capture terms as they happen instead of in batches. Use the format in [GLOSSARY-FORMAT.md](references/GLOSSARY-FORMAT.md), and read it before the first glossary edit.
 
 `GLOSSARY.md` holds no implementation details. It is not a spec, a scratch pad, or a store for implementation decisions. It is a glossary and nothing else.
 </update_the_glossary_inline>

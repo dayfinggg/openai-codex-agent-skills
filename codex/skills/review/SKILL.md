@@ -1,6 +1,6 @@
 ---
 name: review
-description: "Reviews a branch, a PR, or work-in-progress changes since a fixed point (commit, branch, tag, or merge-base) along three axes. Correctness looks for bugs and security problems. Standards checks the repo's documented coding standards. Spec checks what the originating issue or spec asked for. Each axis runs in a fresh sub-agent, and a verifier confirms bug findings before the report. Use before you report a change to several files, or a change installed on another machine, as done, before opening a pull request, and when asked to review changes."
+description: "Reviews a change with fresh reviewers that did not write it, for bugs and security problems, for breaches of the repo's documented coding standards, and for gaps against what was asked. Use when the user asks for a review, before opening a pull request, and before you report as done a change that is large or hard to undo, such as one that spans several modules or touches data, security, or a production system."
 ---
 
 <overview>
@@ -9,7 +9,9 @@ This skill reviews the diff between `HEAD` and a fixed point along three axes.
 - The Standards axis asks whether the code conforms to this repo's documented coding standards.
 - The Spec axis asks whether the code faithfully implements the originating issue or spec.
 
-Each axis runs as a parallel sub-agent, so the axes do not pollute each other's context. This skill then verifies and aggregates their findings. Use a sub-agent type that starts with a fresh context, not a fork of this conversation.
+The size of the change sets the number of reviewers. A small change with one concern gets one sub-agent that carries all three briefs. A large or risky change gets one sub-agent for each axis, in parallel, so the axes do not pollute each other's context. Use a sub-agent type that starts with a fresh context, not a fork of this conversation.
+
+When the user asked only for a review, report the findings and change nothing. When you review your own change before reporting it done, fix the confirmed Correctness and Spec findings that the change introduced, and report the rest. Standards judgement calls and pre-existing problems stay the user's decision in both cases.
 </overview>
 
 <process>
@@ -57,7 +59,7 @@ Each smell below says what it is and then how to fix it. Match each one against 
 </step_3_identify_the_standards_sources>
 
 <step_4_spawn_the_sub_agents>
-Issue all sub-agent calls together, in the foreground, and collect the reports they return.
+Issue all sub-agent calls together, in the foreground, and collect the reports they return. For a small change, give one sub-agent the items and briefs of all three axes, and ask it to report each axis apart.
 
 The Correctness sub-agent prompt includes these items.
 - The full diff command, the commit list, and the stated intent from step 2.
@@ -74,18 +76,18 @@ The Spec sub-agent prompt includes these items.
 - This brief. "Report the requirements that the spec asked for and the diff misses or only partly covers. Report the behaviour in the diff that nobody asked for, which is scope creep. Report the requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Report each finding once, in one short entry, with no preamble or recap."
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
+
+When no tool for starting a sub-agent is available, run the axes yourself, one after another. Reread the diff once for each axis against that axis's brief and items above, confirm or reject each Correctness finding against the code a second time in place of step 5, and say in the report that no fresh reviewer ran, because a self-review misses what a fresh reader would catch.
 </step_4_spawn_the_sub_agents>
 
 <step_5_verify_bug_findings>
-A false bug report costs the author a fix round, so confirm each Correctness finding before you report it. Give all of them to one more fresh sub-agent, together with the diff command. Its brief asks it to confirm or reject each finding against the code, with a one-sentence reason. Report only the confirmed findings. If the Correctness sub-agent found nothing, skip this step.
+A false bug report costs the author a fix round, so confirm each Correctness finding before you report it. Open the cited lines and confirm or reject each finding against the code, with a one-sentence reason. Give a finding to one more fresh sub-agent only when you cannot settle it yourself. Report only the confirmed findings. If the Correctness axis found nothing, skip this step.
 </step_5_verify_bug_findings>
 
 <step_6_aggregate>
-Open the report with the number of findings per axis. When no axis found anything to fix, say so plainly in that first sentence.
+The reply to the user follows the `writing_style` rules, and its length limit holds unless the user asked for the full review. Open with the number of confirmed findings per axis, or say plainly that no axis found anything to fix.
 
-Then present each axis separately, Correctness first, Standards second, and Spec third, in the format the output style sets. Do not merge or rerank findings across axes, because the axes are deliberately separate. Within an axis, tag each finding as important, nit, or pre-existing, and list them in that order. A pre-existing finding was already in the code before this change, so it does not count against the author. Keep nits few, unless `REVIEW.md` asks for more.
-
-Name the worst issue within each axis, if any. Do not pick a single winner across axes, because that is the reranking the separation exists to prevent.
+Then give the findings that need a fix, Correctness first, Standards second, and Spec third, each with its file and line. Keep the axes apart and do not rerank findings across them, because the axes are deliberately separate. A pre-existing finding was already in the code before this change, so it does not count against the author. Pre-existing findings and nits get one sentence in total, unless `REVIEW.md` or the user asks for more.
 </step_6_aggregate>
 </process>
 
@@ -93,7 +95,7 @@ Name the worst issue within each axis, if any. Do not pick a single winner acros
 A review that follows fixes to an earlier review follows four rules.
 - Review only the diff since the last review, with that review's `HEAD` as the fixed point.
 - Do not repeat a finding that an earlier round already reported.
-- When a finding is a class of bug, ask for a fix at every instance, not only at the cited line.
+- When a finding is a class of bug, ask for a fix at every instance the change introduced or touches, not only at the cited line.
 - After three rounds on the same change, stop. Report that the approach itself may need rethinking, instead of starting a fourth round.
 </repeat_reviews>
 

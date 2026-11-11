@@ -1,10 +1,10 @@
 ---
 name: planning
-description: Breaks work into ordered, verifiable tasks before implementation. Use it whenever the user asks for a plan, a roadmap, or an estimate, when requirements or a spec must become tasks, when the work spans several modules, sessions, or agents, or when a task feels too large or vague to start.
+description: Breaks work into ordered, verifiable tasks before implementation. Use it whenever the user asks for a plan, a roadmap, or an estimate, when requirements or a spec must become tasks, when the work spans several modules, sessions, or agents, or when a task feels too large or vague to start. Skip it for a change whose scope and order are already obvious.
 ---
 
 <overview>
-Break work into small, verifiable tasks with explicit acceptance criteria. Make each task small enough to implement, test, and verify in one focused session.
+Break work into small, verifiable tasks with explicit acceptance criteria. Make each task small enough to implement, test, and verify in one focused session. A plan holds the requested work and what that work requires, and nothing more.
 </overview>
 
 <when_to_use>
@@ -83,10 +83,8 @@ Each task follows this structure in the markdown task list. An item in an extern
 
 It is done when [specific, testable condition] and [specific, testable condition].
 
-Three checks verify it.
-- [ ] Tests pass with [the repository's focused-test command].
-- [ ] The build succeeds with [the repository's build command].
-- [ ] A manual check shows [what to verify].
+This check verifies it.
+- [ ] [The check that would fail if this task were wrong, such as the repository's focused-test command, its build, or a manual check of the behavior.]
 
 It depends on [task numbers, or no other task].
 
@@ -100,17 +98,15 @@ Its size is [XS, S, M, or L], from the file counts in the `task_sizing` table.
 Four rules set the task order.
 1. Dependencies are satisfied, so the foundation comes first.
 2. Each task leaves the system in a working state.
-3. A verification checkpoint follows every 2-3 tasks.
+3. A checkpoint follows a group of tasks where an integration point, a risk, or a decision of the user sits.
 4. High-risk tasks come early, so they fail fast.
 
 Add explicit checkpoints to the task list target. This checkpoint follows tasks 1-3.
 
 ```markdown
 Checkpoint after tasks 1-3.
-- [ ] All tests pass.
-- [ ] The application builds without errors.
+- [ ] The tests that cover tasks 1-3 pass.
 - [ ] The core user flow works end to end.
-- [ ] The user reviewed the work before you go on, when the user is present.
 ```
 </order_and_checkpoints>
 </planning_process>
@@ -181,10 +177,10 @@ Phase 2 builds the core features.
 - [ ] Task 4. ...
 - [ ] The core checkpoint passes when the end-to-end flow works.
 
-Phase 3 adds the polish.
+Phase 3 finishes the remaining requested work.
 - [ ] Task 5. ...
 - [ ] Task 6. ...
-- [ ] The final checkpoint passes when all acceptance criteria are met and the work is ready for review.
+- [ ] The final checkpoint passes when all acceptance criteria are met.
 
 | Risk | Impact | Mitigation |
 |------|--------|------------|
@@ -209,7 +205,7 @@ These signs show a broken planning process.
 - Tasks say "implement the feature" without acceptance criteria.
 - The plan has no verification steps.
 - All tasks are XL.
-- No checkpoints sit between tasks.
+- No checkpoint sits where the plan has an integration point or a risk.
 - The dependency order is ignored.
 </red_flags>
 
@@ -221,8 +217,8 @@ Confirm these points before you start implementation.
 - [ ] Tasks are in the task list target, by default `tasks/todo.md`.
 - [ ] No existing incomplete plan was overwritten without the user's explicit confirmation.
 - [ ] No task touches more than about 5 files.
-- [ ] Checkpoints exist between major phases.
-- [ ] When the user is present, they reviewed and approved the plan. Otherwise the plan's open questions and assumptions go in the report.
+- [ ] Checkpoints sit at the integration points and risks.
+- [ ] The plan's open questions and assumptions are stated for the user.
 
 Acceptance criteria belong to each task and answer whether we built the right thing. They sit on top of the `verification` block of the coding instructions. That block is the standing bar every task clears before it counts as done.
 </plan_check>

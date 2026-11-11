@@ -1,6 +1,6 @@
 ---
 name: research
-description: Finds and verifies current facts in official docs, source code, and the web, and cites each claim with a deep link. Use it whenever an answer depends on a framework, library, API, service, price, or rule that changes over time, before writing framework-specific code from memory, when comparing tools or options, and when the user asks for research, a comparison, or a written report. Long reading goes to a subagent.
+description: Finds and verifies current facts in official docs, source code, and the web, and cites each claim with a deep link. Use it whenever an answer depends on a framework, library, API, service, price, or rule that changes over time, before writing framework-specific code from memory, when comparing tools or options, and when the user asks for research or for a comparison or report that rests on sources.
 ---
 
 <overview>
@@ -81,7 +81,7 @@ When the docs conflict with the existing project code, tell the user and ask whi
 </implement>
 
 <cite>
-Every framework-specific decision gets a citation that the user can check. Put the link inside the sentence it supports, as the output style requires. Code carries no source comments, as the `code_rules` block requires.
+Every framework-specific decision gets a citation that the user can check. Put the link inside the sentence it supports. Code carries no source comments, as the `code_rules` block requires.
 
 Citations follow these rules.
 - Use full URLs, not shortened ones.

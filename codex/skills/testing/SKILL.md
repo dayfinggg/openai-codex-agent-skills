@@ -1,32 +1,15 @@
 ---
 name: testing
-description: Picks the check that proves a change works and the test level for it, and routes to references for browser, CLI, API, contract, and flaky tests. Use it whenever you are about to run, write, or review a test or a check, before the first test run or test edit of a task, after implementing a feature or fix, for UI changes in a browser, for HTTP APIs and command-line tools, and when a test fails only sometimes.
+description: Picks the check that proves a change works and the test level for it, and routes to procedures for browser, CLI, API, contract, and flaky tests. Use it when the project gives no obvious check for the change, when you review or repair existing tests, for UI changes checked in a browser, for HTTP APIs and command-line tools, and when a test fails only sometimes. Running a test command the project already documents needs no skill, and the `tdd` skill covers writing a new test first.
 license: MIT and Apache-2.0. The playwright folder is adapted from microsoft/playwright-cli and the chrome-devtools folder from ChromeDevTools/chrome-devtools-mcp, both Apache-2.0. The changes remove code comments, headings, and links to files not shipped, rewrite the prose to the plugin style, and add commands checked against the current source. the distribution LICENSE lists every source.
 ---
 
 <overview>
-This skill picks the kind of test or check a change needs, and routes to the file with the procedure. The `tdd` skill covers the red-green loop, and the `debugging` skill covers the diagnosis of a failure. Verify as the `verification` block of the coding instructions requires. Add new tests only as the `code_rules` block allows.
+This skill picks the kind of test or check a change needs, and routes to the file with the procedure. The `tdd` skill covers the red-green loop, and the `debugging` skill covers the diagnosis of a failure. Verify as the `verification` block of the coding instructions requires, with the smallest check that would fail if the change were wrong. Add new tests only as the `code_rules` block allows.
 </overview>
 
-<test_pyramid>
-Spend testing effort according to the pyramid. Most tests are small and fast, with fewer tests at each higher level.
-
-```
-          ╱╲
-         ╱  ╲         E2E Tests (~5%)
-        ╱    ╲        Full user flows, real browser
-       ╱──────╲
-      ╱        ╲      Integration Tests (~15%)
-     ╱          ╲     Component interactions, API boundaries
-    ╱────────────╲
-   ╱              ╲   Unit Tests (~80%)
-  ╱                ╲  Pure logic, isolated, milliseconds each
- ╱──────────────────╲
-```
-</test_pyramid>
-
 <test_sizes>
-Beyond the pyramid levels, tests also differ by the resources they use.
+Tests differ by the resources they use.
 
 | Size | Constraints | Speed | Example |
 |---|---|---|---|
@@ -47,18 +30,18 @@ Choose the lowest level that can catch the break the test names, as [good-tests.
 </pick_the_level>
 
 <check_by_change>
-Each kind of change has its check and its reference.
+Each kind of change has its check. The `references` section names the file with the procedure.
 
-| Change | Check | Read |
-|---|---|---|
-| Logic, library code, or a bug fix | Unit or integration tests with the project's runner, and a regression test for a bug | [good-tests.md](references/good-tests.md) and the `tdd` skill |
-| UI change | Use the feature in a real browser, with the main path and edge cases, and read the console and network | [playwright-cli.md](references/playwright/playwright-cli.md), or [chrome-devtools.md](references/chrome-devtools/chrome-devtools.md) when that MCP server is connected |
-| Playwright test suite | Run, debug, generate, or heal the tests | [playwright-tests.md](references/playwright/playwright-tests.md) and [test-generation.md](references/playwright/test-generation.md) |
-| HTTP API | Real requests that assert status, body, headers, and authorization | [cli-and-api.md](references/cli-and-api.md) |
-| API schema or contract | Schema validation and a breaking-change diff | [cli-and-api.md](references/cli-and-api.md) |
-| Command-line tool | Exit codes, stdout and stderr apart, and golden files | [cli-and-api.md](references/cli-and-api.md) |
-| Flaky test | Repeated and shuffled runs, then a fix of the root cause | [flaky-tests.md](references/flaky-tests.md) |
-| New or changed tests and mocks | Each test names the break it catches | [good-tests.md](references/good-tests.md) |
+| Change | Check |
+|---|---|
+| Logic, library code, or a bug fix | Unit or integration tests with the project's runner, and a regression test for a bug where the `code_rules` block allows a new test |
+| UI change | Use the feature in a real browser, with the main path and edge cases, and read the console and network |
+| Playwright test suite | Run, debug, generate, or heal the tests |
+| HTTP API | Real requests that assert status, body, headers, and authorization |
+| API schema or contract | Schema validation and a breaking-change diff |
+| Command-line tool | Exit codes, stdout and stderr apart, and golden files |
+| Flaky test | Repeated and shuffled runs, then a fix of the root cause |
+| New or changed tests and mocks | Each test names the break it catches |
 </check_by_change>
 
 <browser_checks>

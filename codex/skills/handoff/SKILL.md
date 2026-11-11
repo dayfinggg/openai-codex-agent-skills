@@ -6,7 +6,7 @@ description: Compacts the current conversation into a handoff document that a fr
 <handoff>
 Write a handoff document that sums up the current conversation, so a fresh agent can continue the work. Save it where the user names. Otherwise save it to the session's scratchpad or the system's temporary directory, not the current workspace. That directory is `$TMPDIR`, else `/tmp`, and `%TEMP%` on Windows. Give the user the document's absolute path.
 
-Name the skills the next agent should read or invoke through its available skill mechanism.
+The document states the goal, where the work stands, the decisions made and their reasons, the approaches that failed, the checks that were run with their results, and the next unfinished step. Name the skills the next agent should read or invoke through its available skill mechanism.
 
 Do not duplicate content that other artifacts already hold, such as specs, plans, ADRs, issues, commits, and diffs. Reference them by path or URL instead.
 

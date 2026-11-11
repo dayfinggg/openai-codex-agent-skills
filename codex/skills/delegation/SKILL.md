@@ -21,14 +21,14 @@ Find out what the runtime offers before you choose a model. Never pick from memo
 </runtime>
 
 <model_and_effort>
-Match the model tier and effort to the task, and set the model explicitly. An omitted model inherits the parent's, which is usually the most expensive one. Set effort where the runtime offers it, by each tool's own rules.
-- Lookups, search, and summaries go to the fastest, cheapest tier. A misread search result sends the parent after the wrong file, so ask for exact paths and quotes.
-- Work with a clear spec and a check that proves it goes to the middle tier. Use medium or high effort there.
-- Judgement-heavy, long-horizon, or ambiguous work goes to the strongest tier at high effort or above.
-- Raise effort when edge cases matter. Switch to a stronger model when the same approach fails twice, because effort does not fix a wrong approach.
+Match the model tier and effort to the task, and set the model explicitly. An omitted model falls back to the runtime's default, often the parent's model, which can be the most expensive one. Set effort where the runtime offers it, by each tool's own rules.
+- Lookups, search, log reading, and summaries go to the fastest, cheapest tier at its default effort, because a mistake there is cheap to spot. A misread search result still sends the parent after the wrong file, so ask for exact paths and quotes, and keep code edits and judgement calls off this tier.
+- Work with a clear spec and a check that proves it goes to the middle tier, and so does a well-defined task you run often, such as a review. Use medium or high effort there.
+- Judgement-heavy, long-horizon, or ambiguous work goes to the strongest tier, starting at medium effort and rising to high.
+- When a result falls short, first make sure the agent has a check it can run, then raise effort one level, then move up one tier and start there at a lower effort than the smaller model used. Past high effort the next tier up can cost no more than another effort level, and effort does not fix a wrong approach.
 - Use the user's named model and settings when the user gives them.
 
-Before you brief a model family for the first time in a session, read its current prompting guidance. For Claude models, invoke the `claude-api` skill, or read the prompting best practices at https://platform.claude.com/docs when it is unavailable. For GPT models, read OpenAI's current prompt guidance at https://developers.openai.com. For other providers, read their official prompting docs. Apply what you read to the brief.
+Before the first brief of a session to a model family, read that provider's current prompting guidance and apply it. For GPT-6 models, use [OpenAI's GPT-6 prompting guidance](https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#prompting-best-practices). For Claude or another provider, read that provider's official guidance. Keep the user's requested provider, model, settings, and scope.
 </model_and_effort>
 
 <brief>
@@ -36,10 +36,10 @@ The agent sees only the brief, so give the whole task once and precisely. Write 
 1. Goal and finish line. State what is wrong or wanted. Say what done looks like, such as "the suite passes 30 runs in a row".
 2. Context. Give exact paths, the relevant facts you already know, and what you ruled out. Pass long material as file paths, not pasted text.
 3. Scope. Name the files or modules the agent owns, and what it must not touch.
-4. Rules. A native subagent starts with the same base instructions, so it already has the output style and the coding, file tool, and skill rules. For an agent of another provider, name the base instructions at `../../base_instructions.md`, relative to this skill, and ask it to follow their writing_style block and coding instructions with its own tools. Give it as an absolute path. Name the skills that fit the task.
+4. Rules. Follow the runtime's rules for inherited instructions, and pass any required rules the subagent does not receive. For an agent of another provider, name the base instructions at `../../base_instructions.md`, relative to this skill, as an absolute path, and ask it to follow their `writing_style` block and coding instructions with its own tools. Name applicable project `AGENTS.md` files and the skills that fit the task.
 5. Proof. Say which check proves the work, such as a command, a test, or a screenshot. Ask the agent to report any check it could not run.
-6. Stop conditions and caps. The agent asks only when it cannot continue, or before a destructive or external action. It reports a blocker instead of working around it. Give it a cap on turns or spend where the runtime offers one, and name who approves the result.
-7. Return contract. Ask for a short report that opens with the outcome. It gives evidence with file and line, and it marks unverified claims.
+6. Stop conditions and caps. The agent asks only when it cannot continue, or before a destructive or external action. It works through ordinary obstacles such as errors and timeouts, and it reports a deliberate barrier, such as denied access, instead of working around it. Give it a cap on turns or spend where the runtime offers one, and name who approves the result.
+7. Return contract. Ask for a short report in plain paragraphs that opens with the outcome, gives evidence with file and line, and marks unverified claims. Name the length you need, and the language when it should differ from the user's. Ask for long material as a file path, not as report text.
 
 Keep the brief at the level of goals and checks. Overly specific steps or "stop for review" lines make current models end early or over-ask.
 </brief>
@@ -53,5 +53,5 @@ Do not poll an agent, sleep, or re-brief it while it runs. Keep working on what 
 </waiting>
 
 <results>
-Check each report's evidence before you accept it, such as the command, its output, and the cited lines. Do not redo the agent's work or re-derive its findings when the evidence holds. When several agents changed code, check for conflicts. Then run the project's checks on the combined result, as the `verification` block of the coding instructions requires. Relay findings to the user in the output style, and name each agent or thread as the runtime shows it.
+Check each report's evidence before you accept it, such as the command, its output, and the cited lines. Do not redo the agent's work or re-derive its findings when the evidence holds. When several agents changed code, check for conflicts. Then run the project's checks on the combined result, as the `verification` block of the coding instructions requires. Tell the user the verified findings in your own words under the `writing_style` rules, and name each agent or thread as the runtime shows it.
 </results>

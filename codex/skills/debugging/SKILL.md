@@ -28,7 +28,7 @@ These ways to construct a loop come in roughly this order of preference.
 4. A headless browser script (Playwright or Puppeteer) that drives the UI and asserts on DOM, console, or network.
 5. A replay of a captured trace. Save a real network request, payload, or event log to disk. Then replay it through the code path in isolation.
 6. A throwaway harness. Spin up a minimal subset of the system, such as one service with mocked dependencies. It exercises the bug code path with a single function call.
-7. A property or fuzz loop. If the bug is "sometimes wrong output", run 1000 random inputs and look for the failure mode.
+7. A property or fuzz loop. If the bug is "sometimes wrong output", run many random inputs and look for the failure mode.
 8. A bisection harness. If the bug appeared between two known states, such as commits, datasets, or versions, automate the check. The harness boots at state X, checks, and repeats, so you can `git bisect run` it.
 9. A differential loop. Run the same input through the old and new version, or through two configs, and diff the outputs.
 10. A HITL bash script, as the last resort. If a human must click, drive them with `scripts/hitl-loop.template.sh` so the loop stays structured. Its captured output feeds back to you.
@@ -48,7 +48,7 @@ A 30-second flaky loop is barely better than no loop. A 2-second deterministic l
 </tighten_the_loop>
 
 <non_deterministic_bugs>
-For a non-deterministic bug, the goal is a higher reproduction rate, not a clean repro. Loop the trigger 100 times, parallelise, add stress, narrow timing windows, and inject sleeps. A bug that fails 50 percent of the time is debuggable, and a 1 percent bug is not. Keep raising the rate until the bug is debuggable.
+For a non-deterministic bug, the goal is a higher reproduction rate, not a clean repro. Loop the trigger many times, parallelise, add stress, narrow timing windows, and inject sleeps. A bug that fails 50 percent of the time is debuggable, and a 1 percent bug is not. Keep raising the rate until the bug is debuggable.
 </non_deterministic_bugs>
 
 <no_loop_possible>
@@ -65,7 +65,7 @@ Phase 1 is done when the loop is tight and red-capable. You can name one command
 - [ ] It is fast, taking seconds and not minutes.
 - [ ] It is agent-runnable, so you can run it unattended. A human joins the loop only through `scripts/hitl-loop.template.sh`.
 
-Reading code to build a theory before this command exists is the failure this skill prevents. Without a red-capable command, Phase 2 does not start.
+Read the code you need to build this command, and hold theories about the cause until it exists. Without a red-capable command, Phase 2 does not start.
 </phase_1_done>
 </phase_1_feedback_loop>
 
@@ -77,15 +77,15 @@ Run the loop, and watch it go red as the bug appears. Then confirm each item in 
 
 Once the loop is red, shrink the repro to the smallest scenario that still goes red. Cut inputs, callers, config, data, and steps one at a time. Re-run the loop after each cut, and keep only what carries the failure. A minimal repro shrinks the hypothesis space in Phase 3, because fewer moving parts remain to suspect. It also becomes the clean regression test in Phase 5.
 
-Minimising is done when every remaining element carries the failure. Removing any one of them then makes the loop go green. Do not proceed until you have reproduced and minimised the bug.
+Minimising is done when every remaining element carries the failure. Removing any one of them then makes the loop go green. Stop earlier when further cuts would not change the fix.
 </phase_2_reproduce_and_minimise>
 
 <phase_3_hypothesise>
-Generate 3-5 ranked hypotheses before you test any of them. A single hypothesis anchors on the first plausible idea.
+Before you test anything, list the hypotheses the evidence still allows and rank them, because a single hypothesis anchors on the first plausible idea. When the evidence already isolates one cause, test that one.
 
 Each hypothesis must be falsifiable, so state the prediction it makes. Write it in the form "If X is the cause, then changing Y will make the bug disappear, or changing Z will make it worse." If you cannot state the prediction, the hypothesis is a vibe, so discard or sharpen it.
 
-Show the ranked list to the user before you test it. The user often has domain knowledge that re-ranks the list at once, as in "we just deployed a change to #3". The user may also know hypotheses they already ruled out. This checkpoint is cheap and saves much time. Do not block on it, and proceed with your ranking if the user is away.
+When the ranking is uncertain and the user is present, show it in a sentence or two before you test it. The user often has domain knowledge that re-ranks the list at once, as in "we just deployed a change to #3", and may know hypotheses they already ruled out. Do not block on it, and proceed with your ranking if the user is away.
 </phase_3_hypothesise>
 
 <phase_4_instrument>

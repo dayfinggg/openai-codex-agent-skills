@@ -1,10 +1,10 @@
 ---
 name: cleancode
-description: Rules for clean, maintainable code from four books, Code Complete, Refactoring, Working Effectively with Legacy Code, and Release It. Use it whenever you write or change production code, refactor or clean up code, or change code that lacks trustworthy tests, and whenever you add outbound calls, retries, queues, background jobs, migrations, or deploy steps.
+description: Routes code quality work to compressed rules from Code Complete, Refactoring, Working Effectively with Legacy Code, and Release It. Use it when you write a new module or a sizeable piece of logic, when the task is a refactor or cleanup, when you change code that lacks trustworthy tests, and when you add outbound calls, retries, queues, background jobs, migrations, or deploy steps. A small edit inside existing code needs only the coding instructions.
 ---
 
 <overview>
-This skill routes code quality work to four book rule sets. Each reference file holds one book's rules in compressed form. A file has decision rules, trigger rules, and a final checklist. Read the files that fit the task first. Check the work against their checklists before you report.
+This skill routes code quality work to four book rule sets. Each reference file holds one book's rules in compressed form. A file has decision rules, trigger rules, and a final checklist. Read the files that fit the task first. Check the work against the checklist items that bear on the change before you report.
 </overview>
 
 <books>
@@ -16,7 +16,7 @@ Each reference file covers one book.
 </books>
 
 <precedence>
-The coding instructions win where a book disagrees with them. The `code_rules` block already sets KISS, YAGNI, DRY, the least code, no comments, and the project's style. The reference files leave those rules out. Three book habits still meet `code_rules`, and `code_rules` decides each one.
+The coding instructions win where a book disagrees with them. The `code_rules` block already sets KISS, YAGNI, DRY, the least code, comments only where the repository keeps them, and the project's style. The reference files leave those rules out. Three book habits still meet `code_rules`, and `code_rules` decides each one.
 - The books invite cleanup of nearby code. Refactor only what the request names or needs, and mention other smells in the report.
 - Characterization tests and new edge-case tests stay only where `code_rules` allows new tests. Otherwise use them as temporary checks and delete them.
 - Release It defenses, such as timeouts and circuit breakers, go into code that the task adds or changes. For other code, propose them in the report.

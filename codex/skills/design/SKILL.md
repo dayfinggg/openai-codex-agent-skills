@@ -1,6 +1,6 @@
 ---
 name: design
-description: Vocabulary and method for designing deep modules, which hide a lot of behavior behind a small interface at a clean seam. Use it whenever you add a module, service, or class, change an interface or a boundary between parts, decide where a seam goes, make code testable, merge shallow modules, or compare interface designs.
+description: Vocabulary and method for designing deep modules, which hide a lot of behavior behind a small interface at a clean seam. Use it when you decide or change a module's interface or the boundary between parts, place a seam, make code testable, merge shallow modules, or compare interface designs. A class added inside an existing design needs no skill.
 ---
 
 <overview>
@@ -8,7 +8,7 @@ Design deep modules. A deep module puts a lot of behavior behind a small interfa
 </overview>
 
 <glossary>
-Use these terms exactly, and do not substitute "component", "service", "API", or "boundary". Consistent language is the point of the glossary.
+Use these terms exactly for the design concepts, and do not substitute "component", "service", "API", or "boundary" for them. Consistent language is the point of the glossary. The project's own names for its code and its domain stay as they are.
 
 A module is anything with an interface and an implementation. The term is deliberately scale-agnostic. It covers a function, class, package, or tier-spanning slice. Do not call it a unit, component, or service.
 
