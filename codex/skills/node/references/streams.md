@@ -3,15 +3,11 @@ This file has these sections, in order.
 - triggers
 - pipeline
 - csv etl pattern
-- chained transforms
-- async iteration
-- readable from
 - backpressure
-- stream consumers
 </contents>
 
 <triggers>
-Use `pipeline()` with explicit async generator transforms for CSV, ETL, ingestion, and large files. The same applies to transform streams, backpressure, and line-by-line processing.
+Use `pipeline()` for CSV, ETL, ingestion, large files, and line-by-line processing, so memory stays bounded. Reuse the stream stages and the parser the project already has, and write an `async function*` transform when they cannot express the step simply.
 </triggers>
 
 <pipeline>
@@ -54,7 +50,7 @@ async function processFile(input: string, output: string): Promise<void> {
 </pipeline>
 
 <csv_etl_pattern>
-For ingestion tasks, combine `pipeline`, an explicit `async function*` transform, and deduplicated async lookups. In this example, concurrent lookups for the same `planId` share one request.
+When an ingestion task needs a remote lookup for each row, combine `pipeline`, an `async function*` transform, and deduplicated async lookups. In this example, concurrent lookups for the same `planId` share one request.
 
 ```typescript
 import { pipeline } from 'node:stream/promises';
@@ -104,79 +100,6 @@ await pipeline(
 This simple split does not handle quoted CSV fields that contain commas or newlines. Use the CSV parser the project already has for real CSV input. [caching.md](caching.md) explains the cache choice.
 </csv_etl_pattern>
 
-<chained_transforms>
-Several async generators can follow each other in one pipeline. Here the first stage splits lines, and the second drops empty ones.
-
-```typescript
-import { pipeline } from 'node:stream/promises';
-
-async function* parseLines(source: AsyncIterable<Buffer>): AsyncGenerator<string> {
-  let buffer = '';
-  for await (const chunk of source) {
-    buffer += chunk.toString();
-    const lines = buffer.split('\n');
-    buffer = lines.pop() ?? '';
-    for (const line of lines) {
-      yield line;
-    }
-  }
-  if (buffer) yield buffer;
-}
-
-async function* filterNonEmpty(source: AsyncIterable<string>): AsyncGenerator<string> {
-  for await (const line of source) {
-    if (line.trim()) {
-      yield line + '\n';
-    }
-  }
-}
-
-await pipeline(
-  createReadStream('input.txt'),
-  parseLines,
-  filterNonEmpty,
-  createWriteStream('output.txt')
-);
-```
-</chained_transforms>
-
-<async_iteration>
-Readable streams are async iterables. `readline` with `crlfDelay: Infinity` yields each line of a file and handles both line endings.
-
-```typescript
-import { createReadStream } from 'node:fs';
-import { createInterface } from 'node:readline';
-
-async function processLines(filePath: string): Promise<void> {
-  const fileStream = createReadStream(filePath);
-  const rl = createInterface({
-    input: fileStream,
-    crlfDelay: Infinity,
-  });
-
-  for await (const line of rl) {
-    await processLine(line);
-  }
-}
-```
-</async_iteration>
-
-<readable_from>
-`Readable.from` turns any iterable or async iterable into a readable stream. This stream emits 100 JSON lines.
-
-```typescript
-import { Readable } from 'node:stream';
-
-async function* generateData(): AsyncGenerator<string> {
-  for (let i = 0; i < 100; i++) {
-    yield JSON.stringify({ id: i, timestamp: Date.now() }) + '\n';
-  }
-}
-
-const stream = Readable.from(generateData());
-```
-</readable_from>
-
 <backpressure>
 `pipeline()` handles backpressure for you. When you call `write()` yourself, respect its return value. This function waits for `drain` whenever the buffer is full.
 
@@ -198,19 +121,3 @@ async function writeData(
 ```
 </backpressure>
 
-<stream_consumers>
-`node:stream/consumers` reads a whole stream as text, JSON, or a buffer. These helpers collect the stream into one value.
-
-```typescript
-import { text, json, buffer } from 'node:stream/consumers';
-import { Readable } from 'node:stream';
-
-async function readStreamAsJson<T>(stream: Readable): Promise<T> {
-  return json(stream) as Promise<T>;
-}
-
-async function readStreamAsText(stream: Readable): Promise<string> {
-  return text(stream);
-}
-```
-</stream_consumers>

@@ -9,7 +9,7 @@ This file has these sections, in order.
 </contents>
 
 <close_with_grace>
-Use [close-with-grace](https://github.com/fastify/close-with-grace) for graceful shutdown. It handles `SIGTERM`, `SIGINT`, `uncaughtException`, and `unhandledRejection`. It also forces an exit when cleanup takes longer than `delay` milliseconds. The callback receives the signal, or the error that triggered the shutdown.
+Use [close-with-grace](https://github.com/mcollina/close-with-grace) for graceful shutdown. It handles `SIGTERM`, `SIGINT`, `uncaughtException`, and `unhandledRejection`. It also forces an exit when cleanup takes longer than `delay` milliseconds. The callback receives the signal, or the error that triggered the shutdown.
 
 ```typescript
 import closeWithGrace from 'close-with-grace';

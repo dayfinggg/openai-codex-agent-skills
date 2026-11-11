@@ -7,17 +7,6 @@ description: Breaks work into ordered, verifiable tasks before implementation. U
 Break work into small, verifiable tasks with explicit acceptance criteria. Make each task small enough to implement, test, and verify in one focused session. A plan holds the requested work and what that work requires, and nothing more.
 </overview>
 
-<when_to_use>
-This skill fits five situations.
-- You have a spec and need to break it into units you can implement.
-- A task feels too large or vague to start.
-- Work needs to run in parallel across several agents or sessions.
-- You need to communicate scope to a human.
-- The implementation order is not obvious.
-
-Skip it for single-file changes with obvious scope, or when the spec already holds well-defined tasks.
-</when_to_use>
-
 <planning_process>
 <read_only_first>
 Before you write any code, work in read-only mode.
@@ -26,30 +15,8 @@ Before you write any code, work in read-only mode.
 - Map the dependencies between components.
 - Note risks and unknowns.
 
-Write no code during planning. The output is a plan document and a task list in the task list target, not implementation. The `output_files` block describes both.
+Write no code during planning. The output is a plan document and a task list in the task list target, not implementation. The `output_files` block describes both. When the user asked for the work itself and not only for a plan, start the first task as soon as the plan is written, because the plan is a step of that work and needs no approval of its own.
 </read_only_first>
-
-<dependency_graph>
-Map what depends on what. This graph shows a typical feature, where each layer builds on the layer above it.
-
-```
-Database schema
-    │
-    ├── API models/types
-    │       │
-    │       ├── API endpoints
-    │       │       │
-    │       │       └── Frontend API client
-    │       │               │
-    │       │               └── UI components
-    │       │
-    │       └── Validation logic
-    │
-    └── Seed data / migrations
-```
-
-Implementation follows the graph from the foundation up, so build the foundation first.
-</dependency_graph>
 
 <vertical_slices>
 Build one complete feature path at a time. Do not build the whole database, then the whole API, then the whole UI. That horizontal slicing gives a plan like this bad one.
@@ -197,17 +164,6 @@ With several agents or sessions available, the work falls into three groups.
 - Database migrations, shared state changes, and dependency chains must run in sequence.
 - Features that share an API contract need coordination. Define the contract first, then split the work.
 </parallel_work>
-
-<red_flags>
-These signs show a broken planning process.
-- A `tasks/plan.md` or `tasks/todo.md` with unchecked tasks for different work gets overwritten without asking.
-- `tasks/todo.md` gets written when the project names an external tracker, or tasks spread across both.
-- Tasks say "implement the feature" without acceptance criteria.
-- The plan has no verification steps.
-- All tasks are XL.
-- No checkpoint sits where the plan has an integration point or a risk.
-- The dependency order is ignored.
-</red_flags>
 
 <plan_check>
 Confirm these points before you start implementation.

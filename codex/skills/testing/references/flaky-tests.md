@@ -13,7 +13,7 @@ Record a failure rate for each suspect test. Check existing `retry`, `flaky`, an
 | Vitest | `vitest run --repeats=20` | `--sequence.shuffle.files --sequence.shuffle.tests` |
 | pytest | `--count=20` with `pytest-repeat` | `pytest-randomly`, and `-p no:randomly` to compare |
 | Go | `go test -count=20` | `-shuffle=on`, plus `-race` for data races |
-| Playwright | `--repeat-each=20` | `--workers` above 1, and `--fail-on-flaky-tests` in CI |
+| Playwright | `--repeat-each=20` | `--shuffle` from 1.64, which prints its seed, and `--fail-on-flaky-tests` in CI |
 
 Note the seed of each failing shuffled run, so you can replay the exact order.
 </detect>

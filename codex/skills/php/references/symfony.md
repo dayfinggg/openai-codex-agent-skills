@@ -16,7 +16,7 @@ This file has these sections, in order.
 
 
 <version_facts>
-Symfony 8.1 is the current stable release in November 2026, and 8.2 is due at the end of November 2026. Symfony 7.4 is the LTS, with bug fixes until November 2028 and security fixes until November 2029. Symfony 8.x requires PHP 8.4 or later, and 7.4 requires PHP 8.2. Check `composer.lock` for the installed `symfony/*` version before you use a feature from the list below.
+Symfony 8.1 is the current stable release in November 2026, and 8.2 is due in November 2026. Symfony 7.4 is the LTS, with bug fixes until November 2028 and security fixes until November 2029. Symfony 8.x requires PHP 8.4 or later, and 7.4 requires PHP 8.2. Check `composer.lock` for the installed `symfony/*` version before you use a feature from the list below.
 
 These changes are the ones models most often miss.
 - Symfony 8.0 removed the XML configuration format and the fluent PHP format for bundle configuration. Write config in YAML, in PHP arrays, or in attributes.
@@ -271,7 +271,7 @@ These built-in constraints often replace a custom one. `Assert\Sequentially` sto
 </constraints>
 
 <custom_constraint>
-A custom constraint is a `Constraint` subclass with constructor arguments. Its validator class has the same name with a `Validator` suffix. Custom constraints must support named arguments since 7.3. The validator returns early on `null` and `''`, so `NotBlank` stays the single owner of the empty check.
+A custom constraint is a `Constraint` subclass with constructor arguments. Its validator class has the same name with a `Validator` suffix. Since 7.3, a custom constraint that does not support named arguments is deprecated. The validator returns early on `null` and `''`, so `NotBlank` stays the single owner of the empty check.
 
 ```php
 use Symfony\Component\Validator\Constraint;

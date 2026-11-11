@@ -106,7 +106,7 @@ select * from users where email = $1 and deleted_at is null;
 </partial_indexes>
 
 <jsonb_indexes>
-A `jsonb` query without a matching index scans the whole table. A GIN index serves the containment operators `@>`, `?`, `?&`, and `?|`. The `jsonb_path_ops` operator class serves only `@>`, but the index is much smaller. A lookup of one key with `->>` needs an expression index instead.
+A `jsonb` query without a matching index scans the whole table. A GIN index with the default operator class serves `@>`, `?`, `?&`, `?|`, `@?`, and `@@`. The `jsonb_path_ops` operator class serves `@>`, `@?`, and `@@` without the key-exists operators, but the index is much smaller. A lookup of one key with `->>` needs an expression index instead.
 
 ```sql
 create index products_attrs_gin on products using gin (attributes jsonb_path_ops);

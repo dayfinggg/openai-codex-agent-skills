@@ -99,7 +99,7 @@ def execute_with_retry(engine, fn, max_retries=3):
 </deadlocks>
 
 <connections>
-Each MySQL connection costs about 1-10 MB of memory, depending on buffers. Too many connections cause out-of-memory errors or `Too many connections` errors. The default `max_connections` is 151. Raise it only with evidence, because each connection adds memory and contention.
+Each MySQL connection costs memory for its buffers. Too many connections cause out-of-memory errors or `Too many connections` errors. The default `max_connections` is 151. Raise it only with evidence, because each connection adds memory and contention.
 
 ```sql
 SHOW VARIABLES LIKE 'max_connections';
@@ -107,7 +107,7 @@ SHOW STATUS LIKE 'Max_used_connections';
 SHOW STATUS LIKE 'Threads_connected';
 ```
 
-A starting pool size for OLTP is 2-10 connections per CPU core. Tune it from `Threads_connected` and `Max_used_connections`. Connections beyond the CPU-bound optimum add context switches without more throughput. MySQL runs one thread per connection by default, so `max_connections` also sets the thread count. Raise `thread_cache_size` when connections open and close often.
+Start with a small pool, and tune it from `Threads_connected` and `Max_used_connections`. Connections beyond the CPU-bound optimum add context switches without more throughput. MySQL runs one thread per connection by default, so `max_connections` also sets the thread count. Raise `thread_cache_size` when connections open and close often.
 
 `wait_timeout` and `interactive_timeout` close idle connections, and both default to 8 hours. An idle connection with an open transaction keeps its locks until that timeout, so commit or roll back promptly. Set an application-level transaction timeout as well. `net_read_timeout` defaults to 30 seconds and `net_write_timeout` to 60 seconds. Raise them only for errors such as `Lost connection to MySQL server during query` in bulk transfers. `SET GLOBAL` changes every new session on the server, so it needs the user's confirmation on a shared server. These statements close idle connections after 5 minutes.
 

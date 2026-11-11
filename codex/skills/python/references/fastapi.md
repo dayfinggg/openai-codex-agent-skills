@@ -177,7 +177,7 @@ The built-in security classes such as `HTTPBearer` and `OAuth2PasswordBearer` an
 These features arrived in 2026.
 - `app.frontend("/", directory="dist")` serves a built single-page app after the API routes (0.138). Its default `fallback="auto"` serves `404.html` or `index.html` only to browser navigations, so missing assets still return 404.
 - FastAPI has native OpenTelemetry support (0.142). To configure exporters from the `OTEL_*` variables, set `FASTAPI_OTEL_AUTO_CONFIGURE=true` or pass `FastAPI(telemetry={"auto_configure": True})`.
-- Routes added to a router after `include_router()` take effect, because inclusion keeps the router objects (0.137). Code that walked `router.routes` as a flat list must use `iter_route_contexts()` instead.
+- Routes added to a router after `include_router()` take effect, because inclusion keeps the router objects (0.137). Code that walked `router.routes` as a flat list must use `iter_route_contexts()` instead, which exists from 0.137.2.
 </other_features>
 
 <testing>

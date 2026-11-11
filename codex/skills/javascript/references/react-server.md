@@ -1,3 +1,13 @@
+<contents>
+This file has these sections, in order.
+- authenticate server actions
+- parallel component fetching and parallel nested fetching
+- no shared module state
+- hoist static io
+- per request cache and cross request cache
+- minimize serialization
+</contents>
+
 <server_rendering>
 Server work runs before the user sees anything, so its waterfalls and repeated I/O add directly to response time. These rules cover React Server Components, Server Actions, and server rendering. Framework-specific APIs, such as Next.js request helpers, are in the framework's own docs.
 

@@ -2,10 +2,7 @@
 This file has these sections, in order.
 - custom errors
 - checking error codes
-- async errors
 - process level errors
-- never swallow
-- cause chain
 </contents>
 
 <custom_errors>
@@ -75,62 +72,8 @@ try {
 ```
 </checking_error_codes>
 
-<async_errors>
-Use try/catch with async/await and propagate errors. This function rethrows known errors and wraps unknown ones with their cause.
-
-```typescript
-async function fetchUser(id: string): Promise<User> {
-  try {
-    const user = await db.users.findById(id);
-    if (!user) {
-      throw notFound('User');
-    }
-    return user;
-  } catch (error) {
-    if (isAppError(error)) {
-      throw error;
-    }
-    throw databaseError('Failed to fetch user', error as Error);
-  }
-}
-```
-</async_errors>
-
 <process_level_errors>
-Let [close-with-grace](https://github.com/fastify/close-with-grace) handle `unhandledRejection` and `uncaughtException` when the project has it, because it also starts a graceful shutdown. [graceful-shutdown.md](graceful-shutdown.md) shows the setup. Without it, register one handler for each event in the entry module, log the error, and start the same shutdown that the signal handlers use.
+Let [close-with-grace](https://github.com/mcollina/close-with-grace) handle `unhandledRejection` and `uncaughtException` when the project has it, because it also starts a graceful shutdown. [graceful-shutdown.md](graceful-shutdown.md) shows the setup. Without it, register one handler for each event in the entry module, log the error, and start the same shutdown that the signal handlers use.
 </process_level_errors>
 
 
-<never_swallow>
-Never leave a catch block empty, because it hides the error. This block swallows the failure.
-
-```typescript
-try {
-  await riskyOperation();
-} catch (error) {
-}
-```
-
-Handle the error or rethrow it. This block logs the failure and rethrows it.
-
-```typescript
-try {
-  await riskyOperation();
-} catch (error) {
-  logger.error({ err: error }, 'Operation failed');
-  throw error;
-}
-```
-</never_swallow>
-
-<cause_chain>
-Use the `cause` option to keep the chain of errors. The new error then carries the original one.
-
-```typescript
-try {
-  await externalService.call();
-} catch (error) {
-  throw new Error('Service call failed', { cause: error });
-}
-```
-</cause_chain>

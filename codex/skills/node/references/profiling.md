@@ -144,8 +144,8 @@ node --report-uncaught-exception app.js
 <workflow>
 Profile in a loop until the goal is met.
 
-1. Measure a baseline with autocannon.
-2. Profile with flame to find the hotspots.
+1. Reproduce the slow path under realistic load, and measure a baseline with autocannon.
+2. Profile with flame, or with `--cpu-prof` when flame is not installed, to find the hotspots. Check for backpressure problems and needless serialization too.
 3. Fix the bottleneck that the profile shows.
 4. Run autocannon again and compare with the baseline.
 5. Repeat until the performance goal is met.

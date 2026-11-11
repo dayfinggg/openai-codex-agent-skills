@@ -92,5 +92,5 @@ The hang is fixed when four checks pass.
 </done_when>
 
 <related>
-[flaky-tests.md](flaky-tests.md) covers intermittent failures. [testing.md](testing.md) covers the test runner, and [graceful-shutdown.md](graceful-shutdown.md) covers server teardown.
+The `testing` skill covers intermittent failures. [testing.md](testing.md) covers the test runner, and [graceful-shutdown.md](graceful-shutdown.md) covers server teardown.
 </related>

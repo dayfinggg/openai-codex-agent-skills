@@ -1,12 +1,21 @@
 ---
 name: python
 description: Gives current Python practice for uv, ruff, ty, and pytest, with Django and FastAPI references. Use it whenever you write, review, upgrade, or set up Python code, including dependencies, virtual environments, scripts, linting, formatting, type checking, and pytest tests. Use it for every Django or FastAPI change, because it routes to framework references.
-license: MIT for SKILL.md (uv, ruff, and ty guidance from astral-sh/claude-code-plugins). Apache-2.0 for references/django-performance.md, adapted from getsentry/skills django-perf-review with headings and checklists converted to XML sections and prose, code comments moved to prose, the report template rewritten as prose, Sentry tooling references removed, one model example fixed, and a Django 6.1 fetch mode note added. See the distribution LICENSE.
+license: MIT for SKILL.md (uv, ruff, and ty guidance from astral-sh/claude-code-plugins). Apache-2.0 for references/django-performance.md, adapted from getsentry/skills django-perf-review with headings and checklists converted to XML sections and prose, code comments moved to prose, the report template rewritten as prose, Sentry tooling references removed, one model example fixed, and a Django 6.1 fetch mode note added.
 ---
 
 <project_first>
 The project's own Python version and tools come first, as `code_rules` requires. Read `requires-python` in `pyproject.toml`, `.python-version`, and the lockfile before you write code. The lockfile shows the package manager, such as `uv.lock`, `poetry.lock`, `pdm.lock`, `Pipfile.lock`, or plain `requirements*.txt`. The `pyproject.toml` tool tables and config files show the linter, formatter, type checker, and test runner. Use only syntax that the lowest allowed Python version supports. The modern defaults in this skill apply to new projects, or when the user asks for them.
 </project_first>
+
+<framework_references>
+The framework reference files hold rules that this file does not repeat. The dependencies in `pyproject.toml` or the lockfile show the framework. Read a file whole before you change code on its topic, also when the work reaches that topic later in the task.
+- In a Django project, read [django.md](references/django.md). It covers Django 5.2 LTS, 6.0, and 6.1 facts and access control for views, Django REST framework, and the admin.
+- For a Django performance review, or work on slow views and querysets, read [django-performance.md](references/django-performance.md). It finds N+1 queries, unbounded querysets, and missing indexes, and it validates each finding before it reports.
+- In a FastAPI project, read [fastapi.md](references/fastapi.md). It covers the FastAPI releases up to 0.162, dependencies, lifespan, request and response models, streaming, security, and testing.
+
+Every other rule of this file holds for any Python code. A project on another framework follows that code's existing patterns and the framework's documentation for the installed version.
+</framework_references>
 
 <python_versions>
 Python 3.15 is the current release. It came out on October 9, 2026, and 3.14 came out on October 7, 2025. A new project targets 3.14 or 3.15, as long as its main dependencies support that version.
@@ -16,7 +25,7 @@ Python 3.15 adds these features, as [What's New in 3.15](https://docs.python.org
 - UTF-8 is the default encoding when no `encoding` argument is given (PEP 686). `PYTHONUTF8=0` or `-X utf8=0` restores the locale encoding.
 - `frozendict` is a built-in immutable mapping (PEP 814), and `sentinel` creates unique sentinel values (PEP 661).
 - Comprehensions accept unpacking, as in `[*xs for xs in lists]` (PEP 798).
-- The `profiling` package adds the `profiling.sampling` profiler and `profiling.tracing`, which replaces `cProfile` (PEP 799).
+- The `profiling` package adds the `profiling.sampling` profiler and `profiling.tracing`, the new home of `cProfile`, which stays as an alias (PEP 799). The `profile` module is deprecated.
 - Typing adds `TypedDict` with `extra_items` and `closed` (PEP 728), `TypeForm` (PEP 747), and disjoint bases (PEP 800).
 
 Python 3.14 adds these features, as [What's New in 3.14](https://docs.python.org/3/whatsnew/3.14.html) lists.
@@ -40,7 +49,7 @@ Modern Python code uses these defaults where the project has no other convention
 </modern_code>
 
 <uv>
-uv is the package and project manager from Astral. It replaces pip, pip-tools, pipx, pyenv, virtualenv, and Poetry. The current release is 0.13. Use uv when the project has `uv.lock` or a `[tool.uv]` table. A uv header in `requirements*.txt` files also shows it. Do not use uv in a project that Poetry or PDM manages, which `poetry.lock` or `pdm.lock` shows. Use that tool instead.
+uv is the package and project manager from Astral. It replaces pip, pip-tools, pipx, pyenv, virtualenv, and Poetry. The current release in November 2026 is 0.13. Use uv when the project has `uv.lock` or a `[tool.uv]` table. A uv header in `requirements*.txt` files also shows it. Do not use uv in a project that Poetry or PDM manages, which `poetry.lock` or `pdm.lock` shows. Use that tool instead.
 
 A project has `pyproject.toml` or `uv.lock`, and these commands manage it.
 - `uv init` creates a new project. By default it uses a `src` layout and the `uv_build` build backend.
@@ -70,29 +79,11 @@ In a uv project, these replacements apply.
 | `python3.12 -c "..."` | `uvx python@3.12 -c "..."` |
 | `python -m venv .venv` and `source .venv/bin/activate` | `uv run <command>` |
 
-These commands replace the older tools when the user asks to migrate.
-
-| Old command | uv command |
-| --- | --- |
-| `pyenv install 3.14` | `uv python install 3.14` |
-| `pyenv versions` | `uv python list --only-installed` |
-| `pyenv local 3.14` | `uv python pin 3.14` |
-| `pyenv global 3.14` | `uv python install 3.14 --default` |
-| `pipx run ruff` | `uvx ruff` |
-| `pipx install ruff` | `uv tool install ruff` |
-| `pipx upgrade ruff` | `uv tool upgrade ruff` |
-| `pipx list` | `uv tool list` |
-| `pip install -r req.txt` | `uv pip install -r req.txt` |
-| `pip freeze` | `uv pip freeze` |
-| `pip-compile req.in` | `uv pip compile req.in` |
-| `pip-sync req.txt` | `uv pip sync req.txt` |
-| `virtualenv .venv` | `uv venv` |
-
-The [uv documentation index](https://docs.astral.sh/uv/llms.txt) links to a page for each workflow.
+When the user asks to move from pyenv, pipx, pip-tools, or virtualenv, the matching commands are `uv python`, `uv tool`, `uv pip`, and `uv venv`. The [uv documentation index](https://docs.astral.sh/uv/llms.txt) links to a page for each workflow.
 </uv>
 
 <ruff>
-Ruff is Astral's linter and formatter. It replaces Flake8, isort, Black, pyupgrade, and autoflake. The current release is 0.17. Use it when the project has a `[tool.ruff]` table, a `ruff.toml`, or a `.ruff.toml` file. Run `uv run ruff` when ruff is a project dependency, so that the pinned version runs. Run `uvx ruff` when it is not a dependency.
+Ruff is Astral's linter and formatter. It replaces Flake8, isort, Black, pyupgrade, and autoflake. The current release in November 2026 is 0.17. Use it when the project has a `[tool.ruff]` table, a `ruff.toml`, or a `.ruff.toml` file. Run `uv run ruff` when ruff is a project dependency, so that the pinned version runs. Run `uvx ruff` when it is not a dependency.
 
 Keep ruff's changes inside the task. If `ruff format --diff` changes a whole file, the project does not format with ruff. Leave that file unformatted. `ruff check --diff` shows the fixes for the code you change. Apply fixes only to the files you modify, unless the user asks for more.
 
@@ -146,7 +137,7 @@ ty fails on warnings by default, and `error-on-warning = false` under `[tool.ty.
 </type_checking>
 
 <pytest>
-pytest is the default test runner, and its current release is 9.2. It needs Python 3.10 or later. Run one test with `uv run pytest tests/test_users.py::test_create -q`. The `tdd` and `testing` skills cover test design.
+pytest is the default test runner, and its current release in November 2026 is 9.2. It needs Python 3.10 or later. Run one test with `uv run pytest tests/test_users.py::test_create -q`. The `tdd` and `testing` skills cover test design.
 
 pytest 9 changed these behaviors, as the [changelog](https://docs.pytest.org/en/stable/changelog.html) shows.
 - Configuration can use native TOML in a `[tool.pytest]` table, or in a `[pytest]` table in `pytest.toml`. The older `[tool.pytest.ini_options]` table still works, but a project cannot use both.
@@ -164,10 +155,3 @@ testpaths = ["tests"]
 addopts = ["-ra"]
 ```
 </pytest>
-
-<framework_references>
-Read the framework reference before you change code in a framework project. The dependencies in `pyproject.toml` or the lockfile show the framework.
-- A Django project starts with [references/django.md](references/django.md). It covers Django 5.2 LTS, 6.0, and 6.1 facts and access control for views, Django REST framework, and the admin.
-- A Django performance review, or work on slow views and querysets, uses [references/django-performance.md](references/django-performance.md). It finds N+1 queries, unbounded querysets, and missing indexes, and it validates each finding before it reports.
-- A FastAPI project reads [references/fastapi.md](references/fastapi.md). It covers the FastAPI releases up to 0.162, dependencies, lifespan, request and response models, streaming, security, and testing.
-</framework_references>

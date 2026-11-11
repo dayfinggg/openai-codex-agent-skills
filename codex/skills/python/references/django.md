@@ -24,7 +24,7 @@ Django 6.1 is the current feature release, and 6.1.3 is its latest patch. Check 
 
 Django 5.2 is the last series that supports Python 3.10 and 3.11. Django 6.1 supports Python 3.15 from 6.1.3. Django 6.1 requires PostgreSQL 15, MySQL 8.4, MariaDB 10.11, or SQLite 3.37 or later.
 
-The release cycle becomes annual after 6.2. Django 6.2 is the next LTS, planned for April 2027. Django 2028.0 follows in January 2028 and replaces the planned 7.0. Deprecation warnings use the calendar name, such as `RemovedInDjango2028Warning`.
+The release cycle becomes annual after 6.2. Django 6.2 is the next LTS, planned for April 2027. Django 2028 follows in January 2028 and replaces the planned 7.0. Deprecation warnings use the calendar name, such as `RemovedInDjango2028Warning`.
 </versions>
 
 <django_5_2>
@@ -103,7 +103,7 @@ Login is not authorization. Use `PermissionRequiredMixin` or `@permission_requir
 </require_login>
 
 <drf_permissions>
-DRF views opt out of `LoginRequiredMiddleware`, and DRF allows all requests by default. Set `DEFAULT_PERMISSION_CLASSES` in `REST_FRAMEWORK` to include `rest_framework.permissions.IsAuthenticated`, or set `permission_classes` on each view.
+DRF marks its views as exempt from `LoginRequiredMiddleware`, and DRF allows all requests by default. Set `DEFAULT_PERMISSION_CLASSES` in `REST_FRAMEWORK` to include `rest_framework.permissions.IsAuthenticated`, or set `permission_classes` on each view.
 
 `has_object_permission()` runs only when a generic view calls `get_object()`. It does not run for list views, and a custom view that never calls `get_object()` skips it. Scope `get_queryset()` to the user, so list, detail, update, and delete all share one filter.
 

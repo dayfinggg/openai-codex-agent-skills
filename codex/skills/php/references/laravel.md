@@ -1,5 +1,5 @@
 <overview>
-This file is the entry point for Laravel projects. It covers versions, project structure, Artisan, Pint, and the index of the other Laravel reference files. The rules target Laravel 13 and still fit Laravel 12.
+This file is the entry point for Laravel projects. It covers versions, project structure, Artisan, and Pint. The skill's `framework_references` section names the file for each other Laravel topic. The rules target Laravel 13 and still fit Laravel 12.
 </overview>
 
 <versions>
@@ -35,17 +35,5 @@ Follow the project's existing pattern where it has one. Deviate only to fix a co
 </conventions>
 
 <pint>
-Laravel projects format PHP with [Pint](https://laravel.com/docs/13.x/pint), which uses the `laravel` preset unless `pint.json` sets another one. After you change PHP files, run `vendor/bin/pint` with the paths of the files you changed. `--dirty` also formats files with other uncommitted work, so use it only on a clean working tree. Run `vendor/bin/pint` without `--test` to fix issues, because `--test` only reports them. Pint 1.27 and later accept `--format agent` for compact output meant for coding agents. `--blade` also formats Blade templates, which needs Node.js and Prettier.
+Laravel projects format PHP with [Pint](https://laravel.com/docs/13.x/pint), which uses the `laravel` preset unless `pint.json` sets another one. After you change PHP files, run `vendor/bin/pint` with the paths of the files you changed. `--dirty` also formats files with other uncommitted work, so use it only on a clean working tree. Run `vendor/bin/pint` without `--test` to fix issues, because `--test` only reports them. Pint 1.27 and later switch to a compact `agent` output format on their own when a coding agent runs them. `--blade` also formats Blade templates, which needs Node.js and Prettier.
 </pint>
-
-<reference_index>
-Read each file whose subject the change touches before you edit. A cross-cutting change often needs more than one file.
-
-| File | Read it when the change touches |
-| --- | --- |
-| `laravel-database.md` | Eager loading, N+1 queries, large data sets, indexes, subqueries, Eloquent models, scopes, casts, and migrations |
-| `laravel-http.md` | Routes, controllers, middleware, form requests, validation, authorization, security, outbound HTTP calls, and error handling |
-| `laravel-async.md` | Queued jobs, scheduled tasks, events, notifications, mail, and caching |
-| `laravel-app.md` | Actions, dependency injection, naming, config and environment values, locks, `defer()`, `Context`, `Concurrency`, collections, and Blade |
-| `laravel-testing.md` | Writing or reviewing Pest or PHPUnit tests, factories, fakes, and test performance |
-</reference_index>
