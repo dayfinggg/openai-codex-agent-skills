@@ -1,12 +1,10 @@
 # Codex instructions and skills
 
-A portable configuration for GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Astra, and GPT-6 Luna, synchronized with the current local setup.
+A portable Codex configuration for GPT-6.2 Sol and Astra.
 
-The payload contains 24 engineering skills, the Concise operating instructions, and portable settings. Each skill keeps its entry point in `SKILL.md`, guidance in `references`, runnable helpers in `scripts`, and reusable examples in `assets`. Source attribution and redistribution terms live in the distribution `LICENSE`. No custom agent definitions are installed. Codex supplies its own system skills and discovers available tools at runtime.
+The payload contains 24 engineering skills, English operating instructions, and portable settings. Each skill keeps its entry point in `SKILL.md`, guidance in `references`, runnable helpers in `scripts`, and reusable examples in `assets`. Source attribution and redistribution terms live in the distribution `LICENSE`. No custom agent definitions are installed. Codex supplies its own system skills and discovers available tools at runtime.
 
-The skills and operating rules follow Concise 0.33.0, including its complete writing style and configured Russian response language. The base starts from the GPT-6.1 Sol instruction template shipped to Codex 0.167.1 on November 11, 2026. Targeted replacements remove conflicting presentation defaults and adapt Claude tools and paths to Codex. Skill descriptions, entry points, references, scripts, and assets retain the source workflows, with Codex-specific invocation guidance.
-
-One set of writing rules covers every text written for people, including subagent reports unless their task requests another form. Replies open with the answer and use plain paragraphs, with numbered lists only for steps the user performs. Notes appear only when the plan changes, a problem appears, or the work reaches its next stage. Skills load only when their descriptions cover the work, and relevant references are read completely. Checks and reviews follow the source's risk-based rules, with no repeated checks after the result already covers the current state. The base also carries the source's rules for work on shared systems, for secrets in command output, for waiting on jobs, and for work that another agent delegated. See [synchronization details](docs/synchronization.md) for source accounting, adaptations, and official documentation.
+The operating rules put results first. The skills use Codex discovery and load their detailed references as needed. Replace mode removes the retired entrypoints, and the Playwright guidance keeps tests for confirmed defects enabled. See [synchronization details](docs/synchronization.md) for loading and upgrade behavior.
 
 ## Install
 
@@ -22,7 +20,7 @@ sh scripts/install.sh
 
 Replace mode backs up and replaces non-system skills, custom agents, and shared instructions, removing retired entries and legacy global AGENTS files. Credentials, sessions, plugins, system skills, and unrelated files remain in place. Existing configuration values are preserved and missing defaults are added. The instruction file is connected as `base_instructions.md`.
 
-The portable defaults select GPT-6.1 Sol with high reasoning, low response verbosity, live web search, and GPT-6 Luna with maximum reasoning for subagents. They also set `approval_policy = "never"` and `sandbox_mode = "danger-full-access"`. Review [the configuration](codex/config.toml) before installation.
+The portable defaults select GPT-6.2 Sol with high reasoning, low response verbosity, live web search, and GPT-6 Luna with maximum reasoning for subagents. They also set `approval_policy = "never"` and `sandbox_mode = "danger-full-access"`. Review [the configuration](codex/config.toml) before installation.
 
 Start a new Codex session after installation. See [installation details](docs/installation.md) for merge mode and custom locations.
 

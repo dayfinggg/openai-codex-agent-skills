@@ -334,7 +334,7 @@ Common causes are selector drift, a new wrapper element, and a renamed label or 
 </debug_one_failure>
 
 <apply_the_fix>
-Edit the test file to update the locator, assertion, step order, or inputs. Stop the background debug run, and run the single test again to confirm it passes. Never skip hooks or add sleeps as a fix, and never use `networkidle`.
+Stop the background debug run. If the test is wrong or no longer matches intended behavior, correct the locator, assertion, step order, or inputs and rerun the single test. If a correct test exposes an application defect, leave it unchanged and follow the reporting rule below. Never skip hooks or add sleeps as a fix, and never use `networkidle`.
 </apply_the_fix>
 
 <reconcile_with_the_spec>
@@ -343,10 +343,10 @@ Find the spec scenario whose file path matches the test file. Then compare the f
 - A fix that changed user-visible steps, inputs, order, or expected outcomes needs a spec update. Keep the scenario id and file path, and change only the step and expect lines.
 - When it is unclear whether the app change is intended or a regression, stop and ask the user. Give the scenario id and the spec lines that no longer match. Add the observed behavior from a snapshot excerpt or a concrete outcome.
 
-After the user answers, update the spec for an intended change. For a regression, flag the test as covering a bug.
+After the user answers, update the spec for an intended change. For a regression, keep the intended behavior in the spec and report the defect.
 </reconcile_with_the_spec>
 
 <iteration>
-Fix failures one at a time, and run the test again after each fix. Sometimes the test is correct, the app is wrong, and the user confirms the bug. Then mark the test with `test.fixme()`, and give the user's decision or the issue link in its description. Never skip a test silently.
+Fix failures one at a time, and run the test again after each fix. When a correct test exposes a confirmed application defect, leave the test enabled and failing until the application is fixed. Report the failing test, the expected and observed behavior, and the confirmed cause. Include the issue link if one exists. Do not use `test.fixme()`, `test.skip()`, or an expected-failure annotation to hide the defect.
 </iteration>
 </heal>

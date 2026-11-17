@@ -1,8 +1,15 @@
 ---
 name: python
 description: Gives current Python practice for uv, ruff, ty, and pytest, with Django and FastAPI references. Use it whenever you write, review, upgrade, or set up Python code, including dependencies, virtual environments, scripts, linting, formatting, type checking, and pytest tests. Use it for every Django or FastAPI change, because it routes to framework references.
-license: MIT for SKILL.md (uv, ruff, and ty guidance from astral-sh/claude-code-plugins). Apache-2.0 for references/django-performance.md, adapted from getsentry/skills django-perf-review with headings and checklists converted to XML sections and prose, code comments moved to prose, the report template rewritten as prose, Sentry tooling references removed, one model example fixed, and a Django 6.1 fetch mode note added.
+license: MIT for SKILL.md and the uv, pytest, and lint references, adapted from astral-sh/claude-code-plugins and material by dayfinggg. Apache-2.0 for references/django-performance.md, adapted from getsentry/skills django-perf-review with headings and checklists converted to XML sections and prose, code comments moved to prose, the report template rewritten as prose, Sentry tooling references removed, one model example fixed, and a Django 6.1 fetch mode note added.
 ---
+
+<tool_references>
+Read a reference when the task reaches its topic. Check the pinned package and current official docs before using version-specific syntax or command flags.
+- For uv project structure, groups, scripts, and publishing, read [uv-packaging.md](references/uv-packaging.md).
+- For pytest configuration, Python language features, or pytest-asyncio behavior, read [pytest-language.md](references/pytest-language.md).
+- For Ruff, ty, or mypy configuration and migration notes, read [lint-types.md](references/lint-types.md).
+</tool_references>
 
 <project_first>
 The project's own Python version and tools come first, as `code_rules` requires. Read `requires-python` in `pyproject.toml`, `.python-version`, and the lockfile before you write code. The lockfile shows the package manager, such as `uv.lock`, `poetry.lock`, `pdm.lock`, `Pipfile.lock`, or plain `requirements*.txt`. The `pyproject.toml` tool tables and config files show the linter, formatter, type checker, and test runner. Use only syntax that the lowest allowed Python version supports. The modern defaults in this skill apply to new projects, or when the user asks for them.
@@ -137,7 +144,7 @@ ty fails on warnings by default, and `error-on-warning = false` under `[tool.ty.
 </type_checking>
 
 <pytest>
-pytest is the default test runner, and its current release in November 2026 is 9.2. It needs Python 3.10 or later. Run one test with `uv run pytest tests/test_users.py::test_create -q`. The `tdd` and `testing` skills cover test design.
+pytest is the default test runner, and its current release in November 2026 is 9.2. It needs Python 3.10 or later. Run one test with `uv run pytest tests/test_users.py::test_create -q`. Use `testing` for test design and regression checks.
 
 pytest 9 changed these behaviors, as the [changelog](https://docs.pytest.org/en/stable/changelog.html) shows.
 - Configuration can use native TOML in a `[tool.pytest]` table, or in a `[pytest]` table in `pytest.toml`. The older `[tool.pytest.ini_options]` table still works, but a project cannot use both.

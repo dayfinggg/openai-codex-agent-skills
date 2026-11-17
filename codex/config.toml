@@ -1,4 +1,4 @@
-model = "gpt-6.1-sol"
+model = "gpt-6.2-sol"
 model_instructions_file = "base_instructions.md"
 model_context_window = 1000000
 model_auto_compact_token_limit = 900000

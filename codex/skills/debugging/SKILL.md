@@ -31,11 +31,11 @@ These ways to construct a loop come in roughly this order of preference.
 7. A property or fuzz loop. If the bug is "sometimes wrong output", run many random inputs and look for the failure mode.
 8. A bisection harness. If the bug appeared between two known states, such as commits, datasets, or versions, automate the check. The harness boots at state X, checks, and repeats, so you can `git bisect run` it.
 9. A differential loop. Run the same input through the old and new version, or through two configs, and diff the outputs.
-10. A HITL bash script, as the last resort. If a human must click, drive them with `scripts/hitl-loop.template.sh` so the loop stays structured. Its captured output feeds back to you.
+10. A human-assisted loop as a last resort. Prefer the browser or desktop-control tools available in the session when a human interaction is needed. Use `scripts/hitl-loop.template.sh` only when Bash is available and the CLI requires keyboard input.
 </ways_to_build_a_loop>
 
 <hitl_script>
-`scripts/hitl-loop.template.sh` is a human-in-the-loop reproduction loop. Copy it, and replace its `step` and `capture` lines and the matching `printf` lines. Give the user the `bash` command that runs it, because it reads answers from the keyboard and needs their terminal. `step "<instruction>"` shows an instruction and waits for Enter. `capture VAR "<question>"` shows a question and reads the answer into VAR. At the end, the script prints the captured values as KEY=VALUE lines, and the user passes that output back to you. Every captured value appears in that output, so capture only observations, and leave signing in to the user as a `step`.
+`scripts/hitl-loop.template.sh` is a Bash-only template for a human-assisted reproduction loop. Copy it only in a Bash-capable session, and replace its `step` and `capture` lines and matching output lines. Use the shell native to the current system for other terminal tasks. Capture observations only, never credentials or tokens, and leave authentication to the user or an available UI tool.
 </hitl_script>
 
 <tighten_the_loop>
@@ -48,7 +48,7 @@ A 30-second flaky loop is barely better than no loop. A 2-second deterministic l
 </tighten_the_loop>
 
 <non_deterministic_bugs>
-For a non-deterministic bug, the goal is a higher reproduction rate, not a clean repro. Loop the trigger many times, parallelise, add stress, narrow timing windows, and inject sleeps. A bug that fails 50 percent of the time is debuggable, and a 1 percent bug is not. Keep raising the rate until the bug is debuggable.
+For a non-deterministic bug, raise the reproduction rate enough to distinguish causes. Repeat a controlled trigger, pin inputs and time, or narrow the timing window. Use stress and concurrency only in an isolated environment with a bounded load, because they can disrupt shared services. Add a wait only when a specific race prediction requires it.
 </non_deterministic_bugs>
 
 <no_loop_possible>
@@ -63,7 +63,7 @@ Phase 1 is done when the loop is tight and red-capable. You can name one command
 - [ ] It is red-capable. It drives the actual bug code path and asserts the user's exact symptom. So it goes red on this bug and green once fixed. "Runs without erroring" is not enough, because the command must catch this specific bug.
 - [ ] It is deterministic, with the same verdict every run. For a flaky bug, it has a pinned, high reproduction rate.
 - [ ] It is fast, taking seconds and not minutes.
-- [ ] It is agent-runnable, so you can run it unattended. A human joins the loop only through `scripts/hitl-loop.template.sh`.
+- [ ] It is runnable in the current session without unnecessary human steps. If a human observation is essential, use available UI tools or a shell appropriate to the system, and capture no secrets.
 
 Read the code you need to build this command, and hold theories about the cause until it exists. Without a red-capable command, Phase 2 does not start.
 </phase_1_done>

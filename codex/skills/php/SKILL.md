@@ -4,6 +4,12 @@ description: Gives current PHP practice for language features, Composer, static 
 license: MIT
 ---
 
+<language_and_tool_references>
+Read these version-specific references when the task reaches them. Check the PHP floor in `composer.json` and the installed tool versions in `composer.lock` before applying an API or command.
+- Before using PHP 8.4 or 8.5 language features, or reviewing PHP 8.6 migration notes, read [php-language.md](references/php-language.md).
+- Before changing PHPUnit, Rector, or PHP-CS-Fixer configuration or usage, read [tooling.md](references/tooling.md).
+</language_and_tool_references>
+
 <project_first>
 The project's own PHP version and tools come first, as `code_rules` requires. Read `composer.json` for `require.php`, `config.platform.php`, the framework, and the dev tools. Read `composer.lock` or run `composer show <vendor/package>` for the installed versions. Use only language features that the lowest allowed PHP version supports. Run tools the way the project runs them, such as `composer` scripts, `vendor/bin/`, a Makefile, Docker, or Sail. The modern defaults in this skill apply to new projects, or when the user asks for them.
 </project_first>
@@ -23,7 +29,7 @@ Every other rule of this file holds for any PHP code. A project on another frame
 </framework_references>
 
 <php_versions>
-On November 11, 2026, PHP 8.5 was the newest stable branch and PHP 8.6 was at RC5, with general availability planned for November 19, 2026. Each branch gets 2 years of active support and 2 more years of security fixes, as [php.net](https://www.php.net/supported-versions.php) lists.
+As of November 17, 2026, PHP 8.5.12 is the current stable release and PHP 8.6.0 RC7 is a test build that must not be used in production. PHP 8.6.0 GA is planned for November 19, 2026. Check the [PHP release archive](https://www.php.net/archive/2026.php), [downloads](https://www.php.net/downloads.php), and [supported versions](https://www.php.net/supported-versions.php) again before using release-specific facts.
 
 | Branch | Released | Active support until | Security fixes until |
 | --- | --- | --- | --- |
@@ -63,7 +69,7 @@ PHP 8.5 deprecates the backtick operator, the casts `(boolean)`, `(integer)`, `(
 </php_8_5>
 
 <php_8_6>
-Use PHP 8.6 features only in a project that already requires 8.6. Its [UPGRADING](https://github.com/php/php-src/blob/PHP-8.6/UPGRADING) file lists these changes.
+PHP 8.6 was not stable on November 17, 2026. Do not use its preview features in production. After a stable release, use new features only when the project floor permits them and check the official [UPGRADING](https://github.com/php/php-src/blob/PHP-8.6/UPGRADING) notes.
 - Partial function application creates a closure with `?` for one missing argument and `...` for the rest.
 - `clamp()` limits a value to a range.
 - Readonly properties can declare default values.
@@ -121,5 +127,5 @@ An existing project adopts Rector gradually with `withTypeCoverageLevel(0)`, `wi
 </rector>
 
 <testing>
-Use the test runner that the project already has. PHPUnit 13 needs PHP 8.4 and PHPUnit 12 needs PHP 8.3, and both [read metadata only from attributes](https://phpunit.de/announcements/phpunit-12.html). Write `#[Test]`, `#[DataProvider('cases')]`, and `#[CoversClass(Foo::class)]` instead of docblock annotations such as `@test`. Data provider methods are `public static`. Pest 5 runs on PHPUnit 13 and needs PHP 8.4, and Pest 4 runs on PHPUnit 12. Run one file or test with `vendor/bin/phpunit tests/FooTest.php --filter testName` or `vendor/bin/pest tests/FooTest.php --filter "name"`. The `tdd` and `testing` skills cover test design.
+Use the test runner that the project already has. PHPUnit 13 needs PHP 8.4 and PHPUnit 12 needs PHP 8.3, and both [read metadata only from attributes](https://phpunit.de/announcements/phpunit-12.html). Write `#[Test]`, `#[DataProvider('cases')]`, and `#[CoversClass(Foo::class)]` instead of docblock annotations such as `@test`. Data provider methods are `public static`. Pest 5 runs on PHPUnit 13 and needs PHP 8.4, and Pest 4 runs on PHPUnit 12. Run one file or test with `vendor/bin/phpunit tests/FooTest.php --filter testName` or `vendor/bin/pest tests/FooTest.php --filter "name"`. Use `testing` for test design and regression checks.
 </testing>

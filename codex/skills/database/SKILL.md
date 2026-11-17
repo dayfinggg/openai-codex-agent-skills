@@ -14,6 +14,10 @@ The reference files hold rules that this file does not repeat, one engine area e
 - Before you write a PostgreSQL migration or change a PostgreSQL table, read [postgres-schema.md](references/postgres-schema.md). It covers data types, primary keys, foreign key indexes, idempotent constraints, identifiers, and partial and JSONB indexes.
 - When you write a PostgreSQL query that an application or a script will keep, diagnose a slow query, or load or change rows in bulk, read [postgres-queries.md](references/postgres-queries.md). It covers N+1 batching, keyset pagination, upserts, transactions, deadlocks, queues, `EXPLAIN`, statistics, and bulk loads. A one-off read to look at data needs no reference.
 - When you configure connections or access control, read [postgres-operations.md](references/postgres-operations.md). It covers connection pooling, prepared statements, timeouts, privileges, and row level security.
+- When you use version-specific PostgreSQL syntax, read [postgres-versioned-features.md](references/postgres-versioned-features.md). It records version boundaries and separates supported releases from development documentation.
+- When you audit tenant isolation, policies that filter writes, or keys that span tenants, read [postgres-rls-edge-cases.md](references/postgres-rls-edge-cases.md).
+- When changing ORM, driver, or migration-tool versions or diagnosing generated database behavior, read [orm-tooling.md](references/orm-tooling.md).
+- Before upgrading a database server, pooler, or ORM, read [upgrades.md](references/upgrades.md). It covers compatibility, rollback, staging, and post-upgrade checks without assuming a fixed release.
 - Before any MySQL `ALTER TABLE` on a large table, read [mysql-online-ddl.md](references/mysql-online-ddl.md). It covers DDL algorithms, lock levels, and online schema change tools.
 - When you write MySQL transactions or debug locking and connection errors, read [mysql-transactions.md](references/mysql-transactions.md). It covers isolation levels, InnoDB row locks, deadlocks, and connection limits.
 </references>
@@ -71,7 +75,7 @@ Other engines fail the same four ways under other names. A command that walks a 
 
 <workflow>
 Follow these steps for every migration.
-1. Find the engine and its version in docker-compose, the `schema.prisma` `provider`, `database.yml`, settings, `SELECT version()`, or the engine's own version command. The rules below depend on the version.
+1. Find the engine and its exact version in the project config, lockfile, or a read-only version query. Identify pooled and direct connection targets without printing credentials, because migration and dump tools may require the direct connection. The rules below depend on the installed version.
 2. Read the SQL or commands that will actually run, because ORMs and migration tools hide them. Generate the SQL with `prisma migrate dev --create-only`, `python manage.py sqlmigrate app 0042`, `alembic upgrade head --sql`, or `drizzle-kit generate`. Rails shows it in `structure.sql` after a local `rails db:migrate`.
 3. Check every statement against the section for its engine and rewrite the dangerous ones. For an engine without a section, get the facts that `any_engine` lists first.
 4. Put one risky operation in each migration. In PostgreSQL, a transaction holds its strongest lock until it commits. In MySQL, DDL is not transactional, so a failure partway leaves the schema half-applied.
@@ -117,7 +121,7 @@ These rules assume InnoDB on MySQL 8.4 LTS or 9.x, because MySQL 8.0 reached end
 <any_engine>
 The `postgresql` and `mysql` sections are written for those engines and versions only. A fork or a compatible engine, such as MariaDB or a managed cloud variant, differs in commands and limits, so treat it as its own engine. The reference file for the engine it derives from helps as background, with each command and limit checked against the fork's own documentation.
 
-For an engine without a section here, read its official documentation for the installed version before you run a change, as the `research` skill describes, and find these facts.
+For an engine without a section here, read its official documentation for the installed version before you run a change, and find these facts.
 - What each schema or index change locks or blocks, whether it rewrites or scans the data, and whether an online form exists.
 - Whether schema and data changes run in a transaction that can roll back.
 - Which timeout stops a statement that waits or runs too long.

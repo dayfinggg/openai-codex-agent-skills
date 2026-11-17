@@ -1,12 +1,20 @@
 ---
 name: testing
-description: Picks the check that proves a change works and the test level for it, and routes to procedures for browser, CLI, API, contract, and flaky tests. Use it when the project gives no obvious check for the change, when you review or repair existing tests, for UI changes checked in a browser, for HTTP APIs and command-line tools, and when a test fails only sometimes. Running a test command the project already documents needs no skill, and the `tdd` skill covers writing a new test first.
-license: MIT and Apache-2.0. The playwright folder is adapted from microsoft/playwright-cli and the chrome-devtools folder from ChromeDevTools/chrome-devtools-mcp, both Apache-2.0. The changes remove code comments, headings, and links to files not shipped, rewrite the prose to the plugin style, and add commands checked against the current source.
+description: Picks the check that proves a change works and the test level for it, and routes to procedures for browser, CLI, API, contract, and flaky tests. Use it when the project gives no obvious check for the change, when you review or repair existing tests, for UI changes checked in a browser, for HTTP APIs and command-line tools, and when a test fails only sometimes. Running a test command the project already documents needs no skill.
+license: MIT and Apache-2.0. The Playwright guidance is adapted from microsoft/playwright-cli and the Chrome DevTools guidance from ChromeDevTools/chrome-devtools-mcp, both Apache-2.0. The changes remove code comments, headings, and links to files not shipped, rewrite the prose to the plugin style, and add commands checked against the current source.
 ---
 
 <overview>
-This skill picks the kind of test or check a change needs, and routes to the file with the procedure. The `tdd` skill covers the red-green loop, and the `debugging` skill covers the diagnosis of a failure. Verify as the `verification` block of the coding instructions requires, with the smallest check that would fail if the change were wrong. Add new tests only as the `code_rules` block allows.
+This skill picks the kind of test or check a change needs, and routes to the file with the procedure. For a regression test, reproduce the failure with the smallest relevant check before applying the fix. Use `debugging` to diagnose a failure. Verify as the `verification` block of the coding instructions requires, with the smallest check that would fail if the change were wrong. Add new tests only as the `code_rules` block allows.
 </overview>
+
+<specialized_references>
+Read the relevant reference only when the task reaches that branch.
+- When a bug fix or a claimed result needs before-and-after or end-to-end evidence, read [verification-evidence.md](references/verification-evidence.md).
+- When choosing property-based or mutation checks, read [property-and-mutation.md](references/property-and-mutation.md).
+- When writing or debugging Playwright tests, read [playwright-test-practices.md](references/playwright-test-practices.md).
+- When creating or revising a repeatable verification workflow, CI gate, or test-quality review, read [building-checks.md](references/building-checks.md).
+</specialized_references>
 
 <references>
 The reference files hold the procedures, which this file does not repeat. Read a file whole as soon as the work meets its condition, also when that happens later in the task.

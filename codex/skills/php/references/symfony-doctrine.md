@@ -1,11 +1,12 @@
 <overview>
-This file covers Doctrine ORM 3 and DBAL 4 in Symfony projects. It holds relations, fetching, read models, large datasets, transactions, multiple entity managers, and the ORM 3 removals. ORM 3.7 is the current release in November 2026, and DoctrineBundle 3.3 pairs with Symfony 7.4 and 8.x and requires PHP 8.4.
+This file covers Doctrine ORM 3 and DBAL 4 in Symfony projects. It holds relations, fetching, read models, large datasets, transactions, multiple entity managers, and version-specific API changes. Read exact package versions from `composer.lock` before applying a detail.
 </overview>
 <contents>
 This file has these sections, in order.
 - orm3 facts
 - relations
 - fetching
+- recent API changes
 - large datasets
 - transactions and locking
 - multiple entity managers
@@ -26,8 +27,29 @@ ORM 3 and DBAL 4 removed APIs that older code and training data still use. Check
 | `PARTIAL` in DQL | Missing in 3.0 and 3.1, arrays only in 3.2, back for objects in 3.3 | `SELECT NEW` DTOs |
 | `Tools\Pagination\Paginator` | Deprecated in ORM 3.7 | `OffsetPaginator` with a `Window` |
 | DBAL `query()`, `exec()`, `fetchAll()` | Removed in DBAL 4 | `fetchAllAssociative()`, `executeQuery()`, `executeStatement()` |
+| `flush($entity)` and `clear(Entity::class)` | Removed in ORM 3 | Call `flush()` or `clear()` without arguments and scope work explicitly |
+| `EntityManager::create()` | Removed in ORM 3 | Build an `EntityManager` from a connection and configuration |
+| Named queries | Removed in ORM 3 | Put reusable query code in a repository |
 
 On PHP 8.4, ORM 3.5 deprecates disabling native lazy objects, which replace generated proxy classes. DoctrineBundle 3.1 and later always enable them and deprecate the `enable_native_lazy_objects` option. With DBAL 4, the `AUTO` id strategy on PostgreSQL resolves to `IDENTITY` instead of a sequence.
+
+<recent_api_changes>
+Check the [official ORM 3 documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/current/) and the [DBAL documentation](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/) for the installed version before changing an API.
+
+- ORM 3.6 deprecates `WITH` for arbitrary joins. Use `ON` for those joins and retain `WITH` for association filters.
+- ORM 3.7 documents `SortDirection` for ordering. Check the installed ORM and PHP versions before replacing accepted string directions.
+- ORM 3.7 deprecates the old paginator in favor of `OffsetPaginator` with `Window` or `CursorPaginator`. The paginator choice depends on whether callers need arbitrary page numbers or stable sequential navigation.
+- ORM 3.8 moves second-level cache support to `doctrine/orm-plugin-second-level-cache` and deprecates running without the schema-editor API. Check whether the project uses either feature before changing configuration.
+- DBAL 4 removed the `url` connection parameter. Parse a DSN with `Doctrine\DBAL\Tools\DsnParser` before passing the result to `DriverManager`.
+- DBAL 4 replaces `Connection::PARAM_INT_ARRAY` and `PARAM_STR_ARRAY` with `ArrayParameterType::INTEGER` and `ArrayParameterType::STRING`.
+- A DBAL `serverVersion` value needs three version components. For MariaDB, use the value reported by `SELECT VERSION()` without adding a `mariadb-` prefix.
+- DBAL 4.4 and ORM 3.6 deprecate string timestamp defaults such as `CURRENT_TIMESTAMP`. Use the matching expression object when supported by the installed version.
+- DBAL 4.5 deprecates mutable schema mutators in favor of schema and table editors.
+- DBAL 3.4 deprecated `simple_array` in favor of `json`. Check the project's schema and historical migration path before changing an existing column mapping.
+- Since DBAL 3.7, passing `DateTimeImmutable` to a mutable date or time type is deprecated. Use the matching `*_immutable` type when the PHP value is immutable.
+
+DBAL 4.6.0 is current in the [official version table](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/supported-versions.html) as of November 17, 2026. Use the server support table there before planning an upgrade, because the minimum versions differ between DBAL 4 and the upcoming 5.0 release.
+</recent_api_changes>
 </orm3_facts>
 
 <relations>

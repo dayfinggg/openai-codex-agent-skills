@@ -7,6 +7,10 @@ description: Breaks work into ordered, verifiable tasks before implementation. U
 Break work into small, verifiable tasks with explicit acceptance criteria. Make each task small enough to implement, test, and verify in one focused session. A plan holds the requested work and what that work requires, and nothing more.
 </overview>
 
+<references>
+- When the user asks to break work into GitHub issues or add issue dependencies, read [github-issues.md](references/github-issues.md). It covers current CLI capabilities, ticket structure, and blocking relationships.
+</references>
+
 <planning_process>
 <read_only_first>
 Before you write any code, work in read-only mode.
@@ -118,7 +122,7 @@ The task list target is where you record tasks and checkpoints. This block defin
 
 By default it is a checklist-style markdown file named `todo.md` in the plan directory defined by `output_files`. Mirror the current tasks in the session's task tool when one exists.
 
-The user or the project's agent rules, such as `CLAUDE.md` or `AGENTS.md`, may name an issue tracker. Examples are GitHub Issues, Jira, Linear, and `bd` (beads). Then create one tracker item per task instead of writing `tasks/todo.md`. Map the task template onto the tracker fields. Acceptance criteria and verification steps go in the item body. Dependencies use the tracker's links, such as `bd dep add` or "blocked by".
+The user or the project's agent rules, such as `AGENTS.md`, may name an issue tracker. Examples include GitHub Issues, Jira, Linear, and `bd` (beads). Use that tracker instead of a local task list only when the request or project workflow authorizes creating or updating tracker items. Otherwise keep the plan in the appropriate local or session location and do not treat a tracker preference as permission to make an external change. Map the task template onto the tracker fields. Acceptance criteria and verification steps go in the item body. Dependencies use the tracker's supported links, such as `bd dep add` or "blocked by".
 
 Record the checkpoints as tracker items too. If the tracker has no natural equivalent, keep them as a checklist in the plan document. Note the tracker in `tasks/plan.md`, as in "Tasks tracked in Linear project FOO." Later steps and future sessions then know where to look. The task list in the plan document then holds an ordered index of tracker items. It is not a duplicate checklist.
 </task_list_target>

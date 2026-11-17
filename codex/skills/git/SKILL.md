@@ -9,7 +9,15 @@ The project's own convention wins over every default in this skill. Read it firs
 
 <pull_requests>
 Before you write a pull request body, read [pull-requests.md](references/pull-requests.md) whole and follow it. This file does not repeat its rules.
+
+- Before creating or merging a stacked pull request, read [stacked-prs.md](references/stacked-prs.md). It covers parent branches, stack scope, and provider-specific behavior.
+- Before diagnosing branch protections, rulesets, required signatures, CODEOWNERS, or merge queues, read [github-rules.md](references/github-rules.md).
+- When a push is blocked by secret scanning, a credential appears in Git history, or a history purge is requested, read [secrets.md](references/secrets.md).
 </pull_requests>
+
+<check_first>
+Before a commit or push, inspect the working tree, staged diff, current branch, remotes, relevant Git configuration, hooks, and applicable repository rules. Hooks and repository settings can change what an operation does. Check installed Git and GitHub CLI help before using version-dependent commands. Before cloning an untrusted repository, check the installed Git version against current security advisories.
+</check_first>
 
 <commits>
 Each commit holds one logical change that can be reviewed and reverted alone. A formatting change, a refactor, a behavior change, and an unrelated fix each get their own commit. Once the user wants commits during a longer task, commit each increment when its check passes, so a later mistake costs one step and not the whole task.
@@ -20,11 +28,14 @@ Run these checks before each commit.
 1. Stage the files of this change by path, and read `git diff --staged`. Work of the user or of another task stays out of the commit. An agent has no interactive prompt, so split the changes inside one file by staging a patch with `git apply --cached`, not with `git add -p`.
 2. Search the staged diff for secrets. `git diff --staged -i -G'password|secret|api_key|token' --name-only` lists the files to read again.
 3. Leave out build output, dependency folders, environment files, and keys. Commit a generated file only where the project tracks its kind, such as a lockfile or a migration.
-4. Run the project's checks as the `verification` block of the coding instructions requires. A failing hook is a finding, so fix its cause, and skip a hook with `--no-verify` only when the user asks for that.
+4. Run the project's checks as the `verification` block of the coding instructions requires. A failing hook is a finding, so fix its cause. Do not bypass hooks or required checks.
+5. When the user asks for a commit and the project defines no verification trailer, end the message with `Verified: <check and result>`. If no check applies, use `Verified: none (<reason>)`. Never claim a check that did not run.
 </commits>
 
 <branches>
 Follow the branching model the history shows. When it shows commits made directly on the default branch, commit there. Otherwise branch from the default branch, name the branch by its kind and subject, as in `fix/duplicate-tasks`, keep it short-lived, and delete it after the merge.
+
+When a task uses multiple worktrees, keep one branch per worktree and check `git worktree list` before switching branches. `.gitattributes` controls repository line endings across operating systems, so use it when a change requires a consistent line-ending policy.
 </branches>
 
 <discarding_work>

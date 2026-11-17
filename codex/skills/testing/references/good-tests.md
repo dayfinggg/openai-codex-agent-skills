@@ -1,5 +1,5 @@
 <overview>
-Read this file when you write or change tests, add mocks, or add cleanup or helper methods for tests. It adds to the `tdd` skill, whose `tests.md` and `mocking.md` cover public-interface tests, tautological tests, and where to mock.
+Read this file when you write or change tests, add mocks, or add cleanup or helper methods for tests. Test through public behavior and mock only at boundaries that are outside the behavior under test.
 
 A test exists to catch a specific break. Two principles govern everything here. Every test names the break it catches, and every test exercises the real thing.
 </overview>
@@ -7,7 +7,7 @@ A test exists to catch a specific break. Two principles govern everything here. 
 <name_the_break>
 Before you write the test body, name the production change that should make this test fail. Then decide whether that change is a bug or a decision. A test earns its place when it catches a real fault. Such faults are a wrong branch, a missing side effect, a wrong argument, a boundary case, or a broken contract.
 
-Derive expected values without the code under test, as the `tdd` skill requires. Table-driven tests with literal expected values are the preferred shape.
+Derive expected values without calling the code under test. Table-driven tests with literal expected values are the preferred shape.
 
 A change detector is not a test. If only intentional decisions can fail a test, it fires on redesign and sleeps through bugs. Such decisions include a constant's value, the exact wording of a message, and private structure. Test the behavior that depends on the decision instead. So do not assert `expect(MAX_RETRIES).toBe(5)`. Assert that a failing call is retried 5 times and that a 6th attempt never happens.
 
