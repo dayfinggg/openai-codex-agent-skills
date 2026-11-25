@@ -1,0 +1,9 @@
+{
+  "name": "vesper-sieve",
+  "plugins": [
+    {
+      "name": "vesper-sieve",
+      "source": "./"
+    }
+  ]
+}
