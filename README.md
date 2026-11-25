@@ -2,7 +2,7 @@
 
 What is not needed sleeps until it is called.
 
-A Codex plugin with ten skills that the model opens on its own, and a base instruction file for GPT models. The instructions are the official Codex base text with rules for short plain answers, grounded facts, research and finished work.
+A Codex plugin with nine skills that the model opens on its own, and a base instruction file for GPT models. The instructions are the official Codex base text with rules for short plain answers, grounded facts, research and finished work.
 
 ## Install
 
