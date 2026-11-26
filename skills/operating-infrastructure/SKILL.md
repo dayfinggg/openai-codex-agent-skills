@@ -49,4 +49,4 @@ Read `references/docker.md` before you write or change a Dockerfile or a Compose
 
 ## Related skills
 
-Load `git-workflow` before a commit, and `verifying-work` before you report the change as done.
+Load `working-with-databases` before the first command that reads or changes a database or a cache on the server, also when it only reads its settings or statistics, `git-workflow` before a commit, and `verifying-work` before you report the change as done.

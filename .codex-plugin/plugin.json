@@ -1,6 +1,6 @@
 {
   "name": "vesper-sieve",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "What is not needed sleeps until it is called.",
   "skills": "./skills"
 }

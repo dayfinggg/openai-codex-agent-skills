@@ -43,4 +43,4 @@ After three failed attempts at a fix, stop. The explanation is wrong or the desi
 
 ## Related skills
 
-The fix and the guard are separate kinds of work. Load `clean-code` before you write the fix, `writing-tests` before you write the regression test, and `verifying-work` before you report.
+The fix and the guard are separate kinds of work. The search for the cause can reach other kinds of work too, so load `operating-infrastructure` before the first command on another machine and `working-with-databases` before the first query to a database or a cache. Load `clean-code` before you write the fix, `writing-tests` before you write the regression test, and `verifying-work` before you report.
