@@ -1,6 +1,6 @@
 ---
 name: writing-tests
-description: Covers what to test and how to write tests that fail for the right reason, including unit, integration, end-to-end and property tests and the handling of failing or flaky ones. Use when the user asks for tests, when adding or changing a test, when changing code in a repository that keeps tests for that kind of code, when fixing a bug that needs a regression test, and when a test fails, is flaky or is slow.
+description: Covers what to test and how to write tests that fail for the right reason, including unit, integration, end-to-end and property tests and the handling of failing or flaky ones. Use when the user asks for tests, when adding or changing a test, when changing code in a repository that keeps tests for that kind of code, when fixing a bug that needs a regression test, and when a test fails, is flaky or is slow. Triggers before the first test, spec or check script that stays in the project is written or changed, also when the test only reproduces a bug.
 ---
 
 # Writing tests

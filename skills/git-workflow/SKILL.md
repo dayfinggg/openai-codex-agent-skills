@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: Covers commits, branches, undoing changes and pull requests in a Git repository. Use when the user asks to commit, push, branch, merge, rebase, cherry-pick, tag, revert, undo, reset, amend, force push, stash, clean up history or open a pull request, when a working tree with mixed changes must be split into commits, and before any Git command that rewrites or discards work.
+description: Covers commits, branches, undoing changes and pull requests in a Git repository. Use when the user asks to commit, push, branch, merge, rebase, cherry-pick, tag, revert, undo, reset, amend, force push, stash, clean up history or open a pull request, when a working tree with mixed changes must be split into commits, and before any Git command that rewrites or discards work. Triggers before the first git commit, push, merge, rebase, tag, reset or stash in a task, also when the repository is on a server and the command runs over ssh or inside a script.
 ---
 
 # Git workflow
