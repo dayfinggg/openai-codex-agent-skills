@@ -9,7 +9,7 @@ Work is done when a check that could have failed shows that it works. The report
 
 ## Find the project's checks
 
-Look where the project defines them: the scripts in the manifest, a `Makefile` or task file, the CI configuration, and the contributing notes. Use those commands as written. Install the declared dependencies with the project's own package manager when they are missing.
+Look where the project defines them, which is in the scripts in the manifest, a `Makefile` or task file, the CI configuration, and the contributing notes. Use those commands as written. Install the declared dependencies with the project's own package manager when they are missing.
 
 ## Run them in this order
 

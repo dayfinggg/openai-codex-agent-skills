@@ -13,7 +13,7 @@ Read two or three existing test files first. Use the same runner, the same folde
 
 ## What to test
 
-Test behaviour through the public interface: the inputs a caller gives and the results or effects the caller sees. A test that checks private functions or the order of internal calls breaks on every refactor and catches nothing.
+Test behaviour through the public interface, which means the inputs a caller gives and the results or effects the caller sees. A test that checks private functions or the order of internal calls breaks on every refactor and catches nothing.
 
 Cover the main path, the boundaries and the failures. Boundaries are the empty input, one element, the largest allowed value, and the value just past it. Failures are the invalid input and the error the code should raise for it.
 
@@ -21,7 +21,7 @@ For a bug fix, write the test that fails without the fix, watch it fail, then ap
 
 ## Shape of a test
 
-One test checks one behaviour, and its name says which, in the form the suite already uses. The body has three parts: set up the input, run the code, check the result. Keep logic out of tests. A loop or a condition in a test is a place for the test itself to be wrong.
+One test checks one behaviour, and its name says which, in the form the suite already uses. The body has three parts, which set up the input, run the code and check the result. Keep logic out of tests. A loop or a condition in a test is a place for the test itself to be wrong.
 
 Assert on exact values. `assert result == 4` catches more than a check that the result is truthy or not empty.
 
@@ -29,7 +29,7 @@ Each test builds what it needs and leaves nothing behind. Tests that share state
 
 ## Doubles
 
-Use the real thing where it is fast and deterministic. Replace only what crosses a boundary: the network, the clock, randomness, the file system when it is slow, and services you do not own. Prefer a small fake with real behaviour to a mock that only records calls, and do not mock the code under test.
+Use the real thing where it is fast and deterministic. Replace only what crosses a boundary, such as the network, the clock, randomness, the file system when it is slow, and services you do not own. Prefer a small fake with real behaviour to a mock that only records calls, and do not mock the code under test.
 
 ## Stronger kinds
 

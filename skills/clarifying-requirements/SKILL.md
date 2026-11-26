@@ -11,11 +11,11 @@ The goal is a short specification that you and the user both hold, reached with 
 
 Read the project before you ask anything. The files, the manifest, the tests and the history answer most questions about language, structure, conventions and tooling, and a question the files could answer wastes the user's turn.
 
-List every decision the request leaves open. Sort the list into two groups. The first group changes what gets built: the format of a result, where data lives, which platform or audience is meant, what happens in a case the request does not cover. The second group is small and easy to change later: names, layout, defaults. Decide the second group yourself and record each choice as an assumption.
+List every decision the request leaves open. Sort the list into two groups. The first group changes what gets built, such as the format of a result, where data lives, which platform or audience is meant, what happens in a case the request does not cover. The second group is small and easy to change later, such as names, layout, defaults. Decide the second group yourself and record each choice as an assumption.
 
 ## Ask once
 
-Ask the first group through the question tool in a single call. Keep the list short, and merge or drop questions that do not change what you build. Give each question two to four concrete options, put the option you recommend first, and say in the option what it leads to. A question that offers only "yes" and "no" usually hides a better question about which of two designs is wanted.
+Ask the first group through the question tool in a single call. The tool takes up to four questions, so merge or drop until the list fits. Give each question two to four concrete options, put the option you recommend first, and say in the option what it leads to. A question that offers only "yes" and "no" usually hides a better question about which of two designs is wanted.
 
 When no question tool is available, do not stop. Take the most likely reading, say which reading you took, and continue.
 

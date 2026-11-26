@@ -11,7 +11,7 @@ A fix that precedes the explanation is a guess. Find the cause first, and change
 
 Get the failure to happen on demand, with the smallest command, input or test that shows it. Record the exact error text and where it comes from. Read the whole message and the whole stack trace. The line that matters is often the first one in your own code.
 
-When you cannot reproduce it, say so and collect more facts: versions, configuration, input data, and the difference between the place where it fails and the place where it works.
+When you cannot reproduce it, say so and collect more facts, such as versions, configuration, input data, and the difference between the place where it fails and the place where it works.
 
 ## Locate
 
@@ -21,7 +21,7 @@ Write down two or three explanations that fit the facts. Test the cheapest one f
 
 ## Explain
 
-State the cause in one or two sentences: which value or state is wrong, where it becomes wrong, and why. If the statement does not account for every symptom, the cause is not found yet.
+State the cause in one or two sentences that say which value or state is wrong, where it becomes wrong, and why. If the statement does not account for every symptom, the cause is not found yet.
 
 When the user asked only why something happens, stop here and report the cause. Fix it when they ask for a fix.
 

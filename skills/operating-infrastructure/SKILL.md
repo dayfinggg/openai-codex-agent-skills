@@ -9,7 +9,7 @@ Infrastructure changes are hard to undo and reach beyond this machine. The rules
 
 ## Before you change anything
 
-Read the current state first: the configuration in the repository, the status of the service, and the recent logs. Act on what they show.
+Read the current state first, which means the configuration in the repository, the status of the service, and the recent logs. Act on what they show.
 
 Find the way back before you go forward. Know which command or which earlier release restores the previous state, and say so in the reply.
 
@@ -27,7 +27,7 @@ After a deploy, check the health of the service and read its logs. Roll out to a
 
 ## Needs the user's go-ahead
 
-Ask before each of these and name the exact command: any change to a production system, a data migration, the deletion of a resource or a volume, a change to access rights or DNS, a pipe from the network into a shell such as `curl | bash`, and switching off a check in CI.
+Ask before each of these and name the exact command. They are any change to a production system, a data migration, the deletion of a resource or a volume, a change to access rights or DNS, a pipe from the network into a shell such as `curl | bash`, and switching off a check in CI.
 
 ## Secrets
 

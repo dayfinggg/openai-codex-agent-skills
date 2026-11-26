@@ -1,6 +1,6 @@
 # JavaScript
 
-Check the runtime and its version first: the `engines` field and `type` in `package.json`, or `node --version`. Use the module system the project uses and do not mix `import` with `require`.
+Check the runtime and its version first, from the `engines` field and `type` in `package.json`, or `node --version`. Use the module system the project uses and do not mix `import` with `require`.
 
 ## Pitfalls
 

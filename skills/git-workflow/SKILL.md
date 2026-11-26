@@ -27,7 +27,7 @@ Choose the command by whether the commit is shared. For a commit that others may
 
 ## Needs the user's go-ahead
 
-These commands rewrite shared history or discard work that Git cannot bring back. Ask before each one and name the exact command: a force push, `git reset --hard`, `git checkout -- .`, `git checkout -f`, `git switch -f`, `git restore .`, `git clean -fd`, `git stash drop` and `git stash clear`, `git worktree remove --force`, `git branch -D`, the deletion of a branch you did not create, a rebase or an amend of commits that were already pushed, and `--no-verify`. Never force push to the default branch. When a force push is approved, use `git push --force-with-lease --force-if-includes`.
+These commands rewrite shared history or discard work that Git cannot bring back. Ask before each one and name the exact command. The commands are a force push, `git reset --hard`, `git checkout -- .`, `git checkout -f`, `git switch -f`, `git restore .`, `git clean -fd`, `git stash drop` and `git stash clear`, `git worktree remove --force`, `git branch -D`, the deletion of a branch you did not create, a rebase or an amend of commits that were already pushed, and `--no-verify`. Never force push to the default branch. When a force push is approved, use `git push --force-with-lease --force-if-includes`.
 
 ## Branches and pull requests
 
