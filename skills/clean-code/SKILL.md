@@ -1,6 +1,6 @@
 ---
 name: clean-code
-description: Gives design heuristics from Clean Code and Refactoring and per-language pitfalls with the tools that catch them, for Python, PHP, TypeScript, JavaScript, Bash and POSIX shell, and PowerShell. Use when writing, changing or reviewing code or a script in one of these languages, when the user asks for clean, readable or maintainable code, and when choosing how to shape a function, a module or an interface.
+description: Gives design heuristics from Clean Code and Refactoring and per-language pitfalls with the tools that catch them, for Python, PHP, TypeScript, JavaScript, Bash and POSIX shell, and PowerShell. Use when writing, changing or reviewing code or a script in one of these languages, when the user asks for clean, readable or maintainable code, and when choosing how to shape a function, a module or an interface. Load before the first edit of code or a script in one of these languages, also when the edit is small.
 ---
 
 # Clean code

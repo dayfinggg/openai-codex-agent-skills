@@ -1,6 +1,6 @@
 ---
 name: working-with-databases
-description: Covers schema design, queries, indexes, slow query diagnosis, transactions, live schema changes and caching for SQL and NoSQL stores such as PostgreSQL, MySQL, MariaDB, SQLite, MongoDB, Redis and Memcached. Use when writing or changing a query, a migration, a model, an index or a cache, when a query or a page is slow, when data is wrong, duplicated or locked, when choosing a data type or a store, and before running any statement that changes data or structure. Triggers before the first SQL statement, psql, mysql, redis-cli or mongosh command, migration or cache change in a task, also when a test writes to a database.
+description: Covers schema design, queries, indexes, slow query diagnosis, transactions, live schema changes and caching for SQL and NoSQL stores such as PostgreSQL, MySQL, MariaDB, SQLite, MongoDB, Redis and Memcached. Use when writing or changing a query, a migration, a model, an index or a cache, when a query or a page is slow, when data is wrong, duplicated or locked, when choosing a data type or a store, and before running any statement against a database or a cache. Load before the first query or command to a database or a cache, such as psql, mysql, sqlite3, redis-cli or mongosh, also when it only reads data, settings or statistics and also when it runs on a server or through a wrapper script, and before a migration or a cache change.
 ---
 
 # Working with databases

@@ -1,6 +1,6 @@
 ---
 name: verifying-work
-description: Shows how to prove that a change works before it is reported as done. Use after writing or changing code, a script, a configuration file or a build, before saying that a task is finished, fixed or working, and when the user asks to test, check or make sure that something works. Triggers after the last change and before a commit, a deploy or the final report.
+description: Shows how to prove that a change works before it is reported as done. Use after writing or changing code, a script, a configuration file or a build, before saying that a task is finished, fixed or working, and when the user asks to test, check or make sure that something works. Load before the first check that shows whether the work succeeded, and at the latest after the last change and before a commit, a deploy or the final report.
 ---
 
 # Verifying work
@@ -30,6 +30,8 @@ After three rounds of fixing with the same check still failing, stop repeating t
 ## Report
 
 Say in one sentence how the change was verified, with the command and what it showed. When a check could not run here, name it and give the reason. Words such as "should work" stand for a check that was not run.
+
+Then check the report itself before you send it. Count its words against the limit that your instructions set and cut it, and rewrite a list, a heading, a bold label, a colon or a dash into plain sentences. A decision that the user has to make goes through the question tool before the report.
 
 ## Clean up
 

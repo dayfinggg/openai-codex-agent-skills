@@ -1,6 +1,6 @@
 ---
 name: clarifying-requirements
-description: Turns a request into a short agreed specification before any work starts. Use when the user asks for something new, such as a feature, a page, an app, a report or an integration, when a request leaves open what to build, for whom, in which format, on which platform or with which behaviour, when it names a goal without a way to tell that it is done, or when the user asks to plan, design or scope something.
+description: Turns a request into a short agreed specification before any work starts. Use when the user asks for something new, such as a feature, a page, an app, a report or an integration, when a request leaves open what to build, for whom, in which format, on which platform or with which behaviour, when it names a goal without a way to tell that it is done, or when the user asks to plan, design or scope something. Load before the first edit when the request asks for something new or leaves the result open, and put the open decisions to the user before you build.
 ---
 
 # Clarifying requirements

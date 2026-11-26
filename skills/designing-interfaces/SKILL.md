@@ -1,6 +1,6 @@
 ---
 name: designing-interfaces
-description: Gives rules for interfaces that look designed and work for every user, with measurable limits for contrast, target size, type, spacing, states, forms, motion and page speed. Use when building or changing a page, a component, a form, a layout, styles or a theme, when the user asks for a design, a redesign, a landing page, a dashboard or a better look, and before reporting visual work as done.
+description: Gives rules for interfaces that look designed and work for every user, with measurable limits for contrast, target size, type, spacing, states, forms, motion and page speed. Use when building or changing a page, a component, a form, a layout, styles or a theme, when the user asks for a design, a redesign, a landing page, a dashboard or a better look, and before reporting visual work as done. Load before the first change to a page, a component, a form, a layout, styles or a theme.
 ---
 
 # Designing interfaces

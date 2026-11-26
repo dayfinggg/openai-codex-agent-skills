@@ -1,6 +1,6 @@
 ---
 name: diagnosing-bugs
-description: Gives a root-cause method for defects. Use when something fails or behaves unexpectedly, such as an error, a crash, a failing or flaky test, a wrong result, a regression or a performance drop, when the user asks why something happens, and before any fix whose cause is not yet known.
+description: Gives a root-cause method for defects. Use when something fails or behaves unexpectedly, such as an error, a crash, a failing or flaky test, a wrong result, a regression or a performance drop, when the user asks why something happens, and before any fix whose cause is not yet known. Load when a failure or an unexpected result first needs an explanation, before you investigate it or edit a fix.
 ---
 
 # Diagnosing bugs
