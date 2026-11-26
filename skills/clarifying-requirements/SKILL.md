@@ -11,11 +11,11 @@ The goal is a short specification that you and the user both hold, reached with 
 
 Read the project before you ask anything. The files, the manifest, the tests and the history answer most questions about language, structure, conventions and tooling, and a question the files could answer wastes the user's turn.
 
-List every decision the request leaves open. Sort the list into two groups. The first group changes what gets built, such as the format of a result, where data lives, which platform or audience is meant, what happens in a case the request does not cover. When the user asks for something new and names only the kind of thing, what it does for its users, which parts it includes and which it leaves out belong to the first group. The second group is small and easy to change later, such as names, layout, defaults. Decide the second group yourself and record each choice as an assumption. The first group is empty only when the request and the project already answer it. Then start the work without a question and state the assumptions in the report.
+List every decision the request leaves open. Sort the list into two groups. The first group changes what gets built, such as the format of a result, where data lives, which platform or audience is meant, what happens in a case the request does not cover. When the user asks for something new and names only the kind of thing, what it does for its users, which parts it includes and which it leaves out belong to the first group. Find out what the documentation and the standards recommend for this kind of thing before you ask, because each recommendation that you do not plan to follow belongs to the first group. The second group is small and easy to change later, such as names, layout, defaults. Decide the second group yourself and record each choice as an assumption. The first group is empty only when the request and the project already answer it. Then start the work without a question and state the assumptions in the report.
 
 ## Ask once
 
-Ask the first group in a single call of the `request_user_input` tool, or of `request_user_input_async` when only that one is available. The first tool takes up to three questions, so merge or drop until the list fits. Give each question two or three concrete options, put the option you recommend first, and say in the option what it leads to. A question that offers only "yes" and "no" usually hides a better question about which of two designs is wanted.
+Ask the first group in a single call of the `request_user_input` tool, or of `request_user_input_async` when only that one is available. The first tool takes up to three questions, so merge or drop until the list fits. Give each question two or three concrete options, put the option you recommend first, and say in the option what it leads to. The option you recommend follows what the documentation and the standards recommend, and an option that falls short of them says so in its description. A question that offers only "yes" and "no" usually hides a better question about which of two designs is wanted.
 
 A decision in the first group stays the user's when a usual way to build the thing exists. Offer the usual way as the option you recommend. An instruction about how to work, such as to follow best practice, to do it properly or to check the result, leaves the first group open. So does the research that you did before asking. It makes the options better, and the question still goes to the user.
 
@@ -39,4 +39,4 @@ An acceptance criterion such as "works correctly" confirms nothing. Name the inp
 
 ## Related skills
 
-Once the specification is agreed, load the skills for the work itself, such as `clean-code`, `writing-tests` and `verifying-work`.
+Once the specification is agreed, load the skills for the work itself, such as `clean-code`, `designing-interfaces` when the result has a visible part, `writing-tests` and `verifying-work`.

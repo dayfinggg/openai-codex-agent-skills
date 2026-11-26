@@ -33,6 +33,8 @@ Say in one sentence how the change was verified, with the command and what it sh
 
 Then check the report itself before you send it. Count its words against the limit that your instructions set and cut it, and rewrite a list, a heading, a bold label, a colon or a dash into plain sentences. A decision that the user has to make goes through the question tool before the report.
 
+Check the result also against what the documentation and the standards require or recommend for it, and name in the report each point that it does not meet. Then check the report itself before you send it. Count its words against the limit that your instructions set and cut it, and rewrite a list, a heading, a bold label, a colon or a dash into plain sentences. A decision that the user has to make goes through the question tool before the report.
+
 ## Clean up
 
 Remove the temporary files, test data, caches and build output that the verification produced. Ignored files do not show in a plain `git status`, so list them with `git status --short --ignored` and remove the cache directories that your checks created, such as those of the test runner, the linter and the type checker. Installed dependencies stay. Stop every process you started, such as a development server.
