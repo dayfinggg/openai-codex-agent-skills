@@ -9,7 +9,7 @@ Build with the project's existing tokens, components, spacing scale, fonts and b
 
 ## When there is no design
 
-Decide the direction before writing markup. Note what the product is, who uses it and three words for its character. Write five directions that fit the subject, each one sentence with a heading typeface, a palette and a layout idea, differing in all three. Draw a number from one to five with a shell command and build that direction, because a model that chooses for itself picks the same one in every run.
+Decide the direction before writing markup. Note what the product is, who uses it and three words for its character, then choose a heading typeface, a palette and a layout idea that fit them.
 
 Keep one text typeface and at most one heading typeface with character, loaded as a web font with a system fallback, a spacing scale on one base unit, one accent with a neutral scale and one radius scale, all in CSS variables.
 

@@ -20,8 +20,6 @@ The question tool takes up to four questions with two to four options each, so m
 
 An instruction about how to work, such as "do it properly", leaves the first group open, and your own research improves the options while the decision stays with the user. Once you ask about a choice, build what the user picked.
 
-Without a question tool, take the most likely reading, state it, and continue.
-
 ## State the specification
 
 After the answers, state in a few plain sentences the goal, what is in and out of scope, the acceptance criteria and the assumptions, then start the work. Each acceptance criterion names an input and the expected result that a command, a test or a look at the result confirms, because "works correctly" confirms nothing.

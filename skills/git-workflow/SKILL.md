@@ -5,7 +5,7 @@ description: Gives safe steps and commands for commits, branches, undoing change
 
 # Git workflow
 
-Do the Git step the user asked for and stop there. A request to commit means a commit on the current branch, with no new branch and no push.
+Do the Git step the user asked for and stop there.
 
 ## Commits
 
@@ -27,7 +27,7 @@ These rewrite shared history or discard work that Git cannot restore, so name th
 
 ## Branches and pull requests
 
-Name a branch with a type and a kebab-case description, such as `fix/login-timeout`. Open a pull request with `gh pr create`, adding `--draft` while the work is unfinished, and link the issue with `Closes #<number>`.
+Name a branch with a type and a kebab-case description, such as `fix/login-timeout`. Open a pull request as a draft while the work is unfinished, and link the issue with `Closes #<number>`.
 
 ## Gotchas
 
