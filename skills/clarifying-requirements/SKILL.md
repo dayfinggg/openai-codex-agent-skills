@@ -11,8 +11,8 @@ description: Turns an open request into a short agreed specification with one ro
 2. Look up what the documentation and the standards recommend for this kind of thing. A recommendation you do not plan to follow becomes an open decision.
 3. Sort the open decisions into two groups.
    - Decisions that change what gets built, such as the format of the result, where data lives, the platform or audience, and behaviour in cases the request does not cover. When the request names only the kind of thing, such as "an app" or "a report", what it does, includes and leaves out belong here, also when a usual way to build it exists.
-   - Small choices that are easy to change later, such as names, layout and defaults. Decide these and record each as an assumption.
-4. When the request and the project already settle the first group, start the work and state the assumptions in the final answer.
+   - Small choices that are easy to change later, such as names, layout and defaults. Decide these yourself.
+4. When the request and the project already settle the first group, start the work and name the main assumption in one sentence of the final answer.
 
 ## Ask once
 
