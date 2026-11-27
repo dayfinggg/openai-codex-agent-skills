@@ -16,7 +16,7 @@ Look in the manifest scripts, a `Makefile` or task file, the CI configuration an
 1. The formatter and the linter, then the type checker.
 2. The tests that cover the change, then the full suite, in the background when it is slow.
 3. The build.
-4. The change itself, the way the user meets it. Run the command with real arguments, call the endpoint, open the page and use the feature at the sizes it is used, or read the service logs right after a deploy. Try the main path, one edge case and one input that should fail.
+4. The change itself, the way the user meets it. Run the command with real arguments, call the endpoint, open the page and use the feature at the sizes it is used, or read the service logs right after a deploy. Try the main path, one edge case and one input that should fail. A development server that never exits runs in the background, and a background command that exits once the server answers tells you when it is ready.
 
 Only step 4 shows that the change does what was asked. When the project has no check for the change, exercise it with a throwaway script and delete it afterwards.
 
