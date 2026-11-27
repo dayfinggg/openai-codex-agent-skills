@@ -32,3 +32,4 @@ State which value or state is wrong, where it becomes wrong and why. The cause i
 - A retry, a sleep or a broad catch hides the symptom and keeps the cause. Find the cause instead.
 - A flaky test usually comes from shared state, timing or ordering. Run it alone and in a loop to tell which.
 - When two fixes in a row fail, the explanation is wrong, so return to the facts. Ask the user only when choosing between explanations needs knowledge only they have.
+- When the evidence shows that only an outside action can unblock a step, such as a missing permission or a service that is down, stop retrying it, finish the independent work and name the smallest action that resumes it.

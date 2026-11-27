@@ -5,7 +5,7 @@ description: Gives safe steps and commands for commits, branches, undoing change
 
 # Git workflow
 
-Do the Git step the user asked for and stop there. A commit goes on the current branch, and a push happens only when the user asks for it.
+Do the Git step the user asked for and stop there. Commit or push only when the user asks, and commit on the current branch.
 
 ## Commits
 

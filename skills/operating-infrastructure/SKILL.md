@@ -13,7 +13,7 @@ Use the access the user gave or pointed to, such as a host alias, a key or a wra
 
 ## Before and during a change
 
-Read the configuration, the service status and its recent logs first. Find the way back, the command or earlier release that restores the previous state, and name it to the user. Preview with `terraform plan`, `kubectl diff`, `docker compose --dry-run up` or a `--dry-run` or `-WhatIf` option, noting that `docker compose config` only resolves the file. Test a config before reloading, as with `nginx -t`, `systemd-analyze verify` or `sshd -t`.
+Read the configuration, the service status and its recent logs first, and before a production write confirm the account, the environment and the exact target with a read-only check. Find the way back, the command or earlier release that restores the previous state, and name it to the user. Preview with `terraform plan`, `kubectl diff`, `docker compose --dry-run up` or a `--dry-run` or `-WhatIf` option, noting that `docker compose config` only resolves the file. Test a config before reloading, as with `nginx -t`, `systemd-analyze verify` or `sshd -t`.
 
 Build once and promote the same artifact, so that a rollback switches to the previous release, and run migrations from the release they belong to. After a deploy, check the health endpoint and the logs.
 
@@ -23,7 +23,7 @@ Besides live writes and setting changes, ask before deleting a resource or a vol
 
 ## Secrets
 
-Read secrets from the environment or the platform's secret store at run time, keeping them out of code, image layers, command lines and logs. To check that one is set, print its name or test it, as with `env | cut -d= -f1` or `test -n "$TOKEN"`. An exposed secret is revoked and reissued, since removing it from history leaves the copies others took. Give tokens the narrowest scope and shortest life that works.
+Read secrets from the environment or the platform's secret store at run time, keeping them out of code, image layers, command lines and logs. To check that one is set, print its name or test it, as with `env | cut -d= -f1` or `test -n "$TOKEN"`, and read only the fields a task needs from a file or an output that holds secrets, so the values never reach the transcript. An exposed secret is revoked and reissued, since removing it from history leaves the copies others took. Give tokens the narrowest scope and shortest life that works.
 
 ## References
 

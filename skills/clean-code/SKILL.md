@@ -9,6 +9,16 @@ These heuristics apply to the code you write for the task, and surrounding code 
 
 Before the first edit, read the reference for the language, which lists its pitfalls and checking tools. The files are `references/python.md`, `references/php.md`, `references/typescript.md`, `references/javascript.md`, `references/shell.md` for Bash and POSIX shell, and `references/powershell.md`.
 
+## Principles
+
+- Choose the plainest design that meets the requirement, and build only what the task needs now (KISS, YAGNI).
+- Keep one authoritative source for each piece of knowledge (DRY). Prefer duplication to the wrong abstraction. Consider extraction at the third similar use.
+- Before writing a function, search the repository for one that already does the job and reuse it, and follow the naming, error handling and structure of the neighbouring code.
+- Give each function and module one reason to change, and keep business logic apart from input, output and the interface.
+- Prefer names that make a comment unnecessary, and comment only a reason the code cannot show.
+- Fail fast. Validate input at trust boundaries and after transformations that can invalidate checks. Surface errors where they occur.
+- Pass dependencies explicitly rather than through global state, and prefer the language core, the standard library and the project's existing dependencies before a new one.
+
 ## Functions
 
 - A function either changes state or returns a value. Split one that does both, except where the two cannot be separated, as in `pop`.
@@ -22,6 +32,7 @@ Before the first edit, read the reference for the language, which lists its pitf
 - A module earns its place when its interface is much smaller than what it does.
 - A chain such as `a.b().c().d()` ties the caller to three inner structures. Ask the first object for what you need, and keep the chain when the only alternative is wrapper methods written to avoid it.
 - At the third copy of the same branching on a type, replace it with one function or method per type.
+- Before changing a signature, a name, a data shape or a shared constant, find every use with a search or the language server and update them in the same change.
 
 ## When heuristics conflict
 

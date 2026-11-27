@@ -34,7 +34,7 @@ A rule that holds for every input, such as "decoding an encoded value gives the 
 
 ## Failing and flaky tests
 
-- Decide whether the code or the test is wrong and change that one, keeping assertions, skips and expected-failure marks as they were.
+- Fix the code when a test fails. Change a test only when the requested behaviour makes its expectation outdated, and name that test in the final answer. When a test looks wrong for another reason, stop and show the user why, keeping assertions, skips and expected-failure marks as they were.
 - A flaky test usually comes from time, ordering, shared state or a real network call. Run it alone and in a loop to find which, and fix that cause in place of a retry or a sleep.
 
 ## Check
