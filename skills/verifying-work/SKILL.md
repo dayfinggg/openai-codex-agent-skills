@@ -1,40 +1,34 @@
 ---
 name: verifying-work
-description: Shows how to prove that a change works before it is reported as done. Use after writing or changing code, a script, a configuration file or a build, before saying that a task is finished, fixed or working, and when the user asks to test, check or make sure that something works. Load before the first check that shows whether the work succeeded, and at the latest after the last change and before a commit, a deploy or the final report.
+description: Shows how to prove a change works, from the project's own checks to exercising the change the way the user meets it. Use after changing code, a script, configuration or a build, before calling a task done, fixed or working, and when the user asks to test, check or make sure something works. Use before the first check of a change, and at the latest before a commit, a deploy or the final answer.
 ---
 
 # Verifying work
 
-Work is done when a check that could have failed shows that it works. The report then names that check.
+A change is verified when a check that could have failed shows it working.
 
 ## Find the project's checks
 
-Look where the project defines them, which is in the scripts in the manifest, a `Makefile` or task file, the CI configuration, and the contributing notes. Use those commands as written. Install the declared dependencies with the project's own package manager when they are missing.
+Look in the manifest scripts, a `Makefile` or task file, the CI configuration and the contributing notes, and run those commands as written. Install missing declared dependencies with the project's own package manager.
 
-## Run them in this order
+## Run them in order
 
-Run the formatter and the linter first, then the type checker, then the tests that cover what you changed, then the full test suite when it is fast, then the build. Each step catches what the next one would report less clearly.
+1. The formatter and the linter, then the type checker.
+2. The tests that cover the change, then the full suite when it is fast.
+3. The build.
+4. The change itself, the way the user meets it. Run the command with real arguments, call the endpoint, open the page and use the feature at the sizes it is used, or read the service logs right after a deploy. Try the main path, one edge case and one input that should fail.
 
-Then exercise the change itself. Types and unit tests show that the code is consistent, and only a run shows that it does what was asked. Run the command with real arguments, call the endpoint, or open the page in a browser and use the feature. Try the main path, one edge case and one input that should fail.
-
-When the project has no checks for the change, write a throwaway script or command that exercises it, and remove it afterwards.
+Only step 4 shows that the change does what was asked. When the project has no check for the change, exercise it with a throwaway script and delete it afterwards.
 
 ## Read the result
 
-Read the output. A command that printed an error and returned success has failed. A test run that collected no tests has verified nothing, and neither has a check that did not start. A subagent's report that its task is done is a claim, so read its diff and run the check yourself before you pass it on.
-
-When a check fails, fix the code. Do not loosen the check, skip the test or widen a type until the error goes away.
-
-After three rounds of fixing with the same check still failing, stop repeating the fix. The explanation behind it is wrong, so go back to the facts and find the cause before the next change. Ask the user only for knowledge that only they have.
-
-## Report
-
-Say in one sentence how the change was verified, with the command and what it showed. When a check could not run here, name it and give the reason. Words such as "should work" stand for a check that was not run.
-
-Then check the report itself before you send it. Count its words against the limit that your instructions set and cut it, and rewrite a list, a heading, a bold label, a colon or a dash into plain sentences. A decision that the user has to make goes through the question tool before the report.
-
-Check the result also against what the documentation and the standards require or recommend for it, and name in the report each point that it does not meet. Then check the report itself before you send it. Count its words against the limit that your instructions set and cut it, and rewrite a list, a heading, a bold label, a colon or a dash into plain sentences. A decision that the user has to make goes through the question tool before the report.
+- A command that printed an error and exited with success has failed.
+- A run that collected no tests, or a check that never started, verified nothing.
+- A subagent's report that it is done is a claim. Read its diff and run the check yourself.
+- When a check fails, fix the code and keep the check as strict as it was.
+- Compare the result with what the documentation and the standards require, and keep each point it misses for the final answer.
+- "Should work" marks a check that did not run. Run it, or name it in the final answer with the reason.
 
 ## Clean up
 
-Remove the temporary files, test data, caches and build output that the verification produced. Ignored files do not show in a plain `git status`, so list them with `git status --short --ignored` and remove the cache directories that your checks created, such as those of the test runner, the linter and the type checker. Installed dependencies stay. Stop every process you started, such as a development server.
+Remove the temporary files, test data, caches and build output the checks produced. `git status --short --ignored` shows ignored files that a plain `git status` hides, such as test runner, linter and type checker caches. Keep installed dependencies, and stop every process you started, such as a development server.

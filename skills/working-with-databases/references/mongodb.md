@@ -2,20 +2,16 @@
 
 ## Modelling
 
-Model for the queries the application runs. Keep together in one document what is read together, and reference what grows without limit or is shared by many documents. An array that grows forever makes the document slower with every write and ends at the 16 MB document limit. A read that needs `$lookup` across several collections on every request is a sign that the model follows a relational shape and not the queries.
+Keep in one document what is read together, and reference what grows without limit or is shared. An ever-growing array slows every write and ends at the 16 MB document limit. Needing `$lookup` across collections on every request means the model follows a relational shape instead of the queries.
 
 ## Indexes
 
-Order the fields of a compound index by the ESR rule, with equality fields first, then the sort fields, then the range fields. `$ne`, `$nin` and `$regex` count as range conditions. A query is covered when every field in the filter and in the projection is in one index, and the projection excludes `_id` unless the index holds it. Remove indexes that nothing uses, because each one adds work to every write.
+Order compound index fields by ESR, equality first, then sort, then range, where `$ne`, `$nin` and `$regex` count as range. A query is covered when every filter and projection field is in one index and the projection excludes `_id` unless the index holds it.
 
 ## Plans and slow operations
 
-`db.collection.find(...).explain("executionStats")` shows what ran. Compare `nReturned` with `totalKeysExamined` and `totalDocsExamined`, since a query that examines far more than it returns needs a better index. A `COLLSCAN` stage is a scan of the whole collection, and a `SORT` stage is a sort in memory. `db.setProfilingLevel(1, { slowms: 50 })` records operations above the threshold in `system.profile`, and the profiler itself costs performance, so switch it off after the investigation.
+`find(...).explain("executionStats")` shows what ran. A query whose `totalKeysExamined` or `totalDocsExamined` far exceeds `nReturned` needs a better index, `COLLSCAN` scans the whole collection and `SORT` sorts in memory. `db.setProfilingLevel(1, { slowms: 50 })` records slow operations in `system.profile` and costs performance, so on a live server it needs the go-ahead and is switched off afterwards.
 
-## Consistency
+## Consistency and input
 
-Multi-document transactions exist and are not a replacement for a model that keeps related data in one document. For data that must not be lost, write with `w: "majority"`. A read from a secondary can be behind the primary.
-
-## Operators as input
-
-A filter built from a request body accepts operators such as `$ne` and `$gt` as values. Cast each value to the expected type before it enters a filter.
+Write data that must not be lost with `w: "majority"`, and expect a secondary to lag the primary. Use multi-document transactions for the rare case a document model cannot cover. Cast every request value to its expected type before it enters a filter, because a body can carry operators such as `$ne` and `$gt`.

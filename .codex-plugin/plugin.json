@@ -1,6 +1,6 @@
 {
   "name": "vesper-sieve",
-  "version": "1.0.8",
-  "description": "What is not needed sleeps until it is called.",
+  "version": "2.0.0",
+  "description": "Short working rules on top of the official Codex instructions, and ten skills that load when their work comes up.",
   "skills": "./skills"
 }

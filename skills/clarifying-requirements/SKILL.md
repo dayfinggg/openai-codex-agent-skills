@@ -1,42 +1,29 @@
 ---
 name: clarifying-requirements
-description: Turns a request into a short agreed specification before any work starts. Use when the user asks for something new, such as a feature, a page, an app, a report or an integration, when a request leaves open what to build, for whom, in which format, on which platform or with which behaviour, when it names a goal without a way to tell that it is done, or when the user asks to plan, design or scope something. Load before the first edit when the request asks for something new or leaves the result open, and put the open decisions to the user before you build.
+description: Turns an open request into a short agreed specification with one round of questions. Use when the user asks for something new, such as a feature, page, app, report or integration, asks to plan, design or scope work, or leaves open what to build, its format, platform, audience or behaviour, or how to tell it is done. Use before the first edit or build step of a request for something new or open-ended.
 ---
 
 # Clarifying requirements
 
-The goal is a short specification that you and the user both hold, reached with as few questions as possible. Work starts as soon as it exists.
-
 ## Find what is open
 
-Read the project before you ask anything. The files, the manifest, the tests and the history answer most questions about language, structure, conventions and tooling, and a question the files could answer wastes the user's turn.
-
-List every decision the request leaves open. Sort the list into two groups. The first group changes what gets built, such as the format of a result, where data lives, which platform or audience is meant, what happens in a case the request does not cover. When the user asks for something new and names only the kind of thing, what it does for its users, which parts it includes and which it leaves out belong to the first group. Find out what the documentation and the standards recommend for this kind of thing before you ask, because each recommendation that you do not plan to follow belongs to the first group. The second group is small and easy to change later, such as names, layout, defaults. Decide the second group yourself and record each choice as an assumption. The first group is empty only when the request and the project already answer it. Then start the work without a question and state the assumptions in the report.
+1. Read the project first. The manifest, files, tests and history settle language, structure, conventions and tooling, so questions cover only what the files cannot answer.
+2. Look up what the documentation and the standards recommend for this kind of thing. A recommendation you do not plan to follow becomes an open decision.
+3. Sort the open decisions into two groups.
+   - Decisions that change what gets built, such as the format of the result, where data lives, the platform or audience, and behaviour in cases the request does not cover. When the request names only the kind of thing, such as "an app" or "a report", what it does, includes and leaves out belong here, also when a usual way to build it exists.
+   - Small choices that are easy to change later, such as names, layout and defaults. Decide these and record each as an assumption.
+4. When the request and the project already settle the first group, start the work and state the assumptions in the final answer.
 
 ## Ask once
 
-Ask the first group in a single call of the `request_user_input` tool, or of `request_user_input_async` when only that one is available. The first tool takes up to three questions, so merge or drop until the list fits. Give each question two or three concrete options, put the option you recommend first, and say in the option what it leads to. The option you recommend follows what the documentation and the standards recommend, and an option that falls short of them says so in its description. A question that offers only "yes" and "no" usually hides a better question about which of two designs is wanted.
+The question tool takes up to four questions with two to four options each, so merge or drop questions until they fit. More than four open decisions usually means most are small choices you can make. Each option says what it leads to, and an option that falls short of the documentation or the standards says so. Turn a yes-or-no question into a choice between the two designs it hides.
 
-A decision in the first group stays the user's when a usual way to build the thing exists. Offer the usual way as the option you recommend. An instruction about how to work, such as to follow best practice, to do it properly or to check the result, leaves the first group open. So does the research that you did before asking. It makes the options better, and the question still goes to the user.
+An instruction about how to work, such as "do it properly", leaves the first group open, and your own research improves the options while the decision stays with the user. Once you ask about a choice, build what the user picked.
 
-When neither tool is available, do not stop. Take the most likely reading, say which reading you took, and continue.
+Without a question tool, take the most likely reading, state it, and continue.
 
 ## State the specification
 
-After the answers, state the specification in the reply and move straight to the work. It has five parts in this order. The goal in one sentence. What is in scope. What is out of scope. The acceptance criteria, each one a statement that a command, a test or a look at the result can confirm. The assumptions you made.
+After the answers, state in a few plain sentences the goal, what is in and out of scope, the acceptance criteria and the assumptions, then start the work. Each acceptance criterion names an input and the expected result that a command, a test or a look at the result confirms, because "works correctly" confirms nothing.
 
-Wait for approval of the specification only when the user asked to approve a plan first. Write it to a file only when the user asks for a document.
-
-## Gotchas
-
-A long interview is a failure of this skill. If more than three decisions seem open, most of them belong to the second group.
-
-No question at all is the opposite failure. A request that names only the kind of thing, such as an app, a page, a report or an integration, leaves the first group open.
-
-Do not ask about a choice and then make it yourself anyway. Either it matters and you ask, or it does not and you decide.
-
-An acceptance criterion such as "works correctly" confirms nothing. Name the input and the expected result.
-
-## Related skills
-
-Once the specification is agreed, load the skills for the work itself, such as `clean-code`, `designing-interfaces` when the result has a visible part, `writing-tests` and `verifying-work`.
+Wait for approval only when the user asked to approve a plan first, and write the specification to a file only when the user asks for a document.

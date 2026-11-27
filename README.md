@@ -1,8 +1,8 @@
 # vesper-sieve
 
-What is not needed sleeps until it is called.
+Short working rules on top of the official Codex instructions, and ten skills that load when their work comes up.
 
-A Codex plugin with nine skills that the model opens on its own, and a base instruction file for GPT models. The instructions are the official Codex base text with rules for short plain answers, grounded facts, research and finished work.
+`base_instructions.md` holds the official Codex instructions for GPT-6.2 Sol, taken unchanged from the model catalog of Codex 0.172.0 on 2026-11-27, followed by one section, "Working with this user", with the user's own rules. When Codex ships new instructions for its models, refresh the official part and keep the last section.
 
 ## Install
 

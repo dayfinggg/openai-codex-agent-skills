@@ -1,52 +1,30 @@
 ---
 name: operating-infrastructure
-description: Covers safe work on infrastructure and delivery by an agent, including Dockerfiles and Compose files, CI pipelines such as GitHub Actions, deploys, servers, Kubernetes and Terraform changes, SSH sessions, systemd units, environment configuration and secrets. Use when the task is to write or change a Dockerfile, a pipeline, a deploy script or server configuration, to release or roll back, to handle credentials, or to run any command against a remote or production system. Load before the first command that reaches another machine, through ssh, scp, rsync or a local wrapper script, also when the command only reads, and before work with crontab, nginx, systemd, Docker, a CI pipeline, a deploy or a rollback, also in the middle of another task such as a bug fix or a feature.
+description: Gives safe procedures for servers and delivery, covering SSH sessions, deploys and rollbacks, Dockerfiles, Compose, GitHub Actions and other CI, systemd, nginx, cron, Kubernetes, Terraform and secrets. Use when running commands on a remote or production system, or changing a Dockerfile, pipeline, deploy script or server config. Load before the first command that reaches another machine through ssh, scp, rsync or a wrapper script, and before a deploy, rollback or server config change.
 ---
 
 # Operating infrastructure
 
-Infrastructure changes are hard to undo and reach beyond this machine. The rules below keep each change small, visible and reversible.
+## Remote commands
 
-## Before you change anything
+Run ssh without prompts and with limits, as in `ssh -o BatchMode=yes -o ConnectTimeout=10 -o ServerAliveInterval=15 host 'cmd'`, and wrap a long command in `timeout`, such as `timeout 120 ssh ...`. BatchMode turns a password or host key prompt into an error instead of a hang. Start a job that takes minutes with `nohup` or a systemd unit writing to a log file, then read the log.
 
-Read the current state first, which means the configuration in the repository, the status of the service, and the recent logs. Act on what they show.
+Use the access the user gave or pointed to, such as a host alias, a key or a wrapper script. Ask before using a credential you found elsewhere in the workspace.
 
-Find the way back before you go forward. Know which command or which earlier release restores the previous state, and say so in the reply.
+## Before and during a change
 
-Preview the change where the tool can. `terraform plan`, `kubectl diff`, `docker compose --dry-run up` and the `--dry-run` or `-WhatIf` option of many tools show the effect without applying it. `docker compose config` shows the resolved file and does not compare it with what runs.
+Read the configuration, the service status and its recent logs first. Find the way back, the command or earlier release that restores the previous state, and name it to the user. Preview with `terraform plan`, `kubectl diff`, `docker compose --dry-run up` or a `--dry-run` or `-WhatIf` option, noting that `docker compose config` only resolves the file. Test a config before reloading, as with `nginx -t`, `systemd-analyze verify` or `sshd -t`.
 
-## Making the change
-
-Change one thing at a time and verify it before the next. Keep configuration in the repository, where a change is reviewed and can be reverted.
-
-Write scripts that are safe to run twice. Check whether a resource exists before you create it, and make a failed run safe to repeat.
-
-Build once and promote the same artifact. A release is one build plus one configuration with its own identifier, and a rollback is a switch to the previous release. Run migrations and one-off scripts from the same release as the application.
-
-After a deploy, check the health of the service and read its logs. Roll out to a small part first when the platform supports it.
+Build once and promote the same artifact, so that a rollback switches to the previous release, and run migrations from the release they belong to. After a deploy, check the health endpoint and the logs.
 
 ## Needs the user's go-ahead
 
-Ask before each of these, and name the exact command and the way back. They are a change to a production system that the request does not name, a data migration, the deletion of a resource or a volume, a change to access rights or DNS, a pipe from the network into a shell such as `curl | bash`, and switching off a check in CI.
-
-A change that the user asked for needs no second go-ahead. A change that you decided on yourself needs one also when it is small, easy to undo and clearly an improvement, and when it would remove a problem that you found during the task. A setting of a running service is such a change, for example its persistence, its memory limit, a timeout or a schedule. Finish the rest of the work first, then ask.
+Besides live writes and setting changes, ask before deleting a resource or a volume, changing access rights, firewall rules or DNS, piping the network into a shell as in `curl | bash`, and switching off a CI check, naming the exact command and the way back. A change the user asked for needs no second approval. A change you chose yourself does, even a small improvement such as a memory limit, a timeout or a schedule of a running service, so finish the rest of the work and then ask.
 
 ## Secrets
 
-Keep secrets out of the code, the image layers, the command line and the logs. Read them from the environment or from the platform's secret store at run time. Never print one to check it.
-
-Check the staged diff for credentials before every commit. When a secret was exposed, revoke it first and then issue a new one. Removing it from the history is not enough.
-
-Give every token the narrowest scope and the shortest life that does the job. Do not use a token or a credential that you found in the workspace and were not given for the task.
-
-## Pinning
-
-Pin what you depend on, and update on purpose. Base images are pinned by digest, third-party CI actions by full commit hash, and packages by the lockfile.
+Read secrets from the environment or the platform's secret store at run time, keeping them out of code, image layers, command lines and logs. To check that one is set, print its name or test it, as with `env | cut -d= -f1` or `test -n "$TOKEN"`. An exposed secret is revoked and reissued, since removing it from history leaves the copies others took. Give tokens the narrowest scope and shortest life that works.
 
 ## References
 
-Read `references/docker.md` before you write or change a Dockerfile or a Compose file. Read `references/github-actions.md` before you write or change a workflow.
-
-## Related skills
-
-Load `working-with-databases` before the first command that reads or changes a database or a cache on the server, also when it only reads its settings or statistics, `git-workflow` before a commit, and `verifying-work` before you report the change as done.
+Read `references/docker.md` before changing a Dockerfile or a Compose file, and `references/github-actions.md` before changing a workflow.
