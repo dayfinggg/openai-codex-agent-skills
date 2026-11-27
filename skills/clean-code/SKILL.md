@@ -15,7 +15,7 @@ Before the first edit, read the reference for the language, which lists its pitf
 - Keep one authoritative source for each piece of knowledge (DRY). Prefer duplication to the wrong abstraction. Consider extraction at the third similar use.
 - Before writing a function, search the repository for one that already does the job and reuse it, and follow the naming, error handling and structure of the neighbouring code.
 - Give each function and module one reason to change, and keep business logic apart from input, output and the interface.
-- Prefer names that make a comment unnecessary, and comment only a reason the code cannot show.
+- Let names carry the intent, and write no comments, docstrings or TODO markers, apart from lines a tool reads.
 - Fail fast. Validate input at trust boundaries and after transformations that can invalidate checks. Surface errors where they occur.
 - Pass dependencies explicitly rather than through global state, and prefer the language core, the standard library and the project's existing dependencies before a new one.
 
