@@ -1,6 +1,6 @@
 {
   "name": "vesper-sieve",
-  "version": "2.0.16",
+  "version": "2.0.17",
   "description": "Short working rules on top of the official Codex instructions, and ten skills that load when their work comes up.",
   "skills": "./skills"
 }
